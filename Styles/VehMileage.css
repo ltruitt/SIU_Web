@@ -1,0 +1,72 @@
+﻿
+
+.ddWidth {
+    width: 85%;
+}
+        
+.DataInputCss {
+    width: 75%;
+}
+        
+.DataInputDisabledCss {
+    width: 75%;
+    background-color: black;
+    color: white;
+    border:none;
+    readonly: readonly;
+}        
+        
+      
+.SearchBtnCSS {
+    width: 100%;
+}     
+
+.ThisWeekCss {
+    color: green;
+    font-weight: bold;
+}
+        
+.PrevWeekCss {
+    color: red;
+    font-weight: bold;
+    font-style: italic;
+}
+        
+.NextWeekCss {
+    color: yellow;
+    font-weight: bold;
+    font-style: italic;
+}      
+        
+.AssignedVehicleSelected {
+    color: blue;
+    font-style: italic;
+    margin-right: 20px;
+    font-weight: bold;
+}
+        
+.ui-widget-content a {
+    color: yellow;
+}
+        
+.ValidationError {	
+    color:              red;
+    background-color:   yellow;
+    border-radius:      7px; 
+    border:             2px solid red;         
+}
+ 
+.ValidationSuccess {	
+    border-radius:      7px; 
+    border:             2px solid green;         
+}
+		
+.alertmsg {
+    color:#FF0000;            
+}        
+
+
+.prevarrow {
+    margin-top: 60px;
+    
+}

@@ -1,0 +1,84 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="PhoneMaster.master.cs" Inherits="Phone_PhoneMaster" %>
+
+
+<!DOCTYPE html>
+<html class="no-js">
+
+	<head id="Head1" runat="server">
+		<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Cache-Control" content="no-cache"/> 
+    
+        <!-- Viewport is very important, since it affects results of media query matching. -->
+        <meta name="viewport" content="width=device-width, initial-scale = 1.0, user-scalable = yes">
+  
+        <%--------------------------- JQUERY Form Style ------------------------%>
+        <link href="/Styles/Site.css"        rel="stylesheet"  type="text/css" />
+        <link rel="stylesheet" href="/Scripts/JqueryUI/css/trontastic/jquery-ui-1.8.22.custom.css" />
+        <link rel="stylesheet" href="/Styles/jquery.ui.form.css">
+        
+        <%------------------------- Phone Specific Style -----------------------%>
+        <link rel="stylesheet" href="/Phone/Styles/Phone.css" />
+        
+
+        <%------------------------------ JQUERY ---------------------------------%>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" type="text/javascript"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js" type="text/javascript"></script> 
+
+        
+        <%---------------------------   Site Wide Script ------------------------%>
+        <script src="/Scripts/site.js" type="text/javascript" ></script>
+        
+        
+        <%----------------------- Feature Detection ------------------------------%>
+		<script type="text/javascript" src="/Scripts/modernizr.js"></script>
+        
+        
+
+		<title>Shermco You!</title>
+	
+        <asp:ContentPlaceHolder ID="HeadContent" runat="server">
+        </asp:ContentPlaceHolder>
+	
+	</head>
+
+
+<body>
+
+    <form id="SiteWrapper" runat="server" DefaultButton="DoNothing">
+        <asp:Button ID="DoNothing" runat="server" Enabled="false" style="display: none;" />
+        
+
+	    <section id="header"  >
+		    <div id="MasterHeaderArea" class="TitleRectangle" runat="server">
+		        
+			    <%--<div style="clear:both;"></div>--%>
+                
+
+                <a href="/Phone/HomePage.aspx" style="text-decoration: none;">				
+			        <h2>
+					       <span id="MasterHeaderTxt"  runat="server">ShermcoYOU!</span>
+			        </h2>
+                </a>					
+
+		    </div>
+
+		    <div id="lowerSiteHeader" style="text-align:center; width:100%; color:#ffe3a6; z-index:100">
+		        <span style="float: left; margin-left: 30px; color: white;  font-weight:  bold; font-style: oblique;">
+		            <asp:Literal runat="server" ID="LitUserFullName"></asp:Literal>
+		        </span>
+		    </div>	
+
+	    </section>
+        
+
+        <div style="width:100%; background-color: #45473f;">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server"/>
+        </div>
+        
+      
+
+
+    </form>
+</body>
+</html>

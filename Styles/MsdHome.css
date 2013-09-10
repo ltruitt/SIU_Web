@@ -1,0 +1,17 @@
+﻿.LibGallery ul {
+    overflow: auto;
+}
+        
+#VideoLibraryDiv li {
+    width: 110px;
+    float: left;
+}
+        
+#VideoLibraryDiv img {
+    width: 80px;
+}        
+                
+#VideoLibraryDiv ul li a span {
+    color: blue;
+    font-weight: bold;
+}  

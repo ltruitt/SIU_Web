@@ -1,0 +1,64 @@
+﻿
+
+
+.LibGallery ul {
+    overflow: auto;
+}
+        
+#VideoLibraryDiv li {
+    width: 110px;
+    float: left;
+}
+        
+#VideoLibraryDiv img {
+    width: 80px;
+}        
+                
+#VideoLibraryDiv ul li a span {
+    color: blue;
+    font-weight: bold;
+}  
+
+
+#Gallery 
+{
+    width: 100%;
+}
+
+
+#Gallery ul {   margin:      		0 0 0 5pt;
+    	        padding-left: 		0px;
+                padding-top:        0px;
+/*                overflow-x: scroll; */
+                overflow-y: hidden; 
+}
+
+#Gallery ul li {	position:           relative;
+	                list-style: 		none;
+                    float:              left;
+    
+	                border:             11px solid #c6ac6c;
+	                border-top: 		0px #c6ac6c solid;
+	                border-bottom: 		2px #c6ac6c solid;
+	                
+	                background:         #ffe3a6;
+	                width:              200px;
+	                height:             140px;
+	                margin:             15px auto 10px 15px;
+	                padding:            15px;
+
+	                -moz-border-radius: 32px;
+	                -webkit-border-radius: 32px;
+	                border-radius: 32px;
+	                
+	                -moz-box-shadow: 10px 10px 10px #000;
+	                -webkit-box-shadow: 10px 10px 10px #000;
+	                box-shadow: 10px 10px 10px #000;
+	                
+	                z-index: 2;
+}
+
+	  
+.content            {position:absolute; top:0; bottom:0; left:0; right:0; margin:auto; }
+.content2           {position:relative; top:0; bottom:0; left:0; right:0; margin:auto; }
+  

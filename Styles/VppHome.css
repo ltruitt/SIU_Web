@@ -1,0 +1,395 @@
+﻿
+#SafetyWrapper {
+  	background-color:   transparent;			        /*  background: Color For #main     */
+  	border-left:        180px solid transparent;	    /*  background: color for #sidebar  */
+  	border-right:       275px solid transparent;	    /*  background: color for #aside    */
+}
+
+#HomeMain {
+    margin-left: 20px;
+}
+
+.BoxHeader {
+    width: 232px;
+                clear: both;
+                color:              black;
+                background-color:   #7f9db9;
+                text-align: center;
+                margin: -26px 0 0 0;
+                margin-left: -26px;
+	            -moz-border-radius: 32px 32px 0 0;
+	            -webkit-border-radius: 32px 32px 0 0;
+                -ms-border-radius: 32px 32px 0 0;
+                border-radius: 32px 32px 0 0;
+}
+
+
+
+
+.BoxText {  	position: relative;
+	            height: 4in;
+                width: 2.6in;
+                left: 5px;
+                top: 15px;
+                color: #3300FF;
+                font-size: medium;
+}
+
+.em1 {  font-size: larger;   font-weight: bold; }
+.em2 {  font-size: larger;   font-weight: bold; font-style: italic; }
+.em3 {  font-size: xx-large; font-weight: bold; font-style: italic; }
+
+
+
+
+
+
+
+.TeamMembersUL {
+    width: 90%;
+}
+    
+.TeamMembersUL li {
+    display:           inline-block;
+    list-style-type:   circle;
+    width:             150px;
+    border:            1px solid black;
+    text-align:        center;
+     
+    }
+
+
+
+     
+.Core li {
+    background-color: cadetblue;    
+}
+     
+.Guest li {
+    background-color: aquamarine;    
+}    
+
+
+
+
+
+.TeamsNewsUL {
+    overflow-y: scroll; 
+    border: 5px solid gray; 
+    width: 98%; 
+    height: 300px;
+}
+    
+.TeamsNewsUL li {
+    border-bottom: 5px solid gray; 
+    padding-top: 5px;
+    padding-bottom: 5px; 
+    text-align: left;  
+    margin-left: 0;
+    padding-left: 5px;
+}   
+
+.TeamsNewsUL li ul {
+    margin-left: 10px;
+}   
+
+
+.TeamsNewsUL li li {
+    padding-top: 0;
+    padding-bottom: 5px; 
+    text-align: left;  
+    margin-left: 15px;
+    border: none;
+    list-style-type:disc;
+}   
+
+
+
+
+/*	The background color of #sidebar matches the border color of #main. This is the trick we use to make our columns appear as being of equal height.  */
+#sidebar {
+  	margin-left:-180px;			/* Start Content 200px To The Left, Space And Color Established By #wrapper Left Border  */
+  	position: relative;			/* Relative To What ?????? */
+  	float: left;				/* Make This A Block Level Element Floated Left */
+  	width: 190px;				/* Content Is 200px Wide (Matching Left Margin */
+}
+
+
+#sidebar .box {
+    display: inline-block;
+    position: relative;
+	width: 180px;
+	height: 362px;
+	margin: 0 auto 35px 5px;
+	padding: 15px;
+	margin-top: 5px;
+	-moz-border-radius: 32px;
+	-webkit-border-radius: 32px;
+    -ms-border-radius: 32px;
+    border-radius: 32px;
+	z-index: 2;
+	
+	border:                 11px solid #7f9db9;
+    background:             whitesmoke;
+	-moz-box-shadow:        10px 10px 10px #000;
+	-webkit-box-shadow:     10px 10px 10px #000;
+    -ms-box-shadow:             10px 10px 10px #000;
+    box-shadow:             10px 10px 10px #000;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#aside {
+  float: right;					/* Make This A Block Level Element Floated Right */
+  width: 200px;					/* Use Space Created By Right Margin For Content */
+  margin-right: -200px;			/* Start Content 200px From The Right Edge, Space And Color Established By #wrapper Right Border  */
+  position: relative;
+}
+
+
+
+#aside .box {
+    background: #ffe3a6;
+	width: 180px;
+	height: 362px;
+	margin: 0 5px 35px 5px;
+	padding: 15px;
+	border: 11px solid #c6ac6c;
+	position: relative;
+	margin-top: 5px;
+	-moz-border-radius: 32px;
+	-webkit-border-radius: 32px;
+    -ms-border-radius: 32px;
+    border-radius: 32px;
+	-moz-box-shadow: 10px 10px 10px #000;
+	-webkit-box-shadow: 10px 10px 10px #000;
+    -ms-box-shadow: 10px 10px 10px #000;
+    z-index: 2;
+	
+    background:             whitesmoke;
+	border-color:           #7f9db9;
+	-moz-box-shadow:        10px 10px 10px #000;
+	-webkit-box-shadow:     10px 10px 10px #000;
+    box-shadow: 10px 10px 10px #000;
+    box-shadow:             10px 10px 10px #000;
+}
+
+
+#aside .box div {
+	position: absolute;
+	bottom: 10px;
+	left: 0;
+	width: 100%;
+	text-align: center;
+	font-weight: bold;
+	font-size: 13pt;
+	color: #ffd550;
+	_bottom: 21px; /* IE6 */
+	_width: 108%; /* IE6 */
+}
+
+
+
+
+
+
+
+
+	/* CSS for the scrollers */
+div.horizontal_scroller, div.vertical_scroller{
+	position:           relative;
+	height:             47px;
+	width:              91%;
+	display:            block;
+	overflow:           hidden;
+	border:             none;
+    background-color:   transparent;
+}
+
+#scrollingtext {
+    vertical-align: text-top;    
+}
+
+
+div.scrollingtext{
+	position:       absolute;
+	white-space:    nowrap;
+	font-family:    'Trebuchet MS',Arial;
+	font-size:      32px;
+	font-weight:    bold;
+	color:          black;
+}
+
+div.scrollingtext img {
+    height: 40px;   
+}
+
+
+
+
+.sidebar ul {	list-style-type: 	none;
+    	list-style: 		none;
+    	margin:      		0 0 0 5pt;
+    	padding-left: 		0;
+    	padding-top: 		0;
+	}
+
+.sidebar ul li {	padding-top: 		0;
+	    list-style: 		none;
+	  }
+
+
+
+.ImgURLRight { 	font-style: 	italic;
+    			font-size: 		larger;
+    			font-weight: 	normal;
+    			float:			right;
+    			text-align:		right; 
+    			margin-right:	15px;
+			}
+						
+.ImgURLleft {	font-weight: 	bold;		
+			}
+
+.ImgURLright {	font-weight: 	bold;		
+			 }
+			 
+.URL { color: #3300FF; }
+
+
+     
+
+     
+  
+#SafetyMainBlogLink	{   position: 			relative;
+		                background-color:	transparent;
+		                border:             0 solid black;   
+		                margin-left:        5%; 
+                        margin:             10px 10px 0; 
+                        color:              #3300FF;
+                        width: 20%;
+                        float: left;
+}
+     
+
+
+
+
+ul#ie_gallery { overflow: hidden;}
+			  
+			  
+ul#ie_gallery li {		float:          left; 
+						border-bottom:  0 black none;
+                        padding-bottom: 0;
+				 }
+
+
+ul#ie_gallery li a img {	display:    block; 
+						    width:      140px; 
+						    height:     120px; 
+						    border:     7px solid lightgrey;
+                            border-top-color: lavender; 
+                            border-bottom-color: lavender; 
+						    margin:     1px;
+
+					 }
+
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0;
+	margin-bottom:.0001pt;
+	font-size:10.0pt;
+	font-family:"Arial","sans-serif";}
+
+p.MsoHeader, li.MsoHeader, div.MsoHeader
+	{mso-style-link:"Header Char";
+	margin:0;
+	margin-bottom:.0001pt;
+	font-size:10.0pt;
+	font-family:"Arial","sans-serif";}
+
+
+ 
+
+.BlogHeader {   width: 100.7%;
+                Border:   0;
+                color: white;
+                background-color: Black;
+                text-align: center;
+                margin: 0;
+                margin-top: 10px;
+                margin-bottom: 10px;
+                padding: 2px;  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.box2 {
+    width: 414px;
+	height: 262px;
+	margin: 0 auto 35px auto;
+	padding: 15px;
+	border: 11px solid #c6ac6c;
+	position: relative;
+	margin-top: 35px;
+
+	-moz-border-radius: 32px;
+	-webkit-border-radius: 32px;
+    -ms-border-radius: 32px;
+    border-radius: 32px;
+
+	-moz-box-shadow: 10px 10px 10px #000;
+	-webkit-box-shadow: 10px 10px 10px #000;
+    -ms-box-shadow: 10px 10px 10px #000;
+    box-shadow: 10px 10px 10px #000;
+
+	z-index: 2;
+
+/*	behavior: url(ie-css3.htc);	*/
+}
+
+.box2 div {
+	position: absolute;
+	bottom: 10px;
+	left: 0;
+	width: 100%;
+	text-align: center;
+	font-weight: bold;
+	font-size: 13pt;
+	color: #ffd550;
+	_bottom: 21px; /* IE6 */
+	_width: 108%; /* IE6 */
+}
+
+
+

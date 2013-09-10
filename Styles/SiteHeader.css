@@ -1,0 +1,166 @@
+﻿
+
+
+
+.TitleRectangle{
+	position:           relative;  
+	width:              100%;
+	left:               0px;
+	top:                0px;
+	text-align:         left;
+	height:             75px;
+	z-index:            100; 
+}
+
+.TitleRectangle h2 {
+	font-size:      50px;
+	padding-top:    20px;
+	text-align:     center;
+	line-height:    .7em;
+	margin:         auto auto auto 0px;
+}
+
+
+
+
+h2 {
+	font-weight: normal;
+	margin: 0;
+	padding: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+.SiteHeader-menu {
+	position:       relative;
+	top:            3px;
+	left:           -0px;
+	z-index:        80; /* the stack order: displayed under main content area (90) */
+    float:          right; 
+    margin-right:   20px; 
+    margin-top:     -10px;
+}	
+
+
+.SiteHeader-menu ul {
+    list-style-type: 	none;
+    list-style: 		none;
+    margin:      		0 0 0 5pt;
+    padding-left: 		0px;
+    padding-top: 		0px;
+	}
+	
+	
+.SiteHeader-menu ul li {
+	-webkit-transform:  rotate(-45deg);     
+	-moz-transform:     rotate(-45deg);     
+	-ms-transform:      rotate(-45deg); 
+	width:              185px;
+	overflow:           hidden;
+	margin:             0px 0px ;
+	padding:            3px 5px 5px -0px; 
+	float:              left;
+	background:         #7f9db9;
+    border-bottom:      none;
+    margin-left:        -150px;
+}
+
+.SiteHeader-menu ul li a {
+	color: #fff;
+	text-decoration: none;
+	display:block;
+	padding-left: 60px;
+}
+
+
+.SiteHeader-menu ul li.l1 
+{
+    background: rgb(131,178,51);
+	background: rgba(131,178,51,0.65);
+    margin-left: 0px;
+}
+
+.SiteHeader-menu ul li.l1:hover {
+	background: rgb(131,178,51);
+}
+
+
+
+
+.SiteHeader-menu ul li.l2 
+{
+    background: rgb(196,89,30);
+	background: rgba(196,89,30,0.65);
+}
+
+.SiteHeader-menu ul li.l2:hover {
+	background: rgb(196,89,30);
+}
+
+
+
+
+.SiteHeader-menu ul li.l3 
+{
+    background: rgb(65,117,160);
+	xbackground: rgba(65,117,160,0.65);
+	text-align: left;
+}
+
+.SiteHeader-menu ul li.l3:hover {
+	background: rgb(65,117,160);
+}
+
+
+
+.SiteHeader-menu ul li.l4 
+{
+    background: rgb(160,117,160);
+	background: rgba(160,117,160,0.65);
+}
+
+.SiteHeader-menu ul li.l4:hover {
+	background: rgb(160,117,160);
+}
+
+
+
+
+.SiteHeader-menu ul li.l5 
+{
+    background: rgb(0,0,0);
+	background: rgba(0,0,0,0.65);
+}
+
+.SiteHeader-menu ul li.l5:hover {
+	background: rgb(0,0,0);
+}
+
+
+.SiteHeader-menu span {
+	margin: 15px 80px 0px 0px;
+	float:right;
+}
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+

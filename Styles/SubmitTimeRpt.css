@@ -1,0 +1,76 @@
+﻿html {
+    background-color: #45473f;
+}      
+    
+    
+input {
+    padding-top: 5px;  padding-right: 10px;
+}
+
+.FixedLabel {
+    display: inline-block; 
+    width: 100px; 
+    font-weight: bold; 
+    margin-right: 5px;
+    vertical-align: top;
+}
+
+.FixedData {
+    display: inline-block; 
+    width: 150px; 
+}
+
+
+.ValidationError {
+    color:              red;
+    background-color:   yellow;
+    -ms-border-radius:      7px;
+    border-radius:      7px; 
+    border:             2px solid red;
+}
+
+.ValidationSuccess {
+    -ms-border-radius:      7px;
+    border-radius:      7px; 
+    border:             2px solid green;
+}
+
+.alertmsg {
+    color:#FF0000;            
+}
+           
+.HideBtn {
+    visibility: hidden;
+    display: none;
+}
+               
+.TimeRow {
+    height: 32px;
+}
+        
+.errorTextCss {
+    color: red;
+    font-weight: bold;
+} 
+                 
+        
+.DateEntryCss {
+    margin-top: -4px;
+}  
+        
+.ClearBtnCss {
+    float: right;
+    color: blue;
+}
+        
+.ui-autocomplete {
+    max-height: 200px;
+    overflow-y: auto;     /* prevent horizontal scrollbar */
+    overflow-x: hidden;   /* add padding to account for vertical scrollbar */
+    padding-right: 20px;
+}
+
+
+
+
+

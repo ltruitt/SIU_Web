@@ -1,0 +1,146 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="SiteMasterMobile.master.cs" Inherits="SiteMasterMobile" %>
+
+
+<!DOCTYPE html>
+<html class="no-js">
+
+    <head id="Head1" runat="server">
+	    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Cache-Control" content="no-cache"/> 
+
+        <!-- Web Site Icon -->        
+        <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+
+    
+	    <!-- 3D Page Title With Buttons -->
+        <link href="/Styles/Site.css"        rel="stylesheet"  type="text/css" />
+	    <link href="/Styles/SiteHeader.css"  rel="stylesheet"  type="text/css">
+        <link href="/Styles/SiBlueTheme.css"  rel="stylesheet"  type="text/css"/>
+
+        
+        <%--Production--%>
+        <link rel="stylesheet" href="/Scripts/JqueryUI/css/trontastic/jquery-ui-1.8.22.custom.css" />
+        <link rel="stylesheet" href="/Styles/jquery.ui.form.css">
+
+        
+        <!-- Viewport is very important, since it affects results of media query matching. -->
+        <meta name="viewport" content="width=device-width">
+
+          
+        <%------------------------------ JQUERY ---------------------------------%>
+	    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.1/jquery.mobile-1.2.1.min.css" />
+	    <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+	    <script type="text/javascript"  src="http://code.jquery.com/mobile/1.2.1/jquery.mobile-1.2.1.min.js"></script> 
+
+        
+        <script src="/Scripts/site.js" type="text/javascript" ></script>
+        
+        
+        <%------------------------ Feature Detection ----------------------------%>
+	    <script type="text/javascript" src="/Scripts/modernizr.js"></script>
+
+        <%--Some of the IE8 Fixes--%>
+        <!--[if lt IE 9]>
+            <script src="/Scripts/html5shiv.js"></script>
+            <link href="/Styles/SiteHeaderIE8.css"  rel="stylesheet"  type="text/css">
+        <![endif]-->
+
+	    <title>ShermcoYou!</title>
+	
+        <asp:ContentPlaceHolder ID="HeadContent" runat="server">
+        </asp:ContentPlaceHolder>
+	
+    </head>
+    
+
+
+    <body>
+        <img src="/favicon.ico" style="display: none;"/>
+    
+        <!-- For Now... Only 1 Page -->
+        <div id="page1" data-role="page">
+        
+            <!-- Standard Site Header -->
+            <div id="header" data-role="header" data-theme="b">
+		        <div id="MasterHeaderArea" class="TitleRectangle"  runat="server">
+		        
+			        <div style="clear:both;"></div>
+                
+
+                    <a href="/HomePage.aspx" style="text-decoration: none;" rel="external">				
+			            <h2>
+					           <span id="MasterHeaderTxt" runat="server">ShermcoYOU!</span>
+			            </h2>
+                    </a>					
+			
+			        <div class="SiteHeader-menu"  >
+				        <ul>
+					        <li class="l3"><a href="/HomePage.aspx">Home</a></li>
+					        <%--<li class="l2"><a href="/Default.aspx">What's New?</a></li>--%>
+                            <li class="l3"><a href="/UsefulLinks/UsefulLinks.aspx">Useful Links</a></li>
+                            <%--<li class="l6"><a href="/Account/logoff.aspx">Logoff</a></li>--%>
+                           <%-- <li class="l5"><a href="/UsefulLinks/QuickLinks.aspx">Quick Links</a></li>--%>
+				        </ul>
+			        </div>
+
+		        </div>
+
+		        <div id="lowerSiteHeader" style="text-align:center; width:100%; color:#ffe3a6; z-index:100">
+		            <span style="float: left; margin-left: 30px; color: white;  font-weight:  bold; font-style: oblique;">
+		                <asp:Literal runat="server" ID="LitUserFullName"></asp:Literal>
+		            </span>
+		        </div>	
+	        </div>      
+        
+        
+            <!-- Start Content -->
+            <div data-role="content"> 
+                <asp:ContentPlaceHolder ID="MainContent" runat="server"/>
+            </div>  
+            <!-- End Content -->
+        
+        
+            <!-- Footer -->        
+            <div id="footer" data-role="footer" data-theme="a" data-position="fixed">
+                <ul class="footer_gallery">
+                
+                    <!-- Admin Page -->
+		            <li id="AdminFooterLi" style="display: none;">
+                            <a href="#" id="AdminIconA" rel="external">
+                            <img src="/Images/AdminGear.png" alt="Admin Link" style="margin-right: 10px;"/>
+                            Admin<br/>Menu
+                            </a>
+		            </li>
+
+                    <!-- Shermco Job Posts -->
+		            <li>
+			            <a href="http://newton.newtonsoftware.com/career/CareerAtomFeed.action?clientId=4028f88b2f0a1c35012f7f1f6ee246f8&amp;internal=true" target=_blank rel="external">
+				            <img  alt="Shermco Jobs" src="/Images/icon-jobs.png" />
+				            Career Openings
+			            </a>
+		            </li>
+        
+		            <!-- Policy Manual Pdf Icon -->			
+		            <li>
+			            <a href="/files/LIBRARY/Corporate/Shermco Policy Manual July 2013.pdf" target="blank" rel="external">
+				            <img alt="Policy Manual" src="/Images/icon-policymanual.png"/>
+                            Policy Manual
+			            </a>
+		            </li>
+                
+		            <!-- EHS Policy Manual Pdf Icon -->			
+		            <li>
+			            <a href="/Library/LibDocPaneMobile.aspx?Sub=Library/EHS/Manuals/&Path=Policies and Procedures?Back=HomePage" rel="external">
+				            <img alt="Policy Manual" src="/Images/icon-ehsmanual.png" />
+                            EHS Policy Manual
+			            </a>
+		            </li>
+                
+                </ul>
+
+            </div>
+        </div>
+
+    </body>
+</html>

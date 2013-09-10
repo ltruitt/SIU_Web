@@ -1,0 +1,60 @@
+﻿#PolicyBox .box {
+	width: 75%;
+	margin: 0;
+    margin-left: 10%;
+    margin-top: 5px;
+	
+	border:                 11px solid #7f9db9;
+    border-top:             60px solid #7f9db9;
+	position:               relative;
+    z-index:                2;
+    background:             whitesmoke;
+
+	-moz-border-radius:     32px;
+	-webkit-border-radius:  32px;
+    -ms-border-radius:      32px;
+    border-radius:          32px;
+
+	-moz-box-shadow:        10px 10px 10px #000;
+	-webkit-box-shadow:     10px 10px 10px #000;
+    -ms-box-shadow:         10px 10px 10px #000;
+
+;
+	-moz-box-shadow:        10px 10px 10px #000;
+	-webkit-box-shadow:     10px 10px 10px #000;
+    box-shadow:             10px 10px 10px #000;
+}
+
+
+#PolicyBox .box div {
+	position: absolute;
+	bottom: 10px;
+	left: 0;
+	width: 100%;
+	text-align: center;
+	font-weight: bold;
+	font-size: 13pt;
+	color: #ffd550;
+	_bottom: 21px; /* IE6 */
+	_width: 108%; /* IE6 */
+}
+
+.BoxHeader {
+    margin-top: -60px;
+    color:              black;
+    text-align: center;
+}
+
+
+
+
+.BoxText {  	
+    position: relative;
+    padding: 15px;
+	height: 4in;
+    width: 100%;
+    left: 5px;
+    top: 15px;
+    color: #3300FF;
+    font-size: medium;
+}

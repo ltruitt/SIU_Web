@@ -1,0 +1,107 @@
+﻿
+ul {	list-style-type: 	none;
+    	list-style: 		none;
+    	margin:      		0 0 0 5pt;
+    	padding-left: 		0px;
+    	padding-top: 		0px;
+	}
+
+ul li {	padding-top: 		0px;
+	    padding-bottom: 	15px;
+	    list-style: 		none;
+	    border-bottom: 		2px #c6ac6c dashed;
+	  }
+
+
+
+        ul#BlogSlider, ul#BlogSlider li 
+        {
+            border: none;
+            margin-left: 0px;
+            width: 100%;
+            height: 180px;
+            list-style: none;
+            border: none;
+            position: relative;
+            padding-left: 0px;
+            color: black;
+        }
+        
+        .SliderText {
+                position:absolute;
+                top:2px; /* in conjunction with left property, decides the text position */
+                left:2px;
+                width:300px; /* optional, though better have one */
+                font-size: 1.0em;
+                font-weight: bold;
+                margin-top: 0px;
+                color: white;
+                padding-top: 0px;
+        } 
+                
+        .BlogText {
+                position:absolute;
+                top:2px; /* in conjunction with left property, decides the text position */
+                left:2px;
+                width:300px; /* optional, though better have one */
+                font-size: 1.0em;
+                font-weight: bold;
+                margin-top: 0px;
+                padding-top: 0px;
+        } 
+        
+        .HomeBlogSliderTheme {
+            color: black;
+        }
+
+
+
+
+
+
+
+
+
+.lnkPopup {	}  
+
+.popupDiv
+{
+	border: solid 5px #78C7E6;
+	padding: 5px;
+	width: 500px;
+	height:430px;
+	position: absolute;
+	vertical-align: middle;
+	text-align: center;
+	z-index: 120;
+	background-color: #FFFFFF;
+	left: 304px;
+	top: 46px;
+    display: none;
+}
+
+.popupbackGround
+{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 0px;
+    top: 0px;
+    z-index: 1;
+    opacity: 0.5;
+    filter: alpha(opacity =50);
+    display: none;
+    padding: 0px;
+}	
+
+
+
+div.lnkClose
+{
+    text-align:right;	
+}
+
+a
+{
+    cursor:pointer;
+}			 

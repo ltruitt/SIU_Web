@@ -1,0 +1,96 @@
+﻿.IrsImg {
+      position: relative;
+      display:block;
+      margin-right: auto;
+      margin-left: auto;
+      border: 0 0 0 0;
+
+    }
+
+
+
+.FaqGradiant {
+                border: solid 2px #000;
+                background:-moz-linear-gradient(top, #e5e5e5, #f7f7d7);
+                background:-webkit-gradient(linear, left top, left bottom, from(#e5e5e5), to(#f7f7d7));
+                filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#e5e5e5', endColorstr='#f7f7d7');
+                -ms-filter:"progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#e5e5e5', endColorstr='#f7f7d7')";
+                margin: 0;
+                padding: 0;
+                width: 98%;
+                text-indent: 5%;
+                padding-right: -0in;
+}
+
+
+.QA {
+  margin-left: 1in;
+  text-indent: -30px;
+}
+
+.Q {
+    font-weight: bold;
+    position: relative;
+    margin-left: 9px;
+}
+
+
+.padded {
+
+  border:  medium none  #000000;
+  margin: 0em 2em 1em 1em
+}
+
+.A {
+    position: relative;
+    margin-left: 9px;
+    width: 50%;
+}
+
+.LeftList {
+  text-indent: 0;
+  margin-top: 0;
+  margin-left: 1in;
+  margin-right: .2in;
+  display: block;
+  float: left;
+  font-weight: bold;
+}
+
+.RightList {
+  font-weight: bold;
+  text-indent: 0;
+}
+
+.BlogHeader {   width:99%;
+                clear: both;
+                Border:   1px solid #FFF;
+                color: white;
+                background-color: Black;
+                text-align: center;
+                margin: 0;
+}
+
+
+.FloatIrsText 
+{
+    clear: both;
+    display: block;
+    text-indent: 0;
+    position: relative;
+    top: -70px;
+    margin-left: 0%;
+    width: 100%;
+}
+
+.FloatIrsText a {
+    display: block;
+    text-indent: 0;
+    width: 2in;
+    color: white;
+    font-size: 1.1em;
+    text-decoration: underline;
+    position: relative;
+    left: 50%;
+    margin-left: -25px;
+}

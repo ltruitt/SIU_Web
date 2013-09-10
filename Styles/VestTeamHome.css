@@ -1,0 +1,104 @@
+﻿.TeamMembersUL {
+    width: 90%;
+}
+    
+.TeamMembersUL li {
+    display:           inline-block;
+    list-style-type:   circle;
+    width:             150px;
+    border:            1px solid black;
+    margin-bottom:     2px;
+    text-align:        center;
+     
+    }
+     
+
+
+.TeamsNewsUL {
+    overflow-y: scroll; 
+    border: 5px solid gray; 
+    width: 98%; 
+    height: 300px;
+}
+    
+.TeamsNewsUL li {
+    border-bottom: 5px solid gray; 
+    padding-top: 5px;
+    padding-bottom: 5px; 
+    text-align: left;  
+    margin-left: 0;
+    padding-left: 5px;
+}   
+
+.TeamsNewsUL li ul {
+    margin-left: 10px;
+}   
+
+
+.TeamsNewsUL li li {
+    padding-top: 0;
+    padding-bottom: 5px; 
+    text-align: left;  
+    margin-left: 15px;
+    border: none;
+    list-style-type:disc;
+}   
+
+
+.Core li {
+    background-color: cadetblue;    
+}
+     
+.Guest li {
+    background-color: aquamarine;    
+}     
+     
+     
+.TeamsNewsUL {
+    overflow-y: scroll; 
+    border: 5px solid gray; 
+    width: 90%; 
+    height: 300px;
+}
+    
+.TeamsNewsUL li {
+    border-bottom: 3px solid gray; 
+    padding-top: 5px;
+    padding-bottom: 15px; 
+    text-align: left;  
+}     
+
+
+	/* CSS for the scrollers */
+div.horizontal_scroller, div.vertical_scroller{
+	position:           relative;
+	height:             47px;
+	width:              91%;
+	display:            block;
+	overflow:           hidden;
+	border:             none;
+    background-color:   transparent;
+}
+
+#scrollingtext {
+    vertical-align: text-top;    
+}
+
+
+div.scrollingtext{
+	position:       absolute;
+	white-space:    nowrap;
+	font-family:    'Trebuchet MS',Arial;
+	font-size:      32px;
+	font-weight:    bold;
+	color:          black;
+}
+
+div.scrollingtext img {
+    height: 40px;   
+}
+	
+	
+#soccer_ball_container{width:99%;height:80px;margin: 0px;padding: 0px;}
+#soccer_ball_container .scrollingtext{width:40px;height:80px;}
+#soccer_ball{display:block;position:absolute;top:0px;left:0px;}

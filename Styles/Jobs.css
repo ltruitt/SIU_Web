@@ -1,0 +1,25 @@
+﻿.chkbox label {
+    padding-top:        0px;
+    background-color:   transparent;
+    color:              black;
+    font-size:          18px;
+    font-weight:        bold;
+    margin-top:         -3px;                
+}
+    
+.UpdateBtnCSS {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: red;
+    float: left;
+    width: 50%;        
+}
+
+.CancelBtnCSS {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: red;
+    float: right;
+    width: 50%;
+}
+    

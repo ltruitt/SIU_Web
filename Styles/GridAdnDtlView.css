@@ -1,0 +1,125 @@
+﻿.HeaderCss {
+    font-size: 1.3em;
+    text-align: center;
+}  
+
+.TableRowCss {
+    border-left: none;
+    border-right: none;
+    padding-left: 12px;
+}
+        
+.TableRowCss2 {
+    border-left: none;
+    border-right: none;
+    text-align: center;
+}        
+               
+.FooterRowCss {
+    border-left: none;
+    border-right: none;
+    padding-left: 12px;
+}  
+
+.SelectedTableRowCss {
+    font-style: italic;
+    font-weight: bold;
+    color: orange;
+}      
+
+
+
+.GridCenterCss 
+{
+    margin-left: auto;
+    margin-right: auto;
+}
+        
+
+.DtlViewCSS {
+    border: 0px;
+}
+        
+.DtlViewHeaderCss {
+    font-weight: bold;
+    font-style: italic;
+    Padding-right: 30px;
+}
+
+
+
+
+
+.CustomValidatorCalloutStyle div, 
+.CustomValidatorCalloutStyle td 
+{
+    color: black; 
+    border:solid 1px black;
+    background-color: beige;
+    font-size: 1em;
+}
+
+
+
+
+.SearchTextBoxCSS 
+{
+    padding: 0px;
+    background-color: yellow;
+    font-size: 1.1em;
+    border-color: yellow;
+    border-width: 2px;
+}
+    
+.SearchBtnCSS {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: red;
+}
+    
+.NewBtnCSS {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: red;
+}   
+
+.ShowBtnCSS {
+    font-size: 1.0em;
+    font-weight: bold;
+    color: green;
+    font-style: italic;
+}
+    
+    
+
+    
+.highlight {
+    border: 3px solid red;
+    background-color: yellow;
+}
+        
+.chkbox label {
+    padding-top:        0px;
+    background-color:   transparent;
+    color:              #74736d;
+    font-size:          18px;
+    margin-top:         -3px;                
+}
+
+.defaultText
+{
+    font-style:italic;
+    color:#CCCCCC;
+}
+
+.DataInputCss 
+{
+    background-color: #CCCCDD;
+    border-radius:      7px; 
+}
+
+.ui-form label 
+{
+    padding-top: 0px;
+    font-size: 1em;    
+}

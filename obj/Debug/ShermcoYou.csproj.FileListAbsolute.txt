@@ -1,0 +1,10 @@
+C:\Users\truittjl\Documents\DevWebPage\SIU\ShermcoYou\bin\ShermcoYou.dll
+C:\Users\truittjl\Documents\DevWebPage\SIU\ShermcoYou\bin\ShermcoYou.pdb
+C:\Users\truittjl\Documents\DevWebPage\SIU\ShermcoYou\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\truittjl\Documents\DevWebPage\SIU\ShermcoYou\obj\Debug\ShermcoYou.dll
+C:\Users\truittjl\Documents\DevWebPage\SIU\ShermcoYou\obj\Debug\ShermcoYou.pdb
+C:\inetpub\wwwroot\SIU\ShermcoYou\bin\ShermcoYou.dll
+C:\inetpub\wwwroot\SIU\ShermcoYou\bin\ShermcoYou.pdb
+C:\inetpub\wwwroot\SIU\ShermcoYou\obj\Debug\ResolveAssemblyReference.cache
+C:\inetpub\wwwroot\SIU\ShermcoYou\obj\Debug\ShermcoYou.dll
+C:\inetpub\wwwroot\SIU\ShermcoYou\obj\Debug\ShermcoYou.pdb

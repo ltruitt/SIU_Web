@@ -1,0 +1,14 @@
+﻿.jTableTD
+{
+    text-align: center;
+}   
+        
+.jTableTD_ChkBox {
+    text-align: center;
+    font-size: 2em;
+}     
+        
+.ui-form .ui-widget-content {
+    padding-left: 0;
+    padding-right: 0;
+}

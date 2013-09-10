@@ -1,0 +1,302 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <style type="text/css">
+
+
+
+div.oneMscomNav .navMenu
+{
+    border-style:solid;
+    border-width:0 0 1px 0;
+}
+
+
+.oneMscomNav div.navMenu {
+    position: relative;
+    width: 100%;
+    z-index: 994;
+    font-size: 100%;
+}
+
+div.oneMscomNav .navigation-bg {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+div.oneMscomNav div.navigation-flyout-region,
+div.navigation .navigation-section {
+    direction: ltr;
+}
+
+
+div.oneMscomNav .navigation-section {
+    display: inline-block;
+}
+
+div.oneMscomNav .navigation-item {
+    padding: 0 6px 0 6px;
+    position:relative;
+}
+
+div.oneMscomNav .navigation-item-tab .navigation-item-tab-text,
+div.oneMscomNav .navigation-item-tab a#idPPScarab {
+    padding: 3px 15px 3px 15px;
+}
+
+div.oneMscomNav .navigation-item-tab a {
+    border-width: 0 0 3px 0;
+    border-style: solid;
+}
+
+div.oneMscomNav .navigation-item-tab a {
+    display: inline-block;
+}
+
+div.oneMscomNav .navigation-item-tab .navigation-item-text {
+    display: block;
+    float: Left;
+}
+
+div.oneMscomNav .navigation-item-flyout {
+    position: relative;
+    z-index: 995;
+}
+
+    </style>
+</head>
+<body>
+
+
+
+    <div class="main-content">
+        <div id="gsfx_brnd_PageWrapper">
+            <div id="gsfx_brnd_PageContainer">
+                <div id="gsfx_brnd_ContentContainer" class="gsfx_brnd_TransBG">
+                    <div id="contentArea">
+                        <div id="mainRow">
+                            <div class="primaryTable">
+                                <table cellpadding="0" cellspacing="0" class="primaryTable">
+                                    <tr>
+                                        <td class="primaryMainColumn">
+                                            <div id="mainColumn">
+                                                <div id="kb" class="kb">
+                                                    <div id="kb_default" class="kb_default ltr">
+                                                        <a id="top"></a>
+                                                        <div class="articleProperty">
+                                                            Article ID: 2002980 - Last Review: July 26, 2010 - Revision: 5.0</div>
+                                                        <h1 class="title">
+                                                            Problems with SQL Server Express user instancing and ASP.net Web Application 
+                                                            Projects</h1>
+
+                                                <div class="sbody" style="margin-left: 195px;">
+                                                                <p>
+                                                                    Web applications running on IIS 7.5 and that rely on SQL Server Express user 
+                                                                    instancing will fail to run using the default IIS 7.5 security configuration on 
+                                                                    both Windows 7 Client and Windows Server 2008 R2. Developers will encounter 
+                                                                    problems developing web applications using Visual Studio 2005 + SQL Server 
+                                                                    Express 2005, Visual Studio 2008 + SQL Server Express 2008, or Visual Studio 
+                                                                    2010 + SQL Server Express 2008 on both Windows 7 Client and Windows Server 2008 
+                                                                    R2.</p>
+                                                                <p>
+                                                                    Developers will encounter similar problems attempting to develop web application 
+                                                                    projects (WAP) or websites hosted under IIS6/IIS7/IIS7.5 that rely on SQL Server 
+                                                                    Express user instances where the WAP project structure or website folder 
+                                                                    structure exists in a user&#39;s Documents folder.&nbsp; This issue exists for all 
+                                                                    versions of Visual Studio regardless of the underlying operating system version.&nbsp; 
+                                                                    A web application that attempts to create a database or read/write to a database 
+                                                                    using SQL Server Express user instance mode can encounter any of the following 
+                                                                    errors:</p>
+                                                                <blockquote dir="ltr">
+                                                                    <p>
+                                                                        <strong>An attempt to attach an auto-named database for file 
+                                                                        c:\Users\[YourUserAccountName]\Documents\Visual Studio 
+                                                                        20XX\Projects\[YourSolutionName]\[YourProjectnName]\App_Data\aspnetdb.mdf 
+                                                                        failed. A database with the same name exists, or specified file cannot be 
+                                                                        opened, or it is located on UNC share.</strong></p>
+                                                                </blockquote>
+                                                                <p>
+                                                                    <br />
+                                                                    --or--</p>
+                                                                <blockquote dir="ltr">
+                                                                    <p>
+                                                                        <br />
+                                                                        <strong>Failed to generate a user instance of SQL Server due to failure in 
+                                                                        retrieving the user&#39;s local application data path.&nbsp; Please make sure the 
+                                                                        user has a local user profile on the computer. The connection will be closed.</strong></p>
+                                                                </blockquote>
+                                                                <p>
+                                                                    <br />
+                                                                    &nbsp;</p>
+                                                                <p>
+                                                                    <strong>NOTE</strong>: A web application relies on SQL Server Express&#39; user 
+                                                                    instance mode if either of the following is true:</p>
+                                                                <ul>
+                                                                    <li>&nbsp;The application relies on the default &quot;LocalSQLServer&quot; connection string 
+                                                                        defined in machine.config</li>
+                                                                    <li>&nbsp;The application uses a connection string that contains the following 
+                                                                        attributes:<br />
+                                                                        <br />
+                                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;AttachDBFilename=|DataDirectory|xxxxxx.mdf;User Instance=true&quot;</li>
+                                                                </ul>
+                                                                <p>
+                                                                    &nbsp;</p>
+                                                                <p>
+                                                                    &nbsp;</p>
+                                                                <div class="topOfPage">
+                                                                    <a href="http://support.microsoft.com/?kbid=2002980#top">
+                                                                    <img alt="" 
+                                                                        src="http://support.microsoft.com/library/images/support/kbgraphics/public/en-us/uparrow.gif" />Back 
+                                                                    to the top</a></div>
+                                                            </div>
+                                                            <h2 id="tocHeadRef0" class="subTitle">
+                                                            </h2>
+                                                            <div class="kb_tabs_toggle kb_tabs_toggle_open">
+                                                            </div>
+                                                            <span><a href="javascript:void(0);">Cause</a></span><h2>
+                                                            </h2>
+                                                            <div class="sbody" style="margin-left: 195px;">
+                                                                <p>
+                                                                    <strong>For Windows Server 2008 R2 and Windows 7<br />
+                                                                    <br />
+                                                                    </strong>The default security configuration for IIS 7.5 sets application pools 
+                                                                    to run as the &quot;application pool identity&quot;.&nbsp; Running an application pool 
+                                                                    using this special identity was first introduced as an optional setting in Vista 
+                                                                    SP2 and Windows Server 2008 SP2.&nbsp; On Windows 7 Client and Windows Server 
+                                                                    2008 R2 this special identity is now the default.<br />
+&nbsp;
+                                                                    <br />
+                                                                    Web applications built with Visual Studio 2005, Visual Studio 2008, or Visual 
+                                                                    Studio 2010 and that rely on user instancing with either SQL Server Express 2005 
+                                                                    or SQL Server Express 2008 do not work with the new application pool identity.&nbsp; 
+                                                                    These products were developed and tested against application pools running with 
+                                                                    the older NETWORK SERVICE account.</p>
+                                                                <p>
+                                                                    &nbsp;</p>
+                                                                <p>
+                                                                    <strong>For Web Application Projects and Websites Located in a User&#39;s Documents 
+                                                                    Folder Hosted in IIS<br />
+                                                                    </strong>
+                                                                    <br />
+                                                                    Web application projects (WAP) exist in a folder structure under a user&#39;s 
+                                                                    &quot;Documents\Visual Studio 20XX\Projects&quot; folder.&nbsp; Website projects exist in 
+                                                                    a folder structure under a user&#39;s &quot;Documents\Visual Studio 20XX\Websites&quot; 
+                                                                    folder.&nbsp; SQL Server Express user instances require file access rights to 
+                                                                    the parent folders of the website or WAP project&#39;s directory structure.&nbsp; 
+                                                                    Because the IIS service account (NETWORK SERVICE) by default does not have these 
+                                                                    rights within the Visual Studio project folder structure, WAP projects and 
+                                                                    websites located in a user&#39;s Documents folder and that are hosted in IIS will 
+                                                                    not be able to open SQL Server Express user instanced databases for read access.
+                                                                    <br />
+                                                                    &nbsp;<br />
+                                                                    WAPs that were originally created within a user&#39;s Documents folder, but were 
+                                                                    subsequently changed to use IIS for a web server via the web tab of the 
+                                                                    project&#39;s properties will encounter this file permissions problem.&nbsp; 
+                                                                    Websites hosted in IIS where the website directory structure is located within a 
+                                                                    user&#39;s Documents folder will also encounter the file permissions problem.&nbsp; 
+                                                                    This behavior occurs for WAP projects and websites hosted with any IIS versions 
+                                                                    that run as NETWORK SERVICE (IIS6, IIS7 and IIS 7.5) where the project structure 
+                                                                    exists within a user&#39;s Documents folder.</p>
+                                                                <p>
+                                                                    &nbsp;</p>
+                                                                <div class="topOfPage">
+                                                                    <a href="http://support.microsoft.com/?kbid=2002980#top">
+                                                                    <img alt="" 
+                                                                        src="http://support.microsoft.com/library/images/support/kbgraphics/public/en-us/uparrow.gif" />Back 
+                                                                    to the top</a></div>
+                                                            </div>
+                                                            <h2 id="tocHeadRef1" class="subTitle">
+                                                            </h2>
+                                                            <div class="kb_tabs_toggle kb_tabs_toggle_open">
+                                                            </div>
+                                                            <span><a href="javascript:void(0);">Resolution</a></span><h2>
+                                                            </h2>
+                                                            <div class="sbody" style="margin-left: 195px;">
+                                                                <p>
+                                                                    <strong>Resolution for Windows 7 and Windows Server 2008 R2<br />
+                                                                    </strong>
+                                                                    <br />
+                                                                    For all web applications running under IIS 7.5, regardless of their project 
+                                                                    type, carry out the following steps:<br />
+                                                                    <br />
+                                                                </p>
+                                                                <ol>
+                                                                    <li>Run the Internet Information Services (IIS) Manager tool.&nbsp; This tool can be 
+                                                                        accessed either from the Administrative start menu, or by typing &quot;inetmgr&quot; in 
+                                                                        the Windows Start--&gt;Search textbox and selecting the inetmgr tool.</li>
+                                                                    <li>In the left-hand pane of the IIS Manager tool expand the machine node.</li>
+                                                                    <li>Click on the &quot;Application Pools&quot; node so that the application pools display in 
+                                                                        the main window of the management tool.</li>
+                                                                    <li>If you are troubleshooting an ASP.NET 2.0/3.0/3.5 application select the 
+                                                                        &quot;DefaultAppPool&quot; application pool.&nbsp; For ASP.NET v4 select the &quot;ASP.NET v4.0&quot; 
+                                                                        application pool.</li>
+                                                                    <li>Right-click on the selected application pool and choose &quot;Advanced Settings&quot;</li>
+                                                                    <li>In the &quot;Advanced Settings&quot; dialog box find the category called &quot;Process Model&quot;.&nbsp; 
+                                                                        The first row in the category will be the &quot;Identity&quot; row.</li>
+                                                                    <li>Click on the &quot;Identity&quot; row and then click on the small button that shows on the 
+                                                                        right-hand side of the value cell.&nbsp; The button displays the text &quot;…&quot;</li>
+                                                                    <li>A dialog box called &quot;Application Pool Identity&quot; will popup.&nbsp; Within that dialog 
+                                                                        box there are two radio buttons.&nbsp; Make sure the first radio button titled 
+                                                                        &quot;Built-in Account&quot; is selected.</li>
+                                                                    <li>In the dropdown box below the radio button choose &quot;Network Service&quot; for the 
+                                                                        identity.</li>
+                                                                    <li>Click &quot;Ok&quot; to close out the &quot;Application Pool Identity&quot; dialog box.</li>
+                                                                    <li>Click &quot;Ok&quot; to close out the &quot;Advanced Settings&quot; dialog box.</li>
+                                                                    <li>At this point the changes to the application pool identity will have been saved 
+                                                                        to IIS 7.5&#39;s configuration store.</li>
+                                                                </ol>
+                                                                <p>
+                                                                    &nbsp;</p>
+                                                                <p>
+                                                                    <strong>Resolution for Web Application Projects and Websites<br />
+                                                                    </strong>
+                                                                    <br />
+                                                                    For web application projects (WAP) and websites located in a user&#39;s Documents 
+                                                                    Folder hosted under any version of IIS running as NETWORK SERVICE, carry out the 
+                                                                    following steps:</p>
+                                                                <ol>
+                                                                    <li>First confirm that IIS has been configured to run as NETWORK SERVICE.&nbsp; This is 
+                                                                        the default on IIS6 and IIS7.&nbsp; However if you are running on Windows 7 or Window 
+                                                                        Server 2008 R2 you will first need to follow the steps above in &quot;Resolution for 
+                                                                        Windows 7 and Windows Server 2008 R2&quot; to make IIS application pools run as 
+                                                                        NETWORK SERVICE. </li>
+                                                                    <li>From a command prompt, type net stop iisadmin /y .&nbsp; This will cause any running 
+                                                                        ASP.NET WAP applications to shutdown.</li>
+                                                                    <li>Exit out of all running Visual Studio instances.</li>
+                                                                    <li>NETWORK SERVICE must be granted Read permission to the top-level Visual Studio 
+                                                                        folder located in your user&#39;s Documents folder.&nbsp; The Visual Studio folder will 
+                                                                        have different names depending on the version:&nbsp; &quot;Visual Studio 2005&quot;, &quot;Visual 
+                                                                        Studio 2008&quot;, or &quot;Visual Studio 2010&quot;.</li>
+                                                                    <li>NETWORK SERVICE must be granted both read and write permissions to your 
+                                                                        project&#39;s top-level project folder.&nbsp; For example if your WAP project is called 
+                                                                        &quot;MyCustomWebProject&quot;, then the folder &quot;Documents\Visual Studio 
+                                                                        20xx\Projects\MyCustomWebProject&quot; needs to have read and write access enabled 
+                                                                        for NETWORK SERVICE.&nbsp; Or, if your webiste project is called 
+                                                                        &quot;MyCustomWebProject&quot;, then the folder &quot;Documents\Visual Studio 
+                                                                        20xx\Websites\MyCustomWebProject&quot; needs to have read and write access enabled 
+                                                                        for NETWORK SERVICE.</li>
+                                                                    <li>NETWORK SERVICE must be granted both read and write permissions to the App_Data 
+                                                                        folder located within your web project&#39;s directory structure.</li>
+                                                                </ol>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

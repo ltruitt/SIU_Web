@@ -1,0 +1,763 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>@MOVIETITLE</title>
+		<!--<script src="standard.js" type="text/javascript"></script>-->
+		<script src="/Scripts/scorm_support.js"></script>		
+		<!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js" type="text/javascript"></script>	-->			
+		<script type="text/javascript" language="JavaScript">
+
+	//jQuery Document Ready
+	$(document).ready(function() { 
+		
+			// Detect Internet Explorer
+			g_bIsInternetExplorer = (navigator.appName.indexOf("Microsoft") != -1);
+			isMSIE = $.browser.msie;
+			//alert("isMSIE: " + isMSIE);
+
+			// Set objCaptivate
+			CaptivateObj = g_bIsInternetExplorer ? Captivate : document.Captivate;
+			
+			//Set browser unload event
+			$(window).unload( function () { 
+				//Send results to database when user closes browser and do NOT send an email
+				Finish(0); 
+			} );
+			
+			//Parse URI
+			
+			//check if learner wants to resume the course
+			//if so, get the suspend data from the database
+			if (strResume == "True")
+			{
+
+			
+				//Get Suspend Data from SQL (if any)
+				$.ajax({
+				  type: "POST",
+				  contentType: "application/json; charset=utf-8",
+				  dataType: "json",
+				  url: "wsCaptivate.asmx/wsGetSuspendDataFromSQL",				  
+				  success: function(msg) {
+				  
+					//Get suspend data for Captivate.
+					//The object returned will be a string array
+					//alert(msg.d[0]);
+					suspendData = msg.d[0]
+					
+					//Get interactions to add to the list
+					lstInteractions[0] = msg.d[1]
+											
+					},
+				  // Supply the prameters necessary to retrieve the suspend data.
+				  data: "{ 'courseID': '" + courseID + "', 'scoID': '" + scoID + 
+				  "', 'userEmail': '" + strEmail + "'}",
+				  // Error!
+				  error: function(xhr, status, error) {
+					  // Boil the ASP.NET AJAX error down to a true JSON object.
+					  try{
+					  var err = eval('(' + xhr.responseText + ')');
+					  alert("Error Message: " + err.Message + "\r\nStack Trace: " + err.StackTrace);					  
+					  }
+					  //If JSON oject can't be created due to a malformed response, just show raw html responseText
+					  catch(error) {
+					  var err = xhr.responseText;
+					  alert("Error Message: " + err);
+
+					}
+				});
+				
+			}
+			else //Learner does not want to resume course
+			{
+				suspendData = "";
+			}
+		
+		}
+	);
+
+	
+			// set document.domain property here, if it works for your environment/SCORM implementation
+			// document.domain="";
+			var g_intAPIType = 0;
+			
+			// Hook for Internet Explorer
+			if (isMSIE || g_intAPIType == -1)
+			{
+				//g_intAPIType = 0;
+				document.write('<script language=\"VBScript\"\>\n');
+				document.write('On Error Resume Next\n');
+				document.write('Sub Captivate_FSCommand(ByVal command, ByVal args)\n');
+				document.write('Call Captivate_DoFSCommand(command, args)\n');
+				document.write('End Sub\n');
+				document.write('</script\>\n');
+				document.write('<script language=\"VBScript\"\>\n');
+				document.write('On Error Resume Next\n');
+				document.write('Sub Captivate_DoExternalInterface(ByVal command, ByVal parameter, ByVal value, ByVal variable)\n');
+				document.write('Call Captivate_DoExternalInterface(command, parameter, value, variable)\n');
+				document.write('End Sub\n');
+				document.write('</script\>\n');
+			}
+			
+			
+			var strURLFile = "@MOVIENAME";			// Name of the flash file
+			var intIntervalSecs = 1;				// Number of seconds to wait for SCORM API to load
+			var g_intAPIOrder = 0;					// Way to search for API object (0 - starts with bottom up; 1 - starts top down)
+			var strURLBase = "";
+			var strURLParams = "";
+			var strURLFull = document.location + "";
+			var intTemp = strURLFull.indexOf("#");
+			if (intTemp == -1)
+				intTemp = strURLFull.indexOf("?");
+			if (intTemp > 0)
+				strURLParams = strURLFull.substring(intTemp + 1, strURLFull.length);
+			var strTemp = location.protocol.toUpperCase();
+			if (strTemp.indexOf("FILE") == -1)
+			  var intTemp = location.pathname.lastIndexOf("/");
+			else
+			  var intTemp = location.pathname.lastIndexOf("\\");
+			if (intTemp != -1)
+			  strURLBase = location.protocol + "//" + location.host + location.pathname.substring(0, intTemp + 1);
+			else
+			  strURLBase = location.protocol + "//" + location.host + location.pathname;
+			//strURLParams = (strURLParams==unescape(strURLParams)?escape(strURLParams):strURLParams);
+			strURLParams = decodeURIComponent(strURLParams)
+			strURLParams = (strURLParams==""?"":"?") + strURLParams;
+			//alert(strURLParams);
+
+			// AEC: Custom tracking variables - Begin
+			var intLMSScoreMax = "";
+			var intLMSScoreMin = "";
+			var intLMSScoreRaw = "";
+			var intLMSScorePercent = "";
+			var intLMSScoreMastery = "";
+			var strLMSStatus = "";
+			var strLMSLocation = "";
+			var strLMSTime = "";
+			var strLMSSuspendData = "";
+			var lstInteractions = [];
+			
+			//JBL:  Added extra vars
+			var strEmail = getURLParam('email'); //email address is passed via the URL query string
+			var strResume = getURLParam('resume'); //Learner's response passed via URL query string
+			var isError = 0;
+			var returnMsg = "";
+			var i = 30; // Number of seconds to countdown before resubmitting results if error occurs
+			var _i = i; //Used for re-initialization of the i variable in reSubmit() function
+			var suspendData = ""; //Used to retrieve suspend data from database
+			//Variable to indicate the need to send an email to the learner
+			var blnEmail = 0;
+			var g_bIsInternetExplorer = false;
+			var isMSIE = false;
+			var CaptivateObj = "";
+			
+			//JBL:  ToDo:  Change the data below to match your course and sco
+			var courseID = getURLParam('courseid');  //Used to identify the course in the database			
+			var courseTitle = "Captivate To SQL Demo Using ASP.NET";
+			var scoID = getURLParam('scoid'); //Used to identify the sco in the database			
+			var scoTitle = "Section 1";
+			
+			//JBL: Variables for sending out Email (server side)
+			//Using String.fromCharCode(64) because Captivate will strip out your "at" symbols on publish
+			//var strTo = "Jim.Leichliter" + String.fromCharCode(64) + "wwrc.virginia.gov";
+			var strCC = "";
+			var strBCC = "";
+			var strFrom = "Admin" + String.fromCharCode(64) + "YourDomain.com";
+			var strSubject = "Quiz Results For: " + courseTitle;
+			var strBodyHeader = "<h1>" + courseTitle + " Quiz Results</h1><h3>" + scoTitle + "</h3>";
+			var strBodyFooter = "</br></br>Thank you!</br></br>-- Your Training Department";
+
+			g_objAPI = window;	// AEC: By setting g_objAPI to anything but null or undefined, nothing in the scorm_support.js has to change
+			// AEC: Custom tracking variables - End
+
+
+ 			//JBL:  Custom Function to set Captivate Vars via Javascript
+			function setCaptivateVariable(myVariable, myValue)
+			{
+				CaptivateObj.jim_cpSetValue(myVariable, myValue);
+			}
+			
+			//JBL:  Shortcut function for referencing Captivate SWF
+			function getCaptivateUserVariable(n) 
+			{			
+				return CaptivateObj.cpGetValue(n); 
+			}
+			
+			
+			// This function will perform two server side tasks:
+			// 1.  Store the results in the database
+			// 2.  Send an email to the Learner with the results (with attachment) if 
+			//  they've clicked the submit button in Captivate
+			function PostData()
+			{
+				$.ajax({
+				  type: "POST",
+				  contentType: "application/json; charset=utf-8",
+				  dataType: "json",
+				  url: "wsCaptivate.asmx/wsSendResultsToSQL",				  
+				  success: function(msg) {
+						//alert("success: " + msg.d);
+						setCaptivateVariable("returnMessage", "\n\n\n\n\n\n\nYour Results Were\nSuccessfully Submitted\nThank You!\n\nYou may close this window.\n"); // + msg.d);
+						// "\n" is a line break in AS3 syntax
+						
+						gotoNextSlide();
+					},
+				  // Supply the LMS data and any custom javascript variables.
+				  data: "{ 'courseID': '" + courseID + "', 'courseTitle': '" + courseTitle + 
+				  "', 'scoID': '" + scoID + "', 'scoTitle': '" + scoTitle +
+				  "', 'Email': '" + strEmail + "', 'RawScore': '" + intLMSScoreRaw +
+				  "', 'MaxScore': '" + intLMSScoreMax + "','MinScore': '" + intLMSScoreMin +
+				  "', 'LMSStatus': '" + strLMSStatus + "','LMSLocation': '" + strLMSLocation +
+				  "', 'LMSTime': '" + strLMSTime + "','LMSSuspendData': '" + strLMSSuspendData + 
+				  "', 'LMSInteractions': '" + lstInteractions.toString() + 
+				  "', 'blnEmail': '" + blnEmail + 
+				  "', 'strTo': '" + strEmail + "', 'strCC': '" + strCC + 
+				  "', 'strBCC': '" + strBCC + "', 'strFrom': '" + strFrom +
+				  "', 'strSubject': '" + strSubject + "', 'strBodyHeader': '" + strBodyHeader +
+				  "', 'strBodyFooter': '" + strBodyFooter + "'}",
+				  // Error!
+				  error: function(xhr, status, error) {
+					  // Boil the ASP.NET AJAX error down to a true JSON object.
+					  try{
+					  var err = eval('(' + xhr.responseText + ')');
+					  returnMsg = "\nUpload Failed With The Following Error:\n\n" + err.Message // + "\n\n" + "Stack Trace: " + err.StackTrace
+					  }
+					  //If JSON oject can't be created due to a malformed response, just show raw html responseText
+					  catch(error) {
+					  var err = xhr.responseText;
+					  returnMsg = "\nUpload Failed With The Following Error:\n\n" + err // + "\n\n" + "Stack Trace: " + err.StackTrace
+					  }
+					 
+					  // Display the specific error raised by the server (e.g. database
+					  //   error, timeout, bad argument).
+					  setCaptivateVariable("returnMessage", returnMsg); 
+					  
+					  //Go to next slide to show returnMsg
+					  gotoNextSlide();
+					  
+					  //set isError flag
+					  isError = 1;
+					  
+					  //Do Countdown before trying again to resubmit results
+					  countDown(i);
+
+					}
+				});
+				
+			}			
+			
+			//Use this function in place of PostData(); if you 
+			//want to send an email ONLY
+			function sendHTMLEmail()
+			{
+				$.ajax({
+				  type: "POST",
+				  contentType: "application/json; charset=utf-8",
+				  dataType: "json",
+				  url: "wsCaptivate.asmx/wsSendHTMLEmail",				  
+				  success: function(msg) {
+						//alert("success: " + msg.d);
+						setCaptivateVariable("returnMessage", "\n\n\n\n\n\n\nYour Results Were\nSuccessfully E-mailed\nThank You!\n\n"); // + msg.d);
+						// "\n" is a line break in AS3 syntax
+						
+						gotoNextSlide();
+					},
+				  // Supply the LMS data and any custom javascript variables.
+				  data: "{'sTo': '" + strEmail + "', 'CC': '" + strCC + 
+				  "', 'BCC': '" + strBCC + "', 'From': '" + strFrom +
+				  "', 'Subject': '" + strSubject + "', 'BodyHeader': '" + strBodyHeader +
+				  "', 'BodyFooter': '" + strBodyFooter + 
+				  "', 'courseID': '" + courseID + "', 'courseTitle': '" + courseTitle + 
+				  "', 'scoID': '" + scoID + "', 'scoTitle': '" + scoTitle +
+				  "', 'Email': '" + strEmail + "', 'RawScore': '" + intLMSScoreRaw +
+				  "', 'MaxScore': '" + intLMSScoreMax + "','MinScore': '" + intLMSScoreMin +
+				  "', 'LMSStatus': '" + strLMSStatus + "','LMSLocation': '" + strLMSLocation +
+				  "', 'LMSTime': '" + strLMSTime + "','LMSSuspendData': '" + strLMSSuspendData + 
+				  "', 'LMSInteractions': '" + lstInteractions.toString() + "'}",
+				  // Error!
+				  error: function(xhr, status, error) {
+					  // Boil the ASP.NET AJAX error down to a true JSON object.
+					  try{
+					  var err = eval('(' + xhr.responseText + ')');
+					  returnMsg = "\nSending the E-mail Failed With The Following Error:\n\n" + err.Message // + "\n\n" + "Stack Trace: " + err.StackTrace
+					  }
+					  //If JSON oject can't be created due to a malformed response, just show raw html responseText
+					  catch(error) {
+					  var err = xhr.responseText;
+					  returnMsg = "\nSending the E-mail Failed With The Following Error:\n\n" + err // + "\n\n" + "Stack Trace: " + err.StackTrace
+					  }
+					 
+					  // Display the specific error raised by the server (e.g. database
+					  //   error, timeout, bad argument).
+					  setCaptivateVariable("returnMessage", returnMsg); 
+					  
+					  //Go to next slide to show returnMsg
+					  gotoNextSlide();
+					  
+					  //set isError flag
+					  isError = 1;
+					  
+					  //Do Countdown before trying again to resubmit results
+					  countDown(i);
+
+					}
+				});
+				
+			}			
+			
+			
+			function pauseCaptivate()
+			{
+				//Pause Captivate
+				setCaptivateVariable("rdcmndResume", 0);
+				setCaptivateVariable("rdcmndPause", 1);
+			}
+			
+			
+			function countDown(i)
+			{ 
+				//Check if there was an error
+				if(isError ==1)
+					{ 
+					  setCaptivateVariable("returnMessage", returnMsg + "\n\nResending results in:\n" + i + " Seconds.");
+					  if (i > 0)
+					  {
+						setTimeout("countDown(i)", (1000)); //call this function recursively to countdown by 1 sec
+						dec_i(); //Decrement i outside of function since it's a global variable
+					  }
+					  else
+					  {
+						reSubmit();
+						return; //Get out of dodge!
+					  }
+					}
+			
+			}
+			
+			
+			function dec_i() //Decrement i
+			{
+				--i;
+			}
+			
+			
+			function reSubmit()
+			{
+			
+				//Resume Movie and move to previous slide to show the Loading Screen
+				setCaptivateVariable("rdcmndResume", 1);
+				setCaptivateVariable("rdcmndPause", 0);
+				setCaptivateVariable("rdcmndPrevious", 1);
+				
+				//Reset Error messages and vars
+				isError = 0;
+				blnEmail = 0;
+				returnMsg = "";
+				i = _i; // reinitialize counter for countdown			
+				
+				//Reset Captivate Messages
+				setCaptivateVariable("returnMessage", "");	
+
+				//Resubmit Quiz Data
+				Finish(1);
+			}
+			
+			
+			function gotoNextSlide()
+			{
+				//Resume Movie and move to next slide to show the return message
+				setCaptivateVariable("rdcmndResume", 1);
+				setCaptivateVariable("rdcmndPause", 0);
+				setCaptivateVariable("cpCmndNext", 1);			
+			}
+			
+			
+			function getURLParam(name)
+			{
+			  name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+			  var regexS = "[\\?&]"+name+"=([^&#]*)";
+			  var regex = new RegExp( regexS );
+			  var results = regex.exec( strURLParams); //window.location.href );
+			  if( results == null )
+				return "";
+			  else
+				return results[1];
+			}
+			
+			//The calling function from Captivate must not return a value
+			//or the value will be displayed in the web page
+			function sendResults(bolEmail) // This funciton does not return a value, unlike the Finish(); funciton
+			{
+				Finish(bolEmail);
+			}
+			
+			
+			// AEC: Custom tracking functions - Begin
+			function sendTrackingDataToLMS()
+			{
+				if ((isAPI()) && (g_bFinishDone == false))
+				{
+					if (intLMSScoreMax < 100)
+					{
+						intLMSScorePercent = (intLMSScoreRaw / intLMSScoreMax) * 100
+					} else {
+						intLMSScorePercent = intLMSScoreRaw;
+					}
+					// AEC: It's possible to override the status based on score, status, etc - this file does NOT intepret or override the status/score
+
+					// AEC: Here you'd send the data to your ASP or other tracking mechanism
+					
+					//JBL:  Send quiz results to database
+					//Change the line below to sendHTMLEmail(); if you want to ONLY send an email
+					PostData();	
+
+				}
+			}
+			// AEC: Custom tracking functions - End
+
+			
+			function Finish(boolEmail) //if boolEmail = 1, then submit button was clicked and we send an email
+			{
+				if ((isAPI()) && (g_bFinishDone == false))
+				{
+					// AEC: Custom tracking override - Begin
+					// JBL: Check if Captivate submit button was click and no errors
+					if ((boolEmail == 1) && (isError == 0))
+					{
+						blnEmail = 1; //send an email
+						sendTrackingDataToLMS();
+						g_bFinishDone = true;
+						// AEC: Custom tracking override - End
+					}
+					else //submit button was not clicked.  Learner exited the course
+					{
+						blnEmail = 0; //Do not send email since learner did not finish course
+						sendTrackingDataToLMS();
+						g_bFinishDone = true;					
+					}
+				}
+				return (g_bFinishDone + "" ) // Force type to string
+			}
+
+			if(g_intAPIType==0)
+			{
+
+				// Handle fscommand messages from a Flash movie
+				function Captivate_DoFSCommand(command, args)
+				{
+
+					var strFSArgs = new String(args);
+					var strFSCmd = new String(command);
+					var strErr = "true";
+					var strFSArg1, strFSArg2, strFSArg3
+					var intFSDelimiter = strFSArgs.indexOf("|");
+					if (intFSDelimiter > -1)
+					{
+						strFSArg1 = strFSArgs.substr(0, intFSDelimiter); 	// Name of data element to get from API
+						var strFSTemp = strFSArgs.substr(intFSDelimiter + 1);
+						intFSDelimiter = strFSTemp.indexOf("|");
+						if(intFSDelimiter > -1)
+						{
+							strFSArg2 = strFSTemp.substr(0, intFSDelimiter);	// Value
+							strFSArg3 = strFSTemp.substr(intFSDelimiter + 1);	// Variable
+						} else {
+							strFSArg2 = strFSTemp;
+						}
+					} else {
+						strFSArg1 = strFSArgs;
+					}
+
+					// do nothing, if SCORM API is not available
+					if (!isAPI()) return;
+
+					if ( strFSCmd == "LMSInitialize" || strFSCmd=="Initialize")
+					{
+						// AEC: Custom tracking override - Begin
+						CaptivateObj.SetVariable(strFSArg3, 'true');
+						// AEC: Custom tracking override - End
+					} else if ( strFSCmd == "LMSSetValue" || strFSCmd=="SetValue") {
+						// AEC: Custom tracking override - Begin
+						if(strFSArg1.indexOf("raw") > -1)
+						{
+							intLMSScoreRaw = strFSArg2;
+						} else if (strFSArg1.indexOf("max") > -1) {
+							intLMSScoreMax = strFSArg2;
+						} else if (strFSArg1.indexOf("min") > -1) {
+							intLMSScoreMin = strFSArg2;
+						} else if (strFSArg1.indexOf("lesson_status") > -1) {
+							strLMSStatus = strFSArg2;
+						} else if (strFSArg1.indexOf("lesson_location") > -1) {
+							strLMSLocation = strFSArg2;
+						} else if (strFSArg1.indexOf("suspend_data") > -1) {
+							strLMSSuspendData = strFSArg2;
+						} else if (strFSArg1.indexOf("session_time") > -1) {
+							strLMSTime = strFSArg2;
+						}
+						if (strFSArg1.indexOf('cmi.interactions') > -1)
+						{
+							if (strFSArg1.indexOf('id') > -1)
+							{
+								intTemp = lstInteractions.length;
+								lstInteractions[intTemp] = "";
+								lstInteractions[intTemp] = "id = " + strFSArg2;
+							} else {
+								intTemp = lstInteractions.length - 1;
+								strTemp = strFSArg1.substring(strFSArg1.lastIndexOf('.') + 1);
+								lstInteractions[intTemp] += "; " + strTemp + " = " + strFSArg2;
+							}
+						}
+						strErr = "";
+						// AEC: Custom tracking override - End
+						
+						CaptivateObj.SetVariable(strFSArg3, strErr);
+						
+					} else if ( strFSCmd == "LMSFinish" || strFSCmd=="Terminate") {
+						// AEC: Custom tracking override - Begin
+						g_bFinishDone = Finish(0);
+						// AEC: Custom tracking override - End
+						strErr = g_bFinishDone;
+						CaptivateObj.SetVariable(strFSArg3, g_bFinishDone);
+					} else if ( strFSCmd == "LMSCommit" || strFSCmd=="Commit") {
+						// AEC: Custom tracking override - Begin
+						strErr = 'true';
+						// AEC: Custom tracking override - End
+						CaptivateObj.SetVariable(strFSArg3, strErr);
+					} else if ((strFSArg2) && (strFSArg2.length > 0)) {
+						if(strFSCmd=="LMSGetLastError")
+						{
+							// AEC: Custom tracking override - Begin
+							strErr = 0;
+							// AEC: Custom tracking override - End
+							CaptivateObj.SetVariable(strFSArg3, strErr);
+						} else {
+							// AEC: Custom tracking override - Begin
+							if(strFSArg1.indexOf('cmi.core._children') > -1)
+							{
+								strErr = 'student_id,student_name,lesson_location,credit,lesson_status,entry,score,total_time,lesson_mode,exit,session_time';
+							} else if (strFSArg1.indexOf('cmi.core.score._children') > -1) {
+								strErr = 'raw,min,max';
+							} else if (strFSArg1.indexOf('cmi.interactions._children') > -1) {
+								strErr = 'id,objectives,time,type,correct_responses,weighting,student_response,result,latency';
+							} else if (strFSArg1.indexOf('_count') > -1) {
+								strErr = 0;
+							} else if (strFSArg1.indexOf("suspend_data") > -1) {
+								// Suspend Data is, currently, the only real meaningful data
+								// JBL: Make your AJAX jQuery function call to retrieve
+								// the SuspendData from the db and set it to strErr
+								strErr = suspendData;
+								//alert("Captivate_DoFSCommand_strFSArg3: " + strFSArg3 + "\r\nstrErr: " + strErr);
+							} else {
+								strErr = "";
+							}
+							if(strFSArg1.indexOf('mastery') > -1)
+							{
+								intLMSScoreMastery = strErr;
+							}
+							// AEC: Custom tracking override - End
+							CaptivateObj.SetVariable(strFSArg3, strErr);
+						}
+					} else if (strFSCmd.substring(0,3) == "LMSGet") {
+						strErr = "-2: No Flash variable specified"
+					}
+
+					return strErr;
+				}
+				function Captivate_DoExternalInterface(command, parameter, value, variable)
+				{
+					//alert("command: " + command + "\r\nparameter: " +parameter+ "\r\nvalue: " + value + "\r\nvariable: " + variable );
+					//var strFSArgs = new String(args);
+					var strFSCmd = new String(command);
+					var strErr = "true";
+
+					var strFSArg1, strFSArg2, strFSArg3;
+
+					strFSArg1 = parameter;
+					strFSArg2 = value;
+					strFSArg3 = variable;
+					/*var intFSDelimiter = strFSArgs.indexOf("|");
+					if (intFSDelimiter > -1)
+					{
+						strFSArg1 = strFSArgs.substr(0, intFSDelimiter); 	// Name of data element to get from API
+						var strFSTemp = strFSArgs.substr(intFSDelimiter + 1);
+						intFSDelimiter = strFSTemp.indexOf("|");
+						if(intFSDelimiter > -1)
+						{
+							strFSArg2 = strFSTemp.substr(0, intFSDelimiter);	// Value
+							strFSArg3 = strFSTemp.substr(intFSDelimiter + 1);	// Variable
+						} else {
+							strFSArg2 = strFSTemp;
+						}
+					} else {
+						strFSArg1 = strFSArgs;
+					}*/
+
+					// do nothing, if SCORM API is not available
+					if (!isAPI()) 
+					{
+						return;
+					}
+
+					if ( strFSCmd == "LMSInitialize" || strFSCmd=="Initialize")
+					{
+						// AEC: Custom tracking override - Begin
+						CaptivateObj.SetScormVariable(strFSArg3,'true');
+						// AEC: Custom tracking override - End
+
+					} else if ( strFSCmd == "LMSSetValue" || strFSCmd=="SetValue") {
+						// AEC: Custom tracking override - Begin
+						if(strFSArg1.indexOf("raw") > -1)
+						{
+							intLMSScoreRaw = strFSArg2;
+						} else if (strFSArg1.indexOf("max") > -1) {
+							intLMSScoreMax = strFSArg2;
+						} else if (strFSArg1.indexOf("min") > -1) {
+							intLMSScoreMin = strFSArg2;
+						} else if (strFSArg1.indexOf("lesson_status") > -1) {
+							strLMSStatus = strFSArg2;
+						} else if (strFSArg1.indexOf("lesson_location") > -1) {
+							strLMSLocation = strFSArg2;
+						} else if (strFSArg1.indexOf("suspend_data") > -1) {
+							strLMSSuspendData = strFSArg2;
+						} else if (strFSArg1.indexOf("session_time") > -1) {
+							strLMSTime = strFSArg2;
+						}
+						if (strFSArg1.indexOf('cmi.interactions') > -1)
+						{
+							if (strFSArg1.indexOf('id') > -1)
+							{
+								intTemp = lstInteractions.length;
+								lstInteractions[intTemp] = "";
+								lstInteractions[intTemp] = "id = " + strFSArg2;
+							} else {
+								intTemp = lstInteractions.length - 1;
+								strTemp = strFSArg1.substring(strFSArg1.lastIndexOf('.') + 1);
+								lstInteractions[intTemp] += "; " + strTemp + " = " + strFSArg2;
+							}
+						}
+						strErr = "";
+						// AEC: Custom tracking override - End
+
+						CaptivateObj.SetScormVariable(strFSArg3, strErr);
+
+					} else if ( strFSCmd == "LMSFinish" || strFSCmd=="Terminate") {
+						// AEC: Custom tracking override - Begin
+						g_bFinishDone = Finish(0);
+						// AEC: Custom tracking override - End
+						strErr = g_bFinishDone;
+						CaptivateObj.SetScormVariable(strFSArg3, g_bFinishDone);
+
+					} else if ( strFSCmd == "LMSCommit" || strFSCmd=="Commit") {
+						// AEC: Custom tracking override - Begin
+						strErr = 'true';
+						// AEC: Custom tracking override - End
+						CaptivateObj.SetScormVariable(strFSArg3, strErr);
+
+					} else if ((strFSArg2) && (strFSArg2.length > 0)) {
+						if(strFSCmd=="LMSGetLastError")
+						{
+							// AEC: Custom tracking override - Begin
+							strErr = 0;
+							// AEC: Custom tracking override - End
+							CaptivateObj.SetScormVariable(strFSArg3, strErr);
+
+						} else {
+							// AEC: Custom tracking override - Begin
+							if(strFSArg1.indexOf('cmi.core._children') > -1)
+							{
+								strErr = 'student_id,student_name,lesson_location,credit,lesson_status,entry,score,total_time,lesson_mode,exit,session_time';
+							} else if (strFSArg1.indexOf('cmi.core.score._children') > -1) {
+								strErr = 'raw,min,max';
+							} else if (strFSArg1.indexOf('cmi.interactions._children') > -1) {
+								strErr = 'id,objectives,time,type,correct_responses,weighting,student_response,result,latency';
+							} else if (strFSArg1.indexOf('_count') > -1) {
+								strErr = 0;
+							} else if (strFSArg1.indexOf("suspend_data") > -1) {
+								// Suspend Data is, currently, the only real meaningful data
+								// JBL: Make your AJAX jQuery function call to retrieve
+								// the SuspendData from the db and set it to strErr
+								strErr = suspendData;
+								//alert("Captivate_DoExternalInterface_suspendData: " + suspendData + "\r\nstrErr: " + strErr);
+							} else {
+								strErr = "";
+							}
+							if(strFSArg1.indexOf('mastery') > -1)
+							{
+								intLMSScoreMastery = strErr;
+							}
+							// AEC: Custom tracking override - End
+
+							CaptivateObj.SetScormVariable(strFSArg3, strErr);
+
+						}
+					} else if (strFSCmd.substring(0,3) == "LMSGet") {
+						strErr = "-2: No Flash variable specified"
+					}
+
+					return strErr;
+				}
+			}
+
+		</script>		
+	</head>
+	<body @IsRightClickFunctionalityRequired bgcolor="@SKINCOLOR">
+	    <center>
+		<div id="CaptivateContent">&nbsp;
+		</div>
+		<layer id="NS_dynamic" name="NS_dynamic">
+		<script type="text/javascript">
+				var tempso = new SWFObject("SCORM_support/scorm_support.swf", "scorm_support", "2", "2", "@FlashPlayerVersion", "#CCCCCC");
+				tempso .addParam("quality", "high");
+				tempso .addParam("id", "scorm_support");
+				tempso .addParam("bgcolor","#FFFFFF");
+				tempso .addParam("menu", "false");
+				tempso .addParam("movie", "SCORM_support/scorm_support.swf");
+				tempso .setAttribute("redirectUrl", "http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash");
+		</script>
+		<noscript>
+			<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+				codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,29,0"
+				width="2" height="2" id="scorm_support" align="">
+				<param name=movie value="SCORM_support/scorm_support.swf"> <param name=quality value=high> <param name=menu value=false> <param name=bgcolor value=#FFFFFF>
+				<embed src="SCORM_support/scorm_support.swf" quality=high bgcolor=#FFFFFF  width="2" height="2" name="scorm_support" align=""
+					type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflashplayer">
+				</embed>
+			</object>
+		</noscript>
+		</layer>
+		<script type="text/javascript" language="JavaScript">
+			// AEC: Custom tracking override - Begin
+			//strURLParams += (strURLParams==""?"?":"&") + "SCORM_API=0.2&SCORM_TYPE=" + g_intAPIType;
+			strURLParams = "?SCORM_API=0.2&SCORM_TYPE=" + g_intAPIType;
+			//alert("End: " + strSCORMParams);
+			// AEC: Custom tracking override - End
+
+			document.write('<center>');
+			document.write('<table border="0" cellpadding="7" cellspacing="7"> \n');
+			document.write('  <tr>  \n');
+			document.write('    <td align="middle">');
+
+			var so = new SWFObject(strURLFile + strURLParams, "Captivate", "@MOVIEWIDTH", "@MOVIEHEIGHT", "@FlashPlayerVersion", "#CCCCCC");
+				so.addParam("quality", "high");
+				so.addParam("name", "Captivate");
+				so.addParam("id", "Captivate");
+				so.addParam("wmode", "@WMODEVALUE");
+				so.addParam("bgcolor","@SKINCOLOR");
+				so.addParam("menu", "false");
+				so.addVariable("variable1", "value1");
+				so.setAttribute("redirectUrl", "http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash");
+				so.write("CaptivateContent");
+
+			document.write('</td> \n');
+			document.write('  </tr> \n');
+			document.write('</table> \n');
+			document.write('</center>');
+		</script>
+		<script type="text/javascript">
+			document.getElementById('Captivate').focus();
+			document.Captivate.focus();			
+		</script>
+
+		</center>
+	</body>
+</html>

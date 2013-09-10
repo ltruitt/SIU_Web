@@ -1,0 +1,40 @@
+﻿
+> %windir%\system32\inetsrv\appcmd unlock config /section:anonymousAuthentication
+> %windir%\system32\inetsrv\appcmd unlock config /section:windowsAuthentication
+
+
+
+
+ASP.Net Config Error: "This configuration section cannot be used at this path."
+
+17Feb10 
+
+
+I recently setup an ASP.Net 3.5 web application on a new Windows 2008 R2 server with IIS 7 and ran into a few issues.  I will post about them all under the tag: “asp.net 3.5 with iis 7“.
+ 
+After setting up the file system and creating the application, I tried to load the default document in a browser and got:
+ 
+HTTP Error 500.19 – Internal Server Error
+ 
+The requested page cannot be accessed because the related configuration data for the page is invalid.
+ 
+Module IIS Web Core
+ 
+Notification BeginRequest
+ 
+Handler Not yet determined
+ 
+Error Code 0×80070021
+ 
+Config Error This configuration section cannot be used at this path. This happens when the section is locked at a parent level. Locking is either by default (overrideModeDefault=”Deny”), or set explicitly by a location tag with overrideMode=”Deny” or the legacy allowOverride=”false”.
+ 
+Module IIS Web Core Notification BeginRequest Handler Not yet determined Error Code 0×80070021 Config Error This configuration section cannot be used at this path. This happens when the section is locked at a parent level. Locking is either by default (overrideModeDefault=”Deny”), or set explicitly by a location tag with overrideMode=”Deny” or the legacy allowOverride=”false”.
+ 
+The solution was to make a change in the applicationHost.config file.
+ 1.Browse to “C:\Windows\System32\inetsrv\config” (you will need administrator rights here)
+ 2.Open applicationHost.config
+ 3.Find the section that showed up in the “config source” part of the error message page.  For me this has typically been “modules” or “handlers”
+ 4.Change the overrideModeDefault attribute to be “Allow”
+ 5.So the whole line now looks like:
+ <section name="modules" allowDefinition="MachineToApplication" overrideModeDefault="Allow" /> 
+After saving the file, the page loaded up fine in my browser.

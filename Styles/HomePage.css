@@ -1,0 +1,90 @@
+﻿
+
+	
+	
+	
+    ul#slider, ul#slider li {
+        width: 300px;
+        height: 200px;
+        list-style: none;
+        border: none;
+        position: relative;
+    }
+        
+    ul#BlogSlider, ul#BlogSlider li 
+    {
+        border: none;
+        margin-left: 0px;
+        width: 100%;
+        height: 200px;
+        list-style: none;
+        border: none;
+        position: relative;
+        padding-left: 0px;
+        color: black;
+    }
+        
+    .SliderText {
+            position:absolute;
+            top:2px; /* in conjunction with left property, decides the text position */
+            left:2px;
+            width:300px; /* optional, though better have one */
+            font-size: 1.0em;
+            font-weight: bold;
+            margin-top: 0px;
+            color: white;
+            padding-top: 0px;
+    } 
+                
+    .BlogText {
+            position:absolute;
+            top:0px; /* in conjunction with left property, decides the text position */
+            left:2px;
+            width:300px; /* optional, though better have one */
+            margin-top: 0px;
+            padding-top: 0px;
+    } 
+        
+        .HomeBlogSliderTheme {
+            color: black;
+        }
+        
+    .anythingSlider-default .anythingControls ul li { border-bottom: none;} 
+    .anythingSlider-default {
+         padding: 20px; 
+         padding-top: 0px;
+         margin-left: 0px;
+         margin-right: 0px;
+    } 
+        
+    .anythingSlider-default .arrow a {
+	    display: block;
+	    width: 45px;
+	    height: 95px;
+	    margin: -47.5px 0 0 0; /* half height of image */
+	    text-align: center;
+	    outline: 0;
+	    background: url(/images/arrows-metallic.png) no-repeat;
+    }    
+        
+    /* back arrow */
+    .anythingSlider-default .back { left: -3px; }
+    .anythingSlider-default .back a { background-position: left bottom; }
+    .anythingSlider-default .back a:hover,
+    .anythingSlider-default .back a.hover { background-position: left top; }
+        
+    /* forward arrow */
+    .anythingSlider-default .forward { right: -3px; }
+    .anythingSlider-default .forward a { background-position: right bottom; }
+    .anythingSlider-default .forward a:hover,
+    .anythingSlider-default .forward a.hover { background-position: right top; }          
+
+
+
+
+
+
+
+
+
+

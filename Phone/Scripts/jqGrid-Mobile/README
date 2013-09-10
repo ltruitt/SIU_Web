@@ -1,0 +1,64 @@
+The main difference between our standard jqGrid offering and jqGrid.Mobile 
+is that the latter is focused exclusively on mobile devices and jQuery.Mobile. 
+
+With jqSuite we have already achieved very high levels of compatibility for 
+almost all touch based devices - Android, iOS, Win7/8 Mobile. 
+However, jqGrid.Mobile brings that a few steps further and provides a new 
+interface with larges icons and text built for mobile touch devices 
+accessibility and consistent with the themes of jQuery.Mobile. 
+
+Many additional touch based events and actions are supported and in 
+addition to that, it provides a base that we will further enhance as 
+jQuery.Mobile and touch devices in general evolve.
+
+The main advantage is that the grid created with standard jqGrid
+JavaScript library can work without problems with the jQuery Mobile
+version without to change any code.
+
+In addition to the standard version there are some options that 
+make our life easy with the developing of mobile applications 
+
+Below are the additional options that are valid only in the
+Mobile version:
+
+
+iScroll - object. Default { bounce:false }
+
+	Options are:
+
+    hScroll, used to disable the horizontal scrolling no matter what. By default you can pan both horizontally and vertically, by setting this parameter to false you may prevent horizontal scroll even if contents exceed the wrapper.
+    vScroll, same as above for vertical scroll.
+    hScrollbar, set this to false to prevent the horizontal scrollbar to appear.
+    vScrollbar, same as above for vertical scrollbar.
+    fixedScrollbar, on iOS the scrollbar shrinks when you drag over the scroller boundaries. Setting this to true prevents the scrollbar to move outside the visible area (as per Android). Default: true on Android, false on iOS.
+    fadeScrollbar, set to false to have the scrollbars just disappear without the fade effect.
+    hideScrollbar, the scrollbars fade away when there’s no user interaction. You may want to have them always visible. Default: true.
+    bounce, enable/disable bouncing outside of the boundaries. Default: true.
+    momentum, enable/disable inertia. Default: true. Useful if you want to save resources.
+    lockDirection, when you start dragging on one axis the other is locked and you can keep dragging only in two directions (up/down or left/right). You may remove the direction locking by setting this parameter to false.
+	zoom, By setting the zoom option to true the scroller reacts to pinch/zoom gestures. Double tap to zoom in/out is also supported
+	zoomMax, this is the maximum allowed scale. Defaulted to 4, it means 4 times the original size
+
+scrollPaging - boolean. Default false.
+If set to tru enable virtual scrolling of the page.
+Note that in this case the grid load only one page when scrolling.
+This feature is also known as Pull to refresh
+
+dataTheme  - string. Default "b".
+Defines the data theme used in the mobile page.
+If not set the script first try to find the active theme in the page.
+If the script can not determine the theme it is set to "b"
+
+refreshContent - boolean default  false.
+If set to true the data content of the newly loaded data is refreshed with the
+.trigger("create"). This usefull if the data contain a jquery mobile data
+definition and it should be applied to the new data when loaded with ajax.
+For more information refer to jQuery Mobile documentation
+
+
+
+
+
+
+jqGrid.Mobile Javascript can be used with all server-side technologies 
+like PHP, ASP.NET, Java, Ruby on Rails, Python, etc. 

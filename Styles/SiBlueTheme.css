@@ -1,0 +1,140 @@
+﻿html {
+	background:         #45473f;	/*  background: color for entire page,  obscures body background   */
+    background:         white;
+}
+
+
+
+#SiteWrapper {
+    background-color:   transparent;
+  	border-left:        0px solid #D4C37B;	    /*  background: color for #sidebar  */
+  	border-right:       0px solid #D4C37B;  	/*  background: color for #aside    */
+}
+
+
+
+#header
+{
+  	background:         #7f9db9;
+}
+
+#footer {
+    background: #DCDCDC;
+}
+
+
+
+#HomeWrapper {
+  	background-color:   white;			        /*  background: Color For #main     */
+  	border-left-color: white;
+}
+
+
+
+
+
+.TitleRectangle
+{
+    /*background:         rgb(29, 65, 152);*/
+    /*background:         rgba(29, 65, 152, 1);*/
+	/*color:              white;*/
+	/*-moz-box-shadow:    0px 0px 4px rgb(0,0,0);
+ 	-khtml-box-shadow:  0px 0px 4px rgb(0,0,0);
+ 	-webkit-box-shadow: 0px 0px 4px rgb(0,0,0);
+ 		
+	-moz-box-shadow:    0px 0px 4px rgba(0,0,0,0.55);
+ 	-khtml-box-shadow:  0px 0px 4px rgba(0,0,0,0.55);
+ 	-webkit-box-shadow: 0px 0px 4px rgba(0,0,0,0.55);*/
+ 	background-color: #fff;
+}
+
+.TitleRectangle h2 {
+	/*color:          #fff;*/
+	color: rgb(29, 65, 152);
+	text-shadow:    1px 1px 2px rgb(0,0,0);
+	text-shadow:    1px 1px 2px rgba(0,0,0,3.2);
+}
+
+
+.Development{
+    background:         red;
+}
+
+
+
+.SideBar-Box 
+{
+    background:             whitesmoke;
+    background:             transparent;
+	color: blue; 
+	font-weight: bold;
+}
+
+
+
+.SideBarBox div
+{
+    color:                  #7f9db9;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.LibGallery 
+{
+	border-color:           #c6ac6c;
+    border-top-color:       #c6ac6c;
+    border-bottom-color:    #c6ac6c;
+    background:             transparent;
+}
+
+
+
+.LibGallery-triangle-l {
+	border-color:           transparent #c6ac6c transparent transparent;
+}
+
+
+
+.LibGallery-triangle-r {
+	border-color:           transparent transparent transparent #c6ac6c;
+}
+
+
+
+.LibGallery-head
+{
+    background-color:       #c6ac6c;
+    color:                  black;
+    border-bottom-color:    black;
+}
+
+.LibGallery a {
+    background-color:       transparent;
+    color:                  blue;
+} 
+
+
+.LibGallery ul {
+    background-color:       #c6ac6c;
+    background-color:       #eaf5e7;
+    background-color:       #E6F5FA;
+    xbackground-color: black;
+    background-image: url('/Images/bgLtBlue.png');
+    
+} 
+
+
+.LibGallery ul li a
+{
+    color:              blue;
+} 
+

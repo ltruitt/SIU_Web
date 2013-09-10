@@ -1,0 +1,246 @@
+﻿#UsefulLinksWrapper {
+/*	zoom: 1;  */
+/*  	background-color: #ffe3a6;			/*  background: Color For #main     */
+    background-color:	transparent;
+  	border-left: 0px solid #D4C37B;	    /*  background: color for #sidebar  */
+  	border-right: 0px solid #D4C37B;	/*  background: color for #aside    */
+}
+
+
+
+.cell {	width:				49%; 
+		margin-left: 		5px;
+		position: 			relative;
+		float: 				left; 
+		background-color:	transparent;		
+}
+
+
+.cell .box {
+	background: 			#ffe3a6;
+	width: 					90%;
+	height: 				88%;
+	margin: 				5px;
+	padding: 				15px;
+	border: 				11px solid #c6ac6c;
+	position: 				relative;
+	-moz-border-radius: 	32px;
+	-webkit-border-radius: 	32px;
+	border-radius: 			32px;
+	-moz-box-shadow: 		10px 10px 10px #000;
+	-webkit-box-shadow: 	10px 10px 10px #000;
+	box-shadow: 			10px 10px 10px #000;
+	z-index: 				2;
+/*	behavior: 				url(ie-css3.htc);   */
+}
+
+.cell .box div {
+	position: 		absolute;
+	bottom: 		10px;
+	left: 			0px;
+	width: 			100%;
+	text-align: 	center;
+	font-weight: 	bold;
+	font-size: 		13pt;
+	color: 			#ffd550;
+	_bottom: 		21px; /* IE6 */
+	_width: 		108%; /* IE6 */
+}
+
+.cell .title {
+	font-family:	"Arial","sans-serif"; 
+	font-size: 		.9em;
+	font-weight:	bold;
+}
+
+.cell .contact {
+	font-style:		italic;
+}
+
+
+/* Auto Generated Styles By Blend */
+
+.auto-style1 {	color: black;           font-size: 11.0pt;      font-weight: 700;                   font-style: normal;     text-decoration: none;  font-family: Calibri, sans-serif;   text-align: general;
+	            vertical-align: bottom;   white-space: nowrap;    border: .5pt solid windowtext;    padding-left: 1px;      padding-right: 1px;     padding-top: 1px;
+}
+
+.auto-style2 {  color: black;	          font-size: 11.0pt;      font-weight: 400;	                  font-style: normal;     text-decoration: none;  font-family: Calibri, sans-serif;	  text-align: general;
+	           vertical-align: bottom;	  white-space: nowrap;	  
+	           border-left: .5pt solid windowtext;      border-right: .5pt solid windowtext;    
+	           border-top-style: none;                    border-top-color: inherit;    border-top-width: medium;
+	           border-bottom: .5pt solid windowtext;	
+	           padding-left: 1px;	      padding-right: 1px;	  padding-top: 1px;
+}
+
+.auto-style3 { color: blue;       font-size: 11.0pt;        font-weight: 400;     font-style: normal;      font-weight: bold;    
+	           text-align: general;  vertical-align: bottom;  white-space: nowrap;  text-decoration: underline;
+	           padding-left: 1px;    padding-right: 1px;      padding-top: 1px;     font-family: Calibri, sans-serif;
+	           
+	            border-left: .5pt solid windowtext;  border-right: .5pt solid windowtext;
+	            
+	            border-top-style: none;
+	            border-top-color: inherit;
+	            border-top-width: medium;
+	            border-bottom: .5pt solid windowtext;
+}
+
+
+.auto-style5 { color: blue;        font-size: 11.0pt;       font-weight: 400;     font-style: normal;       font-weight: bold;    
+	           text-align: general;	 vertical-align: bottom;  white-space: nowrap;  text-decoration: underline;
+	           padding-left: 1px;    padding-right: 1px;      padding-top: 1px;     font-family: Calibri, sans-serif;
+	           
+	           
+	           border-left: .5pt solid windowtext;  border-right: .5pt solid windowtext;
+	           border-top: .5pt solid windowtext;   border-bottom: 1.0pt solid windowtext;
+	           
+}
+
+
+.auto-style4 {
+	color: black;
+	font-size: 11.0pt;
+	font-weight: 400;
+	font-style: normal;
+	text-decoration: none;
+	font-family: Calibri, sans-serif;
+	text-align: general;
+	vertical-align: bottom;
+	white-space: nowrap;
+	border-left: .5pt solid windowtext;
+	border-right: .5pt solid windowtext;
+	border-top: .5pt solid windowtext;
+	border-bottom: 1.0pt solid windowtext;
+	padding-left: 1px;
+	padding-right: 1px;
+	padding-top: 1px;
+}
+
+
+
+
+
+.auto-style6 {
+	color: black;
+	font-size: 11.0pt;
+	font-weight: 400;
+	font-style: normal;
+	text-decoration: none;
+	font-family: Calibri, sans-serif;
+	text-align: general;
+	vertical-align: bottom;
+	white-space: nowrap;
+	border: .5pt solid windowtext;
+	padding-left: 1px;
+	padding-right: 1px;
+	padding-top: 1px;
+}
+.auto-style7 {
+	color: blue;
+	font-size: 11.0pt;
+	font-weight: 400;
+	font-style: normal;
+	text-decoration: underline;
+	font-family: Calibri, sans-serif;
+	text-align: general;
+	vertical-align: bottom;
+	white-space: nowrap;
+	border: .5pt solid windowtext;
+	padding-left: 1px;
+	padding-right: 1px;
+	padding-top: 1px;
+}
+.auto-style8 {
+	color: black;
+	font-size: 11.0pt;
+	font-weight: 400;
+	font-style: normal;
+	text-decoration: none;
+	font-family: Calibri, sans-serif;
+	text-align: general;
+	vertical-align: bottom;
+	white-space: nowrap;
+	border-left: .5pt solid windowtext;
+	border-right: .5pt solid windowtext;
+	border-top: 1.0pt solid windowtext;
+	border-bottom: .5pt solid windowtext;
+	padding-left: 1px;
+	padding-right: 1px;
+	padding-top: 1px;
+}
+.auto-style9 {
+	color: blue;
+	font-size: 11.0pt;
+	font-weight: 400;
+	font-style: normal;
+	text-decoration: underline;
+	font-family: Calibri, sans-serif;
+	text-align: general;
+	vertical-align: bottom;
+	white-space: nowrap;
+	border-left: .5pt solid windowtext;
+	border-right: .5pt solid windowtext;
+	border-top: 1.0pt solid windowtext;
+	border-bottom: .5pt solid windowtext;
+	padding-left: 1px;
+	padding-right: 1px;
+	padding-top: 1px;
+}
+.auto-style10 {
+	color: blue;
+	font-size: 11.0pt;
+	font-weight: 400;
+	font-style: normal;
+	text-decoration: none;
+	font-family: Calibri, sans-serif;
+	text-align: general;
+	vertical-align: bottom;
+	white-space: nowrap;
+	border-left: .5pt solid windowtext;
+	border-right: .5pt solid windowtext;
+	border-top: 1.0pt solid windowtext;
+	border-bottom: .5pt solid windowtext;
+	padding-left: 1px;
+	padding-right: 1px;
+	padding-top: 1px;
+}
+.auto-style11 {
+	color: black;
+	font-size: 11.0pt;
+	font-weight: 400;
+	font-style: normal;
+	text-decoration: none;
+	font-family: Calibri, sans-serif;
+	text-align: general;
+	vertical-align: bottom;
+	white-space: nowrap;
+	border-left: .5pt solid windowtext;
+	border-right: .5pt solid windowtext;
+	border-top-style: none;
+	border-top-color: inherit;
+	border-top-width: medium;
+	border-bottom: 1.0pt solid windowtext;
+	padding-left: 1px;
+	padding-right: 1px;
+	padding-top: 1px;
+}
+.auto-style12 {
+	color: blue;
+	font-size: 11.0pt;
+	font-weight: 400;
+	font-style: normal;
+	text-decoration: underline;
+	font-family: Calibri, sans-serif;
+	text-align: general;
+	vertical-align: bottom;
+	white-space: nowrap;
+	border-left: .5pt solid windowtext;
+	border-right: .5pt solid windowtext;
+	border-top-style: none;
+	border-top-color: inherit;
+	border-top-width: medium;
+	border-bottom: 1.0pt solid windowtext;
+	padding-left: 1px;
+	padding-right: 1px;
+	padding-top: 1px;
+}
+

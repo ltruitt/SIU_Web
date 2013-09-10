@@ -1,0 +1,1529 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="DataSource" Class="SIU_ORM_LINQDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=si-itdev02.shermco.ind;User ID=truittjl2" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="DataSourceConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Shermco$Job" Member="Shermco_Jobs">
+    <Type Name="Shermco_Job">
+      <Column Name="timestamp" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
+      <Column Name="No_" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="[Search Description]" Member="Search_Description" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="[Description 2]" Member="Description_2" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="[Bill-to Customer No_]" Member="Bill_to_Customer_No_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Creation Date]" Member="Creation_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Starting Date]" Member="Starting_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Ending Date]" Member="Ending_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Completion Date]" Member="Completion_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Job Posting Date]" Member="Job_Posting_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Recognition Date]" Member="Recognition_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Completion %]" Member="Completion__" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Person Responsible]" Member="Person_Responsible" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Global Dimension 1 Code]" Member="Global_Dimension_1_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Global Dimension 2 Code]" Member="Global_Dimension_2_Code" Type="System.String" DbType="VarChar(5) NOT NULL" CanBeNull="false" />
+      <Column Name="[Job Posting Group]" Member="Job_Posting_Group" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Blocked" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Recognition Method]" Member="Recognition_Method" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Last Date Modified]" Member="Last_Date_Modified" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Application Method]" Member="Application_Method" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Job Usage Posting]" Member="Job_Usage_Posting" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[No_ Series]" Member="No__Series" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Ship-to Code]" Member="Ship_to_Code" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Physical Address]" Member="Physical_Address" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Physical Address 2]" Member="Physical_Address_2" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Physical City]" Member="Physical_City" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Physical State]" Member="Physical_State" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Physical Zip Code]" Member="Physical_Zip_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Reporting Not Necessary]" Member="Reporting_Not_Necessary" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Reporting Not Necessary Date]" Member="Reporting_Not_Necessary_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Lead Tech]" Member="Lead_Tech" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Invoice1" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Invoice2" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Invoice3" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Invoice4" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Invoice5" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Invoice6" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Invoice7" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Invoice8" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Invoice9" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Invoice10" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="[Approved for Invoicing]" Member="Approved_for_Invoicing" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Approved By]" Member="Approved_By" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Approved On]" Member="Approved_On" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="LaborDesg1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LaborDesg2" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LaborDesg3" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LaborDesg4" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LaborHours1" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="LaborHours2" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="LaborHours3" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="LaborHours4" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="LaborRate1" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="LaborRate2" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="LaborRate3" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="LaborRate4" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="LaborPrice" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="MaterialPrice" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="PerDiemPrice" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="MileagePrice" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="Invoice11" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Invoice12" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Invoice13" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Invoice14" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Invoice15" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="[Date Job Went to Cost]" Member="Date_Job_Went_to_Cost" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Planned Completion Date]" Member="Planned_Completion_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Job status]" Member="Job_status" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Linked to]" Member="Linked_to" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Customer PO]" Member="Customer_PO" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Release No_]" Member="Release_No_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Time Posting Blocked]" Member="Time_Posting_Blocked" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Est_ Hours]" Member="Est__Hours" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Est_ Job Cost]" Member="Est__Job_Cost" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Quoted Price]" Member="Quoted_Price" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Status Date]" Member="Status_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Date To Be Scheduled By]" Member="Date_To_Be_Scheduled_By" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Sales Person]" Member="Sales_Person" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Site Location]" Member="Site_Location" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Site Address]" Member="Site_Address" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Site Address 2]" Member="Site_Address_2" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Site City]" Member="Site_City" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Site Contact]" Member="Site_Contact" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Site County]" Member="Site_County" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Site Post Code]" Member="Site_Post_Code" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Site Contact Phone No_]" Member="Site_Contact_Phone_No_" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Site Contact Mobile Ph_]" Member="Site_Contact_Mobile_Ph_" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Site Contact Fax No_]" Member="Site_Contact_Fax_No_" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Site Contact Email]" Member="Site_Contact_Email" Type="System.String" DbType="VarChar(55) NOT NULL" CanBeNull="false" />
+      <Column Name="[Work Scope 1]" Member="Work_Scope_1" Type="System.String" DbType="VarChar(80) NOT NULL" CanBeNull="false" />
+      <Column Name="[Work Scope 2]" Member="Work_Scope_2" Type="System.String" DbType="VarChar(80) NOT NULL" CanBeNull="false" />
+      <Column Name="[Work Scope 3]" Member="Work_Scope_3" Type="System.String" DbType="VarChar(80) NOT NULL" CanBeNull="false" />
+      <Column Name="[Work Scope 4]" Member="Work_Scope_4" Type="System.String" DbType="VarChar(80) NOT NULL" CanBeNull="false" />
+      <Column Name="[Comments 1]" Member="Comments_1" Type="System.String" DbType="VarChar(80) NOT NULL" CanBeNull="false" />
+      <Column Name="[Report Location]" Member="Report_Location" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Report Address]" Member="Report_Address" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Report Address 2]" Member="Report_Address_2" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Report City]" Member="Report_City" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Report Contact]" Member="Report_Contact" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Report County]" Member="Report_County" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Report Post Code]" Member="Report_Post_Code" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Partial Billing %]" Member="Partial_Billing__" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Ready to Ship]" Member="Ready_to_Ship" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Shipping Date]" Member="Shipping_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Freight" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Shipment Method Code]" Member="Shipment_Method_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Shipping Agent Code]" Member="Shipping_Agent_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Shipping Agent Service Code]" Member="Shipping_Agent_Service_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Promise Date]" Member="Promise_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Status Remarks]" Member="Status_Remarks" Type="System.String" DbType="VarChar(107) NOT NULL" CanBeNull="false" />
+      <Column Name="[Percent Complete Method]" Member="Percent_Complete_Method" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Marked to Post Recognition]" Member="Marked_to_Post_Recognition" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Enhanced WIP Recognition]" Member="Enhanced_WIP_Recognition" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Master Sort No_]" Member="Master_Sort_No_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Job Type]" Member="Job_Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Job Project No_]" Member="Job_Project_No_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Job Qty Ordered]" Member="Job_Qty_Ordered" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Budget Start Dates By]" Member="Budget_Start_Dates_By" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Quote No_]" Member="Quote_No_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Sell-To Customer No_]" Member="Sell_To_Customer_No_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Work Days to Produce]" Member="Work_Days_to_Produce" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Calendar Days to Produce]" Member="Calendar_Days_to_Produce" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Schedule at Step Level]" Member="Schedule_at_Step_Level" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Calculated Finish Date]" Member="Calculated_Finish_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Est_ Production Qty per Day]" Member="Est__Production_Qty_per_Day" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Reschedule Needed!]" Member="Reschedule_Needed_" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Master Job No_]" Member="Master_Job_No_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Is Master Job]" Member="Is_Master_Job" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Location Code]" Member="Location_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Customer PO No_]" Member="Customer_PO_No_" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Quote Line No_]" Member="Quote_Line_No_" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Job Qty Remaining]" Member="Job_Qty_Remaining" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Ref_ Order No_]" Member="Ref__Order_No_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Ref_ Line No_]" Member="Ref__Line_No_" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Est_ Profit Basis]" Member="Est__Profit_Basis" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Created By]" Member="Created_By" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Last Modified By]" Member="Last_Modified_By" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Auto Recognize Usage Launch]" Member="Auto_Recognize_Usage_Launch" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Enhan_ WIP Recog_ Option]" Member="Enhan__WIP_Recog__Option" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[External Quote No_]" Member="External_Quote_No_" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="OCIP" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Prod Approved]" Member="Prod_Approved" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Prod Approved By]" Member="Prod_Approved_By" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Prod Approved On]" Member="Prod_Approved_On" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Sales Approved]" Member="Sales_Approved" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Sales Approved By]" Member="Sales_Approved_By" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Sales Approved On]" Member="Sales_Approved_On" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Serial Number]" Member="Serial_Number" Type="System.String" DbType="VarChar(25) NOT NULL" CanBeNull="false" />
+      <Column Name="[Site Code]" Member="Site_Code" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Report Code]" Member="Report_Code" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Comments 2]" Member="Comments_2" Type="System.String" DbType="VarChar(80) NOT NULL" CanBeNull="false" />
+      <Column Name="[Copy of Rec_ Cost]" Member="Copy_of_Rec__Cost" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="Manufacturer" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Volt Options]" Member="Volt_Options" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Frame" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Power Options]" Member="Power_Options" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Power" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Volts" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="RPM" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Start Approval]" Member="Start_Approval" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Evaluated Date]" Member="Evaluated_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Evaluation Entered By]" Member="Evaluation_Entered_By" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Opened By]" Member="Opened_By" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Opened By No_]" Member="Opened_By_No_" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="MSHA" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Original Schedule Date]" Member="Original_Schedule_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Extended Schedule Date]" Member="Extended_Schedule_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Field Service]" Member="Field_Service" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Report Required on Shipping]" Member="Report_Required_on_Shipping" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Previous Job No_]" Member="Previous_Job_No_" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Shipped" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Target Ship Date Email]" Member="Target_Ship_Date_Email" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[T&amp;M]" Member="T_M" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Site Contact No]" Member="Site_Contact_No" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Estimated Labor]" Member="Estimated_Labor" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Estimated Material]" Member="Estimated_Material" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Sell-To Contact No]" Member="Sell_To_Contact_No" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Sell-To Contact]" Member="Sell_To_Contact" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Sell-To Contact Phone No_]" Member="Sell_To_Contact_Phone_No_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Sell-To Contact Mobile No_]" Member="Sell_To_Contact_Mobile_No_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Sell-To Contact Fax No_]" Member="Sell_To_Contact_Fax_No_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Sell-To Contact Email]" Member="Sell_To_Contact_Email" Type="System.String" DbType="VarChar(55) NOT NULL" CanBeNull="false" />
+      <Column Name="[Billing Cycle]" Member="Billing_Cycle" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[JHA Submitted]" Member="JHA_Submitted" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[JHA Submitted Date]" Member="JHA_Submitted_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="JHA" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Job Card Submitted]" Member="Job_Card_Submitted" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Sales Order No_]" Member="Sales_Order_No_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[SO Line No_]" Member="SO_Line_No_" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Start Approval User]" Member="Start_Approval_User" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Start Approval Date]" Member="Start_Approval_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Calendar Days Edited]" Member="Calendar_Days_Edited" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[No Survey Email]" Member="No_Survey_Email" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Valid PO]" Member="Valid_PO" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Unit Turbine No_]" Member="Unit_Turbine_No_" Type="System.String" DbType="VarChar(6) NOT NULL" CanBeNull="false" />
+      <Column Name="[Promised Ship Date]" Member="Promised_Ship_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Date Shipped]" Member="Date_Shipped" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[SI Call Out]" Member="SI_Call_Out" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Risk Job]" Member="Risk_Job" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Shermco$Employee" Member="Shermco_Employees">
+    <Type Name="Shermco_Employee">
+      <Column Name="timestamp" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
+      <Column Name="No_" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="[First Name]" Member="First_Name" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Middle Name]" Member="Middle_Name" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Last Name]" Member="Last_Name" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="Initials" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Job Title]" Member="Job_Title" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="[Search Name]" Member="Search_Name" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="Address" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Address 2]" Member="Address_2" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="City" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Post Code]" Member="Post_Code" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="County" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Phone No_]" Member="Phone_No_" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Mobile Phone No_]" Member="Mobile_Phone_No_" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[E-Mail]" Member="E_Mail" Type="System.String" DbType="VarChar(80) NOT NULL" CanBeNull="false" />
+      <Column Name="[Alt_ Address Code]" Member="Alt__Address_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Alt_ Address Start Date]" Member="Alt__Address_Start_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Alt_ Address End Date]" Member="Alt__Address_End_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Picture" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" />
+      <Column Name="[Birth Date]" Member="Birth_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Social Security No_]" Member="Social_Security_No_" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Union Code]" Member="Union_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Union Membership No_]" Member="Union_Membership_No_" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="Sex" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Country Code]" Member="Country_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Manager No_]" Member="Manager_No_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Emplymt_ Contract Code]" Member="Emplymt__Contract_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Statistics Group Code]" Member="Statistics_Group_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Employment Date]" Member="Employment_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Inactive Date]" Member="Inactive_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Cause of Inactivity Code]" Member="Cause_of_Inactivity_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Termination Date]" Member="Termination_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Grounds for Term_ Code]" Member="Grounds_for_Term__Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Global Dimension 1 Code]" Member="Global_Dimension_1_Code" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Global Dimension 2 Code]" Member="Global_Dimension_2_Code" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Resource No_]" Member="Resource_No_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Last Date Modified]" Member="Last_Date_Modified" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Extension" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="Pager" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Fax No_]" Member="Fax_No_" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Company E-Mail]" Member="Company_E_Mail" Type="System.String" DbType="VarChar(80) NOT NULL" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Salespers__Purch_ Code]" Member="Salespers__Purch__Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[No_ Series]" Member="No__Series" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Extra" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Employee Password]" Member="Employee_Password" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Manager Group Code]" Member="Manager_Group_Code" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Accounting Employee]" Member="Accounting_Employee" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Time Entry Approval Code]" Member="Time_Entry_Approval_Code" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Approval level]" Member="Approval_level" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Over 8 Hrs ST]" Member="Over_8_Hrs_ST" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Original Employment Date]" Member="Original_Employment_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Original Separation Date]" Member="Original_Separation_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Temporary Employee]" Member="Temporary_Employee" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Able to Post Time]" Member="Able_to_Post_Time" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Reports To]" Member="Reports_To" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Contractor" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Achievement TEC Results Date]" Member="Achievement_TEC_Results_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[TI Background Check Date]" Member="TI_Background_Check_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Maiden Name]" Member="Maiden_Name" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="Alias" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Previously Used Name]" Member="Previously_Used_Name" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Emergency Contact Name]" Member="Emergency_Contact_Name" Type="System.String" DbType="VarChar(40) NOT NULL" CanBeNull="false" />
+      <Column Name="[Emergency Contact Street Addr_]" Member="Emergency_Contact_Street_Addr_" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="[Emergency Contact City]" Member="Emergency_Contact_City" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Emergency Contact State]" Member="Emergency_Contact_State" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Emergency Contact Zip Code]" Member="Emergency_Contact_Zip_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Emergency Contact Phone No_]" Member="Emergency_Contact_Phone_No_" Type="System.String" DbType="VarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="[Emergency Contact Cell No_]" Member="Emergency_Contact_Cell_No_" Type="System.String" DbType="VarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="[Emergency Contact Rel_ to Empl]" Member="Emergency_Contact_Rel__to_Empl" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Drivers License State]" Member="Drivers_License_State" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Drivers License No_]" Member="Drivers_License_No_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[US County]" Member="US_County" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Address Start Date]" Member="Address_Start_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Birth Place]" Member="Birth_Place" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Preferred Name]" Member="Preferred_Name" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Shermco Cell Phone No_]" Member="Shermco_Cell_Phone_No_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Prior TI Access]" Member="Prior_TI_Access" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Prior TI Access Beginning Date]" Member="Prior_TI_Access_Beginning_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Prior TI Access Ending Date]" Member="Prior_TI_Access_Ending_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Denied Access to TI]" Member="Denied_Access_to_TI" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Citizen of United States]" Member="Citizen_of_United_States" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Visa Category]" Member="Visa_Category" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Admission #]" Member="Admission__" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Visa Expiration Date]" Member="Visa_Expiration_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Country of Birth]" Member="Country_of_Birth" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Country of Citizenship]" Member="Country_of_Citizenship" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Work Phone]" Member="Work_Phone" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Drug_Alcohol Test Date]" Member="Drug_Alcohol_Test_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Referral Source]" Member="Referral_Source" Type="System.String" DbType="VarChar(80) NOT NULL" CanBeNull="false" />
+      <Column Name="[Referral Employee No_]" Member="Referral_Employee_No_" Type="System.String" DbType="VarChar(80) NOT NULL" CanBeNull="false" />
+      <Column Name="[EOC Race]" Member="EOC_Race" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Veteran" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Disabled" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Temp Block]" Member="Temp_Block" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Pay type]" Member="Pay_type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Display Name]" Member="Display_Name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="[Class Code]" Member="Class_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Home Phone No_]" Member="Home_Phone_No_" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="Suffix" Type="System.String" DbType="VarChar(5) NOT NULL" CanBeNull="false" />
+      <Column Name="Race" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Position Code]" Member="Position_Code" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Blocked" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Middle Initial]" Member="Middle_Initial" Type="System.String" DbType="VarChar(5) NOT NULL" CanBeNull="false" />
+      <Column Name="[Default Work Type Code]" Member="Default_Work_Type_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Deceased" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[SSN Is Verified]" Member="SSN_Is_Verified" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Pay Cycle Code]" Member="Pay_Cycle_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Employer No_]" Member="Employer_No_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Statutory Employee]" Member="Statutory_Employee" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Retirement Plan]" Member="Retirement_Plan" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Legal Representative]" Member="Legal_Representative" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Household Employee]" Member="Household_Employee" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Deferred Compensation]" Member="Deferred_Compensation" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Third-Party Sick Pay]" Member="Third_Party_Sick_Pay" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Default Rep_ Auth_ Code]" Member="Default_Rep__Auth__Code" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Social Insurance No_]" Member="Social_Insurance_No_" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[CPP Exempt]" Member="CPP_Exempt" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[EI Exempt]" Member="EI_Exempt" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[RPP or DPSP]" Member="RPP_or_DPSP" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Override Insurable Hours]" Member="Override_Insurable_Hours" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="Salaried" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Language Code]" Member="Language_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[HR Rep_ No_]" Member="HR_Rep__No_" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[HR Rep_ Contact]" Member="HR_Rep__Contact" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Salutation Code]" Member="Salutation_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[F_T_ Equivalent]" Member="F_T__Equivalent" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="Score" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[MVR Record Retrieved]" Member="MVR_Record_Retrieved" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Veteran Separation Date]" Member="Veteran_Separation_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Block Time Entry]" Member="Block_Time_Entry" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Block Time Entry Reason]" Member="Block_Time_Entry_Reason" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="[Block Time Entry Req By]" Member="Block_Time_Entry_Req_By" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="[Block Phone List]" Member="Block_Phone_List" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Block Birthday List]" Member="Block_Birthday_List" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[OT to Overhead]" Member="OT_to_Overhead" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[IT New Emp Alert]" Member="IT_New_Emp_Alert" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Amex Name]" Member="Amex_Name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="[DOT Compliant]" Member="DOT_Compliant" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Driver Application Form]" Member="Driver_Application_Form" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Driver Med_ Exam_ Report]" Member="Driver_Med__Exam__Report" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Driver Med_ Exam_ Cert_]" Member="Driver_Med__Exam__Cert_" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Driver Record of Road Test]" Member="Driver_Record_of_Road_Test" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Driver Cert_ of Road Test]" Member="Driver_Cert__of_Road_Test" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Driver Safety Perf_ History]" Member="Driver_Safety_Perf__History" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Driver M_ V_ Cert_ Review]" Member="Driver_M__V__Cert__Review" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Date Driving for Company]" Member="Date_Driving_for_Company" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Driver License Class]" Member="Driver_License_Class" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Driver Licnese Class Other]" Member="Driver_Licnese_Class_Other" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Safety Meeting]" Member="Safety_Meeting" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Show on Phone List]" Member="Show_on_Phone_List" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Gerdau No_]" Member="Gerdau_No_" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Not Billable]" Member="Not_Billable" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[ISN ID]" Member="ISN_ID" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[I9 Completed]" Member="I9_Completed" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Employee Handbook Receipt]" Member="Employee_Handbook_Receipt" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[HR Pay Type]" Member="HR_Pay_Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Credit Card Approval Code]" Member="Credit_Card_Approval_Code" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Credit Card Approval Level]" Member="Credit_Card_Approval_Level" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Jean Allowance]" Member="Jean_Allowance" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Jean Gift Card No_]" Member="Jean_Gift_Card_No_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="ExportPending" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Shift Difference]" Member="Shift_Difference" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Eligible Rehire]" Member="Eligible_Rehire" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Eligible to Drive SI Vehicle]" Member="Eligible_to_Drive_SI_Vehicle" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Temp to Perm]" Member="Temp_to_Perm" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Part Time]" Member="Part_Time" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Co-Op]" Member="Co_Op" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Work Location]" Member="Work_Location" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TShirt" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ButtonUp" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Polo" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Coverall" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="GetCell" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="GetComp" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="GetLaptop" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="EmpNo" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Eligible to Drive Date]" Member="Eligible_to_Drive_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SIU_Complete_Jobs" Member="SIU_Complete_Jobs">
+    <Type Name="SIU_Complete_Job">
+      <Column Name="EmpNo" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="JobNo" Type="System.String" DbType="VarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="JobComplete" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="OrigionalScope" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="NumMgrs" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AddMaterial" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AddTravel" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AddLodge" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AddOther" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TotHours" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TimeStamp" Type="System.DateTime" DbType="DateTime NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SIU_IT_HW_Req_Adds" Member="SIU_IT_HW_Req_Adds">
+    <Type Name="SIU_IT_HW_Req_Add">
+      <Column Name="IsSW" Type="System.Boolean" DbType="Bit NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Price" Type="System.Decimal" DbType="Money NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SIU_IT_HW_Req_Computers" Member="SIU_IT_HW_Req_Computers">
+    <Type Name="SIU_IT_HW_Req_Computer">
+      <Column Name="Role" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Computer" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Price" Type="System.Decimal" DbType="Money NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Shermco$Qualification" Member="Shermco_Qualifications">
+    <Type Name="Shermco_Qualification">
+      <Column Name="timestamp" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(30) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(80) NOT NULL" CanBeNull="false" />
+      <Column Name="[Duration of Certification]" Member="Duration_of_Certification" Type="System.String" DbType="VarChar(32) NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Do Not Use]" Member="Do_Not_Use" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Category" Type="System.String" DbType="VarChar(60) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[Shermco$Employee Qualification]" Member="Shermco_Employee_Qualifications">
+    <Type Name="Shermco_Employee_Qualification">
+      <Column Name="timestamp" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
+      <Column Name="[Employee No_]" Member="Employee_No_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Line No_]" Member="Line_No_" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="[Qualification Code]" Member="Qualification_Code" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[From Date]" Member="From_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[To Date]" Member="To_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Institution_Company" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Cost" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Course Grade]" Member="Course_Grade" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Employee Status]" Member="Employee_Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Expiration Date]" Member="Expiration_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Credit Hours]" Member="Credit_Hours" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="City" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="County" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Country Code]" Member="Country_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Course Type Code]" Member="Course_Type_Code" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Degree_Level Code]" Member="Degree_Level_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Qualification Assessment Code]" Member="Qualification_Assessment_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Years Experience]" Member="Years_Experience" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Last Used]" Member="Last_Used" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Exempt" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Last Modified Date]" Member="Last_Modified_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Certification Number]" Member="Certification_Number" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="[On File]" Member="On_File" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Degree Description]" Member="Degree_Description" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="[Employee Filter Name]" Member="Employee_Filter_Name" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Document No_]" Member="Document_No_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="SyberCode" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="FileName" Type="System.String" DbType="VarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="Completed" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Qualification Type]" Member="Qualification_Type" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="Required" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SIU_IT_HW_Req" Member="SIU_IT_HW_Reqs">
+    <Type Name="SIU_IT_HW_Req">
+      <Column Name="XctnID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Timestamp" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Req_EmpID" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="For_EmpID" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Role" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Hardware" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="ComputerDesc" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ComputerPrice" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="MonitorCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MonitorStandCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ComputerCase" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="ComputerDock" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="BackPack" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Adobe" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CAD" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="MsPrj" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Visio" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CompleteDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CompletedBy_EmpID" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SIU_Safety_MoQ" Member="SIU_Safety_MoQs">
+    <Type Name="SIU_Safety_MoQ">
+      <Column Name="Q_Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StartDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="EndDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Question" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SIU_Safety_MoQ_Responses" Member="SIU_Safety_MoQ_Responses">
+    <Type Name="SIU_Safety_MoQ_Response">
+      <Column Name="Q_Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Ans_Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Emp_ID" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Response" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="ResponseDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Score_Emp_ID" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Score" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ScoreDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[Shermco$Payroll Posting Group]" Member="Shermco_Payroll_Posting_Groups">
+    <Type Name="Shermco_Payroll_Posting_Group">
+      <Column Name="timestamp" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="[Earnings Account]" Member="Earnings_Account" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Bank Account No_]" Member="Bank_Account_No_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Liability Account]" Member="Liability_Account" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Expense Account]" Member="Expense_Account" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Hover Head]" Member="Hover_Head" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[Shermco$Dimension Value]" Member="Shermco_Dimension_Values">
+    <Type Name="Shermco_Dimension_Value">
+      <Column Name="timestamp" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
+      <Column Name="[Dimension Code]" Member="Dimension_Code" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="[Dimension Value Type]" Member="Dimension_Value_Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Totaling" Type="System.String" DbType="VarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="Blocked" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Consolidation Code]" Member="Consolidation_Code" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Indentation" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Global Dimension No_]" Member="Global_Dimension_No_" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Map-to IC Dimension Code]" Member="Map_to_IC_Dimension_Code" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Map-to IC Dimension Value Code]" Member="Map_to_IC_Dimension_Value_Code" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Defalt task code]" Member="Defalt_task_code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[Shermco$Job Specific Router]" Member="Shermco_Job_Specific_Routers">
+    <Type Name="Shermco_Job_Specific_Router">
+      <Column Name="timestamp" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
+      <Column Name="[Job No_]" Member="Job_No_" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="[Step No_]" Member="Step_No_" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="[Job Project No_]" Member="Job_Project_No_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Phase Code]" Member="Phase_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Task Code]" Member="Task_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Phase Description]" Member="Phase_Description" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Task Description]" Member="Task_Description" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="[Master Job No_]" Member="Master_Job_No_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Step Code]" Member="Step_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Scrap" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Start Date]" Member="Start_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Working Days]" Member="Working_Days" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Total Run Time]" Member="Total_Run_Time" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Total Est_ Router Hrs]" Member="Total_Est__Router_Hrs" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Setup Time]" Member="Setup_Time" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Run Time]" Member="Run_Time" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Calendar Days]" Member="Calendar_Days" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Step Finish Date]" Member="Step_Finish_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Step Resource No_]" Member="Step_Resource_No_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Resource Group]" Member="Resource_Group" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Resource Name]" Member="Resource_Name" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="Units_Hour" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Unit Cost]" Member="Unit_Cost" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Step Started]" Member="Step_Started" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Step Finished]" Member="Step_Finished" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Type Filter]" Member="Type_Filter" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Unit Machine Price]" Member="Unit_Machine_Price" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Ext Machine Price]" Member="Ext_Machine_Price" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Unit Labor Price]" Member="Unit_Labor_Price" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Ext Labor Price]" Member="Ext_Labor_Price" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Cost Work Type Code]" Member="Cost_Work_Type_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Price Work Type Code]" Member="Price_Work_Type_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Percent Margin]" Member="Percent_Margin" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Machine Operator Rate]" Member="Machine_Operator_Rate" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Est Labor Cost]" Member="Est_Labor_Cost" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="Vendor" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Job Status]" Member="Job_Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Cost Category]" Member="Cost_Category" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Est Machine Cost]" Member="Est_Machine_Cost" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Ignore for Duration]" Member="Ignore_for_Duration" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Contract Amount]" Member="Contract_Amount" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Production Type]" Member="Production_Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Type Item]" Member="Type_Item" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Original Resource No_]" Member="Original_Resource_No_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Original Resource Rate]" Member="Original_Resource_Rate" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Carry Forward Hours]" Member="Carry_Forward_Hours" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[OH Rate]" Member="OH_Rate" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Emp Rate]" Member="Emp_Rate" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Material OH %]" Member="Material_OH__" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="Block" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Material OH Changed By]" Member="Material_OH_Changed_By" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SIU_TaskList" Member="SIU_TaskLists">
+    <Type Name="SIU_TaskList">
+      <Column Name="IncidentNo" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EmpID" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="EmpEmail" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(2000) NOT NULL" CanBeNull="false" />
+      <Column Name="StepsToCreate" Type="System.String" DbType="VarChar(2000)" CanBeNull="true" />
+      <Column Name="OpenTimeStamp" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="CloseTimeStamp" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="AcceptTimeStamp" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="WorkTimeStamp" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="TestingTimeStamp" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="TestRejectionNotes" Type="System.String" DbType="VarChar(2000)" CanBeNull="true" />
+      <Column Name="TestRejectionTimeStamp" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SIU_Files" Member="SIU_Files">
+    <Type Name="SIU_File">
+      <Column Name="RefID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="FileName" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="PhyDir" Type="System.String" DbType="VarChar(1000) NOT NULL" CanBeNull="false" />
+      <Column Name="VirDir" Type="System.String" DbType="VarChar(1000) NOT NULL" CanBeNull="false" />
+      <Column Name="FileType" Type="System.String" DbType="VarChar(5) NOT NULL" CanBeNull="false" />
+      <Column Name="LastTouch" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SIU_Blog" Member="SIU_Blogs">
+    <Type Name="SIU_Blog">
+      <Column Name="RefID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BlogName" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="BlogTitle" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="BlogTitleURL" Type="System.String" DbType="VarChar(300)" CanBeNull="true" />
+      <Column Name="Advertise" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Advertise_Start" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Advertise_End" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="BlogText" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[Shermco$Time Entry Approval Levels]" Member="Shermco_Time_Entry_Approval_Levels">
+    <Type Name="Shermco_Time_Entry_Approval_Level">
+      <Column Name="timestamp" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Global Dimension 1 Code]" Member="Global_Dimension_1_Code" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Approval Level]" Member="Approval_Level" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Approval Action]" Member="Approval_Action" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Min_ Approval Level to Review]" Member="Min__Approval_Level_to_Review" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Max_ Approval Level to Review]" Member="Max__Approval_Level_to_Review" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Next Approval Code]" Member="Next_Approval_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Level 0 Code]" Member="Level_0_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Shermco$Customer" Member="Shermco_Customers">
+    <Type Name="Shermco_Customer">
+      <Column Name="timestamp" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
+      <Column Name="No_" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(40) NOT NULL" CanBeNull="false" />
+      <Column Name="[Search Name]" Member="Search_Name" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Name 2]" Member="Name_2" Type="System.String" DbType="VarChar(40) NOT NULL" CanBeNull="false" />
+      <Column Name="Address" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Address 2]" Member="Address_2" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="City" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="Contact" Type="System.String" DbType="VarChar(40) NOT NULL" CanBeNull="false" />
+      <Column Name="[Phone No_]" Member="Phone_No_" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Telex No_]" Member="Telex_No_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Our Account No_]" Member="Our_Account_No_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Territory Code]" Member="Territory_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Global Dimension 1 Code]" Member="Global_Dimension_1_Code" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Global Dimension 2 Code]" Member="Global_Dimension_2_Code" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Chain Name]" Member="Chain_Name" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Budgeted Amount]" Member="Budgeted_Amount" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Credit Limit (LCY)]" Member="Credit_Limit__LCY_" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Customer Posting Group]" Member="Customer_Posting_Group" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Currency Code]" Member="Currency_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Customer Price Group]" Member="Customer_Price_Group" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Language Code]" Member="Language_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Statistics Group]" Member="Statistics_Group" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Payment Terms Code]" Member="Payment_Terms_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Fin_ Charge Terms Code]" Member="Fin__Charge_Terms_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Salesperson Code]" Member="Salesperson_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Shipment Method Code]" Member="Shipment_Method_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Shipping Agent Code]" Member="Shipping_Agent_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Place of Export]" Member="Place_of_Export" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Invoice Disc_ Code]" Member="Invoice_Disc__Code" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Customer Disc_ Group]" Member="Customer_Disc__Group" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Country Code]" Member="Country_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Collection Method]" Member="Collection_Method" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Amount" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="Blocked" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Invoice Copies]" Member="Invoice_Copies" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Last Statement No_]" Member="Last_Statement_No_" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Print Statements]" Member="Print_Statements" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Bill-to Customer No_]" Member="Bill_to_Customer_No_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Priority" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Payment Method Code]" Member="Payment_Method_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Last Date Modified]" Member="Last_Date_Modified" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Application Method]" Member="Application_Method" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Prices Including VAT]" Member="Prices_Including_VAT" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Location Code]" Member="Location_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Fax No_]" Member="Fax_No_" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Telex Answer Back]" Member="Telex_Answer_Back" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[VAT Registration No_]" Member="VAT_Registration_No_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Combine Shipments]" Member="Combine_Shipments" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Gen_ Bus_ Posting Group]" Member="Gen__Bus__Posting_Group" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Picture" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" />
+      <Column Name="[Post Code]" Member="Post_Code" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="County" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[E-Mail]" Member="E_Mail" Type="System.String" DbType="VarChar(80) NOT NULL" CanBeNull="false" />
+      <Column Name="[Home Page]" Member="Home_Page" Type="System.String" DbType="VarChar(80) NOT NULL" CanBeNull="false" />
+      <Column Name="[Reminder Terms Code]" Member="Reminder_Terms_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[No_ Series]" Member="No__Series" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Tax Area Code]" Member="Tax_Area_Code" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Tax Liable]" Member="Tax_Liable" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[VAT Bus_ Posting Group]" Member="VAT_Bus__Posting_Group" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Reserve" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Block Payment Tolerance]" Member="Block_Payment_Tolerance" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[IC Partner Code]" Member="IC_Partner_Code" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Primary Contact No_]" Member="Primary_Contact_No_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Responsibility Center]" Member="Responsibility_Center" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Shipping Advice]" Member="Shipping_Advice" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Shipping Time]" Member="Shipping_Time" Type="System.String" DbType="VarChar(32) NOT NULL" CanBeNull="false" />
+      <Column Name="[Shipping Agent Service Code]" Member="Shipping_Agent_Service_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Service Zone Code]" Member="Service_Zone_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Notification Process Code]" Member="Notification_Process_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Queue Priority]" Member="Queue_Priority" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Allow Line Disc_]" Member="Allow_Line_Disc_" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Base Calendar Code]" Member="Base_Calendar_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Copy Sell-to Addr_ to Qte From]" Member="Copy_Sell_to_Addr__to_Qte_From" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[UPS Zone]" Member="UPS_Zone" Type="System.String" DbType="VarChar(2) NOT NULL" CanBeNull="false" />
+      <Column Name="[Tax Exemption No_]" Member="Tax_Exemption_No_" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Bank Communication]" Member="Bank_Communication" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Parent Customer No_]" Member="Parent_Customer_No_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Child Index]" Member="Child_Index" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Mobile Phone No_]" Member="Mobile_Phone_No_" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Additional Bill-to Address]" Member="Additional_Bill_to_Address" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Additional Bill-to Address 2]" Member="Additional_Bill_to_Address_2" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Additional Bill-to City]" Member="Additional_Bill_to_City" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Additional Bill-to Phone No_]" Member="Additional_Bill_to_Phone_No_" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Additional Bill-to Post Code]" Member="Additional_Bill_to_Post_Code" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Additional Bill-to County]" Member="Additional_Bill_to_County" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Additional Bill-to Name]" Member="Additional_Bill_to_Name" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Do Not Show On List]" Member="Do_Not_Show_On_List" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Shermco Balance]" Member="Shermco_Balance" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Has Quality Specifications]" Member="Has_Quality_Specifications" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Credit Check Box]" Member="Credit_Check_Box" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Invoice Contact]" Member="Invoice_Contact" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="[Receivable Contact]" Member="Receivable_Contact" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Receivable Contact Date]" Member="Receivable_Contact_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Override Block]" Member="Override_Block" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[ASD Salesperson]" Member="ASD_Salesperson" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Safety Alert]" Member="Safety_Alert" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[ISN Network]" Member="ISN_Network" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Tax Liable USERID]" Member="Tax_Liable_USERID" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Tax Liable DATE]" Member="Tax_Liable_DATE" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Tax Liable Per Job]" Member="Tax_Liable_Per_Job" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="MSHA" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Tax Information Correct]" Member="Tax_Information_Correct" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Report Required on Shipping]" Member="Report_Required_on_Shipping" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Salesperson 2]" Member="Salesperson_2" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Federal" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Customer Type]" Member="Customer_Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Job Specific 1]" Member="Job_Specific_1" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="[Job Specific 2]" Member="Job_Specific_2" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="[COI Email Address]" Member="COI_Email_Address" Type="System.String" DbType="VarChar(80) NOT NULL" CanBeNull="false" />
+      <Column Name="[COI Received]" Member="COI_Received" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[COI Not Needed]" Member="COI_Not_Needed" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[WL International]" Member="WL_International" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[WL Domestic]" Member="WL_Domestic" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[WL Int Text]" Member="WL_Int_Text" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="[WL Dom Option]" Member="WL_Dom_Option" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NCMS" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Sales Invoice Email]" Member="Sales_Invoice_Email" Type="System.String" DbType="VarChar(150) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[Shermco$Payroll Ledger Entry]" Member="Shermco_Payroll_Ledger_Entries">
+    <Type Name="Shermco_Payroll_Ledger_Entry">
+      <Column Name="timestamp" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
+      <Column Name="[Entry No_]" Member="Entry_No_" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="[Employee No_]" Member="Employee_No_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Posting Date]" Member="Posting_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Document Type]" Member="Document_Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Document No_]" Member="Document_No_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="[Regular Pay]" Member="Regular_Pay" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Amount" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Taxable Amount]" Member="Taxable_Amount" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Amount on Pay Check]" Member="Amount_on_Pay_Check" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Payroll Posting Group]" Member="Payroll_Posting_Group" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Global Dimension 1 Code]" Member="Global_Dimension_1_Code" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Global Dimension 2 Code]" Member="Global_Dimension_2_Code" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Resource No_]" Member="Resource_No_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[User ID]" Member="User_ID" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Source Code]" Member="Source_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Payroll Control Code]" Member="Payroll_Control_Code" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Payroll Control Type]" Member="Payroll_Control_Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Payroll Control Name]" Member="Payroll_Control_Name" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="County" Type="System.String" DbType="VarChar(3) NOT NULL" CanBeNull="false" />
+      <Column Name="Locality" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Pay Period End Date]" Member="Pay_Period_End_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[G_L Post Type]" Member="G_L_Post_Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Vendor Ledger Entry No_]" Member="Vendor_Ledger_Entry_No_" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Vendor Ledger Posting]" Member="Vendor_Ledger_Posting" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Job No_]" Member="Job_No_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Phase Code]" Member="Phase_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Task Code]" Member="Task_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Step Code]" Member="Step_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Burden Allocated]" Member="Burden_Allocated" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Chargeable" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Work Type Code]" Member="Work_Type_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Journal Batch Name]" Member="Journal_Batch_Name" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Reason Code]" Member="Reason_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Check No_]" Member="Check_No_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Pay Date]" Member="Pay_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Reporting Authority Type]" Member="Reporting_Authority_Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Reporting Authority Code]" Member="Reporting_Authority_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Entry Date]" Member="Entry_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Date Worked]" Member="Date_Worked" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Pay Cycle Code]" Member="Pay_Cycle_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Pay Cycle Term]" Member="Pay_Cycle_Term" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Pay Cycle Period]" Member="Pay_Cycle_Period" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Pay Period Start Date]" Member="Pay_Period_Start_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Earned Pay Cycle Code]" Member="Earned_Pay_Cycle_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Earned Pay Cycle Term]" Member="Earned_Pay_Cycle_Term" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Earned Pay Cycle Period]" Member="Earned_Pay_Cycle_Period" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Earned Period Start Date]" Member="Earned_Period_Start_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Earned Period End Date]" Member="Earned_Period_End_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Work Reporting Authority Code]" Member="Work_Reporting_Authority_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Ledger Posting Date]" Member="Ledger_Posting_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Insurable Hours]" Member="Insurable_Hours" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Tax Type Code]" Member="Tax_Type_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Employer No_]" Member="Employer_No_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[G_L Entries Reversed]" Member="G_L_Entries_Reversed" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[AP Document No_]" Member="AP_Document_No_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Step No_]" Member="Step_No_" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Master Job No_]" Member="Master_Job_No_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Display" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[Shermco$Assigend Vehicle Data]" Member="Shermco_Assigend_Vehicle_Datas">
+    <Type Name="Shermco_Assigend_Vehicle_Data">
+      <Column Name="timestamp" AutoSync="Always" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" IsDbGenerated="false" CanBeNull="false" IsVersion="true" />
+      <Column Name="[Emp_ No]" Member="Emp__No" Type="System.String" DbType="VarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="[Week Ending]" Member="Week_Ending" Type="System.DateTime" DbType="DateTime NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="[Assigned Vehicle No_]" Member="Assigned_Vehicle_No_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Weekly Personal Mileage]" Member="Weekly_Personal_Mileage" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SIU_MySi_ExpiringBandC" Member="SIU_MySi_ExpiringBandCs">
+    <Type Name="SIU_MySi_ExpiringBandC">
+      <Column Name="[employee no_]" Member="employee_no_" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="[qualification code]" Member="qualification_code" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="description" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="[from date]" Member="from_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="[to date]" Member="to_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[Shermco$Employee Expense]" Member="Shermco_Employee_Expenses">
+    <Type Name="Shermco_Employee_Expense">
+      <Column Name="timestamp" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
+      <Column Name="[Work Date]" Member="Work_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Employee No_]" Member="Employee_No_" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Job No_]" Member="Job_No_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Mileage" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Meals" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Amount" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="Approval" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Selected" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[O_H Account No_]" Member="O_H_Account_No_" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="NoSeriesCode" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Receiving No_ Series]" Member="Receiving_No__Series" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Approval Code]" Member="Approval_Code" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Line No_]" Member="Line_No_" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[Shermco$Company Information]" Member="Shermco_Company_Informations">
+    <Type Name="Shermco_Company_Information">
+      <Column Name="timestamp" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
+      <Column Name="[Primary Key]" Member="Primary_Key" Type="System.String" DbType="VarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="[Name 2]" Member="Name_2" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Address" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="[Address 2]" Member="Address_2" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="City" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="[Phone No_]" Member="Phone_No_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Phone No_ 2]" Member="Phone_No__2" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Telex No_]" Member="Telex_No_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Fax No_]" Member="Fax_No_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Giro No_]" Member="Giro_No_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Bank Name]" Member="Bank_Name" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Bank Branch No_]" Member="Bank_Branch_No_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Bank Account No_]" Member="Bank_Account_No_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Payment Routing No_]" Member="Payment_Routing_No_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Customs Permit No_]" Member="Customs_Permit_No_" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Customs Permit Date]" Member="Customs_Permit_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[VAT Registration No_]" Member="VAT_Registration_No_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Registration No_]" Member="Registration_No_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Telex Answer Back]" Member="Telex_Answer_Back" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Ship-to Name]" Member="Ship_to_Name" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Ship-to Name 2]" Member="Ship_to_Name_2" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Ship-to Address]" Member="Ship_to_Address" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Ship-to Address 2]" Member="Ship_to_Address_2" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Ship-to City]" Member="Ship_to_City" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Ship-to Contact]" Member="Ship_to_Contact" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Location Code]" Member="Location_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Picture" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" />
+      <Column Name="[Post Code]" Member="Post_Code" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="County" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Ship-to Post Code]" Member="Ship_to_Post_Code" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Ship-to County]" Member="Ship_to_County" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[E-Mail]" Member="E_Mail" Type="System.String" DbType="VarChar(80) NOT NULL" CanBeNull="false" />
+      <Column Name="[Home Page]" Member="Home_Page" Type="System.String" DbType="VarChar(80) NOT NULL" CanBeNull="false" />
+      <Column Name="[Country Code]" Member="Country_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Ship-to Country Code]" Member="Ship_to_Country_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="IBAN" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="[SWIFT Code]" Member="SWIFT_Code" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Industrial Classification]" Member="Industrial_Classification" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[IC Partner Code]" Member="IC_Partner_Code" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[IC Inbox Type]" Member="IC_Inbox_Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[IC Inbox Details]" Member="IC_Inbox_Details" Type="System.String" DbType="VarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="[Responsibility Center]" Member="Responsibility_Center" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Check-Avail_ Period Calc_]" Member="Check_Avail__Period_Calc_" Type="System.String" DbType="VarChar(32) NOT NULL" CanBeNull="false" />
+      <Column Name="[Check-Avail_ Time Bucket]" Member="Check_Avail__Time_Bucket" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Base Calendar Code]" Member="Base_Calendar_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Cal_ Convergence Time Frame]" Member="Cal__Convergence_Time_Frame" Type="System.String" DbType="VarChar(32) NOT NULL" CanBeNull="false" />
+      <Column Name="[Ship-to UPS Zone]" Member="Ship_to_UPS_Zone" Type="System.String" DbType="VarChar(2) NOT NULL" CanBeNull="false" />
+      <Column Name="[UPS Shipper ID]" Member="UPS_Shipper_ID" Type="System.String" DbType="VarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="[Tax Area Code]" Member="Tax_Area_Code" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Tax Exemption No_]" Member="Tax_Exemption_No_" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Federal ID No_]" Member="Federal_ID_No_" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[QST Registration No_]" Member="QST_Registration_No_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Menu Picture]" Member="Menu_Picture" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" />
+      <Column Name="[Signatur Picture 1]" Member="Signatur_Picture_1" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" />
+      <Column Name="[Signatur Picture 2]" Member="Signatur_Picture_2" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" />
+      <Column Name="[Bank Logo]" Member="Bank_Logo" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" />
+      <Column Name="[Barcode Picture]" Member="Barcode_Picture" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" />
+      <Column Name="[Outlook Path]" Member="Outlook_Path" Type="System.String" DbType="VarChar(150) NOT NULL" CanBeNull="false" />
+      <Column Name="[Mileage Reimbursement]" Member="Mileage_Reimbursement" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[OHSA Pic]" Member="OHSA_Pic" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SIU_NTFS_Cache" Member="SIU_NTFS_Caches">
+    <Type Name="SIU_NTFS_Cache">
+      <Column Name="Idx" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TimeStamp" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Server" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="PhysicalPath" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="ListOnly" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="VirtualDirectory" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="MenuID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Markup" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="MarkupContentType" Type="System.String" DbType="NChar(20) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SIU_DOT_Inspections" Member="SIU_DOT_Inspections">
+    <Type Name="SIU_DOT_Inspection">
+      <Column Name="RefID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Vehicle" Type="System.String" DbType="NChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="SubmitTimeStamp" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="SubmitEmpID" Type="System.String" DbType="NChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="CorrectionTimeStamp" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CorrectionEmpID" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Column Name="Hazard" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Correction" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SIU_debug" Member="SIU_debugs">
+    <Type Name="SIU_debug">
+      <Column Name="[Key]" Member="Key" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TS" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Module" Type="System.String" DbType="NVarChar(60) NOT NULL" CanBeNull="false" />
+      <Column Name="Data" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Server" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="UserName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BandC_DistinctByEmployee" Member="BandC_DistinctByEmployees">
+    <Type Name="BandC_DistinctByEmployee">
+      <Column Name="No_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[First Name]" Member="First_Name" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Middle Name]" Member="Middle_Name" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Last Name]" Member="Last_Name" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Job Title]" Member="Job_Title" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="FileName" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="City" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Manager No_]" Member="Manager_No_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Manager Group Code]" Member="Manager_Group_Code" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Reports To]" Member="Reports_To" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Line No_]" Member="Line_No_" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="[Qualification Code]" Member="Qualification_Code" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="[From Date]" Member="From_Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="[To Date]" Member="To_Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(80)" CanBeNull="true" />
+      <Column Name="[Expiration Date]" Member="Expiration_Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="[Document No_]" Member="Document_No_" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Required" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="category" Type="System.String" DbType="VarChar(60)" CanBeNull="true" />
+      <Column Name="Dept" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="IsMissing" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsCurrent" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsExpired" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="temp" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="temptoperm" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="contractor" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BandC_License_Dtl" Member="BandC_License_Dtls">
+    <Type Name="BandC_License_Dtl">
+      <Column Name="[qualification code]" Member="qualification_code" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="no_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(61) NOT NULL" CanBeNull="false" />
+      <Column Name="[to date]" Member="to_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BandC_License_Sum" Member="BandC_License_Sums">
+    <Type Name="BandC_License_Sum">
+      <Column Name="State" Type="System.String" DbType="VarChar(2) NOT NULL" CanBeNull="false" />
+      <Column Name="JourneyMan" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Professional" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Master" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[Shermco$Time Sheet Entry]" Member="Shermco_Time_Sheet_Entries">
+    <Type Name="Shermco_Time_Sheet_Entry">
+      <Column Name="timestamp" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
+      <Column Name="[Entry No_]" Member="Entry_No_" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="[Entry Date And Time]" Member="Entry_Date_And_Time" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Created by Employee No_]" Member="Created_by_Employee_No_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Created by Name]" Member="Created_by_Name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="[Employee No_]" Member="Employee_No_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Work Date]" Member="Work_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[User ID]" Member="User_ID" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Approval Code]" Member="Approval_Code" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Resource No_]" Member="Resource_No_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Prior Status]" Member="Prior_Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Selected" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Shortcut Dimension 1 Code]" Member="Shortcut_Dimension_1_Code" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Shortcut Dimension 2 Code]" Member="Shortcut_Dimension_2_Code" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Job No_]" Member="Job_No_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Phase Code]" Member="Phase_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Task Code]" Member="Task_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Step Code]" Member="Step_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Pay Posting Group]" Member="Pay_Posting_Group" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Straight Time]" Member="Straight_Time" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Over Time]" Member="Over_Time" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Double Time]" Member="Double_Time" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Absence Time]" Member="Absence_Time" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Holiday Time]" Member="Holiday_Time" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Created By Another Employee]" Member="Created_By_Another_Employee" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Initial Straight Time]" Member="Initial_Straight_Time" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Initial Over Time]" Member="Initial_Over_Time" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Initial Double Time]" Member="Initial_Double_Time" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Initial Absence Time]" Member="Initial_Absence_Time" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Initial Holiday Time]" Member="Initial_Holiday_Time" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Last Modified Date And Time]" Member="Last_Modified_Date_And_Time" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Last Modified User id]" Member="Last_Modified_User_id" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Line Comment]" Member="Line_Comment" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="[Customer No_]" Member="Customer_No_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Approved to level]" Member="Approved_to_level" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Rejected Reason Code]" Member="Rejected_Reason_Code" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Class Start Time]" Member="Class_Start_Time" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Class Description]" Member="Class_Description" Type="System.String" DbType="VarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="[Class Location]" Member="Class_Location" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="[Class Instructor]" Member="Class_Instructor" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Web" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SIU_MySi_MissedSafetyMeetings" Member="SIU_MySi_MissedSafetyMeetings">
+    <Type Name="SIU_MySi_MissedSafetyMeeting">
+      <Column Name="EmpNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="DivDep" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="MeetingType" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Topic" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DateCompleted" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SIU_Class_Completion" Member="SIU_Class_Completions">
+    <Type Name="SIU_Class_Completion">
+      <Column Name="emp_no" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="qual_code" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="class_date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="class_instructor" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="UID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="instructor_name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="student_name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="qual_name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SIU_SafetyPays_Points" Member="SIU_SafetyPays_Points">
+    <Type Name="SIU_SafetyPays_Point">
+      <Column Name="UID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Emp_No" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="ReasonForPoints" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DatePointsGiven" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="PointsGivenBy" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Comments" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Points" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="EventDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SIU_SafetyPays_Points_Prjd" Member="SIU_SafetyPays_Points_Prjds">
+    <Type Name="SIU_SafetyPays_Points_Prjd">
+      <Column Name="UID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Dept" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="yr" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="mon" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PtsType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MonPrjPts" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="WklyPrjPts" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SIU_SafetyPays_Points_Prjd_Std" Member="SIU_SafetyPays_Points_Prjd_Stds">
+    <Type Name="SIU_SafetyPays_Points_Prjd_Std">
+      <Column Name="UID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Dept" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="PtsType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MonPrjPts" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="WklyPrjPts" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Shermco$Vehicle" Member="Shermco_Vehicles">
+    <Type Name="Shermco_Vehicle">
+      <Column Name="timestamp" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
+      <Column Name="No_" Type="System.String" DbType="VarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="[Global Dimension 1 Code]" Member="Global_Dimension_1_Code" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Owner" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Driver" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Registration Sticker]" Member="Registration_Sticker" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[State Inspection]" Member="State_Inspection" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Year" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Make" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="Model" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="License" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="VIN" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="[Fuel Card ID]" Member="Fuel_Card_ID" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Maintenance Unit No_]" Member="Maintenance_Unit_No_" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Lease Unit No_]" Member="Lease_Unit_No_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Terms" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Start Date]" Member="Start_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Lease Cost (Mnth)]" Member="Lease_Cost__Mnth_" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Delivered Price]" Member="Delivered_Price" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Reduced Book Value]" Member="Reduced_Book_Value" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Curb Weight (lbs)]" Member="Curb_Weight__lbs_" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Max_ Payload (lbs)]" Member="Max__Payload__lbs_" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Gross Vehicle Weight Rating]" Member="Gross_Vehicle_Weight_Rating" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Max_ Towing Capacity (lbs)]" Member="Max__Towing_Capacity__lbs_" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[First Aid Kit]" Member="First_Aid_Kit" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Fire Extinguisher]" Member="Fire_Extinguisher" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Highway Triangles]" Member="Highway_Triangles" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="ToolBox" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Liftgate" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Service Body]" Member="Service_Body" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[USDOT Marking]" Member="USDOT_Marking" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[ECL Marking]" Member="ECL_Marking" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Insurance Cost]" Member="Insurance_Cost" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Maintenance Cost]" Member="Maintenance_Cost" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Weekly Fuel Deduction]" Member="Weekly_Fuel_Deduction" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Reimbursement Cost]" Member="Reimbursement_Cost" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Monthly Fuel Card Cost]" Member="Monthly_Fuel_Card_Cost" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Monthly Maintenance Card Cost]" Member="Monthly_Maintenance_Card_Cost" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Blocked Date]" Member="Blocked_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Blocked" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[No_ Series]" Member="No__Series" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Last Date Modified]" Member="Last_Date_Modified" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Last Modifying User]" Member="Last_Modifying_User" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Factory Curb Weight (lbs)]" Member="Factory_Curb_Weight__lbs_" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Factory Max_ Payload (lbs)]" Member="Factory_Max__Payload__lbs_" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Factory Gross Vehicle Weight]" Member="Factory_Gross_Vehicle_Weight" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Factory Max_ Towing Capacity]" Member="Factory_Max__Towing_Capacity" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Accident Camera Kit]" Member="Accident_Camera_Kit" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Keybox Tag No_]" Member="Keybox_Tag_No_" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Driver Name]" Member="Driver_Name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="[Fuel Type]" Member="Fuel_Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Drive Type]" Member="Drive_Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Delivery Date]" Member="Delivery_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Tank Size]" Member="Tank_Size" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Key Code]" Member="Key_Code" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Back Up Alarm Switch]" Member="Back_Up_Alarm_Switch" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Hide" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Aftermarket Vehicle Alarm]" Member="Aftermarket_Vehicle_Alarm" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Toll Tag]" Member="Toll_Tag" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Toll Tag Number]" Member="Toll_Tag_Number" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(150) NOT NULL" CanBeNull="false" />
+      <Column Name="[Accident Cost]" Member="Accident_Cost" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Accident Date]" Member="Accident_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Ownership of Title]" Member="Ownership_of_Title" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Mileage" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Vehicle Identification]" Member="Vehicle_Identification" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[MPG City]" Member="MPG_City" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="[MPG Highway]" Member="MPG_Highway" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+      <Column Name="GPS" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[GPS Number]" Member="GPS_Number" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[GPS IESI]" Member="GPS_IESI" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[GPS IESI Number]" Member="GPS_IESI_Number" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[GPS SEAL]" Member="GPS_SEAL" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[GPS SEAL Number]" Member="GPS_SEAL_Number" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="OnStar" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[OnStar Number]" Member="OnStar_Number" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Satellite Radio]" Member="Satellite_Radio" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Satellite Radio Number]" Member="Satellite_Radio_Number" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Keybox Tag Number]" Member="Keybox_Tag_Number" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Trailer Brakes]" Member="Trailer_Brakes" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Trailer Axles]" Member="Trailer_Axles" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Wheel Lock]" Member="Wheel_Lock" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[License State]" Member="License_State" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[DOT Inspection]" Member="DOT_Inspection" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Vehicle Color]" Member="Vehicle_Color" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[DOT Not Applicable]" Member="DOT_Not_Applicable" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Vehicle Description]" Member="Vehicle_Description" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="[Maint Card Not Applicable]" Member="Maint_Card_Not_Applicable" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Model Tonnage]" Member="Model_Tonnage" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Mileage Two]" Member="Mileage_Two" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Date Created]" Member="Date_Created" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Personal Insurance Card]" Member="Personal_Insurance_Card" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Personal Insurance Exp Date]" Member="Personal_Insurance_Exp_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Cab Style]" Member="Cab_Style" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[SDS Book]" Member="SDS_Book" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Monthly Maintenance Fee]" Member="Monthly_Maintenance_Fee" Type="System.Decimal" DbType="Decimal(38,20) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SIU_SafetyPays_TaskStatus" Member="SIU_SafetyPays_TaskStatus">
+    <Type Name="SIU_SafetyPays_TaskStatus">
+      <Column Name="UID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IncidentNo" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TaskNo" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ReqDate1" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ReqDate2" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ReqDate3" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Email1" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Email2" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Email3" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Email4" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ResponseDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Response" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SIU_SafetyPays_TaskList" Member="SIU_SafetyPays_TaskLists">
+    <Type Name="SIU_SafetyPays_TaskList">
+      <Column Name="IncidentNo" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TaskNo" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TaskDefinition" Type="System.String" DbType="VarChar(1000) NOT NULL" CanBeNull="false" />
+      <Column Name="DueDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="AssignedEmpID" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="CompletedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SIU_Training_Attendance" Member="SIU_Training_Attendances">
+    <Type Name="SIU_Training_Attendance">
+      <Column Name="TA_UID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TL_UID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TQ_UID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="EmpID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BadgeIn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="VideoStart" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="VideoEnd" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="QuizDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="QuizPass" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="QuizName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SIU_Training_Log_Certifications" Member="SIU_Training_Log_Certifications">
+    <Type Name="SIU_Training_Log_Certification">
+      <Column Name="TLC_UID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TL_UID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="QualCode" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SIU_Proprof_Quiz" Member="SIU_Proprof_Quizs">
+    <Type Name="SIU_Proprof_Quiz">
+      <Column Name="UID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Quiz_ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Quiz_Name" Type="System.String" DbType="VarChar(150) NOT NULL" CanBeNull="false" />
+      <Column Name="Attempt_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Total_Marks" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="User_Marks" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="User_Pct_Marks" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Total_Correct" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Total_Wrong" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="User_ID" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="User_Email" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="User_Address" Type="System.String" DbType="VarChar(150) NOT NULL" CanBeNull="false" />
+      <Column Name="User_City" Type="System.String" DbType="VarChar(150) NOT NULL" CanBeNull="false" />
+      <Column Name="User_State" Type="System.String" DbType="VarChar(150) NOT NULL" CanBeNull="false" />
+      <Column Name="User_Zipcode" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="User_Phone" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="User_Name" Type="System.String" DbType="VarChar(150) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[Shermco$Job Report]" Member="Shermco_Job_Reports">
+    <Type Name="Shermco_Job_Report">
+      <Column Name="timestamp" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
+      <Column Name="[Job No_]" Member="Job_No_" Type="System.String" DbType="VarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="[Last Date Modified]" Member="Last_Date_Modified" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Logged and Scanned]" Member="Logged_and_Scanned" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Logged and Scanned User]" Member="Logged_and_Scanned_User" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Logged In By Rpt Dpt]" Member="Logged_In_By_Rpt_Dpt" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Logged In By Rpt Dpt User]" Member="Logged_In_By_Rpt_Dpt_User" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Start Data Sheet Entry]" Member="Start_Data_Sheet_Entry" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Start Data Sheet Entry User]" Member="Start_Data_Sheet_Entry_User" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Start Proofread]" Member="Start_Proofread" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Start Proofread User]" Member="Start_Proofread_User" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Received for Corrections]" Member="Received_for_Corrections" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Received for Corrections User]" Member="Received_for_Corrections_User" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Sent for Tech Review]" Member="Sent_for_Tech_Review" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Sent for Tech Review User]" Member="Sent_for_Tech_Review_User" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Tech Review Completed]" Member="Tech_Review_Completed" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Tech Review Completed User]" Member="Tech_Review_Completed_User" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Complete and Delivered]" Member="Complete_and_Delivered" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Complete and Delivered User]" Member="Complete_and_Delivered_User" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Report Required on Shipping]" Member="Report_Required_on_Shipping" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Letter Report Only]" Member="Letter_Report_Only" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[IR Report Only]" Member="IR_Report_Only" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[IR Received From Tech]" Member="IR_Received_From_Tech" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[IR Received From Tech User]" Member="IR_Received_From_Tech_User" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[IR Complete and Delivered]" Member="IR_Complete_and_Delivered" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[IR Complete and Delivered User]" Member="IR_Complete_and_Delivered_User" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Date Report Turned In by Tech]" Member="Date_Report_Turned_In_by_Tech" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[JHA Submitted]" Member="JHA_Submitted" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[JHA Submitted Date]" Member="JHA_Submitted_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[JHA Submitted UserID]" Member="JHA_Submitted_UserID" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[COI Email Address]" Member="COI_Email_Address" Type="System.String" DbType="VarChar(80) NOT NULL" CanBeNull="false" />
+      <Column Name="[COI Received]" Member="COI_Received" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[COI Not Needed]" Member="COI_Not_Needed" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Work Location]" Member="Work_Location" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Work Location State]" Member="Work_Location_State" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Work Location Int]" Member="Work_Location_Int" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Work Location Country]" Member="Work_Location_Country" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Legal Contact Name]" Member="Legal_Contact_Name" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Legal Contact Email]" Member="Legal_Contact_Email" Type="System.String" DbType="VarChar(80) NOT NULL" CanBeNull="false" />
+      <Column Name="[Invoice Requirements]" Member="Invoice_Requirements" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="[Legal Contact Ph Number]" Member="Legal_Contact_Ph_Number" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Legal Contact Fax]" Member="Legal_Contact_Fax" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="[Site Badge Rqured]" Member="Site_Badge_Rqured" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Safetey Questionnaire]" Member="Safetey_Questionnaire" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Background Check Required]" Member="Background_Check_Required" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Drug_Alcohol Testing Req]" Member="Drug_Alcohol_Testing_Req" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Site Badge Comments]" Member="Site_Badge_Comments" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="[Safety Comments]" Member="Safety_Comments" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="[Background Checks Comments]" Member="Background_Checks_Comments" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="[Drug_Alcohol Testing Comments]" Member="Drug_Alcohol_Testing_Comments" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Subcontractors" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Estimated Subcontractors Hours]" Member="Estimated_Subcontractors_Hours" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Bid Bond Required]" Member="Bid_Bond_Required" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Performance Bond Required]" Member="Performance_Bond_Required" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Payment Bond Required]" Member="Payment_Bond_Required" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Contract to be returned]" Member="Contract_to_be_returned" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Contract Review Comments]" Member="Contract_Review_Comments" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="[Bid Bond Comments]" Member="Bid_Bond_Comments" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="[Performance Bond Comments]" Member="Performance_Bond_Comments" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="[Payment Bond Comments]" Member="Payment_Bond_Comments" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="[New Shermco Customer]" Member="New_Shermco_Customer" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Year became a Shermco Customer]" Member="Year_became_a_Shermco_Customer" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Select]" Member="Select" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Turned in by Tech Date]" Member="Turned_in_by_Tech_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Turned in by Tech UserID]" Member="Turned_in_by_Tech_UserID" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="Comment" Type="System.String" DbType="VarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="TmpComplete" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="TmpPartial" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="TmpPE" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="TmpSynced" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="TmpHandwritten" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="TmpInbox" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="TmpWord" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="TmpPDBMaster" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="TmpOther" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="TmpOtherText" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="[Turned in By Emp_ No_]" Member="Turned_in_By_Emp__No_" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Received" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[In Progress]" Member="In_Progress" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Certified Payroll Required]" Member="Certified_Payroll_Required" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[No Report Required]" Member="No_Report_Required" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[No Report Required Reason]" Member="No_Report_Required_Reason" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="SalesFollowUp" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[SalesFollowUp Email Date]" Member="SalesFollowUp_Email_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[SalesFollowUp Comment]" Member="SalesFollowUp_Comment" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="[SalesFollowUp Acknowledge]" Member="SalesFollowUp_Acknowledge" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[SalesFollowUp Ack Date]" Member="SalesFollowUp_Ack_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[SalesFollowUp Ack Userid]" Member="SalesFollowUp_Ack_Userid" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Sent to Allied]" Member="Sent_to_Allied" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Sent to Allied UserID]" Member="Sent_to_Allied_UserID" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="TmpLetterOnly" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="TmpIRData" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Report Data Format]" Member="Report_Data_Format" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[RTS Relay Data]" Member="RTS_Relay_Data" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[CT Data Saved]" Member="CT_Data_Saved" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Partial Discharge]" Member="Partial_Discharge" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Oil Sample]" Member="Oil_Sample" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Oil Sample Follow UP]" Member="Oil_Sample_Follow_UP" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Bus Bolt Torque]" Member="Bus_Bolt_Torque" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[DC Hipot]" Member="DC_Hipot" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Decal Color Codes]" Member="Decal_Color_Codes" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="DLRO" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Doble" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Ground Fault Systems]" Member="Ground_Fault_Systems" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Grounding &amp; Ground Electrode]" Member="Grounding___Ground_Electrode" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Insulation Resistance]" Member="Insulation_Resistance" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[NFPA-99]" Member="NFPA_99" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Oil Tests]" Member="Oil_Tests" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Partial Discharge B]" Member="Partial_Discharge_B" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[PCB Info]" Member="PCB_Info" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Protective Relays]" Member="Protective_Relays" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Thermograpic(IR)]" Member="Thermograpic_IR_" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="TTR" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Ultrasonic Testing]" Member="Ultrasonic_Testing" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[No Testing Done]" Member="No_Testing_Done" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[Rejected Date]" Member="Rejected_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Rejected Reason]" Member="Rejected_Reason" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Rejected" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Estimating Due Date]" Member="Estimating_Due_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="IROnly" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="IRonFinalReport" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="[No_ of Copies]" Member="No__of_Copies" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[General Dropbox]" Member="General_Dropbox" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SIU_Training_Log" Member="SIU_Training_Logs">
+    <Type Name="SIU_Training_Log">
+      <Column Name="TL_UID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="StartTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="StopTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Topic" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="Instructor" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="InstructorID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Location" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="MeetingType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Points" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="VideoFile" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="QuizLink" Type="System.String" DbType="VarChar(250) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SIU_SafetyPays_Points_Type" Member="SIU_SafetyPays_Points_Types">
+    <Type Name="SIU_SafetyPays_Points_Type">
+      <Column Name="UID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="PointsCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsClass" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SIU_SafetyPaysReport" Member="SIU_SafetyPaysReports">
+    <Type Name="SIU_SafetyPaysReport">
+      <Column Name="IncidentNo" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EmpID" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="JobSite" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="IncTypeTxt" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="IncTypeSafeFlag" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IncTypeUnsafeFlag" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IncTypeSuggFlag" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IncTypeTopicFlag" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IncTypeSumFlag" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Comments" Type="System.String" DbType="VarChar(2000) NOT NULL" CanBeNull="false" />
+      <Column Name="IncStatus" Type="System.String" DbType="VarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="IncOpenTimestamp" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="IncCloseTimestamp" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="IncLastTouchTimestamp" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="IncLastTouchEmpID" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="PointsAssigned" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PointsAssignedTimeStamp" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ehsRepsonse" Type="System.String" DbType="VarChar(2000)" CanBeNull="true" />
+      <Column Name="IncidentDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ObservedEmpID" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="InitialResponse" Type="System.String" DbType="VarChar(2000)" CanBeNull="true" />
+      <Column Name="SafetyMeetingDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="SafetyMeetingType" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="JobNo" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Function Name="dbo.SIU_ELO_GetBalance" Method="SIU_ELO_GetBalance">
+    <Parameter Name="EmpNo" Parameter="empNo" Type="System.String" DbType="VarChar(10)" />
+    <ElementType Name="SIU_ELO_GetBalanceResult">
+      <Column Name="PHOLIDAY" Type="System.Decimal" DbType="Decimal(38,20)" CanBeNull="true" />
+      <Column Name="VACATION" Type="System.Decimal" DbType="Decimal(38,20)" CanBeNull="true" />
+      <Column Name="SICK" Type="System.Decimal" DbType="Decimal(38,20)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SIU_Class_To_Qualification" Method="SIU_Class_To_Qualification">
+    <Parameter Name="UID" Parameter="uID" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SIU_SummaryCounts" Method="SIU_SummaryCounts">
+    <ElementType Name="SIU_SummaryCountsResult">
+      <Column Name="SafetyPaysTotalWaiting" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SafetyPaysTotalWorking" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SafetyPaysTotalWorkingTasks" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SafetyPaysTotalNotTask" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SafetyPaysTotalLateTask" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SafetyPaysTotalLateStatus" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SafetyPaysTotalCloseReady" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="QomCurrentStart" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="QomCurrentEnd" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="QomCurrentWaitingResponses" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="QomNextStart" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="QomNextEnd" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="QomCurrentQiD" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SIU_MySi_SummaryCounts" Method="SIU_MySi_SummaryCounts">
+    <Parameter Name="EmpID" Parameter="empID" Type="System.String" DbType="VarChar(20)" />
+    <ElementType Name="SIU_MySi_SummaryCountsResult">
+      <Column Name="JobRptsInProgress" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="JobRptsPastDue" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RejectedTime" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="VehicleMileageReported" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ExpiringBandC" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OpenHwReq" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OpenBugReq" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="HoursThisWeek" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
+      <Column Name="HoursToday" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
+      <Column Name="PHoliday" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
+      <Column Name="Vacation" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
+      <Column Name="Sick" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
+      <Column Name="ExpCnt" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ExpAmt" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
+      <Column Name="MissedMeetings" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="VehIssues" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SpMyOpen" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SpMyAssigned" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SpMyLateTask" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SpMyLateStatus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+</Database>

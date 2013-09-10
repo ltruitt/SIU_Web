@@ -1,0 +1,27 @@
+﻿/**************************************************/
+/* Make JQuery UI Forms Full Width On The Desktop */
+/**************************************************/
+.ui-form {
+    width: 100%;
+}
+
+/***************************/
+/* Double-sized Checkboxes */
+/***************************/
+input[type=checkbox]
+{
+    -ms-transform: scale(1.5);      /* IE */
+    -moz-transform: scale(1.5);     /* FF */
+    -webkit-transform: scale(1.5);  /* Safari and Chrome */
+    -o-transform: scale(1.5);       /* Opera */
+    
+    width: 12px;
+    height: 18px;
+    margin-right: 0;
+    margin-top: -2px;
+
+    -webkit-margin-end: 15px;
+    -webkit-margin-before: 2px;
+}
+
+
