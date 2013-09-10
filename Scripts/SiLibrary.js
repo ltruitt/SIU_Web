@@ -70,6 +70,8 @@
          // Otherwise, Start Lookup Of Sub Directory Folders //
          //////////////////////////////////////////////////////
          var subPath = buildPathFromBreadCrumbs(clickedCrumb);
+         subPath = clickedCrumb;
+         subPath = subPath.replace(vrVid, '');
          if (fileDispObj != null) {
              $.SiLibrary.GetSubDocumentFolders(vrDoc, subPath, docDispObj);
              $.SiLibrary.GetFileList(vrDoc, subPath, fileDispObj);
