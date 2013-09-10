@@ -78,12 +78,6 @@ $(document).ready(function () {
                 list: false
             },
             
-            QuizLink: {
-                title: 'Quiz URL',
-                sorting: false,
-                list: false
-            },
-            
             QuizName: {
                 title: 'Quiz Name',
                 sorting: false,
@@ -112,7 +106,15 @@ $(document).ready(function () {
                     tlUid = record.TL_UID;
 
                     $('#txtTopic').val(record.Topic);
-                    $('#txtType').val(record.MeetingType);
+                    
+                    $('#hlblPointsType')[0].innerHTML = record.MeetingType;
+                    for (var c = 0; c < listOfTypes.length; c++) {
+                        var strParts = listOfTypes[c].split(" ");
+                        if (strParts[0] == record.MeetingType)
+                            $('#txtType').val(listOfTypes[c]);
+                    }
+                    
+                    
                     $('#txtPts').val(record.Points);
                     $('#txtDesc').val(record.Description);
                     $('#txtInst').val(record.Instructor);
@@ -123,9 +125,9 @@ $(document).ready(function () {
                     $('#txtLoc').val(record.Location);
                     
                     $('#txtVideo').val(record.VideoFile);
-                    $('#txtQuiz').val(record.QuizLink);
+                    $('#txtQuiz').val(record.QuizName);
                     
-                    $('#jTableClass').hide();
+                    //$('#jTableClass').hide();
                     $('#jTableQual').jtable('load', { MeetingID: tlUid, T: timestamp.getTime() });
                     validate();
                 });
@@ -238,7 +240,7 @@ $(document).ready(function () {
         if (jsonTimeString.indexOf('/Date') == -1)
             return jsonTimeString;
 
-        return new Date(parseInt(jsonDateString.replace('/Date(', ''))).toTimeString()();
+        return new Date(parseInt(jsonTimeString.replace('/Date(', ''))).toTimeString();
     }
     
 
@@ -500,7 +502,7 @@ $(document).ready(function () {
     function FocusChange() {
         if (document.activeElement.className.indexOf("jtable") != -1) 
             return;
-        $('#jTableClass').hide();
+        //$('#jTableClass').hide();
         validate();
     }
 
@@ -563,11 +565,19 @@ $(document).ready(function () {
         recordMeetingCall.add('cStop', $('#txtEnd').val());
         recordMeetingCall.add('cLoc', $('#txtLoc').val());
 
-        //var data = { d: 'ID:99' };
-        //recordMeetingLogAdminSuccess(data);
-        recordMeetingCall.exec("/SIU_DAO.asmx/RecordMeetingLogAdmin", recordMeetingLogAdminSuccess);
-
+        if ( tlUid == 0)
+            recordMeetingCall.exec("/SIU_DAO.asmx/RecordMeetingLogAdmin", recordMeetingLogAdminSuccess);
+        else
+            recordMeetingCall.exec("/SIU_DAO.asmx/RecordMeetingLogAdmin", recordMeetingLogAdminUpdateSuccess);
     });
+    function recordMeetingLogAdminUpdateSuccess() {
+        $("#btnClear").click();
+        validate();
+        $('#txtTopic').focus();
+        $('#jTableClass').jtable('load', { T: timestamp.getTime() });
+        $('#jTableQual').jtable('load', { MeetingID: 0, T: timestamp.getTime() });
+    }
+    
 
     ///////////////////////////
     // Submit Button Handler //

@@ -140,15 +140,15 @@ public partial class SIU_ORM_LINQDataContext : System.Data.Linq.DataContext
   partial void InsertShermco_Job_Report(Shermco_Job_Report instance);
   partial void UpdateShermco_Job_Report(Shermco_Job_Report instance);
   partial void DeleteShermco_Job_Report(Shermco_Job_Report instance);
-  partial void InsertSIU_Training_Log(SIU_Training_Log instance);
-  partial void UpdateSIU_Training_Log(SIU_Training_Log instance);
-  partial void DeleteSIU_Training_Log(SIU_Training_Log instance);
   partial void InsertSIU_SafetyPays_Points_Type(SIU_SafetyPays_Points_Type instance);
   partial void UpdateSIU_SafetyPays_Points_Type(SIU_SafetyPays_Points_Type instance);
   partial void DeleteSIU_SafetyPays_Points_Type(SIU_SafetyPays_Points_Type instance);
   partial void InsertSIU_SafetyPaysReport(SIU_SafetyPaysReport instance);
   partial void UpdateSIU_SafetyPaysReport(SIU_SafetyPaysReport instance);
   partial void DeleteSIU_SafetyPaysReport(SIU_SafetyPaysReport instance);
+  partial void InsertSIU_Training_Log(SIU_Training_Log instance);
+  partial void UpdateSIU_Training_Log(SIU_Training_Log instance);
+  partial void DeleteSIU_Training_Log(SIU_Training_Log instance);
   #endregion
 	
 	public SIU_ORM_LINQDataContext() : 
@@ -517,14 +517,6 @@ public partial class SIU_ORM_LINQDataContext : System.Data.Linq.DataContext
 		}
 	}
 	
-	public System.Data.Linq.Table<SIU_Training_Log> SIU_Training_Logs
-	{
-		get
-		{
-			return this.GetTable<SIU_Training_Log>();
-		}
-	}
-	
 	public System.Data.Linq.Table<SIU_SafetyPays_Points_Type> SIU_SafetyPays_Points_Types
 	{
 		get
@@ -538,6 +530,14 @@ public partial class SIU_ORM_LINQDataContext : System.Data.Linq.DataContext
 		get
 		{
 			return this.GetTable<SIU_SafetyPaysReport>();
+		}
+	}
+	
+	public System.Data.Linq.Table<SIU_Training_Log> SIU_Training_Logs
+	{
+		get
+		{
+			return this.GetTable<SIU_Training_Log>();
 		}
 	}
 	
@@ -31757,356 +31757,6 @@ public partial class Shermco_Job_Report : INotifyPropertyChanging, INotifyProper
 	}
 }
 
-[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SIU_Training_Log")]
-public partial class SIU_Training_Log : INotifyPropertyChanging, INotifyPropertyChanged
-{
-	
-	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-	
-	private int _TL_UID;
-	
-	private System.DateTime _Date;
-	
-	private System.DateTime _StartTime;
-	
-	private System.DateTime _StopTime;
-	
-	private string _Topic;
-	
-	private string _Description;
-	
-	private string _Instructor;
-	
-	private int _InstructorID;
-	
-	private string _Location;
-	
-	private int _MeetingType;
-	
-	private int _Points;
-	
-	private string _VideoFile;
-	
-	private string _QuizLink;
-	
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnTL_UIDChanging(int value);
-    partial void OnTL_UIDChanged();
-    partial void OnDateChanging(System.DateTime value);
-    partial void OnDateChanged();
-    partial void OnStartTimeChanging(System.DateTime value);
-    partial void OnStartTimeChanged();
-    partial void OnStopTimeChanging(System.DateTime value);
-    partial void OnStopTimeChanged();
-    partial void OnTopicChanging(string value);
-    partial void OnTopicChanged();
-    partial void OnDescriptionChanging(string value);
-    partial void OnDescriptionChanged();
-    partial void OnInstructorChanging(string value);
-    partial void OnInstructorChanged();
-    partial void OnInstructorIDChanging(int value);
-    partial void OnInstructorIDChanged();
-    partial void OnLocationChanging(string value);
-    partial void OnLocationChanged();
-    partial void OnMeetingTypeChanging(int value);
-    partial void OnMeetingTypeChanged();
-    partial void OnPointsChanging(int value);
-    partial void OnPointsChanged();
-    partial void OnVideoFileChanging(string value);
-    partial void OnVideoFileChanged();
-    partial void OnQuizLinkChanging(string value);
-    partial void OnQuizLinkChanged();
-    #endregion
-	
-	public SIU_Training_Log()
-	{
-		OnCreated();
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TL_UID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-	public int TL_UID
-	{
-		get
-		{
-			return this._TL_UID;
-		}
-		set
-		{
-			if ((this._TL_UID != value))
-			{
-				this.OnTL_UIDChanging(value);
-				this.SendPropertyChanging();
-				this._TL_UID = value;
-				this.SendPropertyChanged("TL_UID");
-				this.OnTL_UIDChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Date", DbType="DateTime NOT NULL")]
-	public System.DateTime Date
-	{
-		get
-		{
-			return this._Date;
-		}
-		set
-		{
-			if ((this._Date != value))
-			{
-				this.OnDateChanging(value);
-				this.SendPropertyChanging();
-				this._Date = value;
-				this.SendPropertyChanged("Date");
-				this.OnDateChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StartTime", DbType="DateTime NOT NULL")]
-	public System.DateTime StartTime
-	{
-		get
-		{
-			return this._StartTime;
-		}
-		set
-		{
-			if ((this._StartTime != value))
-			{
-				this.OnStartTimeChanging(value);
-				this.SendPropertyChanging();
-				this._StartTime = value;
-				this.SendPropertyChanged("StartTime");
-				this.OnStartTimeChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StopTime", DbType="DateTime NOT NULL")]
-	public System.DateTime StopTime
-	{
-		get
-		{
-			return this._StopTime;
-		}
-		set
-		{
-			if ((this._StopTime != value))
-			{
-				this.OnStopTimeChanging(value);
-				this.SendPropertyChanging();
-				this._StopTime = value;
-				this.SendPropertyChanged("StopTime");
-				this.OnStopTimeChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Topic", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-	public string Topic
-	{
-		get
-		{
-			return this._Topic;
-		}
-		set
-		{
-			if ((this._Topic != value))
-			{
-				this.OnTopicChanging(value);
-				this.SendPropertyChanging();
-				this._Topic = value;
-				this.SendPropertyChanged("Topic");
-				this.OnTopicChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="VarChar(250) NOT NULL", CanBeNull=false)]
-	public string Description
-	{
-		get
-		{
-			return this._Description;
-		}
-		set
-		{
-			if ((this._Description != value))
-			{
-				this.OnDescriptionChanging(value);
-				this.SendPropertyChanging();
-				this._Description = value;
-				this.SendPropertyChanged("Description");
-				this.OnDescriptionChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Instructor", DbType="VarChar(30) NOT NULL", CanBeNull=false)]
-	public string Instructor
-	{
-		get
-		{
-			return this._Instructor;
-		}
-		set
-		{
-			if ((this._Instructor != value))
-			{
-				this.OnInstructorChanging(value);
-				this.SendPropertyChanging();
-				this._Instructor = value;
-				this.SendPropertyChanged("Instructor");
-				this.OnInstructorChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_InstructorID", DbType="Int NOT NULL")]
-	public int InstructorID
-	{
-		get
-		{
-			return this._InstructorID;
-		}
-		set
-		{
-			if ((this._InstructorID != value))
-			{
-				this.OnInstructorIDChanging(value);
-				this.SendPropertyChanging();
-				this._InstructorID = value;
-				this.SendPropertyChanged("InstructorID");
-				this.OnInstructorIDChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Location", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-	public string Location
-	{
-		get
-		{
-			return this._Location;
-		}
-		set
-		{
-			if ((this._Location != value))
-			{
-				this.OnLocationChanging(value);
-				this.SendPropertyChanging();
-				this._Location = value;
-				this.SendPropertyChanged("Location");
-				this.OnLocationChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MeetingType", DbType="Int NOT NULL")]
-	public int MeetingType
-	{
-		get
-		{
-			return this._MeetingType;
-		}
-		set
-		{
-			if ((this._MeetingType != value))
-			{
-				this.OnMeetingTypeChanging(value);
-				this.SendPropertyChanging();
-				this._MeetingType = value;
-				this.SendPropertyChanged("MeetingType");
-				this.OnMeetingTypeChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Points", DbType="Int NOT NULL")]
-	public int Points
-	{
-		get
-		{
-			return this._Points;
-		}
-		set
-		{
-			if ((this._Points != value))
-			{
-				this.OnPointsChanging(value);
-				this.SendPropertyChanging();
-				this._Points = value;
-				this.SendPropertyChanged("Points");
-				this.OnPointsChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VideoFile", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-	public string VideoFile
-	{
-		get
-		{
-			return this._VideoFile;
-		}
-		set
-		{
-			if ((this._VideoFile != value))
-			{
-				this.OnVideoFileChanging(value);
-				this.SendPropertyChanging();
-				this._VideoFile = value;
-				this.SendPropertyChanged("VideoFile");
-				this.OnVideoFileChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QuizLink", DbType="VarChar(250) NOT NULL", CanBeNull=false)]
-	public string QuizLink
-	{
-		get
-		{
-			return this._QuizLink;
-		}
-		set
-		{
-			if ((this._QuizLink != value))
-			{
-				this.OnQuizLinkChanging(value);
-				this.SendPropertyChanging();
-				this._QuizLink = value;
-				this.SendPropertyChanged("QuizLink");
-				this.OnQuizLinkChanged();
-			}
-		}
-	}
-	
-	public event PropertyChangingEventHandler PropertyChanging;
-	
-	public event PropertyChangedEventHandler PropertyChanged;
-	
-	protected virtual void SendPropertyChanging()
-	{
-		if ((this.PropertyChanging != null))
-		{
-			this.PropertyChanging(this, emptyChangingEventArgs);
-		}
-	}
-	
-	protected virtual void SendPropertyChanged(String propertyName)
-	{
-		if ((this.PropertyChanged != null))
-		{
-			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-		}
-	}
-}
-
 [global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SIU_SafetyPays_Points_Type")]
 public partial class SIU_SafetyPays_Points_Type : INotifyPropertyChanging, INotifyPropertyChanged
 {
@@ -32830,6 +32480,356 @@ public partial class SIU_SafetyPaysReport : INotifyPropertyChanging, INotifyProp
 				this._JobNo = value;
 				this.SendPropertyChanged("JobNo");
 				this.OnJobNoChanged();
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+}
+
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SIU_Training_Log")]
+public partial class SIU_Training_Log : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _TL_UID;
+	
+	private System.Nullable<System.DateTime> _Date;
+	
+	private System.Nullable<System.DateTime> _StartTime;
+	
+	private System.Nullable<System.DateTime> _StopTime;
+	
+	private string _Topic;
+	
+	private string _Description;
+	
+	private string _Instructor;
+	
+	private int _InstructorID;
+	
+	private string _Location;
+	
+	private int _MeetingType;
+	
+	private System.Nullable<int> _Points;
+	
+	private string _VideoFile;
+	
+	private string _QuizName;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnTL_UIDChanging(int value);
+    partial void OnTL_UIDChanged();
+    partial void OnDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnDateChanged();
+    partial void OnStartTimeChanging(System.Nullable<System.DateTime> value);
+    partial void OnStartTimeChanged();
+    partial void OnStopTimeChanging(System.Nullable<System.DateTime> value);
+    partial void OnStopTimeChanged();
+    partial void OnTopicChanging(string value);
+    partial void OnTopicChanged();
+    partial void OnDescriptionChanging(string value);
+    partial void OnDescriptionChanged();
+    partial void OnInstructorChanging(string value);
+    partial void OnInstructorChanged();
+    partial void OnInstructorIDChanging(int value);
+    partial void OnInstructorIDChanged();
+    partial void OnLocationChanging(string value);
+    partial void OnLocationChanged();
+    partial void OnMeetingTypeChanging(int value);
+    partial void OnMeetingTypeChanged();
+    partial void OnPointsChanging(System.Nullable<int> value);
+    partial void OnPointsChanged();
+    partial void OnVideoFileChanging(string value);
+    partial void OnVideoFileChanged();
+    partial void OnQuizNameChanging(string value);
+    partial void OnQuizNameChanged();
+    #endregion
+	
+	public SIU_Training_Log()
+	{
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TL_UID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int TL_UID
+	{
+		get
+		{
+			return this._TL_UID;
+		}
+		set
+		{
+			if ((this._TL_UID != value))
+			{
+				this.OnTL_UIDChanging(value);
+				this.SendPropertyChanging();
+				this._TL_UID = value;
+				this.SendPropertyChanged("TL_UID");
+				this.OnTL_UIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Date", DbType="DateTime")]
+	public System.Nullable<System.DateTime> Date
+	{
+		get
+		{
+			return this._Date;
+		}
+		set
+		{
+			if ((this._Date != value))
+			{
+				this.OnDateChanging(value);
+				this.SendPropertyChanging();
+				this._Date = value;
+				this.SendPropertyChanged("Date");
+				this.OnDateChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StartTime", DbType="DateTime")]
+	public System.Nullable<System.DateTime> StartTime
+	{
+		get
+		{
+			return this._StartTime;
+		}
+		set
+		{
+			if ((this._StartTime != value))
+			{
+				this.OnStartTimeChanging(value);
+				this.SendPropertyChanging();
+				this._StartTime = value;
+				this.SendPropertyChanged("StartTime");
+				this.OnStartTimeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StopTime", DbType="DateTime")]
+	public System.Nullable<System.DateTime> StopTime
+	{
+		get
+		{
+			return this._StopTime;
+		}
+		set
+		{
+			if ((this._StopTime != value))
+			{
+				this.OnStopTimeChanging(value);
+				this.SendPropertyChanging();
+				this._StopTime = value;
+				this.SendPropertyChanged("StopTime");
+				this.OnStopTimeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Topic", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+	public string Topic
+	{
+		get
+		{
+			return this._Topic;
+		}
+		set
+		{
+			if ((this._Topic != value))
+			{
+				this.OnTopicChanging(value);
+				this.SendPropertyChanging();
+				this._Topic = value;
+				this.SendPropertyChanged("Topic");
+				this.OnTopicChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="VarChar(250) NOT NULL", CanBeNull=false)]
+	public string Description
+	{
+		get
+		{
+			return this._Description;
+		}
+		set
+		{
+			if ((this._Description != value))
+			{
+				this.OnDescriptionChanging(value);
+				this.SendPropertyChanging();
+				this._Description = value;
+				this.SendPropertyChanged("Description");
+				this.OnDescriptionChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Instructor", DbType="VarChar(30) NOT NULL", CanBeNull=false)]
+	public string Instructor
+	{
+		get
+		{
+			return this._Instructor;
+		}
+		set
+		{
+			if ((this._Instructor != value))
+			{
+				this.OnInstructorChanging(value);
+				this.SendPropertyChanging();
+				this._Instructor = value;
+				this.SendPropertyChanged("Instructor");
+				this.OnInstructorChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_InstructorID", DbType="Int NOT NULL")]
+	public int InstructorID
+	{
+		get
+		{
+			return this._InstructorID;
+		}
+		set
+		{
+			if ((this._InstructorID != value))
+			{
+				this.OnInstructorIDChanging(value);
+				this.SendPropertyChanging();
+				this._InstructorID = value;
+				this.SendPropertyChanged("InstructorID");
+				this.OnInstructorIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Location", DbType="VarChar(50)")]
+	public string Location
+	{
+		get
+		{
+			return this._Location;
+		}
+		set
+		{
+			if ((this._Location != value))
+			{
+				this.OnLocationChanging(value);
+				this.SendPropertyChanging();
+				this._Location = value;
+				this.SendPropertyChanged("Location");
+				this.OnLocationChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MeetingType", DbType="Int NOT NULL")]
+	public int MeetingType
+	{
+		get
+		{
+			return this._MeetingType;
+		}
+		set
+		{
+			if ((this._MeetingType != value))
+			{
+				this.OnMeetingTypeChanging(value);
+				this.SendPropertyChanging();
+				this._MeetingType = value;
+				this.SendPropertyChanged("MeetingType");
+				this.OnMeetingTypeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Points", DbType="Int")]
+	public System.Nullable<int> Points
+	{
+		get
+		{
+			return this._Points;
+		}
+		set
+		{
+			if ((this._Points != value))
+			{
+				this.OnPointsChanging(value);
+				this.SendPropertyChanging();
+				this._Points = value;
+				this.SendPropertyChanged("Points");
+				this.OnPointsChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VideoFile", DbType="VarChar(50)")]
+	public string VideoFile
+	{
+		get
+		{
+			return this._VideoFile;
+		}
+		set
+		{
+			if ((this._VideoFile != value))
+			{
+				this.OnVideoFileChanging(value);
+				this.SendPropertyChanging();
+				this._VideoFile = value;
+				this.SendPropertyChanged("VideoFile");
+				this.OnVideoFileChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QuizName", DbType="VarChar(50)")]
+	public string QuizName
+	{
+		get
+		{
+			return this._QuizName;
+		}
+		set
+		{
+			if ((this._QuizName != value))
+			{
+				this.OnQuizNameChanging(value);
+				this.SendPropertyChanging();
+				this._QuizName = value;
+				this.SendPropertyChanged("QuizName");
+				this.OnQuizNameChanged();
 			}
 		}
 	}

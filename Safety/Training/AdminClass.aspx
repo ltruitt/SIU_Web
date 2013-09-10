@@ -39,7 +39,6 @@
     
 <pre>
 Hookup Pre Population Of This Page
-Click On Newly Added Meeting Does Not Show Date / Time
 </pre>    
     <div id="FormWrapper" class="ui-widget ui-form">
                     
@@ -72,7 +71,7 @@ Click On Newly Added Meeting Does Not Show Date / Time
             <div style="height: 40px;">
                 <span  id="lblErrServer" Class="errorTextCss"  ></span>
             </div>
-            <div id="jTableClass" style="max-width: 1025px; margin-bottom: 5px;"></div>
+            
 
 <table>
 <tr>
@@ -118,12 +117,12 @@ Click On Newly Added Meeting Does Not Show Date / Time
                 <!---------------------------->
                 <div class="ui-state-error ui-corner-all " style="width: 820px; clear: both; margin-top: 10px;">
                     <div style="font-size: 1.2em; font-weight: bold; display: inline-block; width: 100%; padding-top: 10px;">
-                        <div style="float: left; width: 100px;">Video Link</div>
+                        <div style="float: left; width: 120px;">Video Name</div>
                         <input type="text" id="txtVideo" Class="DataInputCss"  style=" margin-left: 10px; width: 670px; margin-top: -1px; font-size: .8em;" /> 
                     </div>
                     
                     <div style="font-size: 1.2em; font-weight: bold; display: inline-block; width: 100%; padding-top: 10px;">
-                        <div style="float: left; width: 100px;">Quiz Link</div>
+                        <div style="float: left; width: 120px;">Quiz Name</div>
                         <input type="text" id="txtQuiz" Class="DataInputCss"  style=" margin-left: 10px; width: 670px; margin-top: -1px; font-size: .8em;" /> 
                     </div>
                 </div>
@@ -187,13 +186,18 @@ Click On Newly Added Meeting Does Not Show Date / Time
                         <input type="button" ID="btnClear" value="Clear" Class="SearchBtnCSS"   />
                     </div>
                 </div>           
-
+            
+            <div id="jTableClass" style="max-width: 1025px; margin-bottom: 5px; margin-top: 20px;"></div>
         </section>
             
+        
+
     </div>      
     
     
     
+    
+
     <!-- Add Meeting Certification Popup -->
     <div id="popup-box" class="popup">
         <a href="#" class="close"><img src="/Images/Delete.png" class="btn_close" title="Close Window" alt="Close" />

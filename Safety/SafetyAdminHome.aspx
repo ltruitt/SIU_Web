@@ -52,6 +52,7 @@
                     <a href="/Corporate/BandC/BandC_ClassComplete.aspx"  ID="A2" runat="server" style="color: black; font-size: .9em; text-decoration: underline;">Record Students Completing a Class</a>
                     <hr/>                   
                     <a href="/Safety/Training/AdminClass.aspx"  ID="A1" runat="server" style="color: black; font-size: .9em; text-decoration: underline;">Add / Edit Classes</a>
+                    <a href="/Safety/Training/UserClass.aspx"  ID="A3" runat="server" style="color: black; font-size: .9em; text-decoration: underline;">Classes / User View</a>
                 </li> 
 
 

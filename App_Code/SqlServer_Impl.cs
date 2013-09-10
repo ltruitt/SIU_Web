@@ -10,14 +10,12 @@ using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Transactions;
 using System.Web;
 using System.Globalization;
 using System.Web.Configuration;
 using System.Web.Script.Services;
-using Microsoft.Office.Core;
 using ShermcoYou.DataTypes;
 using AutoMapper;
 
@@ -595,18 +593,18 @@ public class SiuDao : WebService
         // Gets the DTFI properties required by GetWeekOfYear.//
         ////////////////////////////////////////////////////////
         CalendarWeekRule cwr = ci.DateTimeFormat.CalendarWeekRule;
-        const DayOfWeek FirstDOW = DayOfWeek.Monday;
+        const DayOfWeek firstDow = DayOfWeek.Monday;
         
 
         List<SIU_TimeSheet_HoursRpt> rpt = SqlServer_Impl.GetWeeklyHoursThisYear(EmpID).OrderBy("workDate").ToList();
-        SIU_TimeSheet_HoursRpt_Mo dailyHoursRpt = new SIU_TimeSheet_HoursRpt_Mo(cal.GetWeekOfYear(DateTime.Now, cwr, FirstDOW));
+        SIU_TimeSheet_HoursRpt_Mo dailyHoursRpt = new SIU_TimeSheet_HoursRpt_Mo(cal.GetWeekOfYear(DateTime.Now, cwr, firstDow));
 
         foreach (var rptEntry in rpt)
         {
             ////////////////////////////////////////////////
             // Figure Out Which Week This Time Belongs To //
             ////////////////////////////////////////////////
-            int workWeek =  cal.GetWeekOfYear(DateTime.Parse(rptEntry.workDate), cwr, FirstDOW);
+            int workWeek =  cal.GetWeekOfYear(DateTime.Parse(rptEntry.workDate), cwr, firstDow);
 
 //////////////////////////////
 // BUG When Hours In Future //
@@ -1590,38 +1588,36 @@ public class SiuDao : WebService
     [WebMethod(EnableSession = true)]
     public string RecordMeetingLogAdmin(string MeetingID, string cTopic, string cType, string cPts, string cDesc, string cInstID, string cVideo, string cQuiz, string cDate, string cStart, string cStop, string cLoc)
     {
-        JavaScriptSerializer serializer = new JavaScriptSerializer();
+        try
+        {
+            string QuizName = HttpUtility.UrlDecode(cQuiz);
+            SIU_Training_Log mtgLog = new SIU_Training_Log
+            {   
+                TL_UID = int.Parse(MeetingID),
+                Topic = HttpUtility.UrlDecode(cTopic),
+                Description = HttpUtility.UrlDecode(cDesc),
+                Instructor = "",
+                InstructorID = int.Parse(cInstID),
+                Location = HttpUtility.UrlDecode(cLoc),
+                MeetingType = int.Parse(cType),
+                Points = int.Parse(cPts),
+                VideoFile = HttpUtility.UrlDecode(cVideo),
+                QuizName = HttpUtility.UrlDecode(cQuiz)
+            };
 
-        SIU_Training_Log mtgLog = new SIU_Training_Log
-        {   
-            TL_UID = int.Parse(MeetingID),
-            Topic = cTopic,
-            Description = cDesc,
-            Instructor = "",
-            InstructorID = int.Parse(cInstID),
-            Location = cLoc,
-            MeetingType = int.Parse(cType),
-            Points = int.Parse(cPts),
-            VideoFile = cVideo,
-            QuizLink = cQuiz
-        };
+            mtgLog.Date = DateTime.Parse(cDate.Length > 0 ? cDate : "1/1/2999 00:00");
 
-        if (cDate.Length > 0)
-            mtgLog.Date = DateTime.Parse(cDate);
-        else
-            mtgLog.Date = DateTime.Parse("1/1/2999 00:00");
+            mtgLog.StartTime = DateTime.Parse(cStart.Length > 0 ? cStart : "1/1/1753 00:00");
 
-        if ( cStart.Length > 0)
-           mtgLog.StartTime = DateTime.Parse(cStart);
-        else
-            mtgLog.StartTime = DateTime.Parse("1/1/1753 00:00");
+            mtgLog.StopTime = DateTime.Parse(cStop.Length > 0 ? cStop : "1/1/1753 00:00");
 
-        if (cStop.Length > 0)
-            mtgLog.StopTime = DateTime.Parse(cStop);
-        else
-            mtgLog.StopTime = DateTime.Parse("1/1/1753 00:00");
-
-        return SqlServer_Impl.RecordMeetingLogAdmin(mtgLog);
+            return SqlServer_Impl.RecordMeetingLogAdmin(mtgLog);
+        }
+        catch (Exception ex )
+        {
+            SqlServer_Impl.LogDebug("RecordMeetingLogAdmin", ex.Message);
+            return ("ERROR " + ex.Message );
+        }
     }
 
     /////////////////////////////////////////////////////
@@ -1673,13 +1669,13 @@ public class SiuDao : WebService
         JavaScriptSerializer serializer = new JavaScriptSerializer();
         try
         {
-            SIU_Training_Log_Certification Cert = new SIU_Training_Log_Certification
+            SIU_Training_Log_Certification cert = new SIU_Training_Log_Certification
             {
                 QualCode = Code,
                 TL_UID = int.Parse(MeetingID),
                 TLC_UID = 0
             };
-            string msg = SqlServer_Impl.RecordMeetingQual(Cert);
+            string msg = SqlServer_Impl.RecordMeetingQual(cert);
 
             return ((msg == "") ? serializer.Serialize(new { Result = "OK" }) :  serializer.Serialize(new { Result = "ERROR", msg }));
         }
@@ -2536,6 +2532,7 @@ public class SqlServer_Impl : WebService
                        select certRcd
                       ).SingleOrDefault();
 
+            if (rcd == null) throw ( new Exception("Unable To Locate Meeting Qualification Key: " + TLC_UID) );
 
             nvDb.SIU_Training_Log_Certifications.DeleteOnSubmit(rcd);
             nvDb.SubmitChanges();
@@ -2564,7 +2561,7 @@ public class SqlServer_Impl : WebService
             {
 
                 return (from typeList in nvDb.SIU_SafetyPays_Points_Types
-                        where typeList.IsClass == true
+                        where typeList.IsClass
                         select typeList
                        ).ToList();
             }
@@ -2655,7 +2652,7 @@ public class SqlServer_Impl : WebService
             {
                 nvDb.SIU_Training_Attendances.InsertOnSubmit(ta);
                 nvDb.SubmitChanges();
-                return ta.TA_UID.ToString();
+                return ta.TA_UID.ToString(CultureInfo.InvariantCulture);
             }
 
             ///////////////////////////////
@@ -2663,7 +2660,7 @@ public class SqlServer_Impl : WebService
             ///////////////////////////////
 
             nvDb.SubmitChanges();
-            return ta.TA_UID.ToString();
+            return ta.TA_UID.ToString(CultureInfo.InvariantCulture);
         }
         catch (Exception ex)
         {
@@ -3661,6 +3658,9 @@ public class SqlServer_Impl : WebService
                        where te.Entry_No_ == RecordId
                        select te
                       ).SingleOrDefault();
+
+            if (rcd == null) throw (new Exception(" Unable To Locate Key: " + RecordId));
+
             nvDb.Shermco_Time_Sheet_Entries.DeleteOnSubmit(rcd);
             nvDb.SubmitChanges(); 
         }
@@ -4673,6 +4673,9 @@ public class SqlServer_Impl : WebService
                        where te.UID == int.Parse(_RcdID)
                        select te
                       ).SingleOrDefault();
+
+            if (rcd == null) throw (new Exception("Unable To Locate Key: " + _RcdID));
+
             nvDb.SIU_Class_Completions.DeleteOnSubmit(rcd);
             nvDb.SubmitChanges();
         }
@@ -4856,6 +4859,8 @@ public class SqlServer_Impl : WebService
             /////////////////////////////////
             newReport = GetSafetyPaysReport(_report.IncidentNo).SingleOrDefault();
 
+            if (newReport == null) throw (new Exception("Unable To Locate Key: " + _report.IncidentNo));
+
             //////////////////////////
             // Start Update Process //
             //////////////////////////
@@ -4882,8 +4887,8 @@ public class SqlServer_Impl : WebService
     {
         SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
 
-        List<int> incNo = (from SpList in nvDb.SIU_SafetyPays_TaskLists
-                              select SpList.IncidentNo).Distinct().ToList();
+        List<int> incNo = (from spList in nvDb.SIU_SafetyPays_TaskLists
+                              select spList.IncidentNo).Distinct().ToList();
 
         return (from spList in nvDb.SIU_SafetyPaysReports
                 where spList.IncStatus.ToLower() == "working" && (!incNo.Contains(spList.IncidentNo))
@@ -4940,16 +4945,16 @@ public class SqlServer_Impl : WebService
     {
         SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
 
-        List<int> incNoNotComplete = (  from SpList in nvDb.SIU_SafetyPays_TaskLists
-                                        where SpList.CompletedDate == null 
-                                        select SpList.IncidentNo).Distinct().ToList();
+        List<int> incNoNotComplete = (  from spList in nvDb.SIU_SafetyPays_TaskLists
+                                        where spList.CompletedDate == null 
+                                        select spList.IncidentNo).Distinct().ToList();
 
-        List<int> incNoStarted = (      from SpList in nvDb.SIU_SafetyPays_TaskLists
-                                        select SpList.IncidentNo).Distinct().ToList();
+        List<int> incNoStarted = (      from spList in nvDb.SIU_SafetyPays_TaskLists
+                                        select spList.IncidentNo).Distinct().ToList();
 
-        List<int> incNoLateTask = (     from SpList in nvDb.SIU_SafetyPays_TaskLists
-                                        where SpList.CompletedDate == null && SpList.DueDate < DateTime.Now
-                                        select SpList.IncidentNo).Distinct().ToList();
+        List<int> incNoLateTask = (     from spList in nvDb.SIU_SafetyPays_TaskLists
+                                        where spList.CompletedDate == null && spList.DueDate < DateTime.Now
+                                        select spList.IncidentNo).Distinct().ToList();
 
 
 
@@ -4965,16 +4970,16 @@ public class SqlServer_Impl : WebService
     {
         SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
 
-        List<int> incNoNotComplete = (from SpList in nvDb.SIU_SafetyPays_TaskLists
-                                      where SpList.CompletedDate == null
-                                      select SpList.IncidentNo).Distinct().ToList();
+        List<int> incNoNotComplete = (from spList in nvDb.SIU_SafetyPays_TaskLists
+                                      where spList.CompletedDate == null
+                                      select spList.IncidentNo).Distinct().ToList();
 
-        List<int> IncNoStarted = (from SpList in nvDb.SIU_SafetyPays_TaskLists
-                                  select SpList.IncidentNo).Distinct().ToList();
+        List<int> incNoStarted = (from spList in nvDb.SIU_SafetyPays_TaskLists
+                                  select spList.IncidentNo).Distinct().ToList();
 
         return (from spList in nvDb.SIU_SafetyPaysReports
                 where spList.IncStatus.ToLower() == "working" &&
-                    (IncNoStarted.Contains(spList.IncidentNo)) &&
+                    (incNoStarted.Contains(spList.IncidentNo)) &&
                      (!incNoNotComplete.Contains(spList.IncidentNo))
                 select new SIU_SafetyPaysReport_Rpt(spList)
                ).ToList();
@@ -5187,7 +5192,7 @@ public class SqlServer_Impl : WebService
                 PointsGivenBy = rptRcd.IncLastTouchEmpID,
                 Comments = "Awarded for Safety Pays Submission",
                 Points = (int)rptRcd.PointsAssigned,
-                EventDate = (DateTime) (rptRcd.IncidentDate ?? rptRcd.IncOpenTimestamp)
+                EventDate = rptRcd.IncidentDate ?? rptRcd.IncOpenTimestamp
             };
 
             if ( rptRcd.IncTypeSafeFlag ) newPts.ReasonForPoints = 1;
@@ -5271,6 +5276,9 @@ public class SqlServer_Impl : WebService
                        where ptRcd.UID == int.Parse(UID)
                        select ptRcd
                       ).SingleOrDefault();
+
+            if (rcd == null) throw (new Exception("Unable To Locate Key: " + UID));
+
             nvDb.SIU_SafetyPays_Points.DeleteOnSubmit(rcd);
             nvDb.SubmitChanges();
         }
@@ -6490,7 +6498,7 @@ public static class BusinessLayer
 
     public static string CalcHardwarePrice(string Computer, string MonitorCnt, string StandCnt, bool chkCase, bool chkDock, bool chkBackPack, bool chkAdobe, bool chkCAD, bool chkMsPrj, bool chkVisio)
     {
-        const string method = "Forms_HardwareRequest.CalcPrice";
+        //const string method = "Forms_HardwareRequest.CalcPrice";
 
         ///////////////////////////////////
         // Get Cost Of Selected Computer //
@@ -6521,20 +6529,20 @@ public static class BusinessLayer
         // Add Cost For Computer Case //
         ////////////////////////////////
         if (chkCase)
-            price += (decimal)(from mon in addOns where mon.Description == "Case" select mon.Price).SingleOrDefault();
+            price += (from mon in addOns where mon.Description == "Case" select mon.Price).SingleOrDefault();
 
         //////////////////////////////////
         // Add Cost For Docking Station //
         //////////////////////////////////
         if (chkDock)
-            price += (decimal)(from mon in addOns where mon.Description == "Dock" select mon.Price).SingleOrDefault();
+            price += (from mon in addOns where mon.Description == "Dock" select mon.Price).SingleOrDefault();
 
 
         ///////////////////////////
         // Add Cost For BackPack //
         ///////////////////////////
         if (chkBackPack)
-            price += (decimal)(from mon in addOns where mon.Description == "BackPack" select mon.Price).SingleOrDefault();
+            price += (from mon in addOns where mon.Description == "BackPack" select mon.Price).SingleOrDefault();
 
 
 
@@ -6543,20 +6551,20 @@ public static class BusinessLayer
         //////////////////////////
         // Adobe
         if (chkAdobe)
-            price += (decimal)(from mon in addOns where mon.Description == "Adobe Acrobat" select mon.Price).SingleOrDefault();
+            price += (from mon in addOns where mon.Description == "Adobe Acrobat" select mon.Price).SingleOrDefault();
 
         // AutoCAD
         if (chkCAD)
-            price += (decimal)(from mon in addOns where mon.Description == "AutoCAD LT" select mon.Price).SingleOrDefault();
+            price += (from mon in addOns where mon.Description == "AutoCAD LT" select mon.Price).SingleOrDefault();
 
         // Microsoft Project
         if (chkMsPrj)
-            price += (decimal)(from mon in addOns where mon.Description == "Project" select mon.Price).SingleOrDefault();
+            price += (from mon in addOns where mon.Description == "Project" select mon.Price).SingleOrDefault();
 
 
         // Visio
         if (chkVisio)
-            price += (decimal)(from mon in addOns where mon.Description == "Visio" select mon.Price).SingleOrDefault();
+            price += (from mon in addOns where mon.Description == "Visio" select mon.Price).SingleOrDefault();
 
 
         return price.ToString("C2");
@@ -6599,7 +6607,7 @@ public static class SqlDataMapper<T>
                 pi.SetValue(dao, 0, null);
         }
 
-        return (T)(object) dao;
+        return dao;
     }
 
     public static T MapAspForm<T>(T MapToDAO, HttpRequest PageRequest)
@@ -6712,7 +6720,7 @@ public class DebugTextWriter : TextWriter
         }
         Type delegateType = typeof(Func<,>).MakeGenericType(typeof(T), type);
         LambdaExpression lambda = Expression.Lambda(delegateType, expr, arg);
-        string methodName = String.Empty;
+        string methodName;
 
         if (!orderByInfo.Initial && collection is IOrderedQueryable<T>)
         {
