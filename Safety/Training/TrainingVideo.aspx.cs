@@ -17,5 +17,6 @@ public partial class Video_FlowPlayerVideo : System.Web.UI.Page
         if (IsPostBack) return;
 
         hlblEID.InnerText = BusinessLayer.UserEmpID;
+        hlblName.InnerText = BusinessLayer.UserFullName;
     }
 }

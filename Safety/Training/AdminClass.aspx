@@ -37,9 +37,6 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
     
-<pre>
-Hookup Pre Population Of This Page
-</pre>    
     <div id="FormWrapper" class="ui-widget ui-form">
                     
         <section style="visibility: hidden; height: 0; width: 0;">
@@ -87,7 +84,7 @@ Hookup Pre Population Of This Page
                     </div>
                     <div style="display: inline-block;">
                         <div style="font-size: 1.2em; font-weight: bold">Safety Points</div>
-                        <input type="text" id="txtPts" Class="DataInputCss DateEntryCss"  style="width: 30px; margin-left: 30px;" /> 
+                        <input type="text" id="txtPts" Class="DataInputCss DateEntryCss"  style="width: 30px; margin-left: 30px; text-align: center;" /> 
                     </div>                    
 
                 </div>
@@ -100,12 +97,15 @@ Hookup Pre Population Of This Page
             
 
                 <div style="width: 850px;">
-                    <div style="width: 350px; height: 55px; display: inline-block;">
+                    <div style="width: 700px; height: 55px; display: inline-block;">
                         <div style="font-size: 1.2em; font-weight: bold">Instructor</div>
                         <input type="text" id="txtInst" Class="DataInputCss DateEntryCss"  style="width: 300px;" /> 
                     </div>
                                                
-
+                    <div style="display: inline-block;">
+                        <div style="font-size: 1.2em; font-weight: bold">Prerequisite ID</div>
+                        <input type="text" id="txtReq" Class="DataInputCss DateEntryCss"  style="width: 50px; margin-left: 40px;  text-align: center;" /> 
+                    </div>  
                 </div>
             
                 <div  class="ui-helper-clearfix" />
@@ -118,12 +118,12 @@ Hookup Pre Population Of This Page
                 <div class="ui-state-error ui-corner-all " style="width: 820px; clear: both; margin-top: 10px;">
                     <div style="font-size: 1.2em; font-weight: bold; display: inline-block; width: 100%; padding-top: 10px;">
                         <div style="float: left; width: 120px;">Video Name</div>
-                        <input type="text" id="txtVideo" Class="DataInputCss"  style=" margin-left: 10px; width: 670px; margin-top: -1px; font-size: .8em;" /> 
+                        <input type="text" id="txtVideo" Class="DataInputCss"  style=" margin-left: 10px; width: 670px; margin-top: -1px; font-size: .8em;" placeholder="DirName / FileName" /> 
                     </div>
                     
                     <div style="font-size: 1.2em; font-weight: bold; display: inline-block; width: 100%; padding-top: 10px;">
                         <div style="float: left; width: 120px;">Quiz Name</div>
-                        <input type="text" id="txtQuiz" Class="DataInputCss"  style=" margin-left: 10px; width: 670px; margin-top: -1px; font-size: .8em;" /> 
+                        <input type="text" id="txtQuiz" Class="DataInputCss"  style=" margin-left: 10px; width: 670px; margin-top: -1px; font-size: .8em;" placeholder="Extract the Title Value From ProProf Link..."/> 
                     </div>
                 </div>
             
@@ -139,7 +139,7 @@ Hookup Pre Population Of This Page
                         
                         <div style="font-size: 1.2em; font-weight: bold; display: inline-block; width: 170px; padding-top: 10px; padding-bottom: 5px; ">
                             <div style="float: left;">Class Date</div>
-                            <input type="text" id="txtDate" Class="DataInputCss DateEntryCss"  style="width: 150px;" /> 
+                            <input type="text" id="txtDate" Class="DataInputCss DateEntryCss"  style="width: 110px; text-align: center;" /> 
                         </div>
 
                         <div style="font-size: 1.2em; font-weight: bold; display: inline-block; width: 140px; padding-top: 10px; padding-bottom: 5px;">
@@ -177,17 +177,22 @@ Hookup Pre Population Of This Page
                 <%--------------------%>                    
                 <%-- Submit Buttons --%>                    
                 <%--------------------%>
-                <div style="width: 100%;  display: inline-block; margin-top: 25px;">
-                    <div style="float: left; width: 750px; ">
-                        <input type="button" ID="btnSubmit" value="Submit" Class="SearchBtnCSS" />
+                <div style="width: 100%;  display: inline-block; margin-top: 25px; max-width: 1025px;">
+                    <div style="float: left; width: 250px; ">
+                        <input type="button" ID="btnSubmit" value="Submit" Class="SearchBtnCSS" style="width: 75px; color: green;" />
                     </div>
                     
                     <div style="float: left;  ">
-                        <input type="button" ID="btnClear" value="Clear" Class="SearchBtnCSS"   />
+                        <input type="button" ID="btnClear" value="Clear" Class="SearchBtnCSS" style="width: 75px;"  />
+                    </div>
+                    
+                    <div style="float: right; margin-top: 30px; ">
+                        <span style="float: left; font-size: 1.3em;">Starting Date To Load</span>
+                        <input type="text" ID="txtLoadDate" Class="DataInputCss"  style="width: 90px; margin-left: 20px; text-align: center;  "   />
                     </div>
                 </div>           
             
-            <div id="jTableClass" style="max-width: 1025px; margin-bottom: 5px; margin-top: 20px;"></div>
+            <div id="jTableClass" style="max-width: 1025px; margin-bottom: 5px; margin-top: 0;"></div>
         </section>
             
         

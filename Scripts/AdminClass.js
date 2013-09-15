@@ -2,10 +2,11 @@
 $(document).ready(function () {
   
     var timestamp = new Date();
+    var tlUid;
     
     
     $('#jTableClass').jtable({
-        title: 'Select Line To Load',
+        title: 'Select Line To Edit',
         edit: true,
         selecting: true,
         sorting: true,
@@ -19,20 +20,21 @@ $(document).ready(function () {
         },
         fields: {
             TL_UID: {
-                title: 'No',
-                width: '0%',
+                title: 'ID',
+                width: '1%',
                 key: true,
                 create: false,
                 edit: false,
-                list: false
+                list: true,
+                sorting: false
             },
             Date: {
                 title: 'Date',
                 type: 'date',
                 displayFormat: 'mm-dd',
-                sorting: true,
                 width: '3%',
-                listClass: 'jTableTD'
+                listClass: 'jTableTD',
+                sorting: false
             },
 
             Topic: {
@@ -51,27 +53,44 @@ $(document).ready(function () {
                 title: 'Instructor',
                 sorting: false,
                 width: '5%',
-                list: true
+                list: false
             },
             Location: {
                 title: 'Location',
                 width: '5%',
                 sorting: false,
-                list: true
+                list: false
             },
             MeetingType: {
                 title: 'Type',
                 sorting: false,
-                width: '5%',
-                list: true
+                width: '10%',
+                list: true,
+                display: function (data) {
+                    var t = '';
+                    for (var c = 0; c < listOfTypes.length; c++) {
+                        var strParts = listOfTypes[c].split(" ");
+                        if (strParts[0] == data.record.MeetingType) {
+                            var mta = listOfTypes[c].split(' ');
+                            mta.splice(0, 2);
+                            t = '<span>' + mta.join(' ') + '</span>';
+                        }
+                    }
+                    return t;
+                },
             },
             Points: {
                 title: 'Pts',
                 sorting: false,
-                width: '1%',
+                width: '2%',
                 list: true
             },
-            
+            PreReq: {
+                title: 'Req',
+                sorting: false,
+                width: '2%',
+                list: true
+            },            
             VideoFile: {
                 title: 'Video',
                 sorting: false,
@@ -116,9 +135,10 @@ $(document).ready(function () {
                     
                     
                     $('#txtPts').val(record.Points);
+                    $('#txtReq').val(record.PreReq);
                     $('#txtDesc').val(record.Description);
                     $('#txtInst').val(record.Instructor);
-                    
+                    $('#hlblInstID')[0].innerHTML = record.InstructorID;
                     $('#txtDate').datepicker("setDate", parseJsonDate(record.Date));
                     $('#txtStart').timeEntry('setTime', parseJsonTime(record.StartTime));
                     $('#txtEnd').timeEntry('setTime', parseJsonTime(record.StopTime));
@@ -216,21 +236,15 @@ $(document).ready(function () {
     }
 
 
-
-
-
-
     function parseJsonDate(jsonDateString) {
         if (typeof (jsonDateString) == "undefined")
             return '';
 
         if (jsonDateString.indexOf('/Date') == -1) {
-            var x = new Date(jsonDateString);
-            var y = x.toDateString();
             return new Date(jsonDateString).toDateString();
         }
-
-        return new Date(parseInt(jsonDateString.replace('/Date(', ''))).toDateString();
+        
+        return new Date(parseInt(jsonDateString.replace('/Date(', '')));
     }
 
     function parseJsonTime(jsonTimeString) {
@@ -265,7 +279,6 @@ $(document).ready(function () {
                 select: function (event, ui) {
                     var dataPieces = ui.item.value.split(' ');
                     $(this).val(dataPieces[0].replace(/\n/g, ""));
-                    var xxx = $(this).val();
                     $("#acCertList").autocomplete("close");
                     $('#popupBtnOK').show();
                     $('#popupBtnOK').focus();
@@ -293,10 +306,9 @@ $(document).ready(function () {
     }
     
 
-    function setPoints(TypeString) {
+    function setPoints(typeString) {
         for (var c = 0; c < listOfTypes.length; c++) {
-            var strParts = listOfTypes[c].split(",");
-            if (listOfTypes[c] == TypeString)
+            if (listOfTypes[c] == typeString)
                 $("#txtPts").val(listOfPoints[c]);
         }
     }
@@ -438,6 +450,7 @@ $(document).ready(function () {
         $('#txtType').removeClass('ValidationError');
         $('#txtPts').removeClass('ValidationError');
         $('#txtDesc').removeClass('ValidationError');
+        $('#txtReq').removeClass('ValidationError');
 
 
         ///////////////////////////
@@ -495,24 +508,34 @@ $(document).ready(function () {
             hasError = 1;
         }
 
+        /////////////////////////
+        // Pts Must Be Present //
+        /////////////////////////
+        if ($('#txtReq').val().length > 0) {
+            if (!isNumber($('#txtReq').val())) {    
+                $('#txtReq').addClass('ValidationError');
+                $('#btnSubmit').hide();
+                hasError = 1;
+            }
+        }
+
         return hasError;
     }
     
 
-    function FocusChange() {
-        if (document.activeElement.className.indexOf("jtable") != -1) 
-            return;
+    function focusChange() {
+        //if (document.activeElement.className.indexOf("jtable") != -1) 
+        //    return;
         //$('#jTableClass').hide();
         validate();
     }
 
 
-    $('#txtTopic').blur(function () { FocusChange() });
-    $('#txtType').blur(function () { FocusChange() });
-    $('#txtPts').blur(function () { FocusChange() });
-    $('#txtDesc').blur(function () { FocusChange() });
-
-
+    $('#txtTopic').on("blur", function () { focusChange(); });
+    $('#txtType').on("blur", function () { focusChange(); });
+    $('#txtPts').on("blur", function () { focusChange(); });
+    $('#txtDesc').on("blur", function () { focusChange(); });
+    $('#txtReq').on("blur", function () { focusChange(); });
 
 
 
@@ -523,12 +546,16 @@ $(document).ready(function () {
         
         $('#btnSubmit').hide();
         
+        $('#jTableQual').jtable('selectRows', $('xxx'));
+        $('#jTableClass').jtable('selectRows', $('xxx'));
+        
         ////////////////////////////////////////
         // Clear Data Confirmation Containers //
         ////////////////////////////////////////        
         $('#txtTopic').val('');
         $('#txtType').val('');
         $('#txtPts').val('');
+        $('#txtReq').val('');
         $('#txtDesc').val('');
         
         $('#txtInst').val('');
@@ -564,18 +591,33 @@ $(document).ready(function () {
         recordMeetingCall.add('cStart', $('#txtStart').val());
         recordMeetingCall.add('cStop', $('#txtEnd').val());
         recordMeetingCall.add('cLoc', $('#txtLoc').val());
-
+        recordMeetingCall.add('cReq', $('#txtReq').val());
+        
         if ( tlUid == 0)
             recordMeetingCall.exec("/SIU_DAO.asmx/RecordMeetingLogAdmin", recordMeetingLogAdminSuccess);
         else
             recordMeetingCall.exec("/SIU_DAO.asmx/RecordMeetingLogAdmin", recordMeetingLogAdminUpdateSuccess);
     });
-    function recordMeetingLogAdminUpdateSuccess() {
+    
+
+
+
+    function recordMeetingLogAdminUpdateSuccess(data) {
+        var errorMsg = data.d;
+        
+        if (errorMsg.length > 3 && errorMsg.substring(0, 3) == "ID:") {
+            var stlUid = errorMsg.split(":");
+
+            recordQual(stlUid[1]);
+        }
+        
+        $('#jTableClass').jtable('load', { SD: $('#txtLoadDate').val(), T: timestamp.getTime() });
+        $('#jTableQual').jtable('selectRows', $('xxx'));
+        $('#jTableQual').jtable('load', { MeetingID: 0, T: timestamp.getTime() });
+        $('#jTableClass').jtable('selectRows', $('xxx'));
         $("#btnClear").click();
         validate();
         $('#txtTopic').focus();
-        $('#jTableClass').jtable('load', { T: timestamp.getTime() });
-        $('#jTableQual').jtable('load', { MeetingID: 0, T: timestamp.getTime() });
     }
     
 
@@ -586,25 +628,10 @@ $(document).ready(function () {
         var errorMsg = data.d;
 
         if (errorMsg.length > 3 && errorMsg.substring(0, 3) == "ID:") {
-            var stlUID = errorMsg.split(":");
+            var stlUid = errorMsg.split(":");
 
-            $('#jTableQual').jtable('selectRows', $('*'));
-            if (typeof ($selectedRows) != "undefined") {
-                var $selectedRows = $('#jTableQual').jtable('selectedRows');
 
-                $selectedRows.each(function () {
-                    var record = $(this).data('record');
-                    if (typeof (record) != "undefined") {
-                        if (record.TLC_UID == 0) {
-                            var recordQualCall = new AsyncServerMethod();
-                            recordQualCall.add('MeetingID', stlUID[1]);
-                            recordQualCall.add('Code', record.QualCode);
-                            recordQualCall.exec("/SIU_DAO.asmx/RecordMeetingQual");
-                        }
-                    }
-                });
-            }
-
+            recordQual(stlUid[1]);
             
             ////////////////////
             // Reset The Form //
@@ -613,21 +640,24 @@ $(document).ready(function () {
                 $('#txtDate').val('1/1/2099');
             var a = $.datepicker.formatDate('yy-mm-dd', new Date($('#txtDate').val())  )    ;
             var b = $('#txtType').val().split(' ')[0];
-            var c = $('#txtInst').val().split(' ');
-            var d = c.splice(0, 1);
-            var UID = stlUID[1];
+            var instructorName = $('#txtInst').val().split(' ');
+            var instructorEid = instructorName[0];
+            instructorName.splice(0, 1);
+            var uid = stlUid[1];
             
 
             $('#jTableClass').jtable('addRecord', {
                 record: {
-                    TL_UID: String(UID),
+                    TL_UID: String(uid),
                     Date: a,
                     Topic: $('#txtTopic').val(),
                     Description: $('#txtDesc').val(),
-                    Instructor: c,
+                    Instructor: instructorName,
+                    InstructorID: instructorEid,
                     Location: $('#txtLoc').val(),
                     MeetingType: b,
-                    Points: $('#txtPts').val()
+                    Points: $('#txtPts').val(),
+                    PreReq: $('#txtReq').val()
                 },
                 clientOnly: true
             });
@@ -649,19 +679,44 @@ $(document).ready(function () {
 
 
 
+    function recordQual(id) {
+        $('#jTableQual').jtable('selectRows', $('*'));
+
+        var $selectedRows = $('#jTableQual').jtable('selectedRows');
+
+        if (typeof ($selectedRows) != "undefined") {
+            $selectedRows.each(function () {
+                var record = $(this).data('record');
+                if (typeof (record) != "undefined") {
+                    if (record.TLC_UID == 0) {
+                        var recordQualCall = new AsyncServerMethod();
+                        recordQualCall.add('MeetingID', id);
+                        recordQualCall.add('Code', record.QualCode);
+                        recordQualCall.exec("/SIU_DAO.asmx/RecordMeetingQual");
+                    }
+                }
+            });
+        }
+    }
+    
 
 
 
 
     $('#popupBtnOK').hide();
-    $('#jTableClass').jtable('load', { T: timestamp.getTime() });
     $('#txtDate').datepicker();
     $('#txtStart').timeEntry({ spinnerImage: '' });
     $('#txtEnd').timeEntry({ spinnerImage: '' });
+    $('#txtLoadDate').datepicker({
+        onSelect: function (dateText) {
+            $('#jTableClass').jtable('load', { SD: dateText, T: timestamp.getTime() });
+        }
+    });
+    $("#txtLoadDate").datepicker("setDate", new Date());
     
     // Look Up List Of Valid Cert Codes
     getCerts();
-    $('#jTableClass').jtable('load', { T: timestamp.getTime() });
+    $('#jTableClass').jtable('load', { SD: $('#txtLoadDate').val(), T: timestamp.getTime() });
     $('#jTableQual').jtable('load', { MeetingID: 0, T: timestamp.getTime() });
     
     $("#btnClear").click();

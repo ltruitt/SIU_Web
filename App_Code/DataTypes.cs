@@ -5,9 +5,24 @@ using System.Web;
 using System.Xml;
 using System.Data;
 using System.Data.SqlClient;
+using AjaxControlToolkit;
 using AutoMapper;
 
 using System.Globalization;
+
+public partial class SIU_Training_Quiz
+{
+    public override string ToString()
+    {
+        return (    "TL_UID: " + User_Zipcode +
+                    " " + Quiz_Name +
+                    " (" + User_ID + ") " + User_Name +
+                    "pct: " + User_Pct_Marks +
+                    "+ " + Total_Correct +
+                    "- " + Total_Wrong
+               );
+    }
+}
 
 namespace ShermcoYou.DataTypes
 {
@@ -232,7 +247,26 @@ namespace ShermcoYou.DataTypes
         }
     }
         	
-
+    public class SIU_Meeting_Log_Ext
+    {
+        public int TL_UID;
+        public DateTime? Date;
+        public string Topic;
+        public string Description;
+        public string Instructor;
+        public int MeetingType;
+        public string Location;
+        public int? Points;
+        public string VideoFile;
+        public string QuizName;
+        public DateTime? StartTime;
+        public DateTime? StopTime;
+        public int? InstructorID;
+        public bool? VideoComplete;
+        public int QuizComplete;
+        public bool? QuizPass;
+        public int? PreReq;
+    }
 
 
 
@@ -387,7 +421,6 @@ namespace ShermcoYou.DataTypes
             if (Emp != null)
                 EmpDept = Emp.Global_Dimension_1_Code;
         }
-
     }
     public class SIU_TimeSheet_DailyDetailSums
     {

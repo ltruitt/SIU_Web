@@ -134,9 +134,6 @@ public partial class SIU_ORM_LINQDataContext : System.Data.Linq.DataContext
   partial void InsertSIU_Training_Log_Certification(SIU_Training_Log_Certification instance);
   partial void UpdateSIU_Training_Log_Certification(SIU_Training_Log_Certification instance);
   partial void DeleteSIU_Training_Log_Certification(SIU_Training_Log_Certification instance);
-  partial void InsertSIU_Proprof_Quiz(SIU_Proprof_Quiz instance);
-  partial void UpdateSIU_Proprof_Quiz(SIU_Proprof_Quiz instance);
-  partial void DeleteSIU_Proprof_Quiz(SIU_Proprof_Quiz instance);
   partial void InsertShermco_Job_Report(Shermco_Job_Report instance);
   partial void UpdateShermco_Job_Report(Shermco_Job_Report instance);
   partial void DeleteShermco_Job_Report(Shermco_Job_Report instance);
@@ -146,6 +143,9 @@ public partial class SIU_ORM_LINQDataContext : System.Data.Linq.DataContext
   partial void InsertSIU_SafetyPaysReport(SIU_SafetyPaysReport instance);
   partial void UpdateSIU_SafetyPaysReport(SIU_SafetyPaysReport instance);
   partial void DeleteSIU_SafetyPaysReport(SIU_SafetyPaysReport instance);
+  partial void InsertSIU_Training_Quiz(SIU_Training_Quiz instance);
+  partial void UpdateSIU_Training_Quiz(SIU_Training_Quiz instance);
+  partial void DeleteSIU_Training_Quiz(SIU_Training_Quiz instance);
   partial void InsertSIU_Training_Log(SIU_Training_Log instance);
   partial void UpdateSIU_Training_Log(SIU_Training_Log instance);
   partial void DeleteSIU_Training_Log(SIU_Training_Log instance);
@@ -501,14 +501,6 @@ public partial class SIU_ORM_LINQDataContext : System.Data.Linq.DataContext
 		}
 	}
 	
-	public System.Data.Linq.Table<SIU_Proprof_Quiz> SIU_Proprof_Quizs
-	{
-		get
-		{
-			return this.GetTable<SIU_Proprof_Quiz>();
-		}
-	}
-	
 	public System.Data.Linq.Table<Shermco_Job_Report> Shermco_Job_Reports
 	{
 		get
@@ -530,6 +522,14 @@ public partial class SIU_ORM_LINQDataContext : System.Data.Linq.DataContext
 		get
 		{
 			return this.GetTable<SIU_SafetyPaysReport>();
+		}
+	}
+	
+	public System.Data.Linq.Table<SIU_Training_Quiz> SIU_Training_Quizs
+	{
+		get
+		{
+			return this.GetTable<SIU_Training_Quiz>();
 		}
 	}
 	
@@ -28297,452 +28297,6 @@ public partial class SIU_Training_Log_Certification : INotifyPropertyChanging, I
 	}
 }
 
-[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SIU_Proprof_Quiz")]
-public partial class SIU_Proprof_Quiz : INotifyPropertyChanging, INotifyPropertyChanged
-{
-	
-	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-	
-	private int _UID;
-	
-	private int _Quiz_ID;
-	
-	private string _Quiz_Name;
-	
-	private System.DateTime _Attempt_Date;
-	
-	private int _Total_Marks;
-	
-	private int _User_Marks;
-	
-	private int _User_Pct_Marks;
-	
-	private int _Total_Correct;
-	
-	private int _Total_Wrong;
-	
-	private string _User_ID;
-	
-	private string _User_Email;
-	
-	private string _User_Address;
-	
-	private string _User_City;
-	
-	private string _User_State;
-	
-	private string _User_Zipcode;
-	
-	private int _User_Phone;
-	
-	private string _User_Name;
-	
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnUIDChanging(int value);
-    partial void OnUIDChanged();
-    partial void OnQuiz_IDChanging(int value);
-    partial void OnQuiz_IDChanged();
-    partial void OnQuiz_NameChanging(string value);
-    partial void OnQuiz_NameChanged();
-    partial void OnAttempt_DateChanging(System.DateTime value);
-    partial void OnAttempt_DateChanged();
-    partial void OnTotal_MarksChanging(int value);
-    partial void OnTotal_MarksChanged();
-    partial void OnUser_MarksChanging(int value);
-    partial void OnUser_MarksChanged();
-    partial void OnUser_Pct_MarksChanging(int value);
-    partial void OnUser_Pct_MarksChanged();
-    partial void OnTotal_CorrectChanging(int value);
-    partial void OnTotal_CorrectChanged();
-    partial void OnTotal_WrongChanging(int value);
-    partial void OnTotal_WrongChanged();
-    partial void OnUser_IDChanging(string value);
-    partial void OnUser_IDChanged();
-    partial void OnUser_EmailChanging(string value);
-    partial void OnUser_EmailChanged();
-    partial void OnUser_AddressChanging(string value);
-    partial void OnUser_AddressChanged();
-    partial void OnUser_CityChanging(string value);
-    partial void OnUser_CityChanged();
-    partial void OnUser_StateChanging(string value);
-    partial void OnUser_StateChanged();
-    partial void OnUser_ZipcodeChanging(string value);
-    partial void OnUser_ZipcodeChanged();
-    partial void OnUser_PhoneChanging(int value);
-    partial void OnUser_PhoneChanged();
-    partial void OnUser_NameChanging(string value);
-    partial void OnUser_NameChanged();
-    #endregion
-	
-	public SIU_Proprof_Quiz()
-	{
-		OnCreated();
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-	public int UID
-	{
-		get
-		{
-			return this._UID;
-		}
-		set
-		{
-			if ((this._UID != value))
-			{
-				this.OnUIDChanging(value);
-				this.SendPropertyChanging();
-				this._UID = value;
-				this.SendPropertyChanged("UID");
-				this.OnUIDChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Quiz_ID", DbType="Int NOT NULL")]
-	public int Quiz_ID
-	{
-		get
-		{
-			return this._Quiz_ID;
-		}
-		set
-		{
-			if ((this._Quiz_ID != value))
-			{
-				this.OnQuiz_IDChanging(value);
-				this.SendPropertyChanging();
-				this._Quiz_ID = value;
-				this.SendPropertyChanged("Quiz_ID");
-				this.OnQuiz_IDChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Quiz_Name", DbType="VarChar(150) NOT NULL", CanBeNull=false)]
-	public string Quiz_Name
-	{
-		get
-		{
-			return this._Quiz_Name;
-		}
-		set
-		{
-			if ((this._Quiz_Name != value))
-			{
-				this.OnQuiz_NameChanging(value);
-				this.SendPropertyChanging();
-				this._Quiz_Name = value;
-				this.SendPropertyChanged("Quiz_Name");
-				this.OnQuiz_NameChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Attempt_Date", DbType="DateTime NOT NULL")]
-	public System.DateTime Attempt_Date
-	{
-		get
-		{
-			return this._Attempt_Date;
-		}
-		set
-		{
-			if ((this._Attempt_Date != value))
-			{
-				this.OnAttempt_DateChanging(value);
-				this.SendPropertyChanging();
-				this._Attempt_Date = value;
-				this.SendPropertyChanged("Attempt_Date");
-				this.OnAttempt_DateChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Total_Marks", DbType="Int NOT NULL")]
-	public int Total_Marks
-	{
-		get
-		{
-			return this._Total_Marks;
-		}
-		set
-		{
-			if ((this._Total_Marks != value))
-			{
-				this.OnTotal_MarksChanging(value);
-				this.SendPropertyChanging();
-				this._Total_Marks = value;
-				this.SendPropertyChanged("Total_Marks");
-				this.OnTotal_MarksChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_User_Marks", DbType="Int NOT NULL")]
-	public int User_Marks
-	{
-		get
-		{
-			return this._User_Marks;
-		}
-		set
-		{
-			if ((this._User_Marks != value))
-			{
-				this.OnUser_MarksChanging(value);
-				this.SendPropertyChanging();
-				this._User_Marks = value;
-				this.SendPropertyChanged("User_Marks");
-				this.OnUser_MarksChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_User_Pct_Marks", DbType="Int NOT NULL")]
-	public int User_Pct_Marks
-	{
-		get
-		{
-			return this._User_Pct_Marks;
-		}
-		set
-		{
-			if ((this._User_Pct_Marks != value))
-			{
-				this.OnUser_Pct_MarksChanging(value);
-				this.SendPropertyChanging();
-				this._User_Pct_Marks = value;
-				this.SendPropertyChanged("User_Pct_Marks");
-				this.OnUser_Pct_MarksChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Total_Correct", DbType="Int NOT NULL")]
-	public int Total_Correct
-	{
-		get
-		{
-			return this._Total_Correct;
-		}
-		set
-		{
-			if ((this._Total_Correct != value))
-			{
-				this.OnTotal_CorrectChanging(value);
-				this.SendPropertyChanging();
-				this._Total_Correct = value;
-				this.SendPropertyChanged("Total_Correct");
-				this.OnTotal_CorrectChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Total_Wrong", DbType="Int NOT NULL")]
-	public int Total_Wrong
-	{
-		get
-		{
-			return this._Total_Wrong;
-		}
-		set
-		{
-			if ((this._Total_Wrong != value))
-			{
-				this.OnTotal_WrongChanging(value);
-				this.SendPropertyChanging();
-				this._Total_Wrong = value;
-				this.SendPropertyChanged("Total_Wrong");
-				this.OnTotal_WrongChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_User_ID", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
-	public string User_ID
-	{
-		get
-		{
-			return this._User_ID;
-		}
-		set
-		{
-			if ((this._User_ID != value))
-			{
-				this.OnUser_IDChanging(value);
-				this.SendPropertyChanging();
-				this._User_ID = value;
-				this.SendPropertyChanged("User_ID");
-				this.OnUser_IDChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_User_Email", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
-	public string User_Email
-	{
-		get
-		{
-			return this._User_Email;
-		}
-		set
-		{
-			if ((this._User_Email != value))
-			{
-				this.OnUser_EmailChanging(value);
-				this.SendPropertyChanging();
-				this._User_Email = value;
-				this.SendPropertyChanged("User_Email");
-				this.OnUser_EmailChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_User_Address", DbType="VarChar(150) NOT NULL", CanBeNull=false)]
-	public string User_Address
-	{
-		get
-		{
-			return this._User_Address;
-		}
-		set
-		{
-			if ((this._User_Address != value))
-			{
-				this.OnUser_AddressChanging(value);
-				this.SendPropertyChanging();
-				this._User_Address = value;
-				this.SendPropertyChanged("User_Address");
-				this.OnUser_AddressChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_User_City", DbType="VarChar(150) NOT NULL", CanBeNull=false)]
-	public string User_City
-	{
-		get
-		{
-			return this._User_City;
-		}
-		set
-		{
-			if ((this._User_City != value))
-			{
-				this.OnUser_CityChanging(value);
-				this.SendPropertyChanging();
-				this._User_City = value;
-				this.SendPropertyChanged("User_City");
-				this.OnUser_CityChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_User_State", DbType="VarChar(150) NOT NULL", CanBeNull=false)]
-	public string User_State
-	{
-		get
-		{
-			return this._User_State;
-		}
-		set
-		{
-			if ((this._User_State != value))
-			{
-				this.OnUser_StateChanging(value);
-				this.SendPropertyChanging();
-				this._User_State = value;
-				this.SendPropertyChanged("User_State");
-				this.OnUser_StateChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_User_Zipcode", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
-	public string User_Zipcode
-	{
-		get
-		{
-			return this._User_Zipcode;
-		}
-		set
-		{
-			if ((this._User_Zipcode != value))
-			{
-				this.OnUser_ZipcodeChanging(value);
-				this.SendPropertyChanging();
-				this._User_Zipcode = value;
-				this.SendPropertyChanged("User_Zipcode");
-				this.OnUser_ZipcodeChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_User_Phone", DbType="Int NOT NULL")]
-	public int User_Phone
-	{
-		get
-		{
-			return this._User_Phone;
-		}
-		set
-		{
-			if ((this._User_Phone != value))
-			{
-				this.OnUser_PhoneChanging(value);
-				this.SendPropertyChanging();
-				this._User_Phone = value;
-				this.SendPropertyChanged("User_Phone");
-				this.OnUser_PhoneChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_User_Name", DbType="VarChar(150) NOT NULL", CanBeNull=false)]
-	public string User_Name
-	{
-		get
-		{
-			return this._User_Name;
-		}
-		set
-		{
-			if ((this._User_Name != value))
-			{
-				this.OnUser_NameChanging(value);
-				this.SendPropertyChanging();
-				this._User_Name = value;
-				this.SendPropertyChanged("User_Name");
-				this.OnUser_NameChanged();
-			}
-		}
-	}
-	
-	public event PropertyChangingEventHandler PropertyChanging;
-	
-	public event PropertyChangedEventHandler PropertyChanged;
-	
-	protected virtual void SendPropertyChanging()
-	{
-		if ((this.PropertyChanging != null))
-		{
-			this.PropertyChanging(this, emptyChangingEventArgs);
-		}
-	}
-	
-	protected virtual void SendPropertyChanged(String propertyName)
-	{
-		if ((this.PropertyChanged != null))
-		{
-			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-		}
-	}
-}
-
 [global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.[Shermco$Job Report]")]
 public partial class Shermco_Job_Report : INotifyPropertyChanging, INotifyPropertyChanged
 {
@@ -32505,6 +32059,452 @@ public partial class SIU_SafetyPaysReport : INotifyPropertyChanging, INotifyProp
 	}
 }
 
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SIU_Training_Quiz")]
+public partial class SIU_Training_Quiz : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _UID;
+	
+	private int _Quiz_ID;
+	
+	private string _Quiz_Name;
+	
+	private System.DateTime _Attempt_Date;
+	
+	private int _Total_Marks;
+	
+	private int _User_Marks;
+	
+	private int _User_Pct_Marks;
+	
+	private int _Total_Correct;
+	
+	private int _Total_Wrong;
+	
+	private string _User_ID;
+	
+	private string _User_Email;
+	
+	private string _User_Address;
+	
+	private string _User_City;
+	
+	private string _User_State;
+	
+	private string _User_Zipcode;
+	
+	private int _User_Phone;
+	
+	private string _User_Name;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnUIDChanging(int value);
+    partial void OnUIDChanged();
+    partial void OnQuiz_IDChanging(int value);
+    partial void OnQuiz_IDChanged();
+    partial void OnQuiz_NameChanging(string value);
+    partial void OnQuiz_NameChanged();
+    partial void OnAttempt_DateChanging(System.DateTime value);
+    partial void OnAttempt_DateChanged();
+    partial void OnTotal_MarksChanging(int value);
+    partial void OnTotal_MarksChanged();
+    partial void OnUser_MarksChanging(int value);
+    partial void OnUser_MarksChanged();
+    partial void OnUser_Pct_MarksChanging(int value);
+    partial void OnUser_Pct_MarksChanged();
+    partial void OnTotal_CorrectChanging(int value);
+    partial void OnTotal_CorrectChanged();
+    partial void OnTotal_WrongChanging(int value);
+    partial void OnTotal_WrongChanged();
+    partial void OnUser_IDChanging(string value);
+    partial void OnUser_IDChanged();
+    partial void OnUser_EmailChanging(string value);
+    partial void OnUser_EmailChanged();
+    partial void OnUser_AddressChanging(string value);
+    partial void OnUser_AddressChanged();
+    partial void OnUser_CityChanging(string value);
+    partial void OnUser_CityChanged();
+    partial void OnUser_StateChanging(string value);
+    partial void OnUser_StateChanged();
+    partial void OnUser_ZipcodeChanging(string value);
+    partial void OnUser_ZipcodeChanged();
+    partial void OnUser_PhoneChanging(int value);
+    partial void OnUser_PhoneChanged();
+    partial void OnUser_NameChanging(string value);
+    partial void OnUser_NameChanged();
+    #endregion
+	
+	public SIU_Training_Quiz()
+	{
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int UID
+	{
+		get
+		{
+			return this._UID;
+		}
+		set
+		{
+			if ((this._UID != value))
+			{
+				this.OnUIDChanging(value);
+				this.SendPropertyChanging();
+				this._UID = value;
+				this.SendPropertyChanged("UID");
+				this.OnUIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Quiz_ID", DbType="Int NOT NULL")]
+	public int Quiz_ID
+	{
+		get
+		{
+			return this._Quiz_ID;
+		}
+		set
+		{
+			if ((this._Quiz_ID != value))
+			{
+				this.OnQuiz_IDChanging(value);
+				this.SendPropertyChanging();
+				this._Quiz_ID = value;
+				this.SendPropertyChanged("Quiz_ID");
+				this.OnQuiz_IDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Quiz_Name", DbType="VarChar(150) NOT NULL", CanBeNull=false)]
+	public string Quiz_Name
+	{
+		get
+		{
+			return this._Quiz_Name;
+		}
+		set
+		{
+			if ((this._Quiz_Name != value))
+			{
+				this.OnQuiz_NameChanging(value);
+				this.SendPropertyChanging();
+				this._Quiz_Name = value;
+				this.SendPropertyChanged("Quiz_Name");
+				this.OnQuiz_NameChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Attempt_Date", DbType="DateTime NOT NULL")]
+	public System.DateTime Attempt_Date
+	{
+		get
+		{
+			return this._Attempt_Date;
+		}
+		set
+		{
+			if ((this._Attempt_Date != value))
+			{
+				this.OnAttempt_DateChanging(value);
+				this.SendPropertyChanging();
+				this._Attempt_Date = value;
+				this.SendPropertyChanged("Attempt_Date");
+				this.OnAttempt_DateChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Total_Marks", DbType="Int NOT NULL")]
+	public int Total_Marks
+	{
+		get
+		{
+			return this._Total_Marks;
+		}
+		set
+		{
+			if ((this._Total_Marks != value))
+			{
+				this.OnTotal_MarksChanging(value);
+				this.SendPropertyChanging();
+				this._Total_Marks = value;
+				this.SendPropertyChanged("Total_Marks");
+				this.OnTotal_MarksChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_User_Marks", DbType="Int NOT NULL")]
+	public int User_Marks
+	{
+		get
+		{
+			return this._User_Marks;
+		}
+		set
+		{
+			if ((this._User_Marks != value))
+			{
+				this.OnUser_MarksChanging(value);
+				this.SendPropertyChanging();
+				this._User_Marks = value;
+				this.SendPropertyChanged("User_Marks");
+				this.OnUser_MarksChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_User_Pct_Marks", DbType="Int NOT NULL")]
+	public int User_Pct_Marks
+	{
+		get
+		{
+			return this._User_Pct_Marks;
+		}
+		set
+		{
+			if ((this._User_Pct_Marks != value))
+			{
+				this.OnUser_Pct_MarksChanging(value);
+				this.SendPropertyChanging();
+				this._User_Pct_Marks = value;
+				this.SendPropertyChanged("User_Pct_Marks");
+				this.OnUser_Pct_MarksChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Total_Correct", DbType="Int NOT NULL")]
+	public int Total_Correct
+	{
+		get
+		{
+			return this._Total_Correct;
+		}
+		set
+		{
+			if ((this._Total_Correct != value))
+			{
+				this.OnTotal_CorrectChanging(value);
+				this.SendPropertyChanging();
+				this._Total_Correct = value;
+				this.SendPropertyChanged("Total_Correct");
+				this.OnTotal_CorrectChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Total_Wrong", DbType="Int NOT NULL")]
+	public int Total_Wrong
+	{
+		get
+		{
+			return this._Total_Wrong;
+		}
+		set
+		{
+			if ((this._Total_Wrong != value))
+			{
+				this.OnTotal_WrongChanging(value);
+				this.SendPropertyChanging();
+				this._Total_Wrong = value;
+				this.SendPropertyChanged("Total_Wrong");
+				this.OnTotal_WrongChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_User_ID", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
+	public string User_ID
+	{
+		get
+		{
+			return this._User_ID;
+		}
+		set
+		{
+			if ((this._User_ID != value))
+			{
+				this.OnUser_IDChanging(value);
+				this.SendPropertyChanging();
+				this._User_ID = value;
+				this.SendPropertyChanged("User_ID");
+				this.OnUser_IDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_User_Email", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
+	public string User_Email
+	{
+		get
+		{
+			return this._User_Email;
+		}
+		set
+		{
+			if ((this._User_Email != value))
+			{
+				this.OnUser_EmailChanging(value);
+				this.SendPropertyChanging();
+				this._User_Email = value;
+				this.SendPropertyChanged("User_Email");
+				this.OnUser_EmailChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_User_Address", DbType="VarChar(150) NOT NULL", CanBeNull=false)]
+	public string User_Address
+	{
+		get
+		{
+			return this._User_Address;
+		}
+		set
+		{
+			if ((this._User_Address != value))
+			{
+				this.OnUser_AddressChanging(value);
+				this.SendPropertyChanging();
+				this._User_Address = value;
+				this.SendPropertyChanged("User_Address");
+				this.OnUser_AddressChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_User_City", DbType="VarChar(150) NOT NULL", CanBeNull=false)]
+	public string User_City
+	{
+		get
+		{
+			return this._User_City;
+		}
+		set
+		{
+			if ((this._User_City != value))
+			{
+				this.OnUser_CityChanging(value);
+				this.SendPropertyChanging();
+				this._User_City = value;
+				this.SendPropertyChanged("User_City");
+				this.OnUser_CityChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_User_State", DbType="VarChar(150) NOT NULL", CanBeNull=false)]
+	public string User_State
+	{
+		get
+		{
+			return this._User_State;
+		}
+		set
+		{
+			if ((this._User_State != value))
+			{
+				this.OnUser_StateChanging(value);
+				this.SendPropertyChanging();
+				this._User_State = value;
+				this.SendPropertyChanged("User_State");
+				this.OnUser_StateChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_User_Zipcode", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
+	public string User_Zipcode
+	{
+		get
+		{
+			return this._User_Zipcode;
+		}
+		set
+		{
+			if ((this._User_Zipcode != value))
+			{
+				this.OnUser_ZipcodeChanging(value);
+				this.SendPropertyChanging();
+				this._User_Zipcode = value;
+				this.SendPropertyChanged("User_Zipcode");
+				this.OnUser_ZipcodeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_User_Phone", DbType="Int NOT NULL")]
+	public int User_Phone
+	{
+		get
+		{
+			return this._User_Phone;
+		}
+		set
+		{
+			if ((this._User_Phone != value))
+			{
+				this.OnUser_PhoneChanging(value);
+				this.SendPropertyChanging();
+				this._User_Phone = value;
+				this.SendPropertyChanged("User_Phone");
+				this.OnUser_PhoneChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_User_Name", DbType="VarChar(150) NOT NULL", CanBeNull=false)]
+	public string User_Name
+	{
+		get
+		{
+			return this._User_Name;
+		}
+		set
+		{
+			if ((this._User_Name != value))
+			{
+				this.OnUser_NameChanging(value);
+				this.SendPropertyChanging();
+				this._User_Name = value;
+				this.SendPropertyChanged("User_Name");
+				this.OnUser_NameChanged();
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+}
+
 [global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SIU_Training_Log")]
 public partial class SIU_Training_Log : INotifyPropertyChanging, INotifyPropertyChanged
 {
@@ -32537,6 +32537,8 @@ public partial class SIU_Training_Log : INotifyPropertyChanging, INotifyProperty
 	
 	private string _QuizName;
 	
+	private System.Nullable<int> _PreReq;
+	
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -32567,6 +32569,8 @@ public partial class SIU_Training_Log : INotifyPropertyChanging, INotifyProperty
     partial void OnVideoFileChanged();
     partial void OnQuizNameChanging(string value);
     partial void OnQuizNameChanged();
+    partial void OnPreReqChanging(System.Nullable<int> value);
+    partial void OnPreReqChanged();
     #endregion
 	
 	public SIU_Training_Log()
@@ -32830,6 +32834,26 @@ public partial class SIU_Training_Log : INotifyPropertyChanging, INotifyProperty
 				this._QuizName = value;
 				this.SendPropertyChanged("QuizName");
 				this.OnQuizNameChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PreReq", DbType="Int")]
+	public System.Nullable<int> PreReq
+	{
+		get
+		{
+			return this._PreReq;
+		}
+		set
+		{
+			if ((this._PreReq != value))
+			{
+				this.OnPreReqChanging(value);
+				this.SendPropertyChanging();
+				this._PreReq = value;
+				this.SendPropertyChanged("PreReq");
+				this.OnPreReqChanged();
 			}
 		}
 	}

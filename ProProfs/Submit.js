@@ -1,4 +1,8 @@
 ﻿$(document).ready(function () {
+    
+
+    //localhost/ProProfs/submit.aspx?quiz_id=1&quiz_name=test
+    
 
     getURLParameter = function (name) {
         return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [, ""])[1].replace(/\+/g, '%20')) || null;
@@ -15,19 +19,19 @@
             this.ParamArray[this.ParamArray.length] = { n: paramName, v: paramValue };
         };
 
-        this.exec = function (_url, _successMethod, _failMethod) {
-            if (_url.length > 0)
-                this.url = _url;
+        this.exec = function (url, successMethod, failMethod) {
+            if (url.length > 0)
+                this.url = url;
 
-            if (_successMethod == undefined)
-                _successMethod = '';
-            else
-                this.successMethod = _successMethod;
+            if (successMethod == undefined) {
+                successMethod = '';
+            } else
+                this.successMethod = successMethod;
 
-            if (_failMethod == undefined)
-                _failMethod = '';
-            else
-                this.failMethod = _failMethod;
+            if (failMethod == undefined) {
+                failMethod = '';
+            } else
+                this.failMethod = failMethod;
 
             var timestamp = new Date();
             this.ParamStr = '{';
@@ -71,67 +75,67 @@
     }
 
 
-    var quiz_id = "";
-    var quiz_name = "";
-    var attempt_date = "";
-    var user_name = "";
-    var total_marks = "";
-    var user_obtained_marks = "";
-    var user_percent_marks = "";
-    var user_totalcorrect_answers = "";
-    var user_totalwrong_answers = "";
-    var user_Email = "";
-    var user_Address = "";
-    var user_City = "";
-    var user_State = "";
-    var user_Zipcode = "";
-    var user_Phone = "";
-    var user_Id = "";
+    var quizId = "";
+    var quizName = "";
+    var attemptDate = "";
+    var userName = "";
+    var totalMarks = "";
+    var userObtainedMarks = "";
+    var userPercentMarks = "";
+    var userTotalcorrectAnswers = "";
+    var userTotalwrongAnswers = "";
+    var userEmail = "";
+    var userAddress = "";
+    var userCity = "";
+    var userState = "";
+    var userZipcode = "";
+    var userPhone = "";
+    var userId = "";
 
-    quiz_id = getURLParameter('quiz_id');
-    quiz_name = getURLParameter('quiz_name');
-    attempt_date = getURLParameter('attempt_date');
-    user_name = getURLParameter('user_name');
-    total_marks = getURLParameter('total_marks');
-    user_obtained_marks = getURLParameter('user_obtained_marks');
-    user_percent_marks = getURLParameter('user_percent_marks');
-    user_totalcorrect_answers = getURLParameter('user_totalcorrect_answers');
-    user_totalwrong_answers = getURLParameter('user_totalwrong_answers');
-    user_Email = getURLParameter('user_Email');
-    user_Address = getURLParameter('user_Address');
-    user_City = getURLParameter('user_City');
-    user_State = getURLParameter('user_State');
-    user_Zipcode = getURLParameter('user_Zipcode');
-    user_Phone = getURLParameter('user_Phone');
-    user_Id = getURLParameter('user_Id');
+    quizId = getURLParameter('quiz_id');
+    quizName = getURLParameter('quiz_name');
+    attemptDate = getURLParameter('attempt_date');
+    userName = getURLParameter('user_name');
+    totalMarks = getURLParameter('total_marks');
+    userObtainedMarks = getURLParameter('user_obtained_marks');
+    userPercentMarks = getURLParameter('user_percent_marks');
+    userTotalcorrectAnswers = getURLParameter('user_totalcorrect_answers');
+    userTotalwrongAnswers = getURLParameter('user_totalwrong_answers');
+    userEmail = getURLParameter('user_Email');
+    userAddress = getURLParameter('user_Address');
+    userCity = getURLParameter('user_City');
+    userState = getURLParameter('user_State');
+    userZipcode = getURLParameter('user_Zipcode');
+    userPhone = getURLParameter('user_Phone');
+    userId = getURLParameter('user_Id');
 
 
-    var AjaxCall = new AsyncServerMethod();
+    var ajaxCall = new AsyncServerMethod();
 
-    AjaxCall.add('quiz_id', quiz_id);
-    AjaxCall.add('quiz_name', quiz_name);
-    AjaxCall.add('attempt_date', attempt_date);
-    AjaxCall.add('user_name', user_name);
-    AjaxCall.add('total_marks', total_marks);
-    AjaxCall.add('user_obtained_marks', user_obtained_marks);
-    AjaxCall.add('user_percent_marks', user_percent_marks);
-    AjaxCall.add('user_totalcorrect_answers', user_totalcorrect_answers);
-    AjaxCall.add('user_totalwrong_answers', user_totalwrong_answers);
-    AjaxCall.add('user_Id', user_Id);
-    AjaxCall.add('user_Email', user_Email);
-    AjaxCall.add('user_Address', user_Address);
-    AjaxCall.add('user_City', user_City);
-    AjaxCall.add('user_State', user_State);
-    AjaxCall.add('user_Zipcode', user_Zipcode);
-    AjaxCall.add('user_Phone', user_Phone);
+    ajaxCall.add('quiz_id', quizId);
+    ajaxCall.add('quiz_name', quizName);
+    ajaxCall.add('attempt_date', attemptDate);
+    ajaxCall.add('user_name', userName);
+    ajaxCall.add('total_marks', totalMarks);
+    ajaxCall.add('user_obtained_marks', userObtainedMarks);
+    ajaxCall.add('user_percent_marks', userPercentMarks);
+    ajaxCall.add('user_totalcorrect_answers', userTotalcorrectAnswers);
+    ajaxCall.add('user_totalwrong_answers', userTotalwrongAnswers);
+    ajaxCall.add('user_Id', userId);
+    ajaxCall.add('user_Email', userEmail);
+    ajaxCall.add('user_Address', userAddress);
+    ajaxCall.add('user_City', userCity);
+    ajaxCall.add('user_State', userState);
+    ajaxCall.add('user_Zipcode', userZipcode);
+    ajaxCall.add('user_Phone', userPhone);
 
-    AjaxCall.exec("/ProProfs/ProProfs.asmx/RecordTest", RecordProProfs_success, RecordProProfs_fail);
+    ajaxCall.exec("/SIU_DAO.asmx/RecordTest", recordProProfsSuccess, recordProProfsFail);
 
-    function RecordProProfs_success() {
+    function recordProProfsSuccess() {
         $('#Status')[0].innerHTML = 'Done';
     }
 
-    function RecordProProfs_fail() {
+    function recordProProfsFail() {
         $('#Status')[0].innerHTML = 'Fail';
     }
 

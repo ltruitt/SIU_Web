@@ -18,11 +18,6 @@
 
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
-<pre>
-Filter Already Viewed Classes / Quizes
-Link To Quiz
-Record Video Watched
-</pre>    
 
     <div id="FormWrapper" class="ui-widget ui-form">
                     

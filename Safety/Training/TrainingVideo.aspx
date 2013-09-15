@@ -2,21 +2,30 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
     <script src="/Scripts/fp3216/flowplayer-3.2.12.min.js" type="text/javascript"></script>
+    
+    <style>
+        .restricted {
+            overflow-y: hidden;
+            overflow-x: hidden;
+            width: 550px; 
+            height: 550px; 
+            border: 2px solid gray; 
+            float: right; 
+            margin-right: 3px;
+        }
+    </style>
+    
+
 </asp:Content>
 
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
-    <div style="float: left; display:block; width:500px; height:400px;" id="videoPlayer"></div>
+    <div id="videoPlayer" style="float: left; display:block; width:500px; height:400px;  border: 2px solid gray; " ></div>
+    <img id='NoVideo' src="/Images/NoVideo.jpg" alt="No Video Available For This Event" style="width: 450px; height: 404px; float: left; display: none"/>
     
-    
+    <iframe name='proprofs' id='proprofs' class="restricted" ></iframe>
+    <img id='NoQuiz' src="/Images/NoQuiz.jpg" alt="No Quiz Available For This Event" style="width: 450px; height: 404px; float: right; display: none; "/>
 
-    <div style="float: left; text-align: center; width: auto;  padding-left: 30px; padding-right: 30px;">
-        <h3>Quiz</h3>
-        <div style="text-align: center; width: 100%; background-color: yellow;">
-            <span id="SupportDocumentsInsertPoint"></span>
-        </div>
-    </div>
-    
     <div style="clear: both;"></div>
     
 
@@ -26,8 +35,11 @@
     <script src="/Scripts/TrainingVideo.js" type="text/javascript"></script>
     
     <!-- Hidden Fields -->
-    <section style="visibility: hidden; height: 0px; width: 0px;">
+    <section style="visibility: hidden; height: 0; width: 0;">
         <span id="hlblEID"           runat="server"/>      
+        <span id="hlblName"          runat="server"/>
+        <span id="hlblTlUid"         runat="server"/>
     </section>
+
 </asp:Content>
 

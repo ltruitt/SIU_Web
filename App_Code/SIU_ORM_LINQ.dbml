@@ -1270,27 +1270,6 @@
       <Column Name="QualCode" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
-  <Table Name="dbo.SIU_Proprof_Quiz" Member="SIU_Proprof_Quizs">
-    <Type Name="SIU_Proprof_Quiz">
-      <Column Name="UID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Quiz_ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Quiz_Name" Type="System.String" DbType="VarChar(150) NOT NULL" CanBeNull="false" />
-      <Column Name="Attempt_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="Total_Marks" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="User_Marks" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="User_Pct_Marks" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Total_Correct" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Total_Wrong" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="User_ID" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
-      <Column Name="User_Email" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
-      <Column Name="User_Address" Type="System.String" DbType="VarChar(150) NOT NULL" CanBeNull="false" />
-      <Column Name="User_City" Type="System.String" DbType="VarChar(150) NOT NULL" CanBeNull="false" />
-      <Column Name="User_State" Type="System.String" DbType="VarChar(150) NOT NULL" CanBeNull="false" />
-      <Column Name="User_Zipcode" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
-      <Column Name="User_Phone" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="User_Name" Type="System.String" DbType="VarChar(150) NOT NULL" CanBeNull="false" />
-    </Type>
-  </Table>
   <Table Name="dbo.[Shermco$Job Report]" Member="Shermco_Job_Reports">
     <Type Name="Shermco_Job_Report">
       <Column Name="timestamp" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
@@ -1455,6 +1434,27 @@
       <Column Name="JobNo" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.SIU_Training_Quiz" Member="SIU_Training_Quizs">
+    <Type Name="SIU_Training_Quiz">
+      <Column Name="UID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Quiz_ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Quiz_Name" Type="System.String" DbType="VarChar(150) NOT NULL" CanBeNull="false" />
+      <Column Name="Attempt_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Total_Marks" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="User_Marks" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="User_Pct_Marks" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Total_Correct" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Total_Wrong" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="User_ID" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="User_Email" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="User_Address" Type="System.String" DbType="VarChar(150) NOT NULL" CanBeNull="false" />
+      <Column Name="User_City" Type="System.String" DbType="VarChar(150) NOT NULL" CanBeNull="false" />
+      <Column Name="User_State" Type="System.String" DbType="VarChar(150) NOT NULL" CanBeNull="false" />
+      <Column Name="User_Zipcode" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="User_Phone" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="User_Name" Type="System.String" DbType="VarChar(150) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
   <Table Name="dbo.SIU_Training_Log" Member="SIU_Training_Logs">
     <Type Name="SIU_Training_Log">
       <Column Name="TL_UID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -1470,6 +1470,7 @@
       <Column Name="Points" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="VideoFile" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="QuizName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PreReq" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </Type>
   </Table>
   <Function Name="dbo.SIU_ELO_GetBalance" Method="SIU_ELO_GetBalance">

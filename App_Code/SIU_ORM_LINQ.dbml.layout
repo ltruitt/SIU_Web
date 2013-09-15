@@ -242,12 +242,6 @@
         <elementListCompartment Id="ef8e27e5-f43d-4462-ae98-7d1f45637067" absoluteBounds="11.39, 1.46, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="3b8d486a-f2e8-4484-8e8a-0e4ee98513ca" isExpanded="false" absoluteBounds="11.375, 2, 2, 0.45">
-      <DataClassMoniker Name="/SIU_ORM_LINQDataContext/SIU_Proprof_Quiz" />
-      <nestedChildShapes>
-        <elementListCompartment Id="86d761d9-bec3-4018-ba1a-4e0436a07f19" absoluteBounds="11.39, 2.46, 1.9700000000000002, 3.518513997395833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
     <classShape Id="19e88426-caeb-4b01-a73b-024603fffbae" isExpanded="false" absoluteBounds="0.625, 1.75, 2, 0.45">
       <DataClassMoniker Name="/SIU_ORM_LINQDataContext/Shermco_Job_Report" />
       <nestedChildShapes>
@@ -266,10 +260,16 @@
         <elementListCompartment Id="468d4eb9-ccb5-4758-ac8e-b892d6eca2ad" absoluteBounds="6.7650000000000006, 0.96, 1.9700000000000002, 4.8646240234375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="0f317c12-7f4d-4201-9410-52c8a03972ec" isExpanded="false" absoluteBounds="11.375, 0.5, 2, 0.45">
+    <classShape Id="cd66cfcb-6b08-45c9-9f78-83146ba1010f" isExpanded="false" absoluteBounds="11.375, 2, 2, 0.45">
+      <DataClassMoniker Name="/SIU_ORM_LINQDataContext/SIU_Training_Quiz" />
+      <nestedChildShapes>
+        <elementListCompartment Id="49a4e166-1c78-4c8f-8d35-10774030461e" absoluteBounds="11.39, 2.46, 1.9700000000000002, 3.518513997395833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="a3eee2c1-a12d-4d6d-bf77-3c99db4c1dea" isExpanded="false" absoluteBounds="11.375, 0.5, 2, 0.45">
       <DataClassMoniker Name="/SIU_ORM_LINQDataContext/SIU_Training_Log" />
       <nestedChildShapes>
-        <elementListCompartment Id="5a252ef7-f5e7-4fc1-b7a8-acc9816ecea2" absoluteBounds="11.39, 0.96, 1.9700000000000002, 2.7493082682291665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="764e2ae7-817f-4934-bc88-be95a086e911" absoluteBounds="11.39, 0.96, 1.9700000000000002, 2.941609700520833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

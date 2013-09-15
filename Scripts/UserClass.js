@@ -3,8 +3,15 @@
     var timestamp = new Date();
 
 
+
+
+
+
+
+
+
     $('#jTableClass').jtable({
-        title: 'Click A Video or Quiz',
+        title: '',
         edit: true,
         selecting: true,
         sorting: true,
@@ -13,7 +20,7 @@
         defaultSorting: 'workDate ASC',
 
         actions: {
-            listAction: '/SIU_DAO.asmx/GetMeetingLogAdmin',
+            listAction: '/SIU_DAO.asmx/GetMeetingLogUser',
         },
         fields: {
             TL_UID: {
@@ -24,12 +31,45 @@
                 edit: false,
                 list: false
             },
+            
+            VideoComplete: {
+                title: 'video',
+                sorting: false,
+                width: '1%',
+                list: true,
+                display: function (data) {
+                    var $img = '';
+
+                    if (data.record.VideoComplete == true)
+                        $img = $('<img style="width: 20px; height: 20px; margin-left: 10px;" src="/Images/GreenChk.png" title="Incomplete" />');
+                    //else
+                    //    $img = $('<img style="width: 10px; height: 10px; margin-left: 10px;" src="/Images/close.png" title="Incomplete" />');
+                    return $img;
+                }
+            },
+
+            QuizComplete: {
+                title: 'quiz',
+                sorting: false,
+                width: '1%',
+                list: true,
+                display: function (data) {
+                    var $img = '';
+
+                    if (data.record.QuizComplete == 1)
+                        $img = $('<img style="width: 20px; height: 20px; margin-left: 10px;" src="/Images/GreenChk.png" title="Incomplete" />');
+                    if (data.record.QuizComplete == 0)
+                        $img = $('<img style="width: 13px; height: 13px; margin-left: 10px;" src="/Images/close.png" title="Incomplete" />');
+                    return $img;
+                }
+            },
+            
             Date: {
-                title: 'Date',
+                title: 'Class Date',
                 type: 'date',
-                displayFormat: 'mm-dd-yy',
-                sorting: true,
-                width: '8%',
+                displayFormat: 'mm-dd',
+                sorting: false,
+                width: '5%',
                 listClass: 'jTableTD'
             },
 
@@ -37,7 +77,19 @@
                 title: 'Topic',
                 sorting: false,
                 width: '15%',
-                list: true
+                list: true,
+                display: function (Data) {
+                    var t = '';
+                    for (var c = 0; c < listOfTypes.length; c++) {
+                        var strParts = listOfTypes[c].split(" ");
+                        if (strParts[0] == Data.record.MeetingType) {
+                            var mta = listOfTypes[c].split(' ');
+                            mta.splice(0, 2);
+                            t = '<span style="font-weight: bold !important">' + mta.join(' ') + '</span><br/>' + Data.record.Topic;
+                        }
+                    }
+                    return t;
+                },
             },
             Description: {
                 title: 'Description',
@@ -61,7 +113,7 @@
                 title: 'Type',
                 sorting: false,
                 width: '5%',
-                list: true
+                list: false
             },
             Points: {
                 title: 'Pts',
@@ -71,22 +123,11 @@
             },
 
             VideoFile: {
-                title: 'Video',
+                title: 'Take Class',
                 sorting: false,
                 list: true,
-                display: function (Data) {
-                    var $img = $('<a href="/Safety/Training/TrainingVideo.aspx?v=' + Data.record.VideoFile + '&id=' + Data.record.TL_UID + '"><img style="width:40px; height: 40px;" src="/Images/VideoFolder-Hover.png" title="Open Form" /></a>');
-                    return $img;
-                },
-                width: '5%'
-            },
-
-            QuizLink: {
-                title: 'Quiz URL',
-                sorting: false,
-                list: true,
-                display: function (Data) {
-                    var $img = $('<a href="/Safety/Training/TrainingQuiz.aspx?q=' + Data.record.QuizLink + '&id=' + Data.record.TL_UID  + '"><img style="width:50px; height: 50px;" src="/Images/SI-Corp-Certifications.png" title="Open Form" /></a>');
+                display: function (data) {
+                    var $img = $('<a href="/Safety/Training/TrainingVideo.aspx?id=' + data.record.TL_UID + '"><img style="width:40px; height: 40px; margin-left: 10px;" src="/Images/SI-Corp-Certifications.png" title="Open Form" /></a>');
                     return $img;
                 },
                 width: '5%'
@@ -101,9 +142,14 @@
             StartTime: {
                 list: true,
                 title: 'Start Time',
-                width: '8%',
+                width: '5%',
                 sorting: false,
-                display: function (data) { return new Date(parseInt(data.record.StartTime.replace('/Date(', ''))).toTimeString().split(' ')[0]; }
+                display: function (data) {
+                    var t = new Date(parseInt(data.record.StartTime.replace('/Date(', ''))).toTimeString().split(' ')[0];
+                    if (t == '00:00:00')
+                        return '';
+                    return t;
+                }
             },
             StopTime: {
                 list: false
@@ -111,7 +157,7 @@
 
             InstructorID: { list: false }
         },
-        //Register to selectionChanged event to hanlde events
+
         selectionChanged: function () {
 
             //Get all selected rows
@@ -122,12 +168,40 @@
                 $selectedRows.each(function () {
                     var record = $(this).data('record');
                     tlUid = record.TL_UID;
+                    
+                    //window.location.href = "http://" + window.location.hostname + '/Safety/Training/TrainingVideo.aspx?id=' + record.TL_UID;
                 });
             }
         }
     });
 
 
-    $('#jTableClass').jtable('load', { T: timestamp.getTime() });
+    ///////////////////////////////////////////////////////////////
+    // Load List Of Employees So Supr Can Change Viewed Employee //
+    ///////////////////////////////////////////////////////////////
+    var listOfTypes = [];
+    var listOfPoints = [];
+    function getTypesSuccess(data) {
+        listOfTypes = data.d.split("\r");
+
+        for (var c = 0; c < listOfTypes.length; c++) {
+            var strParts = listOfTypes[c].split(",");
+            listOfPoints[c] = strParts[1];
+            listOfTypes[c] = strParts[0];
+        }
+        
+        $('#jTableClass').jtable('load', { T: timestamp.getTime() });
+        
+    };
+    
+
+    ////////////////////////////////////////
+    // Load Points Type AutoComplete List //
+    ////////////////////////////////////////
+    var getTypesCall = new AsyncServerMethod();
+    getTypesCall.exec("/SIU_DAO.asmx/GetAutoCompleteClassTypes", getTypesSuccess);
+    
+
+    
 
 });

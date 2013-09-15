@@ -124,7 +124,8 @@ public static class WebMail
         string emailBody = "Submitted By: " + UserFullName + Environment.NewLine;
         emailBody += "Date Submitted: " + ToShortDate(Report.IncOpenTimestamp) + Environment.NewLine;
         emailBody += "Submission Type: " + Report.IncTypeTxt + Environment.NewLine;
-        emailBody += "Job: " + Report.JobNo + Environment.NewLine;
+        if (Report.JobNo.Length > 0)
+            emailBody += "Job: " + Report.JobNo + Environment.NewLine;
         emailBody += "Location: " + Report.JobSite + Environment.NewLine + Environment.NewLine;
 
         if (Report.IncTypeTopicFlag || Report.IncTypeSumFlag)
@@ -167,7 +168,8 @@ public static class WebMail
         emailBody += "Submitted By: " + rptByEmp.Last_Name + ", " + rptByEmp.First_Name + Environment.NewLine;
         emailBody += "Date Submitted: " + ToShortDate(UpdRcd.IncOpenTimestamp) + Environment.NewLine;
         emailBody += "Submission Type: " + UpdRcd.IncTypeTxt + Environment.NewLine;
-        emailBody += "Job: " + UpdRcd.JobNo + Environment.NewLine;
+        if (UpdRcd.JobNo.Length > 0)
+            emailBody += "Job: " + UpdRcd.JobNo + Environment.NewLine;
         emailBody += "Location: " + UpdRcd.JobSite + Environment.NewLine + Environment.NewLine;
 
         if (UpdRcd.IncTypeTopicFlag || UpdRcd.IncTypeSumFlag)
@@ -219,7 +221,8 @@ public static class WebMail
         emailBody += "Submitted By: " + rptByEmp.Last_Name + ", " + rptByEmp.First_Name + Environment.NewLine;
         emailBody += "Date Submitted: " + ToShortDate(UpdRcd.IncOpenTimestamp) + Environment.NewLine;
         emailBody += "Submission Type: " + UpdRcd.IncTypeTxt + Environment.NewLine;
-        emailBody += "Job: " + UpdRcd.JobNo + Environment.NewLine;
+        if (UpdRcd.JobNo.Length > 0 )
+            emailBody += "Job: " + UpdRcd.JobNo + Environment.NewLine;
         emailBody += "Location: " + UpdRcd.JobSite + Environment.NewLine + Environment.NewLine;
 
         if (UpdRcd.IncTypeTopicFlag || UpdRcd.IncTypeSumFlag)
@@ -247,7 +250,7 @@ public static class WebMail
         emailBody += "Rejected and Closed By: " + UserFullName + Environment.NewLine;
         emailBody += "Rejected On: " + ToShortDate(UpdRcd.IncCloseTimestamp) + Environment.NewLine + Environment.NewLine;
 
-        emailBody += "Motes From EHS: " + Environment.NewLine + UpdRcd.ehsRepsonse + Environment.NewLine;
+        emailBody += "Notes From EHS: " + Environment.NewLine + UpdRcd.ehsRepsonse + Environment.NewLine;
 
         //////////////////////////////////
         // Send Email To Original  User //
@@ -268,7 +271,8 @@ public static class WebMail
         emailBody += "Submitted By: " + rptByEmp.Last_Name + ", " + rptByEmp.First_Name + Environment.NewLine;
         emailBody += "Date Submitted: " + ToShortDate(UpdRcd.IncOpenTimestamp) + Environment.NewLine;
         emailBody += "Submission Type: " + UpdRcd.IncTypeTxt + Environment.NewLine;
-        emailBody += "Job: " + UpdRcd.JobNo + Environment.NewLine;
+        if (UpdRcd.JobNo.Length > 0)
+            emailBody += "Job: " + UpdRcd.JobNo + Environment.NewLine;
         emailBody += "Location: " + UpdRcd.JobSite + Environment.NewLine + Environment.NewLine;
 
         if (UpdRcd.IncTypeTopicFlag || UpdRcd.IncTypeSumFlag)
@@ -319,7 +323,8 @@ public static class WebMail
         emailBody += "Submitted By: " + rptByEmp.Last_Name + ", " + rptByEmp.First_Name + Environment.NewLine;
         emailBody += "Date Submitted: " + ToShortDate(UpdRcd.IncOpenTimestamp) + Environment.NewLine;
         emailBody += "Submission Type: " + UpdRcd.IncTypeTxt + Environment.NewLine;
-        emailBody += "Job: " + UpdRcd.JobNo + Environment.NewLine;
+        if (UpdRcd.JobNo.Length > 0)
+            emailBody += "Job: " + UpdRcd.JobNo + Environment.NewLine;
         emailBody += "Location: " + UpdRcd.JobSite + Environment.NewLine + Environment.NewLine;
 
         if (UpdRcd.IncTypeTopicFlag || UpdRcd.IncTypeSumFlag)
@@ -370,7 +375,8 @@ public static class WebMail
             emailBody += "Submitted By: " + rptByEmp.Last_Name + ", " + rptByEmp.First_Name + Environment.NewLine;
             emailBody += "Date Submitted: " + ToShortDate(report.IncOpenTimestamp) + Environment.NewLine;
             emailBody += "Submission Type: " + report.IncTypeTxt + Environment.NewLine;
-            emailBody += "Job: " + report.JobNo + Environment.NewLine;
+            if (report.JobNo.Length > 0)
+                emailBody += "Job: " + report.JobNo + Environment.NewLine;
             emailBody += "Location: " + report.JobSite + Environment.NewLine + Environment.NewLine;
 
             if (report.IncTypeTopicFlag || report.IncTypeSumFlag)
@@ -438,7 +444,8 @@ public static class WebMail
             emailBody += "Submitted By: " + rptByEmp.Last_Name + ", " + rptByEmp.First_Name + Environment.NewLine;
             emailBody += "Date Submitted: " + ToShortDate(report.IncOpenTimestamp) + Environment.NewLine;
             emailBody += "Submission Type: " + report.IncTypeTxt + Environment.NewLine;
-            emailBody += "Job: " + report.JobNo + Environment.NewLine;
+            if (report.JobNo.Length > 0)
+                emailBody += "Job: " + report.JobNo + Environment.NewLine;
             emailBody += "Location: " + report.JobSite + Environment.NewLine + Environment.NewLine;
 
             if (report.IncTypeTopicFlag || report.IncTypeSumFlag)

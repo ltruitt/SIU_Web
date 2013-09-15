@@ -16,6 +16,7 @@ using System.Web;
 using System.Globalization;
 using System.Web.Configuration;
 using System.Web.Script.Services;
+using iTextSharp.text.pdf;
 using ShermcoYou.DataTypes;
 using AutoMapper;
 
@@ -1569,12 +1570,36 @@ public class SiuDao : WebService
     // Gets List Of Future Meetings For Administration //
     /////////////////////////////////////////////////////
     [WebMethod(EnableSession = true)]
-    public string GetMeetingLogAdmin()
+    public string GetTrainingRcd(string rcdId)
     {
         JavaScriptSerializer serializer = new JavaScriptSerializer();
         try
         {
-            List<SIU_Training_Log> rpt = SqlServer_Impl.GetMeetingLogAdmin();
+            SIU_Training_Log rpt = SqlServer_Impl.GetMeetingLogAdmin( int.Parse(rcdId) );
+            return serializer.Serialize(rpt);
+        }
+        catch (Exception ex)
+        {
+            SqlServer_Impl.LogDebug("GetTrainingRcd", ex.Message);
+            return serializer.Serialize(new { Result = "ERROR", ex.Message });
+        }
+
+    }
+
+    /////////////////////////////////////////////////////
+    // Gets List Of Future Meetings For Administration //
+    /////////////////////////////////////////////////////
+    [WebMethod(EnableSession = true)]
+    public string GetMeetingLogAdmin(string SD)
+    {
+        DateTime startDate = DateTime.Now;
+        if (SD.Length > 0)
+            startDate = DateTime.Parse(SD);
+
+        JavaScriptSerializer serializer = new JavaScriptSerializer();
+        try
+        {
+            List<SIU_Training_Log> rpt = SqlServer_Impl.GetMeetingLogAdmin(startDate);
             return serializer.Serialize(new { Result = "OK", Records = rpt });            
         }
         catch (Exception ex)
@@ -1586,7 +1611,25 @@ public class SiuDao : WebService
     }
 
     [WebMethod(EnableSession = true)]
-    public string RecordMeetingLogAdmin(string MeetingID, string cTopic, string cType, string cPts, string cDesc, string cInstID, string cVideo, string cQuiz, string cDate, string cStart, string cStop, string cLoc)
+    public string GetMeetingLogUser()
+    {
+        JavaScriptSerializer serializer = new JavaScriptSerializer();
+        try
+        {
+            List<SIU_Meeting_Log_Ext> rpt = SqlServer_Impl.GetMeetingLogUser();
+            return serializer.Serialize(new { Result = "OK", Records = rpt });
+        }
+        catch (Exception ex)
+        {
+            SqlServer_Impl.LogDebug("GetMeetingLogAdmin", ex.Message);
+            return serializer.Serialize(new { Result = "ERROR", ex.Message });
+        }
+
+    }
+
+
+    [WebMethod(EnableSession = true)]
+    public string RecordMeetingLogAdmin(string MeetingID, string cTopic, string cType, string cPts, string cDesc, string cInstID, string cVideo, string cQuiz, string cDate, string cStart, string cStop, string cLoc, string cReq)
     {
         try
         {
@@ -1596,7 +1639,6 @@ public class SiuDao : WebService
                 TL_UID = int.Parse(MeetingID),
                 Topic = HttpUtility.UrlDecode(cTopic),
                 Description = HttpUtility.UrlDecode(cDesc),
-                Instructor = "",
                 InstructorID = int.Parse(cInstID),
                 Location = HttpUtility.UrlDecode(cLoc),
                 MeetingType = int.Parse(cType),
@@ -1604,6 +1646,11 @@ public class SiuDao : WebService
                 VideoFile = HttpUtility.UrlDecode(cVideo),
                 QuizName = HttpUtility.UrlDecode(cQuiz)
             };
+
+            var Emp = SqlServer_Impl.GetEmployeeByNo(cInstID);
+            mtgLog.Instructor = (Emp != null) ? Emp.Last_Name + ", " + Emp.First_Name : "";
+            
+            if (cReq.Length > 0) mtgLog.PreReq = int.Parse(cReq);
 
             mtgLog.Date = DateTime.Parse(cDate.Length > 0 ? cDate : "1/1/2999 00:00");
 
@@ -1731,10 +1778,18 @@ public class SiuDao : WebService
 
         return typeList;
     }
+
+    ////////////////////////////
+    // Record Movie Completed //
+    ////////////////////////////
+    [WebMethod(EnableSession = true)]
+    public string TrainingMovieComplete(string empNo, string TL_UID)
+    {
+        return SqlServer_Impl.TrainingMovieComplete(empNo, TL_UID);
+    }
 #endregion Training
 
-
-#region Document and Video Browsing
+    #region Document and Video Browsing
     ////////////////////////////////////
     // Provide Video File Directories //
     ////////////////////////////////////
@@ -1910,14 +1965,7 @@ public class SiuDao : WebService
         return "";
     }
 
-    ////////////////////////////
-    // Record Movie Completed //
-    ////////////////////////////
-    [WebMethod(EnableSession = true)]
-    public string TrainingMovieComplete(string empNo, string TL_UID)
-    {
-        return SqlServer_Impl.TrainingMovieComplete(empNo, TL_UID);
-    }
+
 #endregion Record Video Watching Event
 
 
@@ -2392,9 +2440,8 @@ public class SqlServer_Impl : WebService
     }
 #endregion
 
-#region  Safety Meetings Methods
-
-    public static List<SIU_Training_Log> GetMeetingLogAdmin()
+#region  Safety Training Methods
+    public static SIU_Training_Log GetMeetingLogAdmin(int rcdId)
     {
         try
         {
@@ -2409,7 +2456,33 @@ public class SqlServer_Impl : WebService
             {
 
                 return (from mtglist in nvDb.SIU_Training_Logs
-                        where mtglist.Date >= DateTime.Now
+                        where mtglist.TL_UID == rcdId
+                        select mtglist
+                    ).SingleOrDefault();
+            }
+        }
+        catch (Exception ex)
+        {
+            LogDebug("GetMeetingLogAdmin: " + rcdId, ex.Message);
+        }
+        return new SIU_Training_Log();
+    }
+    public static List<SIU_Training_Log> GetMeetingLogAdmin(DateTime SD)
+    {
+        try
+        {
+            SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
+
+            TransactionOptions to = new TransactionOptions
+            {
+                IsolationLevel = IsolationLevel.ReadUncommitted
+            };
+
+            using (new TransactionScope(TransactionScopeOption.RequiresNew, to))
+            {
+
+                return (from mtglist in nvDb.SIU_Training_Logs
+                        where mtglist.Date >= SD
                         select mtglist
                     ).ToList();
             }
@@ -2420,6 +2493,98 @@ public class SqlServer_Impl : WebService
         }
         return new List<SIU_Training_Log>();        
     }
+
+    public static List<SIU_Meeting_Log_Ext> GetMeetingLogUser()
+    {
+        try
+        {
+            SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
+
+            TransactionOptions to = new TransactionOptions
+            {
+                IsolationLevel = IsolationLevel.ReadUncommitted
+            };
+
+            using (new TransactionScope(TransactionScopeOption.RequiresNew, to))
+            {
+                var allList =
+                       (    from tl in nvDb.SIU_Training_Logs
+                                join ta in nvDb.SIU_Training_Attendances on tl.TL_UID equals ta.TL_UID 
+	                            into ta_ext
+	                        from subset in ta_ext.DefaultIfEmpty()
+	                            where (tl.QuizName.Length > 0 || tl.VideoFile.Length > 0)
+                            orderby tl.Date descending
+                            select new SIU_Meeting_Log_Ext()
+                            {
+                                TL_UID = tl.TL_UID,
+                                Date = tl.Date,
+                                Topic = tl.Topic,
+                                Description = tl.Description,
+                                Instructor = tl.Instructor,
+                                MeetingType = tl.MeetingType,
+                                Location = tl.Location,
+                                Points = tl.Points,
+                                VideoFile = tl.VideoFile,
+                                QuizName = tl.QuizName,
+                                StartTime = tl.StartTime,
+                                StopTime = tl.StopTime,
+                                InstructorID = tl.InstructorID,
+                                VideoComplete = (subset.VideoEnd != null),
+                                QuizComplete = TriIntFromBool(subset.QuizPass),
+                                QuizPass = (bool?) subset.QuizPass,
+                                PreReq = tl.PreReq
+                            }
+                        );
+
+                List<SIU_Meeting_Log_Ext> notCompleteList =
+                    (from l1 in allList
+                     where l1.VideoComplete == false || l1.QuizPass == null || l1.QuizPass == false
+                     select l1
+                    ).ToList();
+
+                bool more = true;
+                while (more)
+                {
+                    more = false;
+                    foreach (var notCompleteListItem in notCompleteList)
+                    {
+                        // Try And Find PreReq Item To This One //
+                        int? ItemPreReq = notCompleteListItem.PreReq;
+                        var preReqRcd = (from l3 in allList
+                                         where l3.TL_UID == ItemPreReq
+                                         select l3).SingleOrDefault();
+
+                        // Found A PreReq Record
+                        if (preReqRcd != null)
+                        {
+                            // If The Class Is Not Completed
+                            // Remove The Dependent Record
+                            if (notCompleteListItem.VideoComplete == false || notCompleteListItem.QuizPass == null || notCompleteListItem.QuizPass == false)
+                                notCompleteList.Remove(notCompleteListItem);
+                            more = true;
+                            break;
+                        }
+                    }
+                    
+                }
+
+                return notCompleteList.ToList();
+            }
+        }
+        catch (Exception ex)
+        {
+            LogDebug("GetMeetingLogAdmin", ex.Message);
+        }
+        return new List<SIU_Meeting_Log_Ext>();
+    }
+    private static int TriIntFromBool(bool? value)
+    {
+        // null = -1
+        // false = 0
+        // true = 1
+        return (value == null) ? -1 : (( value == false) ? 0 : 1);
+    }
+
 
     public static string RecordMeetingLogAdmin(SIU_Training_Log MtgLog)
     {
@@ -2451,7 +2616,6 @@ public class SqlServer_Impl : WebService
             return ex.Message;
         }      
     }
-
     public static string RemoveMeetingLogAdmin(int TL_UID)
     {
         try
@@ -2475,7 +2639,6 @@ public class SqlServer_Impl : WebService
 
         return "";        
     }
-
     public static List<SIU_Training_Log_Certification> GetMeetingQual(int MeetingID)
     {
         try
@@ -2502,7 +2665,6 @@ public class SqlServer_Impl : WebService
         }
         return new List<SIU_Training_Log_Certification>();
     }
-
     public static string RecordMeetingQual(SIU_Training_Log_Certification MtgCert)
     {
         try
@@ -2520,7 +2682,6 @@ public class SqlServer_Impl : WebService
 
         return "";        
     }
-
     public static string RemoveMeetingQual(int TLC_UID)
     {
         try
@@ -2545,7 +2706,6 @@ public class SqlServer_Impl : WebService
 
         return "";
     }
-
     public static List<SIU_SafetyPays_Points_Type> GetAutoCompleteClassTypes()
     {
         try
@@ -2572,8 +2732,6 @@ public class SqlServer_Impl : WebService
         }
         return new List<SIU_SafetyPays_Points_Type>();
     }
-
-
 
 
     public static bool LogVideoWatch(string empNo, string VideoName, string VideoFolder,  string Pos, string Dur, bool Completed=false)
@@ -2630,7 +2788,6 @@ public class SqlServer_Impl : WebService
         return true;
 
     }
-
     public static string TrainingMovieComplete(string empNo, string TL_UID)
     {
         SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
@@ -2669,7 +2826,65 @@ public class SqlServer_Impl : WebService
         } 
 
     }
-#endregion
+
+    public static string RecordTest(SIU_Training_Quiz testRcd)
+    {
+        SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
+
+        ///////////////////////
+        // Record Test Taken //
+        ///////////////////////
+        try
+        {
+            nvDb.SIU_Training_Quizs.InsertOnSubmit(testRcd);
+            nvDb.SubmitChanges();
+        }
+        catch (Exception ex)
+        {
+            LogDebug("RecordTest TQ_Section: ", ex.Message);
+            return ex.Message;
+        }
+
+
+
+        try
+        {
+            int TL_UID = int.Parse(testRcd.User_Zipcode);
+
+            SIU_Training_Attendance ta = (from taAttend in nvDb.SIU_Training_Attendances
+                where taAttend.TL_UID == TL_UID && taAttend.EmpID == int.Parse(testRcd.User_ID)
+                select taAttend
+                ).SingleOrDefault() ?? new SIU_Training_Attendance();
+
+            ta.TL_UID = TL_UID;
+            ta.EmpID = int.Parse(testRcd.User_ID);
+            ta.QuizDate = DateTime.Now;
+            ta.QuizName = testRcd.Quiz_Name;
+            ta.QuizPass = (testRcd.User_Pct_Marks > 79);
+
+            if (ta.TA_UID == 0)
+            {
+                nvDb.SIU_Training_Attendances.InsertOnSubmit(ta);
+                nvDb.SubmitChanges();
+                return testRcd.UID.ToString(CultureInfo.InvariantCulture);
+            }
+
+            ///////////////////////////////
+            // Copy Over New Data Fields //
+            ///////////////////////////////
+
+            nvDb.SubmitChanges();
+        }
+        catch (Exception ex)
+        {
+            LogDebug("RecordTest TA_Section: ", ex.Message);
+        }
+
+        return testRcd.UID.ToString(CultureInfo.InvariantCulture);
+
+    }
+
+#endregion   Safety Training Methods
 
 #region  Document Indexing and Content
     public static IEnumerable<SIU_File> GetFiles()
