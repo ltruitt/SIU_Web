@@ -232,7 +232,7 @@
                             <div style="font-weight: bold; text-align: center;">Other Data<br/>(Must Answer Each Question)</div>
 
                             <div style="display: inline-block; width: 100%;">
-                                <div style="margin-top: 10px;">Other Data in Job Folder (PDF, Excel, etc.)</div>
+                                <div style="margin-top: 10px;">Other Data in Dropbox (PDF, Excel, etc.)</div>
                                 <input type="text" id="OtherData" class="DataInputCss" style="width: 80%;"    />
                             </div>
                         
@@ -248,14 +248,14 @@
                                 <input type="checkbox" id="CbRtsY"   class="chkRts" value="1"/>
                                 <input type="checkbox" id="CbRtsN"   class="chkRts" value="2"/>
                                 <input type="checkbox" id="CbRtsNA"   class="chkRts" value="3"/>
-                                <span>RTS Relay Data saved as a PDF in Job Folder</span>
+                                <span>RTS Relay Data saved as a PDF in Dropbox</span>
                             </div>
 
                             <div style="display: inline-block; width: 100%;   margin-bottom: 10px;">
                                 <input type="checkbox" id="CbCtY"   class="chkCt" value="1"/>
                                 <input type="checkbox" id="CbCtN"   class="chkCt" value="2"/>
                                 <input type="checkbox" id="CbCtNA"   class="chkCt" value="3" />
-                                <span>CT Data Saved as a PDF in Job Folder</span>
+                                <span>CT Data Saved as a PDF in Dropbox</span>
                             </div>
                         
                         
@@ -263,7 +263,7 @@
                                 <input type="checkbox" id="CbPdY"   class="chkPd" value="1"/>
                                 <input type="checkbox" id="CbPdN"   class="chkPd" value="2"/>
                                 <input type="checkbox" id="CbPdNA"   class="chkPd" value="3" />
-                                <span>Partial Discharge, Level 2 in the job folder</span>
+                                <span>Partial Discharge, Level 2 in the Dropbox</span>
                             </div>
                             
                             <div style="display: inline-block; width: 100%;   margin-bottom: 10px;">
@@ -391,11 +391,6 @@
                         <section id="Section2" class="ui-state-error ui-corner-all" style="width: 100%;  margin-top: 4px;"   >
                         
                             <div style="font-weight: bold; text-align: center;">Infrared<br/>(ONLY If You Have Infrared Data)</div>    
-
-<%--                            <div style="display: inline-block; width: 100%;   margin-bottom: 10px;">
-                                <input type="checkbox" id="chkIrData"   class="chkIR" value="IrData"/>
-                                <span>IR Data scanned and in Job Folder Or 8082 inbox</span>
-                            </div>--%>
                             
                             <div style="display: inline-block; width: 100%;   margin-bottom: 0; ">
                                 <span style="padding-top: 5px; padding-left: 3px; -webkit-margin-start: 3px;  margin-left: 35%;">Y</span>

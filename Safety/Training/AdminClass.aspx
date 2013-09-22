@@ -135,26 +135,30 @@
                 <div class="ui-state-error ui-corner-all " style="clear: both; width: 820px;  display: inline-block; margin-top: 25px;">
                     <div>
                         
-                        <div style="font-size: 1.2em; font-weight: bold"> For Instructor Lead Class</div>
+                        <div style="font-size: 1.2em; font-weight: bold; background-color: burlywood;color: brown;"> For Instructor Lead Class</div>
                         
                         <div style="font-size: 1.2em; font-weight: bold; display: inline-block; width: 170px; padding-top: 10px; padding-bottom: 5px; ">
                             <div style="float: left;">Class Date</div>
                             <input type="text" id="txtDate" Class="DataInputCss DateEntryCss"  style="width: 110px; text-align: center;" /> 
                         </div>
 
-                        <div style="font-size: 1.2em; font-weight: bold; display: inline-block; width: 140px; padding-top: 10px; padding-bottom: 5px;">
+                        <div style="font-size: 1.2em; font-weight: bold; display: inline-block; width: 140px; padding-top: 10px; padding-bottom: 5px; ">
                             <div style="float: left;">Start Time</div>
                             <input type="text" id="txtStart" Class="DataInputCss"  style="width: 120px;" /> 
                         </div>
                         
-                        <div style="font-size: 1.2em; font-weight: bold; display: inline-block; width: 140px; padding-top: 10px; padding-bottom: 5px;">
+                        <div style="font-size: 1.2em; font-weight: bold; display: inline-block; width: 140px; padding-top: 10px; padding-bottom: 5px; ">
                             <div style="float: left;">End Time</div>
                             <input type="text" id="txtEnd" Class="DataInputCss"  style="width: 120px;" /> 
                         </div>
                         
-                        <div style="font-size: 1.2em; font-weight: bold; display: inline-block; width: 320px; padding-top: 10px; padding-bottom: 5px;">
+                        <div style="font-size: 1.2em; font-weight: bold; display: inline-block; width: 320px; padding-top: 10px; padding-bottom: 5px; height: 55px;">
                             <div style="float: left;">Location</div>
-                            <input type="text" id="txtLoc" Class="DataInputCss"  style="width: 330px;" /> 
+                            <select id="txtLoc" Class="DataInputCss"  style="width: 300px; float: left;">
+                               <option value=""></option>
+                               <option value="Training">Training</option>
+                               <option value="Shermco U">Shermco YOU</option>
+                            </select>
                         </div>
   
                     </div>  

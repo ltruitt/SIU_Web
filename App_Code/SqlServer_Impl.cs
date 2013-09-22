@@ -1654,8 +1654,12 @@ public class SiuDao : WebService
 
             mtgLog.Date = DateTime.Parse(cDate.Length > 0 ? cDate : "1/1/2999 00:00");
 
-            mtgLog.StartTime = DateTime.Parse(cStart.Length > 0 ? cStart : "1/1/1753 00:00");
+            string mtgDate = mtgLog.Date.Value.ToShortDateString();
 
+            cStart = mtgDate + " " + cStart;
+            cStop = mtgDate + " " + cStop;
+
+            mtgLog.StartTime = DateTime.Parse(cStart.Length > 0 ? cStart : "1/1/1753 00:00");
             mtgLog.StopTime = DateTime.Parse(cStop.Length > 0 ? cStop : "1/1/1753 00:00");
 
             return SqlServer_Impl.RecordMeetingLogAdmin(mtgLog);

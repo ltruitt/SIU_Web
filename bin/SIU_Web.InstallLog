@@ -1,0 +1,39 @@
+﻿Installing assembly 'C:\inetpub\wwwroot\SIU\bin\SIU_Web.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = C:\inetpub\wwwroot\SIU\bin\SIU_Web.InstallLog
+   assemblypath = C:\inetpub\wwwroot\SIU\bin\SIU_Web.exe
+Installing service SIU_Web...
+Creating EventLog source SIU_Web in log Application...
+Rolling back assembly 'C:\inetpub\wwwroot\SIU\bin\SIU_Web.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = C:\inetpub\wwwroot\SIU\bin\SIU_Web.InstallLog
+   assemblypath = C:\inetpub\wwwroot\SIU\bin\SIU_Web.exe
+Restoring event log to previous state for source SIU_Web.
+Installing assembly 'C:\inetpub\wwwroot\SIU\bin\SIU_Web.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = C:\inetpub\wwwroot\SIU\bin\SIU_Web.InstallLog
+   assemblypath = C:\inetpub\wwwroot\SIU\bin\SIU_Web.exe
+Installing service SIU_Web...
+Creating EventLog source SIU_Web in log Application...
+Rolling back assembly 'C:\inetpub\wwwroot\SIU\bin\SIU_Web.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = C:\inetpub\wwwroot\SIU\bin\SIU_Web.InstallLog
+   assemblypath = C:\inetpub\wwwroot\SIU\bin\SIU_Web.exe
+Restoring event log to previous state for source SIU_Web.
+Installing assembly 'C:\inetpub\wwwroot\SIU\bin\SIU_Web.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = C:\inetpub\wwwroot\SIU\bin\SIU_Web.InstallLog
+   assemblypath = C:\inetpub\wwwroot\SIU\bin\SIU_Web.exe
+Installing service SIU_Web...
+Service SIU_Web has been successfully installed.
+Creating EventLog source SIU_Web in log Application...
+Committing assembly 'C:\inetpub\wwwroot\SIU\bin\SIU_Web.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = C:\inetpub\wwwroot\SIU\bin\SIU_Web.InstallLog
+   assemblypath = C:\inetpub\wwwroot\SIU\bin\SIU_Web.exe

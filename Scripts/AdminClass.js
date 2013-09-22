@@ -142,7 +142,7 @@ $(document).ready(function () {
                     $('#txtDate').datepicker("setDate", parseJsonDate(record.Date));
                     $('#txtStart').timeEntry('setTime', parseJsonTime(record.StartTime));
                     $('#txtEnd').timeEntry('setTime', parseJsonTime(record.StopTime));
-                    $('#txtLoc').val(record.Location);
+                    $('#txtLoc')[0].value = record.Location;
                     
                     $('#txtVideo').val(record.VideoFile);
                     $('#txtQuiz').val(record.QuizName);
@@ -312,6 +312,7 @@ $(document).ready(function () {
                 $("#txtPts").val(listOfPoints[c]);
         }
     }
+
 
 
     ///////////////////////////////////////////////////////////////
@@ -564,7 +565,7 @@ $(document).ready(function () {
         $('#txtDate').val('');
         $('#txtStart').val('');
         $('#txtEnd').val('');
-        $('#txtLoc').val('');
+        $('#txtLoc')[0].value = '';
         
         tlUid = 0;
         $('#hlblInstID')[0].innerHTML = 0;
@@ -590,7 +591,7 @@ $(document).ready(function () {
         recordMeetingCall.add('cDate', $('#txtDate').val());
         recordMeetingCall.add('cStart', $('#txtStart').val());
         recordMeetingCall.add('cStop', $('#txtEnd').val());
-        recordMeetingCall.add('cLoc', $('#txtLoc').val());
+        recordMeetingCall.add('cLoc', $('#txtLoc')[0].value);
         recordMeetingCall.add('cReq', $('#txtReq').val());
         
         if ( tlUid == 0)
@@ -654,7 +655,7 @@ $(document).ready(function () {
                     Description: $('#txtDesc').val(),
                     Instructor: instructorName,
                     InstructorID: instructorEid,
-                    Location: $('#txtLoc').val(),
+                    Location: $('#txtLoc')[0].value,
                     MeetingType: b,
                     Points: $('#txtPts').val(),
                     PreReq: $('#txtReq').val()

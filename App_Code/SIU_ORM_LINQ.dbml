@@ -1249,6 +1249,88 @@
       <Column Name="CompletedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.SIU_Training_Log_Certifications" Member="SIU_Training_Log_Certifications">
+    <Type Name="SIU_Training_Log_Certification">
+      <Column Name="TLC_UID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TL_UID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="QualCode" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SIU_SafetyPays_Points_Type" Member="SIU_SafetyPays_Points_Types">
+    <Type Name="SIU_SafetyPays_Points_Type">
+      <Column Name="UID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="PointsCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsClass" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SIU_SafetyPaysReport" Member="SIU_SafetyPaysReports">
+    <Type Name="SIU_SafetyPaysReport">
+      <Column Name="IncidentNo" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EmpID" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="JobSite" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="IncTypeTxt" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="IncTypeSafeFlag" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IncTypeUnsafeFlag" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IncTypeSuggFlag" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IncTypeTopicFlag" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IncTypeSumFlag" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Comments" Type="System.String" DbType="VarChar(2000) NOT NULL" CanBeNull="false" />
+      <Column Name="IncStatus" Type="System.String" DbType="VarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="IncOpenTimestamp" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="IncCloseTimestamp" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="IncLastTouchTimestamp" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="IncLastTouchEmpID" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="PointsAssigned" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PointsAssignedTimeStamp" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ehsRepsonse" Type="System.String" DbType="VarChar(2000)" CanBeNull="true" />
+      <Column Name="IncidentDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ObservedEmpID" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="InitialResponse" Type="System.String" DbType="VarChar(2000)" CanBeNull="true" />
+      <Column Name="SafetyMeetingDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="SafetyMeetingType" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="JobNo" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SIU_Training_Quiz" Member="SIU_Training_Quizs">
+    <Type Name="SIU_Training_Quiz">
+      <Column Name="UID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Quiz_ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Quiz_Name" Type="System.String" DbType="VarChar(150) NOT NULL" CanBeNull="false" />
+      <Column Name="Attempt_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Total_Marks" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="User_Marks" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="User_Pct_Marks" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Total_Correct" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Total_Wrong" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="User_ID" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="User_Email" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="User_Address" Type="System.String" DbType="VarChar(150) NOT NULL" CanBeNull="false" />
+      <Column Name="User_City" Type="System.String" DbType="VarChar(150) NOT NULL" CanBeNull="false" />
+      <Column Name="User_State" Type="System.String" DbType="VarChar(150) NOT NULL" CanBeNull="false" />
+      <Column Name="User_Zipcode" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="User_Phone" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="User_Name" Type="System.String" DbType="VarChar(150) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SIU_Training_Log" Member="SIU_Training_Logs">
+    <Type Name="SIU_Training_Log">
+      <Column Name="TL_UID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="StartTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="StopTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Topic" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="Instructor" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="InstructorID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Location" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="MeetingType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Points" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="VideoFile" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="QuizName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PreReq" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
   <Table Name="dbo.SIU_Training_Attendance" Member="SIU_Training_Attendances">
     <Type Name="SIU_Training_Attendance">
       <Column Name="TA_UID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -1261,13 +1343,7 @@
       <Column Name="QuizDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="QuizPass" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Column Name="QuizName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.SIU_Training_Log_Certifications" Member="SIU_Training_Log_Certifications">
-    <Type Name="SIU_Training_Log_Certification">
-      <Column Name="TLC_UID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="TL_UID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="QualCode" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Awarded" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
   <Table Name="dbo.[Shermco$Job Report]" Member="Shermco_Job_Reports">
@@ -1396,81 +1472,6 @@
       <Column Name="Email" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="[No_ of Copies]" Member="No__of_Copies" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="[General Dropbox]" Member="General_Dropbox" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
-    </Type>
-  </Table>
-  <Table Name="dbo.SIU_SafetyPays_Points_Type" Member="SIU_SafetyPays_Points_Types">
-    <Type Name="SIU_SafetyPays_Points_Type">
-      <Column Name="UID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Description" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="PointsCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="IsClass" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-    </Type>
-  </Table>
-  <Table Name="dbo.SIU_SafetyPaysReport" Member="SIU_SafetyPaysReports">
-    <Type Name="SIU_SafetyPaysReport">
-      <Column Name="IncidentNo" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="EmpID" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
-      <Column Name="JobSite" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="IncTypeTxt" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="IncTypeSafeFlag" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="IncTypeUnsafeFlag" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="IncTypeSuggFlag" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="IncTypeTopicFlag" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="IncTypeSumFlag" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="Comments" Type="System.String" DbType="VarChar(2000) NOT NULL" CanBeNull="false" />
-      <Column Name="IncStatus" Type="System.String" DbType="VarChar(15) NOT NULL" CanBeNull="false" />
-      <Column Name="IncOpenTimestamp" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="IncCloseTimestamp" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="IncLastTouchTimestamp" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="IncLastTouchEmpID" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
-      <Column Name="PointsAssigned" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="PointsAssignedTimeStamp" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="ehsRepsonse" Type="System.String" DbType="VarChar(2000)" CanBeNull="true" />
-      <Column Name="IncidentDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="ObservedEmpID" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="InitialResponse" Type="System.String" DbType="VarChar(2000)" CanBeNull="true" />
-      <Column Name="SafetyMeetingDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="SafetyMeetingType" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
-      <Column Name="JobNo" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.SIU_Training_Quiz" Member="SIU_Training_Quizs">
-    <Type Name="SIU_Training_Quiz">
-      <Column Name="UID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Quiz_ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Quiz_Name" Type="System.String" DbType="VarChar(150) NOT NULL" CanBeNull="false" />
-      <Column Name="Attempt_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="Total_Marks" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="User_Marks" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="User_Pct_Marks" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Total_Correct" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Total_Wrong" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="User_ID" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
-      <Column Name="User_Email" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
-      <Column Name="User_Address" Type="System.String" DbType="VarChar(150) NOT NULL" CanBeNull="false" />
-      <Column Name="User_City" Type="System.String" DbType="VarChar(150) NOT NULL" CanBeNull="false" />
-      <Column Name="User_State" Type="System.String" DbType="VarChar(150) NOT NULL" CanBeNull="false" />
-      <Column Name="User_Zipcode" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
-      <Column Name="User_Phone" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="User_Name" Type="System.String" DbType="VarChar(150) NOT NULL" CanBeNull="false" />
-    </Type>
-  </Table>
-  <Table Name="dbo.SIU_Training_Log" Member="SIU_Training_Logs">
-    <Type Name="SIU_Training_Log">
-      <Column Name="TL_UID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="StartTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="StopTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="Topic" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="Description" Type="System.String" DbType="VarChar(250) NOT NULL" CanBeNull="false" />
-      <Column Name="Instructor" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
-      <Column Name="InstructorID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Location" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="MeetingType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Points" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="VideoFile" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="QuizName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="PreReq" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </Type>
   </Table>
   <Function Name="dbo.SIU_ELO_GetBalance" Method="SIU_ELO_GetBalance">

@@ -149,7 +149,7 @@ $(document).ready(function () {
 
         var getSubmitJobReportByNoAjax = new AsyncServerMethod();
         getSubmitJobReportByNoAjax.add('jobNo', job);
-        getSubmitJobReportByNoAjax.exec("/SIU_DAO.asmx/GetSubmitJobReportByNo", getSubmitJobReportByNoSuccess);
+        getSubmitJobReportByNoAjax.exec("/SIU_DAO.asmx/GetSubmitJobReportByNo", getSubmitJobReportByNoSuccess, getSubmitJobReportByNoFail);
     }
 
     ////////////////////////////////////////////
@@ -219,6 +219,8 @@ $(document).ready(function () {
     };
 
 
+    function getSubmitJobReportByNoFail() {}
+    
     //////////////////////////////////////////////////////////////////
     // Response To Request For Previuosly Submitted Job Report Data //
     //////////////////////////////////////////////////////////////////
@@ -296,7 +298,6 @@ $(document).ready(function () {
                     $('#CbRtsN')[0].checked = true;
                     break;
                 case 3:
-                    $('#chkRts:checked').attr('checked', false);
                     $('#CbRtsNA')[0].checked = true;
                     break;
             }
