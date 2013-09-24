@@ -256,8 +256,7 @@ $(document).ready(function () {
             if (jobDetails.Turned_in_by_Tech_Date != '--/--/--') {
                 if (jobDetails.General_Dropbox == 1)
                     $('#RptDrBoxY')[0].checked = true;
-
-                if (jobDetails.General_Dropbox == 0)
+                if (jobDetails.General_Dropbox_No == 1)
                     $('#RptDrBoxN')[0].checked = true;
             }
 
@@ -404,7 +403,7 @@ $(document).ready(function () {
                 if (jobDetails.TmpIRData == 1)
                     $('#IrDrpBoxY')[0].checked = true;
 
-                if (jobDetails.TmpIRData == 0)
+                if (jobDetails.TmpIRData_No == 1)
                     $('#IrDrpBoxN')[0].checked = true;
             }
 
@@ -637,6 +636,9 @@ $(document).ready(function () {
         submitJobRptAjax.add('txtIrHardCnt', $('#txtIrHardCnt')[0].value);
         submitJobRptAjax.add('txtAddEmail', $('#txtAddEmail')[0].value);
         submitJobRptAjax.add('chkRptDrBox', $('#RptDrBoxY')[0].checked);
+        
+        submitJobRptAjax.add('chkRptDrBoxNo', $('#RptDrBoxN')[0].checked);
+        submitJobRptAjax.add('chkIrDrpBoxNo', $('#IrDrpBoxN')[0].checked);
 
         submitJobRptAjax.exec("/SIU_DAO.asmx/SubmitJobRpt", submitJobRptSuccess);
     });

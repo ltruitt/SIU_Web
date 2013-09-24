@@ -1466,12 +1466,13 @@
       <Column Name="[Rejected Date]" Member="Rejected_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="[Rejected Reason]" Member="Rejected_Reason" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
       <Column Name="Rejected" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
-      <Column Name="[Estimating Due Date]" Member="Estimating_Due_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="IROnly" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
       <Column Name="IRonFinalReport" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
       <Column Name="Email" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="[No_ of Copies]" Member="No__of_Copies" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="[General Dropbox]" Member="General_Dropbox" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[General Dropbox No]" Member="General_Dropbox_No" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="[TmpIRData No]" Member="TmpIRData_No" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
   <Function Name="dbo.SIU_ELO_GetBalance" Method="SIU_ELO_GetBalance">

@@ -69,7 +69,7 @@
                 <span  id="lblErrServer" Class="errorTextCss"  ></span>
             </div>
             
-
+            <asp:FileUpload ID="FileUpload1" runat="server" />
 <table>
 <tr>
 <td>            

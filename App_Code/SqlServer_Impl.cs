@@ -931,7 +931,7 @@ public class SiuDao : WebService
                                 string CT_Data_Saved, string Partial_Discharge, string Oil_Sample, string Oil_Sample_Follow_UP, string OtherText,
                                 string Sonic, string TTR, string Thermo, string Relay, string PCB, string PD, string Oil, string NFPA, string InslResit,
                                 string GrdEltrode, string GrdFlt, string Doble, string DLRO, string Decal, string HiPot, string BBT, string None, string IrData,
-                                string chkIrDrpBox, string chkIrOnly, string chkIrPort, string txtIrHardCnt, string txtAddEmail, string chkRptDrBox)
+                                string chkIrDrpBox, string chkIrOnly, string chkIrPort, string txtIrHardCnt, string txtAddEmail, string chkRptDrBox, string chkRptDrBoxNo, string chkIrDrpBoxNo)
         
     {
         Shermco_Job_Report jobRpt = SqlDataMapper<Shermco_Job_Report>.MakeNewDAO<Shermco_Job_Report>();
@@ -987,7 +987,7 @@ public class SiuDao : WebService
             if (chkIrPort.ToLower() == "true") jobRpt.IRonFinalReport = 1;
             if (chkIrOnly.ToLower() == "true") jobRpt.IROnly = 1;
             if (chkIrDrpBox.ToLower() == "true") jobRpt.TmpIRData = 1;
-
+            if (chkIrDrpBoxNo.ToLower() == "true") jobRpt.TmpIRData_No = 1;
 
             //////////////////////////////////////////
             // Who Is Touching This Rcd             //
@@ -1023,6 +1023,7 @@ public class SiuDao : WebService
             if (chkOtherData.ToLower() == "true") jobRpt.Report_Data_Format = 5;
 
             if (chkRptDrBox.ToLower() == "true") jobRpt.General_Dropbox = 1;
+            if (chkRptDrBoxNo.ToLower() == "true") jobRpt.General_Dropbox_No = 1;
 
 
             /////////////////////////
@@ -1611,12 +1612,12 @@ public class SiuDao : WebService
     }
 
     [WebMethod(EnableSession = true)]
-    public string GetMeetingLogUser()
+    public string GetMeetingLogUser(string Eid)
     {
         JavaScriptSerializer serializer = new JavaScriptSerializer();
         try
         {
-            List<SIU_Meeting_Log_Ext> rpt = SqlServer_Impl.GetMeetingLogUser();
+            List<SIU_Meeting_Log_Ext> rpt = SqlServer_Impl.GetMeetingLogUser(int.Parse(Eid));
             return serializer.Serialize(new { Result = "OK", Records = rpt });
         }
         catch (Exception ex)
@@ -2498,7 +2499,7 @@ public class SqlServer_Impl : WebService
         return new List<SIU_Training_Log>();        
     }
 
-    public static List<SIU_Meeting_Log_Ext> GetMeetingLogUser()
+    public static List<SIU_Meeting_Log_Ext> GetMeetingLogUser(int UserID)
     {
         try
         {
@@ -2511,50 +2512,182 @@ public class SqlServer_Impl : WebService
 
             using (new TransactionScope(TransactionScopeOption.RequiresNew, to))
             {
-                var allList =
-                       (    from tl in nvDb.SIU_Training_Logs
-                                join ta in nvDb.SIU_Training_Attendances on tl.TL_UID equals ta.TL_UID 
-	                            into ta_ext
-	                        from subset in ta_ext.DefaultIfEmpty()
-	                            where (tl.QuizName.Length > 0 || tl.VideoFile.Length > 0)
-                            orderby tl.Date descending
-                            select new SIU_Meeting_Log_Ext()
-                            {
-                                TL_UID = tl.TL_UID,
-                                Date = tl.Date,
-                                Topic = tl.Topic,
-                                Description = tl.Description,
-                                Instructor = tl.Instructor,
-                                MeetingType = tl.MeetingType,
-                                Location = tl.Location,
-                                Points = tl.Points,
-                                VideoFile = tl.VideoFile,
-                                QuizName = tl.QuizName,
-                                StartTime = tl.StartTime,
-                                StopTime = tl.StopTime,
-                                InstructorID = tl.InstructorID,
-                                VideoComplete = (subset.VideoEnd != null),
-                                QuizComplete = TriIntFromBool(subset.QuizPass),
-                                QuizPass = (bool?) subset.QuizPass,
-                                PreReq = tl.PreReq
-                            }
-                        );
+                //////////////////////////////////////
+                // Build List Of Events In Progress //
+                //////////////////////////////////////
+                var eventsInProgress =
+                    (    from tl in nvDb.SIU_Training_Logs
+                            join ta in nvDb.SIU_Training_Attendances on tl.TL_UID equals ta.TL_UID 
+                            into taExt                                   
+	                    from subset in taExt.DefaultIfEmpty()
+                        where (tl.QuizName.Length > 0 || tl.VideoFile.Length > 0) && (subset.EmpID == UserID) && 
+                                (subset.VideoEnd == null || subset.QuizPass != true )
+                        orderby tl.Date descending
+                        select new SIU_Meeting_Log_Ext()
+                        {
+                            TL_UID = tl.TL_UID,
+                            Date = tl.Date,
+                            Topic = tl.Topic,
+                            Description = tl.Description,
+                            Instructor = tl.Instructor,
+                            MeetingType = tl.MeetingType,
+                            Location = tl.Location,
+                            Points = tl.Points,
+                            VideoFile = tl.VideoFile,
+                            QuizName = tl.QuizName,
+                            StartTime = tl.StartTime,
+                            StopTime = tl.StopTime,
+                            InstructorID = tl.InstructorID,
+                            VideoComplete = (subset.VideoEnd != null),
+                            QuizComplete = TriIntFromBool(subset.QuizPass),
+                            QuizPass = (bool?) subset.QuizPass,
+                            PreReq = tl.PreReq
+                        }
+                    );
 
-                List<SIU_Meeting_Log_Ext> notCompleteList =
-                    (from l1 in allList
-                     where l1.VideoComplete == false || l1.QuizPass == null || l1.QuizPass == false
-                     select l1
+                List<int> ListClasses =
+                    (from eip in eventsInProgress
+                     select eip.TL_UID
+                     ).ToList();
+
+                var eventsNotStarted =
+                   (    from tl in nvDb.SIU_Training_Logs
+                        where ! ListClasses.Contains(tl.TL_UID)
+                        select new SIU_Meeting_Log_Ext()
+                        {
+                            TL_UID = tl.TL_UID,
+                            Date = tl.Date,
+                            Topic = tl.Topic,
+                            Description = tl.Description,
+                            Instructor = tl.Instructor,
+                            MeetingType = tl.MeetingType,
+                            Location = tl.Location,
+                            Points = tl.Points,
+                            VideoFile = tl.VideoFile,
+                            QuizName = tl.QuizName,
+                            StartTime = tl.StartTime,
+                            StopTime = tl.StopTime,
+                            InstructorID = tl.InstructorID,
+                            VideoComplete = false,
+                            QuizComplete = -1,
+                            QuizPass = false,
+                            PreReq = tl.PreReq
+                        }
+                   );
+
+
+
+                //////////////////////////////////////////////////////////////////////////////////////////
+                // Get List Of badges And Certifications For This User That have Or Are About To Expire //
+                //////////////////////////////////////////////////////////////////////////////////////////
+                List<string> ExpiredExpiringQual =
+                    (   from qc in nvDb.BandC_DistinctByEmployees
+                        where qc.No_== UserID.ToString(CultureInfo.InvariantCulture) && ( qc.IsMissing == 1 || qc.To_Date > DateTime.Now.AddDays(-90) )
+                        select qc.Qualification_Code
                     ).ToList();
 
+
+                /////////////////////////////////////////////////////////////////////////////////////////////////
+                // From List Of Expiring Badges And Certifications, Build List Of Events That Need To be Taken //
+                /////////////////////////////////////////////////////////////////////////////////////////////////
+                var NeedToCertify =
+                   (    from tl in nvDb.SIU_Training_Logs
+                                join tlc in nvDb.SIU_Training_Log_Certifications on tl.TL_UID equals tlc.TL_UID
+                        into taExt
+                        from subset in taExt.DefaultIfEmpty()
+                            where ExpiredExpiringQual.Contains(subset.QualCode)  
+                        orderby tl.Date descending
+                        select new SIU_Meeting_Log_Ext()
+                        {
+                            TL_UID = tl.TL_UID,
+                            Date = tl.Date,
+                            Topic = tl.Topic,
+                            Description = tl.Description,
+                            Instructor = tl.Instructor,
+                            MeetingType = tl.MeetingType,
+                            Location = tl.Location,
+                            Points = tl.Points,
+                            VideoFile = tl.VideoFile,
+                            QuizName = tl.QuizName,
+                            StartTime = tl.StartTime,
+                            StopTime = tl.StopTime,
+                            InstructorID = tl.InstructorID,
+                            VideoComplete = false,
+                            QuizComplete = -1,
+                            QuizPass = false,
+                            PreReq = tl.PreReq
+                        }
+                   );
+
+
+
+
+                ///////////////////////////////
+                // Build Full List Of Events //
+                ///////////////////////////////
+                List<SIU_Meeting_Log_Ext> allClassesList = eventsInProgress.ToList();
+                allClassesList.AddRange(eventsNotStarted.ToList());
+                allClassesList.AddRange(NeedToCertify.ToList());
+
+
+                ///////////////////////////////////////////////////
+                // For Events Added Because Certification Needed /
+                // Add In All Pre-Requisit Classes               //
+                ///////////////////////////////////////////////////
+                foreach (var certItem in NeedToCertify.Where(c => c.PreReq != null)   )
+                {
+                    ////////////////////////////////////////////////////////////
+                    // Is THis PreReq Already In The Master List Of Events ?? //
+                    ////////////////////////////////////////////////////////////
+                    var preReqRcd = (from l3 in allClassesList
+                                     where l3.TL_UID == certItem.PreReq
+                                     select l3).SingleOrDefault();
+
+                    ////////////////////
+                    // If Not, ADd It //
+                    ////////////////////
+                    if (preReqRcd == null)
+                    {
+                        var addPreReqRcd = (from l3 in nvDb.SIU_Training_Logs
+                                            where l3.TL_UID == certItem.PreReq
+                                            select new SIU_Meeting_Log_Ext()
+                                            {
+                                                TL_UID = l3.TL_UID,
+                                                Date = l3.Date,
+                                                Topic = l3.Topic,
+                                                Description = l3.Description,
+                                                Instructor = l3.Instructor,
+                                                MeetingType = l3.MeetingType,
+                                                Location = l3.Location,
+                                                Points = l3.Points,
+                                                VideoFile = l3.VideoFile,
+                                                QuizName = l3.QuizName,
+                                                StartTime = l3.StartTime,
+                                                StopTime = l3.StopTime,
+                                                InstructorID = l3.InstructorID,
+                                                VideoComplete = false,
+                                                QuizComplete = -1,
+                                                QuizPass = false,
+                                                PreReq = l3.PreReq
+                                            }).ToList();
+
+                        allClassesList.AddRange(addPreReqRcd);
+                    }
+                }
+
+
+                ////////////////////////////////////////
+                // Now Strip Out Pre-Requisit Classes //
+                ////////////////////////////////////////              
                 bool more = true;
                 while (more)
                 {
                     more = false;
-                    foreach (var notCompleteListItem in notCompleteList)
+                    foreach (var notCompleteListItem in allClassesList.Where(c => c.PreReq != null).OrderByDescending(x=>x.PreReq)   )
                     {
                         // Try And Find PreReq Item To This One //
                         int? ItemPreReq = notCompleteListItem.PreReq;
-                        var preReqRcd = (from l3 in allList
+                        var preReqRcd = (from l3 in allClassesList
                                          where l3.TL_UID == ItemPreReq
                                          select l3).SingleOrDefault();
 
@@ -2564,7 +2697,7 @@ public class SqlServer_Impl : WebService
                             // If The Class Is Not Completed
                             // Remove The Dependent Record
                             if (notCompleteListItem.VideoComplete == false || notCompleteListItem.QuizPass == null || notCompleteListItem.QuizPass == false)
-                                notCompleteList.Remove(notCompleteListItem);
+                                allClassesList.Remove(notCompleteListItem);
                             more = true;
                             break;
                         }
@@ -2572,12 +2705,12 @@ public class SqlServer_Impl : WebService
                     
                 }
 
-                return notCompleteList.ToList();
+                return allClassesList;
             }
         }
         catch (Exception ex)
         {
-            LogDebug("GetMeetingLogAdmin", ex.Message);
+            LogDebug("GetMeetingLogUser", ex.Message);
         }
         return new List<SIU_Meeting_Log_Ext>();
     }

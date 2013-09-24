@@ -190,7 +190,7 @@
             listOfTypes[c] = strParts[0];
         }
         
-        $('#jTableClass').jtable('load', { T: timestamp.getTime() });
+        $('#jTableClass').jtable('load', { Eid: $('#hlblEID')[0].innerText, T: timestamp.getTime() });
         
     };
     

@@ -30131,8 +30131,6 @@ public partial class Shermco_Job_Report : INotifyPropertyChanging, INotifyProper
 	
 	private string _Rejected;
 	
-	private System.DateTime _Estimating_Due_Date;
-	
 	private byte _IROnly;
 	
 	private byte _IRonFinalReport;
@@ -30142,6 +30140,10 @@ public partial class Shermco_Job_Report : INotifyPropertyChanging, INotifyProper
 	private int _No__of_Copies;
 	
 	private byte _General_Dropbox;
+	
+	private byte _General_Dropbox_No;
+	
+	private byte _TmpIRData_No;
 	
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -30383,8 +30385,6 @@ public partial class Shermco_Job_Report : INotifyPropertyChanging, INotifyProper
     partial void OnRejected_ReasonChanged();
     partial void OnRejectedChanging(string value);
     partial void OnRejectedChanged();
-    partial void OnEstimating_Due_DateChanging(System.DateTime value);
-    partial void OnEstimating_Due_DateChanged();
     partial void OnIROnlyChanging(byte value);
     partial void OnIROnlyChanged();
     partial void OnIRonFinalReportChanging(byte value);
@@ -30395,6 +30395,10 @@ public partial class Shermco_Job_Report : INotifyPropertyChanging, INotifyProper
     partial void OnNo__of_CopiesChanged();
     partial void OnGeneral_DropboxChanging(byte value);
     partial void OnGeneral_DropboxChanged();
+    partial void OnGeneral_Dropbox_NoChanging(byte value);
+    partial void OnGeneral_Dropbox_NoChanged();
+    partial void OnTmpIRData_NoChanging(byte value);
+    partial void OnTmpIRData_NoChanged();
     #endregion
 	
 	public Shermco_Job_Report()
@@ -32762,26 +32766,6 @@ public partial class Shermco_Job_Report : INotifyPropertyChanging, INotifyProper
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Estimating Due Date]", Storage="_Estimating_Due_Date", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public System.DateTime Estimating_Due_Date
-	{
-		get
-		{
-			return this._Estimating_Due_Date;
-		}
-		set
-		{
-			if ((this._Estimating_Due_Date != value))
-			{
-				this.OnEstimating_Due_DateChanging(value);
-				this.SendPropertyChanging();
-				this._Estimating_Due_Date = value;
-				this.SendPropertyChanged("Estimating_Due_Date");
-				this.OnEstimating_Due_DateChanged();
-			}
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IROnly", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
 	public byte IROnly
 	{
@@ -32878,6 +32862,46 @@ public partial class Shermco_Job_Report : INotifyPropertyChanging, INotifyProper
 				this._General_Dropbox = value;
 				this.SendPropertyChanged("General_Dropbox");
 				this.OnGeneral_DropboxChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[General Dropbox No]", Storage="_General_Dropbox_No", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte General_Dropbox_No
+	{
+		get
+		{
+			return this._General_Dropbox_No;
+		}
+		set
+		{
+			if ((this._General_Dropbox_No != value))
+			{
+				this.OnGeneral_Dropbox_NoChanging(value);
+				this.SendPropertyChanging();
+				this._General_Dropbox_No = value;
+				this.SendPropertyChanged("General_Dropbox_No");
+				this.OnGeneral_Dropbox_NoChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[TmpIRData No]", Storage="_TmpIRData_No", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte TmpIRData_No
+	{
+		get
+		{
+			return this._TmpIRData_No;
+		}
+		set
+		{
+			if ((this._TmpIRData_No != value))
+			{
+				this.OnTmpIRData_NoChanging(value);
+				this.SendPropertyChanging();
+				this._TmpIRData_No = value;
+				this.SendPropertyChanged("TmpIRData_No");
+				this.OnTmpIRData_NoChanged();
 			}
 		}
 	}

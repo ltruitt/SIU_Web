@@ -64,7 +64,7 @@
                     </div>
 
                     <div style="width: 350px; display:inline-block; height: 55px;">
-                        <div style="font-size: 1.3em; font-weight: bold">(Required) Incident Location</div>
+                        <div style="font-size: 1.3em; font-weight: bold">(REQUIRED) Location</div>
                         <input type="text" id="JobSite" Class="DataInputCss DateEntryCss"   runat="server" style="width: 300px;" /> 
                     </div>
 
