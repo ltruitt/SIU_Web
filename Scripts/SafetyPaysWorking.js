@@ -223,6 +223,9 @@
                     if (record.InitialResponse != null) {
                         $('#lblInitialResponse')[0].innerHTML = record.InitialResponse;
                     }
+                    if (record.EhsRepsonse != null) {
+                        $('#lblEhsResponse')[0].innerHTML = record.EhsRepsonse;
+                    }
 
                     $('#txtPts').val(record.defaultPoints);
 
@@ -256,7 +259,8 @@
         $('#lblObservedEmpName')[0].innerHTML = '';
 
         $('#lblComments')[0].innerHTML = '';
-        //$('#lblInitialResponse')[0].innerHTML = '';
+        $('#lblInitialResponse')[0].innerHTML = '';
+        $('#lblEhsResponse')[0].innerHTML = '';
 
         $('#txtPts').val('');
     }

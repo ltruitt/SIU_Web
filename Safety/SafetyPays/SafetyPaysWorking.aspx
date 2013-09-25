@@ -145,10 +145,14 @@
                 <p></p>
                 
                 <div>
-                    <span style="width: 80px; font-weight: bold; display:inline-block;">Comments:</span>
+                    <span style="width: 120px; font-weight: bold; display:inline-block;">Comments:</span>
                     <span  id="lblComments"> </span><br/>
+
                     <span style="width: 120px; font-weight: bold; display:inline-block;">Initial Response:</span>
                     <span  id="lblInitialResponse"></span><br/>
+
+                    <span style="width: 120px; font-weight: bold; display:inline-block;">EHS Response:</span>
+                    <span  id="lblEhsResponse"></span><br/>
                 </div>
 
             </div> 

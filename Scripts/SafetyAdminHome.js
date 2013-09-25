@@ -3,16 +3,16 @@
     ///////////////////////////////////////////
     // Get Jason Array Of Total Hours By Day //
     ///////////////////////////////////////////
-    var SummaryCounts;
-    function GetSafetyPaysSummaryCounts_success(data) {
-        SummaryCounts = $.parseJSON(data.d);
+    var summaryCounts;
+    function getSafetyPaysSummaryCountsSuccess(data) {
+        summaryCounts = $.parseJSON(data.d);
         showSummary();
     }
-    function GetMySiSum() {
-        var GetSafetyPaysSummaryCounts_Ajax = new AsyncServerMethod();
-        GetSafetyPaysSummaryCounts_Ajax.exec("/SIU_DAO.asmx/GetSafetyPaysSummaryCounts", GetSafetyPaysSummaryCounts_success);
+    function getMySiSum() {
+        var getSafetyPaysSummaryCountsAjax = new AsyncServerMethod();
+        getSafetyPaysSummaryCountsAjax.exec("/SIU_DAO.asmx/GetSafetyPaysSummaryCounts", getSafetyPaysSummaryCountsSuccess);
     }
-    GetMySiSum();
+    getMySiSum();
 
 
 
@@ -28,13 +28,13 @@
 
 
 
-        $('#SafetyPaysTotalWaiting')[0].innerHTML = SummaryCounts.SafetyPaysTotalWaiting + ' New Submissions';
-        $('#SafetyPaysTotalNotTask')[0].innerHTML = SummaryCounts.SafetyPaysTotalNotTask + ' Need Task';
-        $('#SafetyPaysTotalLateTask')[0].innerHTML = SummaryCounts.SafetyPaysTotalLateTask + ' Late Tasks';
-        $('#SafetyPaysTotalLateStatus')[0].innerHTML = SummaryCounts.SafetyPaysTotalLateStatus + ' Late Status';
-        $('#SafetyPaysTotalCloseReady')[0].innerHTML = SummaryCounts.SafetyPaysTotalCloseReady + ' Ready To Close';
+        $('#SafetyPaysTotalWaiting')[0].innerHTML = summaryCounts.SafetyPaysTotalWaiting + ' New Submissions';
+        $('#SafetyPaysTotalNotTask')[0].innerHTML = summaryCounts.SafetyPaysTotalNotTask + ' Need Task';
+        $('#SafetyPaysTotalLateTask')[0].innerHTML = summaryCounts.SafetyPaysTotalLateTask + ' Late Tasks';
+        $('#SafetyPaysTotalLateStatus')[0].innerHTML = summaryCounts.SafetyPaysTotalLateStatus + ' Late Status';
+        $('#SafetyPaysTotalCloseReady')[0].innerHTML = summaryCounts.SafetyPaysTotalCloseReady + ' Ready To Close';
 
-        $('#SafetyQoMAnsAdminLink')[0].innerHTML = SummaryCounts.QomCurrentWaitingResponses + ' Q. O. M. Responses Waiting';
+        //$('#SafetyQoMAnsAdminLink')[0].innerHTML = summaryCounts.QomCurrentWaitingResponses + ' Q. O. M. Responses Waiting';
 
 
 

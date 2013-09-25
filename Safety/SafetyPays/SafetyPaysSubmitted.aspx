@@ -135,7 +135,7 @@
                 <div style="margin-top: 60px;">
                     <div style="background-color: khaki; width: 750px; height: 5px; "></div>
                     <span style="width: 120px; font-weight: bold; display:inline-block; color: khaki; vertical-align: top;">EHS Response:</span>
-                    <textarea ID="ehsRepsonse"  name="ehsResponse"  cols="1" style="width: 620px; height: 60px;" Class="DataInputCss" maxlength="200" ></textarea>
+                    <textarea ID="ehsRepsonse"  name="ehsResponse"  cols="1" style="width: 620px; height: 60px;" Class="DataInputCss" maxlength="2000" ></textarea>
                 </div>
                                 
             </div>

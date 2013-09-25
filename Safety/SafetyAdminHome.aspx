@@ -92,7 +92,7 @@
                 </li>     
             </ul>
 
-            <div class="toolbar">
+<%--            <div class="toolbar">
 			<ul>
                 <li class="l3">
                     <a href="/Forms/SafetyQoMAdmin.aspx">
@@ -107,7 +107,7 @@
                     </a>
                 </li>
 			</ul>
-            </div>      
+            </div> --%>     
         </div>
 
 </asp:Content>
