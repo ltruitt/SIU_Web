@@ -150,10 +150,11 @@
                         <li><a href="#OtherDataTab">Other Data</a></li>
                         <li><a href="#TestsTab">Test Description</a></li>
                         <li><a href="#IrTab">IR</a></li>
+                        <li><a href="#SalesTab">Sales</a></li>
                     </ul>
 
                     <div id="DispTab">
-                        <section id="RptDisp" class="ui-state-error ui-corner-all" style="margin-top: 4px;"   >
+                        <section id="RptDisp" class="ui-state-error ui-corner-all" style="margin-top: 4px; width: 100%;"   >
                         
                             <div style="font-weight: bold; text-align: center;">Report Disposition</div>
 
@@ -183,7 +184,7 @@
                     <div id="FormatTab">
                         <section id="RptFmt" class="ui-state-error ui-corner-all" style="margin-top: 4px; "   >
                             
-                            <div style="font-weight: bold; text-align: center;">Report Format<br/>(Must answer Dropbox AND Select one report format)</div>
+                            <div style="font-weight: bold; text-align: center;">Report Format<br/>( Must answer Dropbox AND Select one report format )</div>
 
                             <div style="display: inline-block; width: 100%;   margin-bottom: 0; ">
                                 <span style="padding-top: 5px; padding-left: 3px; -webkit-margin-start: 3px;  margin-left: 35%;">Y</span>
@@ -191,7 +192,7 @@
                             </div>                        
                                                         
                             <div style="display: inline-block; width: 100%;   margin-bottom: 10px;">
-                                <span>Data in Dropbox</span>
+                                <span>All data is in Dropbox</span>
                                 <input type="checkbox" id="RptDrBoxY"   class="chkDrBox" value="1"   style="margin-left: 35%;"/>
                                 <input type="checkbox" id="RptDrBoxN"   class="chkDrBox" value="2"   />
                             </div>
@@ -200,22 +201,22 @@
                             
                             <div style="display: inline-block; width: 100%;   margin-bottom: 10px;">
                                 <input type="checkbox" id="chkNoData" class="chkRptFmt" value="NoData"/>
-                                <span>Letter Only-No Data</span>
+                                <span>Letter Report Only-No Data</span>
                             </div>
 
                             <div style="display: inline-block; width: 100%;   margin-bottom: 10px;">
                                 <input type="checkbox" id="chkPowerDB" class="chkRptFmt" value="PowerDB"/>
-                                <span>All Data is in PowerDB</span>
+                                <span>All Data has been entered in PowerDB</span>
                             </div>
 
                             <div style="display: inline-block; width: 100%;   margin-bottom: 10px;">
                                 <input type="checkbox" id="chkScanned" class="chkRptFmt" value="Scanned"/>
-                                <span>Handwritten Data Only</span>
+                                <span>Only Handwritten (Scanned in Job Folder OR Placed in the 8082 inbox)</span>
                             </div>
 
                             <div style="display: inline-block; width: 100%;   margin-bottom: 10px;">
                                 <input type="checkbox" id="chkPdbMaster" class="chkRptFmt" value="LetterJobFolder"/>
-                                <span>Handwritten and PowerDB data</span>
+                                <span>Combination of handwritten data and typed data in PowerDB</span>
                             </div>
 
                             <div style="display: inline-block; width: 100%;   margin-bottom: 10px;">
@@ -232,7 +233,7 @@
                             <div style="font-weight: bold; text-align: center;">Other Data<br/>(Must Answer Each Question)</div>
 
                             <div style="display: inline-block; width: 100%;">
-                                <div style="margin-top: 10px;">Other Data in Dropbox (PDF, Excel, etc.)</div>
+                                <div style="margin-top: 10px;">Other Data in Dropbox</div>
                                 <input type="text" id="OtherData" class="DataInputCss" style="width: 80%;"    />
                             </div>
                         
@@ -398,7 +399,7 @@
                             </div>   
                             
                             <div style="display: inline-block; width: 100%;   margin-bottom: 10px;">
-                                <span>Data in Dropbox</span>
+                                <span>All IR data is in Dropbox</span>
                                 <input type="checkbox" id="IrDrpBoxY"   class="chkIrDrBox" value="1"   style="margin-left: 35%;"/>
                                 <input type="checkbox" id="IrDrpBoxN"   class="chkIrDrBox" value="2"   />
                             </div>
@@ -410,7 +411,7 @@
                             
                             <div style="display: inline-block; width: 100%;   margin-bottom: 10px;">
                                 <input type="checkbox" id="chkIrPort"   class="chkIR" value="IrData"/>
-                                <span>IR Portion of Final Report</span>
+                                <span>IR is portion of Final Report</span>
                             </div>
                             
                             <div style="display: inline-block; width: 100%;   margin-bottom: 10px;">
@@ -422,7 +423,6 @@
                             <div style="display: inline-block; width: 100%;   margin-bottom: 10px;">
                                 <div>Additional Email Address: </div>
                                 <input type="text" id="txtAddEmail" class="DataInputCss"  style="width: 400px;"/>
-                                
                             </div>
                             
 
@@ -430,6 +430,29 @@
                         </section>
                     </div>
                     
+                    <div id="SalesTab">                        
+                        <section id="Section4" class="ui-state-error ui-corner-all" style="width: 100%;  margin-top: 4px;"   >
+                            <div style="font-weight: bold; text-align: center;">Optional Notes for sales follow-up</div>    
+                            
+                            <br/>
+<%--                            <div style="display: inline-block; width: 100%;   margin-bottom: 0; ">
+                                <span style="padding-top: 5px; padding-left: 3px; -webkit-margin-start: 3px;">Y</span>
+                                <span style="padding-top: 5px; padding-left: 9px; -webkit-margin-start: 8px;">N</span>
+                            </div>  --%>                            
+                            
+                            <div style="display: inline-block; width: 100%;   margin-bottom: 10px;">
+                                <span>Were there any defencies found OR does the Salesperson need to call the customer</span>
+                                <input type="checkbox" id="chkSalesY"   class="chkSales" value="1" />
+                                <%--<input type="checkbox" id="chkSalesN"   class="chkSales" value="2"   />--%>
+                            </div>                             
+                            
+                            <div style="display: inline-block; width: 100%;   margin-bottom: 10px;">
+                                <div>Notes to salesperson: </div>
+                                <textarea id="txtSalesNotes" class="DataInputCss" style="width: 90%;" rows="5"></textarea>
+                            </div>
+                        </section>
+                    </div>
+                                        
                 </div>
 
                 <div style="clear: both; width: 100%;  margin-top: 0;"/>

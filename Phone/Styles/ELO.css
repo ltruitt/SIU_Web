@@ -81,24 +81,7 @@
 	background: url(/images/slider-next.png) no-repeat;
 }         
         
-.DateEntryCss {
-    margin-top: -4px;
-}  
-
-.DataInputCss {
-    width: auto;
-    background-color: navajowhite;
-    border: 2px chocolate solid;   
-	-moz-border-radius:     8px;
-	-webkit-border-radius:  8px;
-    -ms-border-radius:      8px;
-    border-radius:          8px;
-}
-                 
-        
-.DateEntryCss {
-    margin-top: -4px;
-}  
+ 
         
 .ClearBtnCss {
     float: right;

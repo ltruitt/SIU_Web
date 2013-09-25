@@ -43,6 +43,7 @@
                     <ul >
 				        <li class="l3"><a href="/Phone/ELO/MainMenu.aspx" >ELO</a></li>
                         <li class="l3"><a href="/Phone/LibDocPane.aspx" >Library</a></li>
+                        <li class="l3"><a href="/Phone/Safety/SubmitSafetyPays.aspx">Safety Pays</a></li>
                     </ul>
                 </div>
             </div>
@@ -59,7 +60,7 @@
     <%--<li class="l2"><a href="/Phone/FAQ.aspx">FAQ</a></li>--%>
                 
 
-    <%--<li class="l2"><a href="/Forms/SafetyPays.aspx">SAFETY PAYS</a></li>--%>
+    
     <%--<li class="l2"><a href="/Forms/SafetyQoMResponse.aspx">SAFETY Q.O.M</a></li>--%>
     <%--<li class="l5"><a href="UsefulLinks/UsefulLinks.aspx">USEFUL LINKS</a></li>--%>
     <%--<li class="l5"><a href="UsefulLinks/QuickLinks.aspx">QUICK LINKS</a></li>--%>

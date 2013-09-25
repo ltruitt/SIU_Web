@@ -1,0 +1,171 @@
+﻿input {
+    padding-top: 5px;  padding-right: 10px;
+}
+
+
+.chkbox label {
+    padding-top:        0;
+    background-color:   transparent;
+    color:              #74736d;
+    font-size:          18px;
+    margin-top:         -3px;
+    margin-left: 5px;   
+    width: 80%;             
+}
+        
+.defaultText
+{
+    font-style:italic;
+    color:  red;
+}
+        
+.hideField {
+	display: none;
+}  
+        
+.ValidationError {
+    color:              red;
+    background-color:   yellow;
+    -ms-border-radius:      7px;
+    border-radius:      7px; 
+    border:             2px solid red;
+}
+
+.ValidationSuccess {
+    -ms-border-radius:      7px;
+    border-radius:      7px; 
+    border:             2px solid green;
+}
+
+.alertmsg {
+    color:#FF0000;            
+}
+
+
+.HeaderDescCss {
+    float: right;
+}          
+        
+.DescriptionFieldCss {
+    width: 500px;
+}
+        
+.LblBadNameErrorCss {
+    font-size: 1.5em;
+    text-align: center;
+    font-style: italic;
+    color: red;
+    background-color: yellow;
+    border: 2px solid red;
+}
+        
+.TaskDefinitionCSS {
+    Width: 97%;
+    Height: 18px;
+}
+        
+               
+.xDataField {
+    color:	white;
+    background-color: green;
+    -ms-border-radius:7px;
+    border-radius:7px; 
+    border:2px solid black;
+}
+
+#mask {
+    display: none;
+	    background: #000; 
+	    position: fixed; left: 0; top: 0; 
+	    z-index: 10;
+	    width: 100%; height: 100%;
+    -ms-opacity: 0.8;
+    opacity: 0.8;
+	    z-index: 999;
+}
+
+.popup {
+    display:none;
+	    background: #333;
+	    padding: 10px; 	
+	    border: 2px solid #ddd;
+	    float: left;
+	    font-size: 1.2em;
+	    position: fixed;
+	    top: 50%; left: 50%;
+	    z-index: 99999;
+    -ms-box-shadow: 0 0 20px #999;
+    /* CSS3 */
+        -moz-box-shadow: 0 0 20px #999;     /* Firefox */
+        -webkit-box-shadow: 0 0 20px #999;
+    box-shadow: 0 0 20px #999;
+    /* Safari, Chrome */
+    -ms-border-radius:3px 3px 3px 3px;
+    -moz-border-radius: 3px;                /* Firefox */
+        -webkit-border-radius: 3px;
+    border-radius:3px 3px 3px 3px;
+    /* Safari, Chrome */
+}
+    
+    
+/* Position the close button  */
+    img.btn_close { 
+	    float: right; 
+	    margin: -28px -28px 0 0;
+    }
+
+
+    .popupDiv  label { 
+	    display:block; 
+	    padding-bottom:7px;
+    }
+
+    .popupDiv  span { 
+	    display:block;
+    }
+
+    .popupDiv p, .popupDiv span { 
+	    color:#999; 
+	     /* font-size:11px;   */
+	    line-height:18px;
+    } 
+
+    .popupDiv label textarea {
+        margin-top: 10px;
+	    background:             white;	    
+	    color:                  black; 
+	    
+	    font:                   15px Arial, Helvetica, sans-serif;
+	    padding:                6px 6px 4px;
+	    width:                  300px;
+        height:                 200px;
+        -ms-box-shadow:         0 0 20px cornflowerblue;
+        /* CSS3 */
+        -moz-box-shadow:        0 0 20px cornflowerblue;        /* Firefox */
+        -webkit-box-shadow:     0 0 20px cornflowerblue;
+        box-shadow:             0 0 20px cornflowerblue;
+        /* Safari, Chrome */
+        -ms-border-radius:          3px 3px 3px 3px;
+        -moz-border-radius:     3px;                                /* Firefox */
+        -webkit-border-radius:  3px;
+        border-radius:          3px 3px 3px 3px;
+        /* Safari, Chrome */
+    }
+
+.popupDiv input:-moz-placeholder {
+    color:#bbb;
+    -ms-text-shadow:0 0 2px #000;
+    text-shadow:0 0 2px #000;
+}
+
+.popupDiv input:-webkit-input-placeholder {
+    color:#bbb;
+    -ms-text-shadow:0 0 2px #000;
+    text-shadow:0 0 2px #000;
+}
+
+
+        
+    
+    
+    

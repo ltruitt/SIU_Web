@@ -931,7 +931,8 @@ public class SiuDao : WebService
                                 string CT_Data_Saved, string Partial_Discharge, string Oil_Sample, string Oil_Sample_Follow_UP, string OtherText,
                                 string Sonic, string TTR, string Thermo, string Relay, string PCB, string PD, string Oil, string NFPA, string InslResit,
                                 string GrdEltrode, string GrdFlt, string Doble, string DLRO, string Decal, string HiPot, string BBT, string None, string IrData,
-                                string chkIrDrpBox, string chkIrOnly, string chkIrPort, string txtIrHardCnt, string txtAddEmail, string chkRptDrBox, string chkRptDrBoxNo, string chkIrDrpBoxNo)
+                                string chkIrDrpBox, string chkIrOnly, string chkIrPort, string txtIrHardCnt, string txtAddEmail, string chkRptDrBox, string chkRptDrBoxNo, 
+                                string chkIrDrpBoxNo, string SalesFollowUp, string SalesNotes)
         
     {
         Shermco_Job_Report jobRpt = SqlDataMapper<Shermco_Job_Report>.MakeNewDAO<Shermco_Job_Report>();
@@ -1060,6 +1061,12 @@ public class SiuDao : WebService
             if (BBT.ToLower() == "true") jobRpt.Bus_Bolt_Torque = 1;
             if (None.ToLower() == "true") jobRpt.No_Testing_Done = 1;
 
+            /////////////////////
+            // Sales Follow-Up //
+            /////////////////////
+            if (SalesFollowUp.ToLower() == "true") jobRpt.SalesFollowUp = 1;
+            else jobRpt.SalesFollowUp = 0;
+            jobRpt.SalesFollowUp_Comment = SalesNotes;
 
             jobRpt.Last_Date_Modified = DateTime.Now.Date;
             jobRpt.Received = 0;

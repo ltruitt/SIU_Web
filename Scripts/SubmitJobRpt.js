@@ -26,9 +26,8 @@ $(document).ready(function () {
     mutex('chkDrBox');
     mutex('chkIR');
     mutex('chkIrDrBox');
+    mutex('chkSales');
     
-
-
     ///////////////////////////////////
     // Catch CheckBox Change Events  //
     // For Rpt Disposition           //
@@ -412,7 +411,22 @@ $(document).ready(function () {
             $('#txtIrHardCnt').val(jobDetails.No__of_Copies);
             $('#txtAddEmail').val(jobDetails.Email);
 
+            ///////////////////////////////
+            // Sales Page Reconstruction //
+            ///////////////////////////////
+            if (jobDetails.SalesFollowUp == 1)
+                $('#chkSalesY')[0].checked = true;
 
+            //if (jobDetails.TMPNO == 1)
+            //    $('#chkSalesN')[0].checked = true;
+
+            $('#txtSalesNotes')[0].value = jobDetails.SalesFollowUp_Comment;
+
+
+
+            /////////////////////////////
+            // Sidebar Data Population //
+            /////////////////////////////
             // http://blog.stevenlevithan.com/archives/date-time-format
             $('#lblSubmitDate')[0].innerHTML = "<span class='FixedLabel'>Submit</span>" + jobDetails.Turned_in_by_Tech_Date + '<br/>';
             $('#lblJhaDate')[0].innerHTML = "<span class='FixedLabel'>JHA Submit</span>" + jobDetails.JHA_Submitted_Date + '<br/>';
@@ -639,6 +653,9 @@ $(document).ready(function () {
         
         submitJobRptAjax.add('chkRptDrBoxNo', $('#RptDrBoxN')[0].checked);
         submitJobRptAjax.add('chkIrDrpBoxNo', $('#IrDrpBoxN')[0].checked);
+        
+        submitJobRptAjax.add('SalesFollowUp', $('#chkSalesY')[0].checked);
+        submitJobRptAjax.add('SalesNotes', $('#txtSalesNotes')[0].value);
 
         submitJobRptAjax.exec("/SIU_DAO.asmx/SubmitJobRpt", submitJobRptSuccess);
     });
