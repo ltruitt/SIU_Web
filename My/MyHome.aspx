@@ -108,6 +108,13 @@
             <div class="toolbar">
 			    <ul>
                     
+                    <li >
+                        <a href="/Safety/Training/UserClass.aspx"  ID="A22" runat="server" style="color: black; font-size: .9em; text-decoration: underline; text-align: center; width: 180px; ">
+						    <img  style="width: 75px; height: 75px; margin: 0; padding-top: 0; margin-bottom: 0; margin-left: auto; margin-right: auto; margin-top: -10px;"  alt="LMS Events" src="/Images/SI-Corp-Certifications.png" />
+                            <div style="text-align: center;">Take a Safety Class<br/>< Experimental ></div>
+					    </a>         
+                    </li> 
+
                     <li class="l8" id="LiSafetyPays" >
                         <span id="Span2"  runat="server" style="text-align: center; color: black;">Safety Pays<br/></span>
                         
@@ -143,6 +150,8 @@
                         </div>
                         
                     </li>
+                    
+
                     
                                         
 
