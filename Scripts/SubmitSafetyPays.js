@@ -264,20 +264,27 @@
         // If 
         /////////////////////////////////////////////////////
         if ($('#JobSite')[0].value.length == 0) {
-            //$('#btnSubmit').prop('disabled', true);
             $('#btnSubmit').hide();
             return;
         }
 
-        /////////////////////////////////////////////////////
-        // If 
-        /////////////////////////////////////////////////////
-        if ($('#Comments')[0].value.length == 0) {
-            //$('#btnSubmit').prop('disabled', true);
+        //////////////////////////////
+        // Comments Must Be Present //
+        //////////////////////////////
+        //if ($('#Comments')[0].value.length == 0) {
+        //    $('#btnSubmit').hide();
+        //    return;
+        //}
+        
+        ///////////////////////////////////////////////////
+        // Make Sure Comments Has More Than Just A Space //
+        ///////////////////////////////////////////////////
+        var splessComments = $('#Comments')[0].value.replace(/\n/g, "").replace(/ /g, "");
+        if (splessComments.length == 0) {
             $('#btnSubmit').hide();
             return;
         }
-
+        
         //////////////////////////////////////////////
         // Get The Text Off the Checked Report Type //
         //////////////////////////////////////////////
@@ -287,20 +294,17 @@
 
             case 'I Saw Something Safe':
                 if ($('#IncidentDate')[0].value.length == 0) {
-                    //$('#btnSubmit').prop('disabled', true);
                     $('#btnSubmit').hide();
                     return;
                 }
-                if ($('#ObservedEmpID')[0].value.length == 0) {
-                    //$('#btnSubmit').prop('disabled', true);
-                    $('#btnSubmit').hide();
-                    return;
-                }
+                //if ($('#ObservedEmpID')[0].value.length == 0) {
+                //    $('#btnSubmit').hide();
+                //    return;
+                //}
                 break;
 
             case 'Unsafe Act':
                 if ($('#IncidentDate')[0].value.length == 0) {
-                    //$('#btnSubmit').prop('disabled', true);
                     $('#btnSubmit').hide();
                     return;
                 }
@@ -308,7 +312,6 @@
 
             case 'EHS Summary':
                 if ($('#SafetyMeetingDate')[0].value.length == 0) {
-                    //$('#btnSubmit').prop('disabled', true);
                     $('#btnSubmit').hide();
                     return;
                 }
@@ -316,8 +319,8 @@
 
             default:
         }
+        
 
-        //$('#btnSubmit').prop('disabled', false);
         $('#btnSubmit').show();
     }
 
@@ -374,19 +377,30 @@
         safetyPaysSubmitCall.add('SafetyMeetingType', $('#SafetyMeetingType').val());
         safetyPaysSubmitCall.add('SafetyMeetingDate', $('#SafetyMeetingDate').val());
 
-        safetyPaysSubmitCall.add('Comments', $('#Comments')[0].innerHTML);
+        safetyPaysSubmitCall.add('Comments', $('#Comments').val());
 
         safetyPaysSubmitCall.add('JobSite', $('#JobSite')[0].value);
-        safetyPaysSubmitCall.add('IncTypeText', $('input:checkbox[class=chkbox]:checked')[0].value );
-
+        safetyPaysSubmitCall.add('IncTypeText', $('input:checkbox[class=chkbox]:checked')[0].value);
+        
+        safetyPaysSubmitCall.add('QomID', '');
+        
         safetyPaysSubmitCall.exec("/SIU_DAO.asmx/RecordSafetyPays", safetyPaysSubmitCallSuccess);
-
     });
 
 
-    function safetyPaysSubmitCallSuccess() {
-        window.location = window.location.protocol + '//' + window.location.hostname + '/' + "/Safety/SafetyHome.aspx";
-        //Clear();
+    function safetyPaysSubmitCallSuccess(data) {
+        if (data.d.substring(0, 5) == "Error") {
+            alert(data.d);
+        } else {
+            if (isMobile.any()) {
+                if (!isMobile.iPad()) {
+                    window.location = window.location.protocol + "//" + window.location.hostname + "/phone/homepage.aspx";
+                    return;
+                }
+            }
+
+            window.location = window.location.protocol + '//' + window.location.hostname + "/Safety/SafetyHome.aspx";
+        }
     }
 
     $("#btnClear").click(function () {

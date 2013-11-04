@@ -16,8 +16,8 @@ public partial class Forms_SafetyIssue : System.Web.UI.Page
             //////////////////////////
             // Build Requestor Info //
             //////////////////////////
-            hlblEID.InnerText = BusinessLayer.UserEmpID;
-            lblEmpName.InnerText = "(" + BusinessLayer.UserEmpID + ") " + BusinessLayer.UserFullName;
+            hlblEID.InnerHtml = BusinessLayer.UserEmpID;
+            lblEmpName.InnerHtml = "(" + BusinessLayer.UserEmpID + ") " + BusinessLayer.UserFullName;
 
             ///////////////////////////
             // Check For Admin Priv. //

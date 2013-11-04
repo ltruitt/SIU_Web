@@ -12,7 +12,7 @@
 <div id="HomeWrapper" style="height: 1320px;">
         
 
-     <div style="visibility: hidden; height: 0px; width: 0px;">
+     <div style="visibility: hidden; height: 0; width: 0;">
         <span id="Sx"  runat="server"/>
     </div>
 
@@ -71,7 +71,7 @@
         <section id="SafetyMain" >
         
         <div style="text-align: center;">
-           <img style="border: none; margin: 0px;" alt="Vpp Team" src="/Images/Vest_TeamPhoto.jpg" /> 
+           <img style="border: none; margin: 0;" alt="Vpp Team" src="/Images/Vest_TeamPhoto.jpg" /> 
         </div>
 
             

@@ -8,6 +8,7 @@
 		<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta http-equiv="Cache-Control" content="no-cache"/> 
+        <meta name="format-detection" content="telephone=no">
     
         <!-- Viewport is very important, since it affects results of media query matching. -->
         <meta name="viewport" content="width=device-width, initial-scale = 1.0, user-scalable = yes">

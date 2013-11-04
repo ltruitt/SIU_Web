@@ -53,7 +53,7 @@
 
 	    <td class="cell">	  
 	  
-	        <section xclass="cell" id="Risk Cell" >
+	        <section id="Risk Cell" >
 		        <div class="box"  >
 			        <span class="title">		
 		  	           Risk 
@@ -113,13 +113,14 @@
 		        <div class="box" >
 			        <span class="title">
 				        IT and Development (
-				        <a href="mailto:ITDepartment@shermco.com">ITDepartment@shermco.com</a>
+				        <a href="mailto:support@shermco.com">support@shermco.com</a>
 				        ) — (think computers)
 			        </span>
 			        <br/>
 			        <span class="contact">
 				        For IT contact Reuben Najera at 972.793.5523 ext. 10264<br/>
 				        For Development contact Carlos Silva at 972.793.5523 ext. 10158
+                        For Technical Support call 972.652.3800
 			        </span>
 			
 			        <ul style='font: 12pt/normal "Arial", "sans-serif"; font-size-adjust: none; font-stretch: normal;'>
@@ -148,7 +149,7 @@
 			        </span>
 			        <br/>
 			        <span class="contact">
-				        Contact Bob Jett at 972.793.5523 ext. 10142
+				        Contact Bob Jett at 972.793.5523 ext. 10342
 			        </span>
 			
 			        <ul style='font: 12pt/normal "Arial", "sans-serif"; font-size-adjust: none; font-stretch: normal;'>

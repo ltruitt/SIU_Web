@@ -30,11 +30,11 @@
             <!-- Hidden Data Fields --->
             <!------------------------->
             <section style="visibility: hidden; height: 0; width: 0;">
-                <span id="hlblEID"             runat="server"/>  
-                <span id="hlblRefID"           runat="server"/> 
-                <span id="hlblPrevWeek"        runat="server"/> 
-                <span id="hlblThisWeek"        runat="server"/> 
-                <span id="hlblWeekIdx"         runat="server"/>
+                <span id="hlblEID"             runat="server"></span>  
+                <span id="hlblRefID"           runat="server"></span> 
+                <span id="hlblPrevWeek"        runat="server"></span> 
+                <span id="hlblThisWeek"        runat="server"></span> 
+                <span id="hlblWeekIdx"         runat="server"></span>
             </section>   
                                           
             <!----------------->

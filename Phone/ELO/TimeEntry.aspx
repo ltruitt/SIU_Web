@@ -61,13 +61,6 @@
 
 
                 <p style="height: 10px;"></p> 
-                
-
-
-
-
-                
-
 
 
                 <!-- Date For Time Being Entered -->
@@ -149,12 +142,13 @@
                     <span id="hlblClassLocSelection"></span>  
                     <span id="hlblClassInstrSelection"></span>  
                     <span id="hlblDailyHours"></span> 
-                    <span id="hlblEID" runat="server"></span> 
-                    <span id="hlblSD" runat="server"></span> 
-                    <span id="hlblED" runat="server"></span> 
+
                     <span id="hlblEmpDept" runat="server"></span>
                     <span id="hlblWeekIdx"></span>
                     <span id="hldlOhAcct"></span>
+                    <span id="hlblEID" runat="server"></span> 
+                    <span id="hlblSD" runat="server"></span> 
+                    <span id="hlblEndD" runat="server"></span> 
                 </section>
                 
 
@@ -172,11 +166,11 @@
                         <input ID="ddDept" class="DataInputCss" runat="server"  style="width: 60px; float: none; margin-left: 10px;" />
                     </div>                                                          
 
-                    <span runat="server" id="lblTaskCodeSelection"   />
-                    <span runat="server" id="lblClassTimeSelection"   />  
-                    <span runat="server" id="lblClassLocSelection"   />  
-                    <span runat="server" id="lblClassInstrSelection"   />  
-                    <span runat="server" id="lblClassDescSelection"   />  
+                    <span runat="server" id="lblTaskCodeSelection"></span>
+                    <span runat="server" id="lblClassTimeSelection"></span>  
+                    <span runat="server" id="lblClassLocSelection"></span>  
+                    <span runat="server" id="lblClassInstrSelection"></span>  
+                    <span runat="server" id="lblClassDescSelection"></span>  
                     <div></div>
                     <span runat="server" id="lblErr" Class="errorTextCss"  ></span>
                     <span runat="server" id="lblErrServer" Class="errorTextCss"  ></span>

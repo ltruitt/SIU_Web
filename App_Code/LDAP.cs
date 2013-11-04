@@ -66,7 +66,7 @@ public class LDAP
             // Bind to the native ADS Object to force authentication.
             //Object obj = entry.NativeObject;
             DirectorySearcher search = new DirectorySearcher(entry);
-
+            
             search.Filter = "(SAMAccountName=" + username + ")";
             search.PropertiesToLoad.Add("cn");
             search.PropertiesToLoad.Add("mail");
@@ -197,8 +197,77 @@ public class LDAP
 
     //}
 
+
+    public StringCollection GetGroups(string strUser)
+    {
+        DirectoryEntry entry = new DirectoryEntry(_path, @"Shermco\ltruitt", "Payday2013");
+
+        try
+        {
+            DirectorySearcher search = new DirectorySearcher(entry);
+            search.Filter = "(SAMAccountName=" + strUser + ")";
+            //search.Filter = "(SAMAccountName=aschumacher)";
+            SearchResult result = search.FindOne();
+            if (null == result)
+                return _groups;
+
+
+            DirectoryEntry obUser = new DirectoryEntry(result.Path);
+            object obGroups = obUser.Invoke("Groups");
+            foreach (object ob in (IEnumerable)obGroups)
+            {
+                DirectoryEntry obGpEntry = new DirectoryEntry(ob);
+                _groups.Add(obGpEntry.Name.Replace("CN=", "").Replace("\"", ""));
+            }
+        }
+
+        catch (Exception ex)
+        {
+            SqlServer_Impl.LogDebug("LDAP.GetGroups", "AD Lookup Failed " + ex.Message);
+        }
+
+        return _groups;;        
+    }
+
+
     public bool IsUserMemberOfGroup( string strUser, string Group)
     {
+
+        List<string> Groups = new List<string>();
+
+        //initialize the directory entry object 
+        DirectoryEntry dirEntry = new DirectoryEntry(_path);
+
+        //directory searcher
+        DirectorySearcher dirSearcher = new DirectorySearcher(dirEntry);
+
+        //enter the filter
+        dirSearcher.Filter = string.Format("(&(objectClass=user)(sAMAccountName={0}))", strUser);
+
+        //get the member of properties for the search result
+        dirSearcher.PropertiesToLoad.Add("memberOf");
+        int propCount;
+        SearchResult dirSearchResults = dirSearcher.FindOne();
+        propCount = dirSearchResults.Properties["memberOf"].Count;
+        string dn;
+        int equalsIndex;
+        int commaIndex;
+        for (int i = 0; i <= propCount - 1; i++)
+        {
+            dn = dirSearchResults.Properties["memberOf"][i].ToString();
+
+            equalsIndex = dn.IndexOf("=", 1);
+            commaIndex = dn.IndexOf(",", 1);
+            if (equalsIndex == -1)
+            {
+                return false;
+            }
+            if (!Groups.Contains(dn.Substring((equalsIndex + 1), (commaIndex - equalsIndex) - 1)))
+            {
+                Groups.Add(dn.Substring((equalsIndex + 1), (commaIndex - equalsIndex) - 1));
+            }
+        }
+
         try
         {
             /////////////////////////////////////////////////

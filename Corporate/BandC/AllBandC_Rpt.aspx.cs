@@ -19,12 +19,12 @@ public partial class Corporate_BandC_AllBandC_Rpt : System.Web.UI.Page
         ////////////////////////////
         // Show The Employee Name //
         ////////////////////////////
-        lblEmpName.InnerText = SqlServer_Impl.GetEmployeeNameByNo(BusinessLayer.UserEmpID);
+        lblEmpName.InnerHtml = SqlServer_Impl.GetEmployeeNameByNo(BusinessLayer.UserEmpID);
 
         ///////////////////////////////////////////
         // Bury The Employee ID For AJAX Lookups //
         ///////////////////////////////////////////
-        hlblEID.InnerText = BusinessLayer.UserEmpID;
+        hlblEID.InnerHtml = BusinessLayer.UserEmpID;
 
         SuprArea.Visible = (BusinessLayer.UserName.ToLower() == "ltruitt") ? true : false;
         SuprArea.Visible = true;

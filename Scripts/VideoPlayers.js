@@ -10,14 +10,14 @@ function JwPostMovieStart() {
 
     var pos = jwplayer().getPosition();
     var dur = jwplayer().getDuration();
-    var MovieStart_Ajax = new AsyncServerMethod();
+    var movieStartAjax = new AsyncServerMethod();
     
-    MovieStart_Ajax.add('EmpName', $('#hlblEmpName')[0].innerHTML);
-    MovieStart_Ajax.add('EmpEmail', $('#hlblEmpEmail')[0].innerHTML);
-    MovieStart_Ajax.add('movieId', midFile);
-    MovieStart_Ajax.add('pos', pos);
-    MovieStart_Ajax.add('dur', dur);
-    MovieStart_Ajax.exec("/SIU_DAO.asmx/MovieStart");
+    movieStartAjax.add('EmpName', $("#hlblEmpName")[0].innerHTML);
+    movieStartAjax.add('EmpEmail', $("#hlblEmpEmail")[0].innerHTML);
+    movieStartAjax.add('movieId', midFile);
+    movieStartAjax.add('pos', pos);
+    movieStartAjax.add('dur', dur);
+    movieStartAjax.exec("/SIU_DAO.asmx/MovieStart");
 }
 function JwPostMovieComplete() {
     // Get A Name Value Pair Description Of THe Currently Playing Video
@@ -25,12 +25,12 @@ function JwPostMovieComplete() {
 
     // Extract The File Name From The Name Value Pair Object
     var midFile = mid.file;
-    var MovieComplete_Ajax = new AsyncServerMethod();
+    var movieCompleteAjax = new AsyncServerMethod();
     
-    MovieComplete_Ajax.add('EmpName', $('#hlblEmpName')[0].innerHTML);
-    MovieComplete_Ajax.add('EmpEmail', $('#hlblEmpEmail')[0].innerHTML);
-    MovieComplete_Ajax.add('movieId', midFile);
-    MovieComplete_Ajax.exec("/SIU_DAO.asmx/MovieComplete");
+    movieCompleteAjax.add('EmpName', $("#hlblEmpName")[0].innerHTML);
+    movieCompleteAjax.add('EmpEmail', $("#hlblEmpEmail")[0].innerHTML);
+    movieCompleteAjax.add('movieId', midFile);
+    movieCompleteAjax.exec("/SIU_DAO.asmx/MovieComplete");
 
 }
 
@@ -44,30 +44,30 @@ function FloPostMovieStart(clip) {
     var dur = clip.duration;
     var pos = 0;
     
-    var MovieStart_Ajax = new AsyncServerMethod();
+    var movieStartAjax = new AsyncServerMethod();
 
-    MovieStart_Ajax.add('empNo', eid );
-    MovieStart_Ajax.add('movieId', midFile);
-    MovieStart_Ajax.add('pos', pos);
-    MovieStart_Ajax.add('dur', dur);
-    MovieStart_Ajax.exec("/SIU_DAO.asmx/MovieStart");
+    movieStartAjax.add('empNo', eid );
+    movieStartAjax.add('movieId', midFile);
+    movieStartAjax.add('pos', pos);
+    movieStartAjax.add('dur', dur);
+    movieStartAjax.exec("/SIU_DAO.asmx/MovieStart");
 }
 
-function FloPostMovieSeek(clip, TimeIdx) {
+function FloPostMovieSeek(clip, timeIdx) {
     if (clip.extension == 'jpg')
         return;
     
     var midFile = clip.url;
     var dur = clip.duration;
-    var pos = TimeIdx;
+    var pos = timeIdx;
 
-    var MovieStart_Ajax = new AsyncServerMethod();
+    var movieStartAjax = new AsyncServerMethod();
 
-    MovieStart_Ajax.add('empNo', eid );
-    MovieStart_Ajax.add('movieId', midFile);
-    MovieStart_Ajax.add('pos', pos);
-    MovieStart_Ajax.add('dur', dur);
-    MovieStart_Ajax.exec("/SIU_DAO.asmx/MovieStart");
+    movieStartAjax.add('empNo', eid );
+    movieStartAjax.add('movieId', midFile);
+    movieStartAjax.add('pos', pos);
+    movieStartAjax.add('dur', dur);
+    movieStartAjax.exec("/SIU_DAO.asmx/MovieStart");
 }
 
 
@@ -78,13 +78,13 @@ function FloPostMovieFinish(clip) {
     var midFile = clip.url;
     var dur = clip.duration;
 
-    var MovieStart_Ajax = new AsyncServerMethod();
+    var movieStartAjax = new AsyncServerMethod();
 
-    MovieStart_Ajax.add('empNo', eid );
-    MovieStart_Ajax.add('movieId', midFile);
-    MovieStart_Ajax.add('pos', dur);
-    MovieStart_Ajax.add('dur', dur);
-    MovieStart_Ajax.exec("/SIU_DAO.asmx/MovieComplete");
+    movieStartAjax.add('empNo', eid );
+    movieStartAjax.add('movieId', midFile);
+    movieStartAjax.add('pos', dur);
+    movieStartAjax.add('dur', dur);
+    movieStartAjax.exec("/SIU_DAO.asmx/MovieComplete");
 }
 
 
@@ -95,16 +95,16 @@ $(document).ready(function () {
     ///////////////////////////////////////////
     // Get Jason Array Of Total Hours By Day //
     ///////////////////////////////////////////
-    function GetSupportDocuments_success(data) {
+    function getSupportDocumentsSuccess(data) {
         $('#SupportDocumentsInsertPoint')[0].innerHTML = $.parseJSON(data.d);
     }
-    function GetSupportDocuments() {
-        var GetSupportDocuments_Ajax = new AsyncServerMethod();
-        GetSupportDocuments_Ajax.add('Path', $.fn.getURLParameter('Path'));
-        GetSupportDocuments_Ajax.add('File', $.fn.getURLParameter('Video'));
-        GetSupportDocuments_Ajax.exec("/SIU_DAO.asmx/ListVideoSupportDocuments", GetSupportDocuments_success);
+    function getSupportDocuments() {
+        var getSupportDocumentsAjax = new AsyncServerMethod();
+        getSupportDocumentsAjax.add('Path', $.fn.getURLParameter('Path'));
+        getSupportDocumentsAjax.add('File', $.fn.getURLParameter('Video'));
+        getSupportDocumentsAjax.exec("/SIU_DAO.asmx/ListVideoSupportDocuments", getSupportDocumentsSuccess);
     }
-    GetSupportDocuments();
+    getSupportDocuments();
 
 
     //////////////////////////////
@@ -150,7 +150,7 @@ $(document).ready(function () {
             onError: function (errorCode, errorMessage) {
                  alert(errorCode + " " + errorMessage);
             },
-            onSeek: function (clip, TimeIdx) { FloPostMovieSeek(clip, TimeIdx); },
+            onSeek: function (clip, timeIdx) { FloPostMovieSeek(clip, timeIdx); },
             onFinish: function (clip) { FloPostMovieFinish(clip); }
         },
         playlist: [

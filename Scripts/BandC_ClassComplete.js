@@ -63,16 +63,8 @@
 
         $('#hlblCertCode')[0].innerHTML = certDetails[0].Code;
 
-        var timestamp = new Date();
+        timestamp = new Date();
         $('#jTableContainer').jtable('load', { EmpID: $('#hlblEID')[0].innerHTML, ClassCode: $('#hlblCertCode')[0].innerHTML, ClassDate: $('#txtClassDate')[0].value, T: timestamp.getTime() });
-
-
-        //        $('#Comments').show('slow');
-        //        if (!/phone/i.test(window.location)) {
-        //            $('#Comments').show('slow');
-        //            $('#btnSubmit').attr('disabled', false);
-        //        }
-
     }
 
     function getCertDetails() {
@@ -108,7 +100,7 @@
     var listOfEmps = [];
     function getEmpsSuccess(data) {
         listOfEmps = data.d.split("\r");
-        $("#ddEmpIds").autocomplete({ source: listOfEmps },
+        $("#txtStudent").autocomplete({ source: listOfEmps },
             {
                 matchContains: false,
                 minChars: 1,
@@ -119,20 +111,44 @@
                 delay: 0,
                 select: function (event, ui) {
                     var dataPieces = ui.item.value.split(' ');
-                    $("#ddEmpIds").autocomplete("close");
-                    $("#ddEmpIds").val(dataPieces[0] + ' ' + dataPieces[2] + ', ' + dataPieces[3]);
-                    clear();
+                    $("#txtStudent").autocomplete("close");
+                    $("#txtStudent").val('');
+                    recordClass(dataPieces[0]);
                 },
                 response: function (event, ui) {
                     if (ui.content.length == 1) {
                         var dataPieces = ui.content[0].value.split(' ');
-                        $("#ddEmpIds").autocomplete("close");
-                        $("#ddEmpIds").val(dataPieces[0] + ' ' + dataPieces[2] + ', ' + dataPieces[3]);
+                        $("#txtStudent").autocomplete("close");
+                        $("#txtStudent").val('');
+                        recordClass(dataPieces[0]);
                     }
 
                     return ui;
                 }
             });
+    }
+    
+    function recordClass(studentId) {
+        var recordClassCall = new AsyncServerMethod();
+        recordClassCall.add('QualCode', $('#hlblCertCode')[0].innerHTML );
+        recordClassCall.add('ClassDate', $('#txtClassDate')[0].value);
+        recordClassCall.add('InstID', $('#hlblEID')[0].innerHTML);
+        recordClassCall.add('StudentID', studentId);
+        recordClassCall.exec("/SIU_DAO.asmx/RecordUnPostedClassStudent", recordUnPostedClassStudentSuccess);
+        
+    }
+    
+    function recordUnPostedClassStudentSuccess(data) {
+        //var recordedStudent = $.parseJSON(data.d);
+        //$('#jTableContainer').jtable('addRecord', {
+        //    record: {
+        //        TLC_UID: 0,
+        //        TL_UID: tlUid,
+        //        QualCode: $("#acCertList").val()
+        //    },
+        //    clientOnly: true
+        //});
+        $('#jTableContainer').jtable('load', { EmpID: $('#hlblEID')[0].innerHTML, ClassCode: $('#hlblCertCode')[0].innerHTML, ClassDate: $('#txtClassDate')[0].value, T: timestamp.getTime() });
     }
 
 
@@ -146,7 +162,7 @@
         edit: true,
         actions: {
             listAction: '/SIU_DAO.asmx/GetUnpostedClass',
-            deleteAction: '/SIU_DAO.asmx/DeleteMyExpensexxx'
+            deleteAction: '/SIU_DAO.asmx/DeleteUnPostedClassStudent'
         },
         fields: {
             UID: {
@@ -186,7 +202,7 @@
                 title: 'Instructor ID',
                 width: '1%',
                 listClass: 'jTableTD',
-                visibility: hidden
+                list: false
             },
             instructor_name: {
                 title: 'Instructor Name',

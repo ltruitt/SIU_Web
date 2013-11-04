@@ -65,12 +65,7 @@
     <div style="margin-top: 10px;" id="mainarea">
         <img src="/Images/Stop.png" alt="STOP" style="float: left; margin-right: 20px;"/>
         <img src="/Images/Stop.png" alt="STOP" style="float: right; margin-left: 20px;"/>
-        <h2 style="color: red;">THE LOGIN PROCESS WAS ABORTED BECAUSE THE LOGIN ID WAS NOT RECOGNIZED BY NAVISION.</h2>
-        <p style="width: 70%; margin-left: auto; margin-right: auto; margin-top: 40px; text-align: center;">
-            <b>
-            If you used a valid Shermco Network account assigned directly to you please email <a href="mailto:itdepartment@shermco.com" style="color: blue; font-style: italic;">the I.T. department</a> and someone will help reslove this problem.
-            </b>
-        </p>
+        <h2 style="color: red;">You have been signed off from the Shermco YOU! web site..</h2>
         <div style="clear: both;"></div>
     </div>
 

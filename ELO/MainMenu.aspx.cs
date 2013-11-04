@@ -1,22 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 public partial class ELO_MainMenu : System.Web.UI.Page
 {
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        string Method = "ELO_MainMenu.PageLoad";
+        string method = "ELO_MainMenu.PageLoad";
 
         if (!IsPostBack)
         {
             lblEmpName.InnerText = SqlServer_Impl.GetEmployeeNameByNo(BusinessLayer.UserEmpID);
 
-            List<string> rptDepts = new List<string>()
+            List<string> rptDepts = new List<string>
                                         {
                                             "6080",
                                             "8010",

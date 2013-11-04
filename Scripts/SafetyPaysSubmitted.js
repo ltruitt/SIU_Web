@@ -1,70 +1,17 @@
 ﻿$(document).ready(function () {
 
-    var deletedCount = 0;
-
-    
-    // When clicking on the button close or the mask layer the popup closed
-    //$(document).on('click', 'a.close, #btnPopupReject, #btnPopupAccept' , function () {
-    //    $('#mask , .popup').fadeOut(300, function () {
-    //        $('#mask').remove();
-    //    });
-    //    return false;
-    //});
-    
-
-
     $('#btnAccept').click(function () {
-        var ProcessSafetyPaysCall = new AsyncServerMethod();
+        var processSafetyPaysCall = new AsyncServerMethod();
 
-        ProcessSafetyPaysCall.add('RcdID', $('#hlblKey')[0].innerHTML);
-        ProcessSafetyPaysCall.add('EmpID', $('#hlblEID')[0].innerHTML);
-        ProcessSafetyPaysCall.add('Points', $('#txtPts').val());
-        ProcessSafetyPaysCall.add('ehsRepsonse', $('#ehsRepsonse').val());
+        processSafetyPaysCall.add('RcdID', $('#hlblKey')[0].innerHTML);
+        processSafetyPaysCall.add('EmpID', $('#hlblEID')[0].innerHTML);
+        processSafetyPaysCall.add('Points', $('#txtPts').val());
+        processSafetyPaysCall.add('ehsRepsonse', $('#ehsRepsonse').val());
+        processSafetyPaysCall.add('SuprID', $('#hlblSID')[0].innerHTML);
 
-        ProcessSafetyPaysCall.exec("/SIU_DAO.asmx/RecordSafetyPaysStatusAcceptClosed", removeSelectedRow);
+        processSafetyPaysCall.exec("/SIU_DAO.asmx/RecordSafetyPaysStatusAcceptClosed", removeSelectedRow);
         
-
-        //$('#btnPopupReject').hide();
-        //$('#btnPopupAccept').show();
-        
-
-        ////Get The Popup Window Container
-        //var loginBox = $(this).attr('href');
-        //loginBox = $('#popup-box');
-
-        //// Fade in the Popup
-        //$(loginBox).fadeIn(300);
-
-        ////Set the center alignment padding + border see css style
-        //var popMargTop = ($(loginBox).height() + 24) / 2;
-        //var popMargLeft = ($(loginBox).width() + 24) / 2;
-
-        //$(loginBox).css({
-        //    'margin-top': -popMargTop,
-        //    'margin-left': -popMargLeft
-        //});
-
-        //// Add the mask to body
-        //$('body').append('<div id="mask"></div>');
-        //$('#mask').fadeIn(300);
-
-        //return false;
     });
-
-
-    $('#btnPopupAccept').click(function () {
-        var ProcessSafetyPaysCall = new AsyncServerMethod();
-        
-        ProcessSafetyPaysCall.add('RcdID', $('#hlblKey')[0].innerHTML);
-        ProcessSafetyPaysCall.add('EmpID', $('#hlblEID')[0].innerHTML);
-        ProcessSafetyPaysCall.add('Points', $('#txtPts').val());
-        ProcessSafetyPaysCall.add('ehsRepsonse', $('#ehsRepsonse').val());
-
-        ProcessSafetyPaysCall.exec("/SIU_DAO.asmx/RecordSafetyPaysStatusAcceptClosed", removeSelectedRow);
-    });
-
-
-
 
 
 
@@ -75,7 +22,8 @@
         processSafetyPaysCall.add('EmpID', $('#hlblEID')[0].innerHTML);
         processSafetyPaysCall.add('Points', $('#txtPts').val());
         processSafetyPaysCall.add('ehsRepsonse', $('#ehsRepsonse').val());
-
+        processSafetyPaysCall.add('SuprID', $('#hlblSID')[0].innerHTML);
+        
         processSafetyPaysCall.exec("/SIU_DAO.asmx/RecordSafetyPaysStatusWork", removeSelectedRow);
     });
 
@@ -88,49 +36,10 @@
         processSafetyPaysCall.add('RcdID', $('#hlblKey')[0].innerHTML);
         processSafetyPaysCall.add('EmpID', $('#hlblEID')[0].innerHTML);
         processSafetyPaysCall.add('ehsRepsonse', $('#ehsRepsonse').val());
-
-        processSafetyPaysCall.exec("/SIU_DAO.asmx/RecordSafetyPaysStatusReject", removeSelectedRow);
+        processSafetyPaysCall.add('SuprID', $('#hlblSID')[0].innerHTML);
         
-        //$('#btnPopupReject').show();
-        //$('#btnPopupAccept').hide();
-        //$('#ehsRepsonse').val('');
-
-        ////Get The Popup Window Container
-        //var loginBox = $(this).attr('href');
-        //loginBox = $('#popup-box');
-
-        //// Fade in the Popup
-        //$(loginBox).fadeIn(300);
-
-        ////Set the center alignment padding + border see css style
-        //var popMargTop = ($(loginBox).height() + 24) / 2;
-        //var popMargLeft = ($(loginBox).width() + 24) / 2;
-
-        //$(loginBox).css({
-        //    'margin-top': -popMargTop,
-        //    'margin-left': -popMargLeft
-        //});
-
-        //// Add the mask to body
-        //$('body').append('<div id="mask"></div>');
-        //$('#mask').fadeIn(300);
-
-        //return false;
+        processSafetyPaysCall.exec("/SIU_DAO.asmx/RecordSafetyPaysStatusReject", removeSelectedRow);
     });
-
-    //$('#btnPopupReject').click(function () {
-        //var ProcessSafetyPaysCall = new AsyncServerMethod();
-
-        //ProcessSafetyPaysCall.add('RcdID', $('#hlblKey')[0].innerHTML);
-        //ProcessSafetyPaysCall.add('EmpID', $('#hlblEID')[0].innerHTML);
-        //ProcessSafetyPaysCall.add('ehsRepsonse', $('#ehsRepsonse').val());
-
-        //ProcessSafetyPaysCall.exec("/SIU_DAO.asmx/RecordSafetyPaysStatusReject", RemoveSelectedRow);
-    //});
-
-
-
-
 
     function removeSelectedRow() {
 
@@ -140,23 +49,12 @@
                 clientOnly: true,
                 animationsEnabled: true
             });
-            deletedCount++;
-
-
-
-            if (deletedCount > 5) {
-                reloadTable();
-            }
         }
 
-        ClearDtl();
+        clearDtl();
     }
 
-    function reloadTable() {
-        var timestamp = new Date();
-        $('#jTableContainer').jtable('load', { T: timestamp.getTime() });
-        deletedCount = 0;
-    }
+
 
     function dateTest(datefield) {
         var i = -1;
@@ -177,18 +75,23 @@
         defaultSorting: 'IncidentNo ASC',
         edit: true,
         selecting: true,
-        sorting: false,
+        sorting: true,
         multiselect: false,
         selectingCheckboxes: false,
+        paging: true,
+        pageSize: 50,
         actions: {
-            listAction: '/SIU_DAO.asmx/GetSafetyPaysRptData'
+            listAction: '/SIU_DAO.asmx/GetSafetyPaysRptDataSorted',
+            deleteAction: '/SIU_DAO.asmx/RemoveSafetyPaysRpt'
         },
         fields: {
             IncidentNo: {
                 key: true,
                 create: false,
                 edit: false,
-                list: false
+                list: true,
+                width: '1%',
+                sorting: true
             },
 
             IncidentDate: {
@@ -198,6 +101,7 @@
                 displayFormat: 'mm-dd-yy',
                 listClass: 'jTableTD',
                 list: true,
+                sorting: true,
                 display: function (data) { return dateTest(data.record.IncidentDate); }
             },
             IncOpenTimestamp: {
@@ -206,23 +110,27 @@
                 type: 'date',
                 displayFormat: 'mm-dd-yy',
                 listClass: 'jTableTD',
+                sorting: true,
                 list: true
             },
             IncTypeTxt: {
                 title: 'Inc. Type',
                 width: '20%',
+                sorting: true,
                 listClass: 'jTableTD'
             },
             defaultPoints: {
                 title: 'Sug. Pts',
                 width: '5%',
                 listClass: 'center',
+                sorting: false,
                 list: true
             },
             ReportedByEmpName: {
                 title: 'Reporter',
                 width: '20%',
                 listClass: 'jTableTD',
+                sorting: false,
                 list: true
             },
 
@@ -296,7 +204,9 @@
                 list: false
             }
         },
-
+        recordsLoaded: function () {
+            $('#jTableContainer').jtable('selectRows', $('.jtable-data-row').first());
+        },
         //Register to selectionChanged event to hanlde events
         selectionChanged: function () {
 
@@ -307,29 +217,83 @@
                 //Show selected rows
                 $selectedRows.each(function () {
                     var record = $(this).data('record');
-                    var OpenDate = new Date(parseInt(record.IncOpenTimestamp.substr(6)));
-                    var IncDate = new Date(parseInt(record.IncidentDate.substr(6)));
-                    var MtgDate = new Date(parseInt(record.SafetyMeetingDate.substr(6)));
+                    var openDate = new Date(parseInt(record.IncOpenTimestamp.substr(6)));
+                    var incDate = new Date(parseInt(record.IncidentDate.substr(6)));
+                    var mtgDate = new Date(parseInt(record.SafetyMeetingDate.substr(6)));
 
                     $('#hlblKey')[0].innerHTML = record.IncidentNo;
 
                     $('#lblIncTypeTxt')[0].innerHTML = record.IncTypeTxt;
-                    $('#lblIncOpenTimestamp')[0].innerHTML = $.datepicker.formatDate('mm-dd-yy', OpenDate);
-                    $('#lblIncidentDate')[0].innerHTML = $.datepicker.formatDate('mm-dd-yy', IncDate);
+                    $('#lblIncOpenTimestamp')[0].innerHTML = $.datepicker.formatDate('mm-dd-yy', openDate);
+                    
 
-                    $('#lblJobSite')[0].innerHTML = record.JobSite;
+
+
+
+                    $('#lblIncidentDate')[0].innerHTML = '';
+                    $('#lbllblIncidentDate').hide();
+                    var incd = $.datepicker.formatDate('mm-dd-yy', incDate);
+                    if (incd != '01-01-1') {
+                        $('#lbllblIncidentDate').show();
+                        $('#lblIncidentDate')[0].innerHTML = incd;
+                    };
+
+
+
+                    $('#lblJobSite')[0].innerHTML = '';
+                    $('#lbllblJobSite').hide();
+                    if (record.JobSite != null && record.JobSite.length > 0 && record.JobSite != '-') {
+                        $('#lblJobSite')[0].innerHTML = record.JobSite;
+                        $('#lbllblJobSite').show();
+                    }
+                    
+
+
+
                     $('#lblReportedByEmpName')[0].innerHTML = record.ReportedByEmpName;
-                    if (record.ObservedEmpName != null) {
+                    
+
+
+
+
+                    $('#lbllblObservedEmpName').hide();
+                    $('#lblObservedEmpName')[0].innerHTML = '';
+                    if (record.ObservedEmpName != 'Unknown') {
                         $('#lblObservedEmpName')[0].innerHTML = record.ObservedEmpName;
+                        $('#lbllblObservedEmpName').show();
                     }
 
-                    if (record.SafetyMeetingType != null) {
-                        $('#lblSafetyMeetingDate')[0].innerHTML = $.datepicker.formatDate('mm-dd-yy', MtgDate);
+
+
+
+                    $('#lbllblSafetyMeetingDate').hide();
+                    $('#lbllblSafetyMeetingType').hide();
+                    $('#lblSafetyMeetingDate')[0].innerHTML = '';
+                    $('#lblSafetyMeetingType')[0].innerHTML = '';
+                    var md = $.datepicker.formatDate('mm-dd-yy', mtgDate);
+                    if (md != '01-01-1') {
+                        $('#lbllblSafetyMeetingDate').show();
+                        $('#lbllblSafetyMeetingType').show();
+                        $('#lblSafetyMeetingDate')[0].innerHTML = md;
                         $('#lblSafetyMeetingType')[0].innerHTML = record.SafetyMeetingType;
                     }
 
+
+
+
+
+
                     $('#lblComments')[0].innerHTML = record.Comments;
-                    if (record.InitialResponse != null) {
+                    
+
+
+
+
+
+                    $('#lbllblInitialResponse').hide();
+                    $('#lblInitialResponse')[0].innerHTML = '';
+                    if (record.InitialResponse != null && record.InitialResponse.length > 0) {
+                        $('#lbllblInitialResponse').show();
                         $('#lblInitialResponse')[0].innerHTML = record.InitialResponse;
                     }
 
@@ -340,7 +304,7 @@
                 });
             } else {
                 //No rows selected
-                ClearDtl();
+                clearDtl();
             }
 
 
@@ -348,7 +312,7 @@
     });
 
 
-    function ClearDtl() {
+    function clearDtl() {
         $('#cmdDiv').hide();
         $('#hlblKey')[0].innerHTML = '';
 
@@ -365,17 +329,59 @@
 
         $('#lblComments')[0].innerHTML = '';
         $('#lblInitialResponse')[0].innerHTML = '';
+        
+        $('#hlblSID')[0].innerHTML = '';
+        $("#ddEmpIds").val('');
 
         $('#txtPts').val('');
     }
 
     $('#cmdDiv').hide();
     var timestamp = new Date();
+    $('#jTableContainer').jtable('option', 'pageSize', 20);
     $('#jTableContainer').jtable('load', { DataFilter: 'New', isA: '1', T: timestamp.getTime() });
 
 
 
+    ///////////////////////////////////////////////////////////////
+    // Load List Of Employees So Supr Can Change Viewed Employee //
+    ///////////////////////////////////////////////////////////////
+    var listOfEmps = [];
+    function getEmpsSuccess(data) {
+        listOfEmps = data.d.split("\r");
+        $("#ddEmpIds").autocomplete({ source: listOfEmps },
+            {
+                matchContains: false,
+                minChars: 1,
+                autoFill: false,
+                mustMatch: false,
+                cacheLength: 20,
+                max: 20,
+                delay: 0,
+                select: function (event, ui) {
+                    var dataPieces = ui.item.value.split(' ');
+                    $('#hlblSID')[0].innerHTML = dataPieces[0];
+                    $("#ddEmpIds").autocomplete("close");
+                    $("#ddEmpIds").val(dataPieces[0] + ' ' + dataPieces[2] + ', ' + dataPieces[3]);
+                },
+                response: function (event, ui) {
+                    if (ui.content.length == 1) {
+                        var dataPieces = ui.content[0].value.split(' ');
+                        $('#hlblSID')[0].innerHTML = dataPieces[0];
+                        $("#ddEmpIds").autocomplete("close");
+                        $("#ddEmpIds").val(dataPieces[0] + ' ' + dataPieces[2] + ', ' + dataPieces[3]);
+                    }
 
+                    return ui;
+                }
+            });
+    }
+
+    /////////////////////////////////
+    // Load Emps AutoComplete List //
+    /////////////////////////////////
+    var getEmpsCall = new AsyncServerMethod();
+    getEmpsCall.exec("/SIU_DAO.asmx/GetAutoCompleteActiveEmployees", getEmpsSuccess);
 
 
 });

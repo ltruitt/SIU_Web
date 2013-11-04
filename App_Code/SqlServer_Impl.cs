@@ -16,14 +16,15 @@ using System.Web;
 using System.Globalization;
 using System.Web.Configuration;
 using System.Web.Script.Services;
-using iTextSharp.text.pdf;
 using ShermcoYou.DataTypes;
 using AutoMapper;
-
 using System.Web.Services;
 using System.Web.Script.Serialization;
+using Calendar = System.Globalization.Calendar;
 using IsolationLevel = System.Transactions.IsolationLevel;
 
+//using Microsoft.Synchronization;
+//using Microsoft.Synchronization.Files;
 
 public class DeveloperConfigurationSection : ConfigurationSection
 {
@@ -134,7 +135,9 @@ public class SiuDao : WebService
                 class_date = DateTime.Parse(ClassDate),
                 class_instructor = InstID
             };
-            SqlServer_Impl.RecordUnPostedClassStudent(newSTudentClass);
+            SIU_Class_Completion jasonResp = SqlServer_Impl.RecordUnPostedClassStudent(newSTudentClass);
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            return serializer.Serialize(new { Result = "OK", Records = jasonResp });
         }
         catch (Exception e)
         {
@@ -328,7 +331,8 @@ public class SiuDao : WebService
             PointsGivenBy = BusinessLayer.UserEmpID,
             Points = int.Parse(Points),
             Comments = Comment,
-            EventDate = DateTime.Parse( DateOfEvent )
+            EventDate = DateTime.Parse( DateOfEvent ),
+            SPR_UID = 0
         };
             
         SqlServer_Impl.RecordAdminPoints(pt);
@@ -869,6 +873,21 @@ public class SiuDao : WebService
 #endregion ELO Time And Time Reporting
 
 
+#region Sync
+    //[WebMethod(EnableSession = true)]
+    //public string DirSync(string System, string Dept, string Dir)
+    //{
+    //    FileSyncOptions options = FileSyncOptions.RecycleDeletedFiles | FileSyncOptions.RecyclePreviousFileOnUpdates |
+    //             FileSyncOptions.RecycleConflictLoserFiles;
+
+
+    //    return "Success";
+    //}
+
+
+
+#endregion Sync
+
 
 #region Job Reports
     [WebMethod(EnableSession = true)]
@@ -1078,6 +1097,9 @@ public class SiuDao : WebService
             /////////////////////////////////////////////////////
             if (jobRpt.IROnly == 1 || jobRpt.IRonFinalReport == 1)
                 WebMail.JobReportIrNotice(jobRpt);
+
+            if (jobRpt.SalesFollowUp == 1)
+                WebMail.JobSalesNotice(jobRpt);
         }
         catch (Exception ex)
         {
@@ -1138,7 +1160,7 @@ public class SiuDao : WebService
     [WebMethod(EnableSession = true)]
     public string GetVehicleMileageRecord(string empNo, string WeekEnding)
     {
-                try
+        try
         {
         Shermco_Assigend_Vehicle_Data rpt = SqlServer_Impl.GetVehicleMileageRecord(empNo, DateTime.Parse(WeekEnding));
         JavaScriptSerializer serializer = new JavaScriptSerializer();
@@ -1201,32 +1223,6 @@ public class SiuDao : WebService
             throw;
         }
     }
-
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // Same As Method Above But Called From My Vehicle Mileage Report Whereas Above Called From VehicleMileageEntry  //
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    [WebMethod(EnableSession = true)]
-    public string DeleteMyVehicleMileageRecord(string Emp_No, string Week_Ending)
-    {
-        JavaScriptSerializer serializer = new JavaScriptSerializer();
-        try
-        {
-            Shermco_Assigend_Vehicle_Data vehRpt = SqlDataMapper<Shermco_Assigend_Vehicle_Data>.MakeNewDAO<Shermco_Assigend_Vehicle_Data>();
-
-            vehRpt.Emp__No = Emp_No;
-            vehRpt.Week_Ending = DateTime.Parse(Week_Ending);
-
-            SqlServer_Impl.RemoveVehicleMileage(vehRpt);
-            return serializer.Serialize(new { Result = "OK" });
-        }
-        catch (Exception ex)
-        {
-            SqlServer_Impl.LogDebug("SiuDao.DeleteMyVehicleMileageRecord", Emp_No + ", " + Week_Ending);
-            SqlServer_Impl.LogDebug("SiuDao.DeleteMyVehicleMileageRecord", ex.Message);
-            return serializer.Serialize(new { Result = "ERROR", ex.Message });
-        }
-
-    }
 #endregion Vehicle Personal Miles
 
 
@@ -1283,12 +1279,11 @@ public class SiuDao : WebService
     // New Safety Pays Report //
     ////////////////////////////
     [WebMethod(EnableSession = true)]
-    public void RecordSafetyPays(string EID, string JobNo, string IncTypeSafeFlag, string IncTypeUnsafeFlag, string IncTypeSuggFlag,
+    public string RecordSafetyPays(string EID, string JobNo, string IncTypeSafeFlag, string IncTypeUnsafeFlag, string IncTypeSuggFlag,
                                  string IncTypeTopicFlag, string IncTypeSumFlag, string IncidentDate, string ObservedEmpID,
                                  string InitialResponse, string SafetyMeetingType, string SafetyMeetingDate, string Comments,
-                                 string JobSite, string IncTypeText)
+                                 string JobSite, string IncTypeText, string QomID)
     {
-
 
         ///////////////////////////////////////////
         // Make And Initialize A New Data Object //
@@ -1325,12 +1320,32 @@ public class SiuDao : WebService
         newReport.JobNo = JobNo;
         newReport.IncTypeTxt = IncTypeText;
 
+        IEnumerable<string> errorList = BusinessLayer.ValidateSafetyPays(newReport).ToList();
+        if (errorList.Any())
+            return "Error: " +  errorList.First();
+
+
+        if (newReport.IncTypeTxt == "VEST" || newReport.IncTypeTxt == "VPP")
+            newReport.IncTypeTxt += " QOM";
+
+        if ( QomID.Length > 0 )
+            newReport.QOM_ID = int.Parse(QomID);
+
+
         //////////////////////////////////
         // Write New Record To Database //
         //////////////////////////////////
         newReport.IncidentNo = SqlServer_Impl.RecordSafetyPaysReport(newReport);
 
         WebMail.SafetyPaysNewEmail(newReport, BusinessLayer.UserEmail, BusinessLayer.UserFullName);
+
+        if (BusinessLayer.UserEmpID != newReport.EmpID)
+        {
+            Shermco_Employee e = SqlServer_Impl.GetEmployeeByNo(newReport.EmpID);
+            WebMail.SafetyPaysNewEmail(newReport, e.Company_E_Mail, e.Last_Name + ", " + e.First_Name);
+        }
+
+        return "";
     }
 
     /////////////////////////////////
@@ -1407,32 +1422,46 @@ public class SiuDao : WebService
     // Close Safety Pays Report //
     //////////////////////////////
     [WebMethod(EnableSession = true)]
-    public void RecordSafetyPaysStatusAcceptClosed(string RcdID, string EmpID, string Points, string ehsRepsonse)
+    public void RecordSafetyPaysStatusAcceptClosed(string RcdID, string EmpID, string Points, string ehsRepsonse, string SuprID)
     {
+        string suprEmail = "";
+        if (SuprID.Length > 0)
+            suprEmail = SqlServer_Impl.GetEmployeeByNo(SuprID).Company_E_Mail;
+
         SIU_SafetyPaysReport rptRcd = SqlServer_Impl.RecordSafetyPaysStatus(int.Parse(RcdID), "Closed", EmpID, true, int.Parse(Points), ehsRepsonse);
         SqlServer_Impl.RecordSafetyPaysPoints(rptRcd);
-        WebMail.SafetyPaysAcceptEMail(rptRcd, BusinessLayer.UserEmail, BusinessLayer.UserFullName);
+        WebMail.SafetyPaysAcceptEMail(rptRcd, suprEmail, BusinessLayer.UserFullName);
+
+
     }
 
     /////////////////////////////////////////////////////////////
     // Set A Safety Pays Report Status to ACCEPTED and WORKING //
     /////////////////////////////////////////////////////////////
     [WebMethod(EnableSession = true)]
-    public void RecordSafetyPaysStatusWork(string RcdID, string EmpID, string Points, string ehsRepsonse)
+    public void RecordSafetyPaysStatusWork(string RcdID, string EmpID, string Points, string ehsRepsonse, string SuprID)
     {
+        string suprEmail = "";
+        if ( SuprID.Length > 0 )
+            suprEmail = SqlServer_Impl.GetEmployeeByNo(SuprID).Company_E_Mail;
+
         SIU_SafetyPaysReport rptRcd = SqlServer_Impl.RecordSafetyPaysStatus(int.Parse(RcdID), "Working", EmpID, false, int.Parse(Points), ehsRepsonse);
         SqlServer_Impl.RecordSafetyPaysPoints(rptRcd);
-        WebMail.SafetyPaysWorkingEMail(rptRcd, BusinessLayer.UserEmail, BusinessLayer.UserFullName);
+        WebMail.SafetyPaysWorkingEMail(rptRcd, suprEmail, BusinessLayer.UserFullName);
     }
 
     ///////////////////////////////
     // Reject Safety Pays Report //
     ///////////////////////////////
     [WebMethod(EnableSession = true)]
-    public void RecordSafetyPaysStatusReject(string RcdID, string EmpID, string ehsRepsonse)
+    public void RecordSafetyPaysStatusReject(string RcdID, string EmpID, string ehsRepsonse, string SuprID)
     {
+        string suprEmail = "";
+        if (SuprID.Length > 0)
+            suprEmail = SqlServer_Impl.GetEmployeeByNo(SuprID).Company_E_Mail;
+
         SIU_SafetyPaysReport rptRcd = SqlServer_Impl.RecordSafetyPaysStatus(int.Parse(RcdID), "Reject", EmpID, true, 0, ehsRepsonse);
-        WebMail.SafetyPaysRejectedEMail(rptRcd, BusinessLayer.UserEmail, BusinessLayer.UserFullName);
+        WebMail.SafetyPaysRejectedEMail(rptRcd, suprEmail, BusinessLayer.UserFullName);
     }
 
     /////////////////////////////////
@@ -1465,7 +1494,7 @@ public class SiuDao : WebService
     //  Or Return Just A Single Report        //
     ////////////////////////////////////////////
     [WebMethod(EnableSession = true)]
-    public string GetSafetyPaysRptData(string DataFilter, string isA)
+    public string GetSafetyPaysRptDataSorted(string DataFilter, string isA, int jtStartIndex = 0, int jtPageSize = 0, string jtSorting = "IncidentNo")
     {
         ////////////////////////////////
         // Build Response Data Object //
@@ -1474,11 +1503,53 @@ public class SiuDao : WebService
         try
         {
             List<SIU_SafetyPaysReport_Rpt> jasonResp = null;
+            int rcdCnt = 0;
 
             switch (DataFilter)
             {
                 case "New":
-                    jasonResp = SqlServer_Impl.GetNewSafetyPaysRpts();
+                    jasonResp = SqlServer_Impl.GetNewSafetyPaysRpts(jtStartIndex, jtPageSize, jtSorting);
+                    rcdCnt = (jasonResp == null) ? 0 : SqlServer_Impl.GetNewSafetyPaysRptsCount();
+                    break;
+
+                default:
+                    int rptId;
+                    if (int.TryParse(DataFilter, out rptId))
+                        return serializer.Serialize(new { Result = "OK", Records = new SIU_SafetyPaysReport_Rpt(SqlServer_Impl.GetSafetyPaysReport(rptId).SingleOrDefault()) });
+                    break;
+            }
+            if (jasonResp != null)
+                if (isA != "1")
+                    jasonResp = jasonResp.Where(c => c.EmpID == BusinessLayer.UserEmpID).ToList();
+
+            return serializer.Serialize(new { Result = "OK", Records = jasonResp, TotalRecordCount = rcdCnt });
+        }
+        catch (Exception ex)
+        {
+            SqlServer_Impl.LogDebug("SiuDao.GetSafetyPaysRptData", DataFilter);
+            SqlServer_Impl.LogDebug("SiuDao.GetSafetyPaysRptData", ex.Message);
+            return serializer.Serialize(new { Result = "ERROR", ex.Message });
+        }
+     
+
+    }    
+    [WebMethod(EnableSession = true)]
+    public string GetSafetyPaysRptData(string DataFilter, string isA, int jtStartIndex = 0, int jtPageSize = 0)
+    {
+        ////////////////////////////////
+        // Build Response Data Object //
+        ////////////////////////////////
+        JavaScriptSerializer serializer = new JavaScriptSerializer();
+        try
+        {
+            List<SIU_SafetyPaysReport_Rpt> jasonResp = null;
+            int rcdCnt = 0;
+
+            switch (DataFilter)
+            {
+                case "New":
+                    jasonResp = SqlServer_Impl.GetNewSafetyPaysRpts(jtStartIndex, jtPageSize);
+                    rcdCnt = (jasonResp == null) ? 0 : SqlServer_Impl.GetNewSafetyPaysRptsCount();
                     break;
 
                 case "NoTasks":
@@ -1519,7 +1590,7 @@ public class SiuDao : WebService
                 if ( isA != "1")
                     jasonResp = jasonResp.Where(c => c.EmpID == BusinessLayer.UserEmpID).ToList();
 
-            return serializer.Serialize(new { Result = "OK", Records = jasonResp });
+            return serializer.Serialize(new { Result = "OK", Records = jasonResp, TotalRecordCount = rcdCnt });
         }
         catch (Exception ex)
         {
@@ -1529,6 +1600,25 @@ public class SiuDao : WebService
         }
     }
 
+    [WebMethod(EnableSession = true)]
+    public string RemoveSafetyPaysRpt(string IncidentNo)
+    {
+        //////////////////////////////////////////////
+        // Called From JTable So Need JSON Response //
+        //////////////////////////////////////////////
+        JavaScriptSerializer serializer = new JavaScriptSerializer();
+        try
+        {
+            SqlServer_Impl.RemoveSafetyPaysRpt(IncidentNo);
+            return serializer.Serialize(new { Result = "OK" });
+        }
+
+        catch (Exception ex)
+        {
+            SqlServer_Impl.LogDebug("RemoveSafetyPaysRpt", ex.Message);
+            return serializer.Serialize(new { Result = "ERROR", ex.Message });
+        }  
+    }
     ////////////////////////////////////////////
     // Return List Of Open Safety Pays Report //
     // Filtered by Several Options            //
@@ -1572,6 +1662,116 @@ public class SiuDao : WebService
 
         
 #endregion Safety Pays
+#region QOM
+    [WebMethod(EnableSession = true)]
+    public string GetSafetyQomQList()
+    {
+        ////////////////////////////////
+        // Build Response Data Object //
+        ////////////////////////////////
+        JavaScriptSerializer serializer = new JavaScriptSerializer();
+        try
+        {
+            List<SIU_Safety_MoQ> jasonResp = SqlServer_Impl.GetSafetyQomQList();
+            return serializer.Serialize(new { Result = "OK", Records = jasonResp });
+        }
+        catch (Exception ex)
+        {
+            SqlServer_Impl.LogDebug("SiuDao.GetSafetyQomQList", ex.Message);
+            return serializer.Serialize(new { Result = "ERROR", ex.Message });
+        }        
+    }
+
+    [WebMethod(EnableSession = true)]
+    public string GetSafetyQomQRList(string Eid)
+    {
+        ////////////////////////////////
+        // Build Response Data Object //
+        ////////////////////////////////
+        JavaScriptSerializer serializer = new JavaScriptSerializer();
+        try
+        {
+            List<SIU_Qom_QR> jasonResp = SqlServer_Impl.GetSafetyQomQRList(Eid);
+            return serializer.Serialize(new { Result = "OK", Records = jasonResp });
+        }
+        catch (Exception ex)
+        {
+            SqlServer_Impl.LogDebug("SiuDao.GetSafetyQomQRList", ex.Message);
+            return serializer.Serialize(new { Result = "ERROR", ex.Message });
+        }
+    }
+
+
+
+
+
+    [WebMethod(EnableSession = true)]
+    public object RecordSafetyQomQuestion(string _UID, string _dept, string _start, string _end, string _text, string _file)
+    {
+        try
+        {
+            SIU_Safety_MoQ moQ = new SIU_Safety_MoQ()
+            {
+                QuestionGroup = _dept,
+                StartDate =  DateTime.Parse(_start),
+                EndDate = DateTime.Parse(_end),
+                Question = _text,
+                QuestionFile = Server.UrlDecode(_file),
+                Q_Id = int.Parse(_UID)
+            };
+            int rId = SqlServer_Impl.RecordSafetyQomQuestion(moQ);
+            return new { Result = "OK", Record = rId };
+        }
+
+        catch (Exception ex)
+        {
+            SqlServer_Impl.LogDebug("RecordSafetyQomQuestion", ex.Message);
+            return new { Result = "ERROR", ex.Message };
+        }
+
+    }
+
+    [WebMethod(EnableSession = true)]
+    public object RemoveSafetyQomQuestion(string Q_Id)
+    {
+        //////////////////////////////////////////////
+        // Called From JTable So Need JSON Response //
+        //////////////////////////////////////////////
+        JavaScriptSerializer serializer = new JavaScriptSerializer();
+        try
+        {
+            SqlServer_Impl.RemoveSafetyQomQuestion(Q_Id);
+            return serializer.Serialize(new { Result = "OK" });
+        }
+
+        catch (Exception ex)
+        {
+            SqlServer_Impl.LogDebug("RemoveSafetyQomQuestion", ex.Message);
+            return serializer.Serialize(new { Result = "ERROR", ex.Message });
+        }        
+    }
+#endregion QOM
+#region Incident Accident
+    [WebMethod(EnableSession = true)]
+    public string GetOpenIncidentAccident()
+    {
+        ////////////////////////////////
+        // Build Response Data Object //
+        ////////////////////////////////
+        JavaScriptSerializer serializer = new JavaScriptSerializer();
+        try
+        {
+            List<object> jasonResp = SqlServer_Impl.GetOpenIncidentAccident();
+            return serializer.Serialize(new { Result = "OK", Records = jasonResp[0] });
+        }
+        catch (Exception ex)
+        {
+            SqlServer_Impl.LogDebug("SiuDao.GetOpenIncidentAccident", ex.Message);
+            return serializer.Serialize(new { Result = "ERROR", ex.Message });
+        }         
+    }
+#endregion Incident Accident
+
 #region Training
 
     /////////////////////////////////////////////////////
@@ -1583,7 +1783,7 @@ public class SiuDao : WebService
         JavaScriptSerializer serializer = new JavaScriptSerializer();
         try
         {
-            SIU_Training_Log rpt = SqlServer_Impl.GetMeetingLogAdmin( int.Parse(rcdId) );
+            SIU_Meeting_Log_Ext rpt = SqlServer_Impl.GetTrainingLog( int.Parse(BusinessLayer.UserEmpID),  int.Parse(rcdId) );
             return serializer.Serialize(rpt);
         }
         catch (Exception ex)
@@ -1641,7 +1841,6 @@ public class SiuDao : WebService
     {
         try
         {
-            string QuizName = HttpUtility.UrlDecode(cQuiz);
             SIU_Training_Log mtgLog = new SIU_Training_Log
             {   
                 TL_UID = int.Parse(MeetingID),
@@ -1655,8 +1854,8 @@ public class SiuDao : WebService
                 QuizName = HttpUtility.UrlDecode(cQuiz)
             };
 
-            var Emp = SqlServer_Impl.GetEmployeeByNo(cInstID);
-            mtgLog.Instructor = (Emp != null) ? Emp.Last_Name + ", " + Emp.First_Name : "";
+            var emp = SqlServer_Impl.GetEmployeeByNo(cInstID);
+            mtgLog.Instructor = (emp != null) ? emp.Last_Name + ", " + emp.First_Name : "";
             
             if (cReq.Length > 0) mtgLog.PreReq = int.Parse(cReq);
 
@@ -1801,7 +2000,7 @@ public class SiuDao : WebService
     }
 #endregion Training
 
-    #region Document and Video Browsing
+#region Document and Video Browsing
     ////////////////////////////////////
     // Provide Video File Directories //
     ////////////////////////////////////
@@ -1973,6 +2172,7 @@ public class SiuDao : WebService
         string videoFolder = movieId.Substring(0, splitIdx);
 
         SqlServer_Impl.LogVideoWatch(empNo, videoName, videoFolder, pos, dur, true);
+        WebMail.MovieCompletedEMail(empNo, videoName);
 
         return "";
     }
@@ -2297,6 +2497,30 @@ public class SqlServer_Impl : WebService
     }
 #endregion
 
+#region Logon
+
+    public static SIU_LogonProbeRcd LogonProbe(string UserID, string Pwd, string IP, int Valid)
+    {
+        SIU_LogonProbeRcd logonResp = new SIU_LogonProbeRcd();
+
+        try
+        {
+            logonResp.Valid = Valid;
+            logonResp.Mail = 0;
+            SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
+            nvDb.SIU_Logon(UserID, Pwd, IP, ref logonResp.Valid, ref logonResp.Mail);
+        }
+        catch (Exception ex)
+        {
+            LogDebug("SIU_LogonProbeRcd", ex.Message);
+            logonResp.Valid = -1;
+            logonResp.Mail = 1;
+        }
+        return logonResp;
+    }
+#endregion Logon
+
+
 #region Debug
     public  static void LogDebug(string Module, string Msg)
     {
@@ -2527,10 +2751,10 @@ public class SqlServer_Impl : WebService
                             join ta in nvDb.SIU_Training_Attendances on tl.TL_UID equals ta.TL_UID 
                             into taExt                                   
 	                    from subset in taExt.DefaultIfEmpty()
-                        where (tl.QuizName.Length > 0 || tl.VideoFile.Length > 0) && (subset.EmpID == UserID) && 
-                                (subset.VideoEnd == null || subset.QuizPass != true )
+                        where (tl.QuizName.Length > 0 || tl.VideoFile.Length > 0) && (subset.EmpID == UserID) &&
+                                (subset.VideoEnd == null || subset.QuizPass != true || subset.QuizPass == null)
                         orderby tl.Date descending
-                        select new SIU_Meeting_Log_Ext()
+                        select new SIU_Meeting_Log_Ext
                         {
                             TL_UID = tl.TL_UID,
                             Date = tl.Date,
@@ -2547,20 +2771,45 @@ public class SqlServer_Impl : WebService
                             InstructorID = tl.InstructorID,
                             VideoComplete = (subset.VideoEnd != null),
                             QuizComplete = TriIntFromBool(subset.QuizPass),
-                            QuizPass = (bool?) subset.QuizPass,
+                            QuizPass = subset.QuizPass,
                             PreReq = tl.PreReq
                         }
                     );
 
-                List<int> ListClasses =
+                /////////////////////////////////////
+                // Build List Of Completed Classes //
+                /////////////////////////////////////
+                List<int> listCompleteClasses =
+                    (   from tl in nvDb.SIU_Training_Logs
+                         join ta in nvDb.SIU_Training_Attendances on tl.TL_UID equals ta.TL_UID
+                         into taExt
+                         from subset in taExt.DefaultIfEmpty()
+                         where (subset.EmpID == UserID) &&
+                         (
+                            ((tl.VideoFile.Length > 0 ) ? ((subset.VideoEnd != null)? true : false) : true) &&
+                            ((tl.QuizName.Length > 0 ) ? ((subset.QuizPass == true)? true : false) : true)
+                         )
+                         select tl.TL_UID
+                    ).ToList();
+
+
+                ///////////////////////////////////////
+                // Simple List Of In Progess Classes //
+                ///////////////////////////////////////
+                List<int> listInProgressClasses =
                     (from eip in eventsInProgress
                      select eip.TL_UID
                      ).ToList();
 
+
+
+                ///////////////////////////////////////////
+                // Build List Of Classes Not Yet Started //
+                ///////////////////////////////////////////
                 var eventsNotStarted =
                    (    from tl in nvDb.SIU_Training_Logs
-                        where ! ListClasses.Contains(tl.TL_UID)
-                        select new SIU_Meeting_Log_Ext()
+                        where !listInProgressClasses.Contains(tl.TL_UID) && !listCompleteClasses.Contains(tl.TL_UID)
+                        select new SIU_Meeting_Log_Ext
                         {
                             TL_UID = tl.TL_UID,
                             Date = tl.Date,
@@ -2587,7 +2836,7 @@ public class SqlServer_Impl : WebService
                 //////////////////////////////////////////////////////////////////////////////////////////
                 // Get List Of badges And Certifications For This User That have Or Are About To Expire //
                 //////////////////////////////////////////////////////////////////////////////////////////
-                List<string> ExpiredExpiringQual =
+                List<string> expiredExpiringQual =
                     (   from qc in nvDb.BandC_DistinctByEmployees
                         where qc.No_== UserID.ToString(CultureInfo.InvariantCulture) && ( qc.IsMissing == 1 || qc.To_Date > DateTime.Now.AddDays(-90) )
                         select qc.Qualification_Code
@@ -2597,14 +2846,14 @@ public class SqlServer_Impl : WebService
                 /////////////////////////////////////////////////////////////////////////////////////////////////
                 // From List Of Expiring Badges And Certifications, Build List Of Events That Need To be Taken //
                 /////////////////////////////////////////////////////////////////////////////////////////////////
-                var NeedToCertify =
+                var needToCertify =
                    (    from tl in nvDb.SIU_Training_Logs
                                 join tlc in nvDb.SIU_Training_Log_Certifications on tl.TL_UID equals tlc.TL_UID
                         into taExt
                         from subset in taExt.DefaultIfEmpty()
-                            where ExpiredExpiringQual.Contains(subset.QualCode)  
+                            where expiredExpiringQual.Contains(subset.QualCode)  
                         orderby tl.Date descending
-                        select new SIU_Meeting_Log_Ext()
+                        select new SIU_Meeting_Log_Ext
                         {
                             TL_UID = tl.TL_UID,
                             Date = tl.Date,
@@ -2634,14 +2883,14 @@ public class SqlServer_Impl : WebService
                 ///////////////////////////////
                 List<SIU_Meeting_Log_Ext> allClassesList = eventsInProgress.ToList();
                 allClassesList.AddRange(eventsNotStarted.ToList());
-                allClassesList.AddRange(NeedToCertify.ToList());
+                allClassesList.AddRange(needToCertify.ToList());
 
 
                 ///////////////////////////////////////////////////
                 // For Events Added Because Certification Needed /
                 // Add In All Pre-Requisit Classes               //
                 ///////////////////////////////////////////////////
-                foreach (var certItem in NeedToCertify.Where(c => c.PreReq != null)   )
+                foreach (var certItem in needToCertify.Where(c => c.PreReq != null)   )
                 {
                     ////////////////////////////////////////////////////////////
                     // Is THis PreReq Already In The Master List Of Events ?? //
@@ -2657,7 +2906,7 @@ public class SqlServer_Impl : WebService
                     {
                         var addPreReqRcd = (from l3 in nvDb.SIU_Training_Logs
                                             where l3.TL_UID == certItem.PreReq
-                                            select new SIU_Meeting_Log_Ext()
+                                            select new SIU_Meeting_Log_Ext
                                             {
                                                 TL_UID = l3.TL_UID,
                                                 Date = l3.Date,
@@ -2693,9 +2942,9 @@ public class SqlServer_Impl : WebService
                     foreach (var notCompleteListItem in allClassesList.Where(c => c.PreReq != null).OrderByDescending(x=>x.PreReq)   )
                     {
                         // Try And Find PreReq Item To This One //
-                        int? ItemPreReq = notCompleteListItem.PreReq;
+                        int? itemPreReq = notCompleteListItem.PreReq;
                         var preReqRcd = (from l3 in allClassesList
-                                         where l3.TL_UID == ItemPreReq
+                                         where l3.TL_UID == itemPreReq
                                          select l3).SingleOrDefault();
 
                         // Found A PreReq Record
@@ -2721,6 +2970,67 @@ public class SqlServer_Impl : WebService
         }
         return new List<SIU_Meeting_Log_Ext>();
     }
+    public static SIU_Meeting_Log_Ext GetTrainingLog(int UserID, int TL_UID)
+    {
+        try
+        {
+            SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
+
+            TransactionOptions to = new TransactionOptions
+            {
+                IsolationLevel = IsolationLevel.ReadUncommitted
+            };
+
+            using (new TransactionScope(TransactionScopeOption.RequiresNew, to))
+            {
+                //////////////////////////////////////
+                // Build List Of Events In Progress //
+                //////////////////////////////////////
+                SIU_Meeting_Log_Ext tlPart =  
+                    (from tl in nvDb.SIU_Training_Logs
+                     where (tl.TL_UID == TL_UID ) 
+                     select new SIU_Meeting_Log_Ext
+                     {
+                         TL_UID = tl.TL_UID,
+                         Date = tl.Date,
+                         Topic = tl.Topic,
+                         Description = tl.Description,
+                         Instructor = tl.Instructor,
+                         MeetingType = tl.MeetingType,
+                         Location = tl.Location,
+                         Points = tl.Points,
+                         VideoFile = tl.VideoFile,
+                         QuizName = tl.QuizName,
+                         StartTime = tl.StartTime,
+                         StopTime = tl.StopTime,
+                         InstructorID = tl.InstructorID,
+                         PreReq = tl.PreReq
+                     }
+                    ).SingleOrDefault();
+
+
+                SIU_Training_Attendance taPart = 
+                    (   from ta in nvDb.SIU_Training_Attendances
+                        where (ta.TL_UID == TL_UID && ta.EmpID == UserID)
+                        select ta
+                    ).Take(1).SingleOrDefault();
+                if (taPart == null) taPart = new SIU_Training_Attendance();
+
+                tlPart.VideoComplete = (taPart.VideoEnd != null);
+                tlPart.QuizComplete = TriIntFromBool(taPart.QuizPass);
+                tlPart.QuizPass = (taPart.QuizPass == null) ? false : taPart.QuizPass;
+
+                return tlPart;
+            }
+
+        }
+        catch (Exception ex)
+        {
+            LogDebug("GetTrainingLog", ex.Message);
+        }
+        return new SIU_Meeting_Log_Ext();
+    }
+
     private static int TriIntFromBool(bool? value)
     {
         // null = -1
@@ -2772,8 +3082,16 @@ public class SqlServer_Impl : WebService
                       ).SingleOrDefault();
 
 
-            nvDb.SIU_Training_Logs.DeleteOnSubmit(rcd);
-            nvDb.SubmitChanges();
+            if (rcd != null)
+            {
+                nvDb.SIU_Training_Logs.DeleteOnSubmit(rcd);
+                nvDb.SubmitChanges();
+            }
+            else
+            {
+                LogDebug("RemoveMeetingLogAdmin", "Failed To Find Data Record For " + TL_UID);
+            }
+            
         }
         catch (Exception ex)
         {
@@ -2930,20 +3248,43 @@ public class SqlServer_Impl : WebService
         }
 
         return true;
-
     }
     public static string TrainingMovieComplete(string empNo, string TL_UID)
     {
         SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
         try
         {
-            SIU_Training_Attendance ta = (from ta_video in nvDb.SIU_Training_Attendances
-                                          where ta_video.TL_UID == int.Parse(  TL_UID )
-                                          select ta_video
-                                          ).SingleOrDefault();
+            SIU_Training_Attendance ta = (from taVideo in nvDb.SIU_Training_Attendances
+                                          where taVideo.TL_UID == int.Parse(  TL_UID ) && taVideo.EmpID == int.Parse(empNo) 
+                                          select taVideo
+                                          ).OrderByDescending(c => c.TA_UID).Take(1).SingleOrDefault() ?? new SIU_Training_Attendance();
 
-            if (ta == null)
+            /////////////////////////////////////////////////
+            // If This Attendance Record Is Already Closed //
+            // Open Another One                            //
+            /////////////////////////////////////////////////
+            if (ta.Awarded == true)
+            {
+                SIU_Training_Attendance_h tah = new SIU_Training_Attendance_h();
+
+                ///////////////////////////////
+                // Copy Over New Data Fields //
+                ///////////////////////////////
+                Mapper.CreateMap<SIU_Training_Attendance, SIU_Training_Attendance_h>();
+                Mapper.Map(ta, tah);
+                nvDb.SIU_Training_Attendance_hs.InsertOnSubmit(tah);
+
+                ///////////////////////////////////
+                // Start A New Attendance Record //
+                ///////////////////////////////////
                 ta = new SIU_Training_Attendance();
+
+                ///////////////////////////
+                // Remove The Old Record //
+                ///////////////////////////
+                nvDb.SIU_Training_Attendances.DeleteOnSubmit(ta);
+            }
+
 
             ta.TL_UID = int.Parse( TL_UID );
             ta.EmpID =  int.Parse(  empNo );
@@ -2993,18 +3334,51 @@ public class SqlServer_Impl : WebService
 
         try
         {
-            int TL_UID = int.Parse(testRcd.User_Zipcode);
+            int tlUid = int.Parse(testRcd.User_Zipcode);
 
             SIU_Training_Attendance ta = (from taAttend in nvDb.SIU_Training_Attendances
-                where taAttend.TL_UID == TL_UID && taAttend.EmpID == int.Parse(testRcd.User_ID)
+                where taAttend.TL_UID == tlUid && taAttend.EmpID == int.Parse(testRcd.User_ID)
                 select taAttend
-                ).SingleOrDefault() ?? new SIU_Training_Attendance();
+                ).OrderByDescending(c =>c.TA_UID).Take(1).SingleOrDefault() ?? new SIU_Training_Attendance();
 
-            ta.TL_UID = TL_UID;
+            /////////////////////////////////////////////////
+            // If This Attendance Record Is Already Closed //
+            // Open Another One                            //
+            /////////////////////////////////////////////////
+            if (ta.Awarded == true)
+            {
+                SIU_Training_Attendance_h tah = new SIU_Training_Attendance_h();
+
+                ///////////////////////////////
+                // Copy Over New Data Fields //
+                ///////////////////////////////
+                Mapper.CreateMap<SIU_Training_Attendance, SIU_Training_Attendance_h>();
+                Mapper.Map(ta, tah);
+                nvDb.SIU_Training_Attendance_hs.InsertOnSubmit(tah);
+
+                ///////////////////////////////////
+                // Start A New Attendance Record //
+                ///////////////////////////////////
+                ta = new SIU_Training_Attendance();
+
+                ///////////////////////////
+                // Remove The Old Record //
+                ///////////////////////////
+                nvDb.SIU_Training_Attendances.DeleteOnSubmit(ta);
+            }
+
+
+            ////////////////////////////////
+            // Update or Insert TA Record //
+            ////////////////////////////////
+            ta.TL_UID = tlUid;
+            ta.TQ_UID = testRcd.UID;
             ta.EmpID = int.Parse(testRcd.User_ID);
             ta.QuizDate = DateTime.Now;
             ta.QuizName = testRcd.Quiz_Name;
             ta.QuizPass = (testRcd.User_Pct_Marks > 79);
+            if (ta.QuizPass == true)
+                ta.Awarded = true;
 
             if (ta.TA_UID == 0)
             {
@@ -3013,15 +3387,14 @@ public class SqlServer_Impl : WebService
                 return testRcd.UID.ToString(CultureInfo.InvariantCulture);
             }
 
-            ///////////////////////////////
-            // Copy Over New Data Fields //
-            ///////////////////////////////
-
+            ///////////////////////////
+            // Commit all DB Changes //
+            ///////////////////////////
             nvDb.SubmitChanges();
         }
         catch (Exception ex)
         {
-            LogDebug("RecordTest TA_Section: ", ex.Message);
+            LogDebug("RecordTest TA and TAH Sections: ", ex.Message);
         }
 
         return testRcd.UID.ToString(CultureInfo.InvariantCulture);
@@ -3226,19 +3599,37 @@ public class SqlServer_Impl : WebService
 
             using (new TransactionScope(TransactionScopeOption.RequiresNew, to))
             {
-                return (from anEmp in nvDb.Shermco_Employees
+                Shermco_Employee emp = (from anEmp in nvDb.Shermco_Employees
                     where anEmp.No_ == empNo
                     select anEmp).SingleOrDefault();
+
+                if ( emp != null )
+                    return emp;
+
+                int iEmpNo;
+                if (int.TryParse(empNo, out iEmpNo) == true)
+                {
+                    return (from anEmp in nvDb.Shermco_Employees
+                            where anEmp.No_ == iEmpNo.ToString(CultureInfo.InvariantCulture)
+                            select anEmp).SingleOrDefault();
+                }
+
             }
         }
         catch (Exception ex)
         {
             LogDebug("GetEmployeeByNo", ex.Message);
         }
+        return null;
         return new Shermco_Employee();
     }
     public static string GetEmployeeNameByNo(string empNo)
     {
+        if (empNo == null) return "Unknown";
+        if (empNo.Length == 0) return "Unknown";
+
+        SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
+
         try
         {
             TransactionOptions to = new TransactionOptions
@@ -3248,6 +3639,16 @@ public class SqlServer_Impl : WebService
 
             using (new TransactionScope(TransactionScopeOption.RequiresNew, to))
             {
+
+                var nameParts  = (    from anEmp in nvDb.Shermco_Employees
+                                    where anEmp.No_ == empNo
+                                    select  new { anEmp.Last_Name, anEmp.First_Name } 
+                                  ).SingleOrDefault();
+
+                if (nameParts == null)
+                    return "unknown";
+                return "(" + empNo + ")     " + nameParts.Last_Name + ", " + nameParts.First_Name;
+
                 var emp = GetEmployeeByNo(empNo);
                 if (emp == null)
                     return empNo;
@@ -3542,6 +3943,7 @@ public class SqlServer_Impl : WebService
         return new List<BandC_License_Sum>();        
     }
 #endregion
+
 
 #region ELO TIME              Xtn Ex
     public static List<SIU_Oh_Accounts> GetTimeOhAccounts()
@@ -4027,7 +4429,6 @@ public class SqlServer_Impl : WebService
         {
             LogDebug("DeleteTimeRecord", ex.Message);
         }
-       
     }
     public static SIU_TimeSheet_DailyDetailSums GetTimeSheet_DailyBrokenOutSums(string empNo, DateTime entryDate)
     {
@@ -4643,6 +5044,33 @@ public class SqlServer_Impl : WebService
         return true;
     }
 
+    public static string GetJobLeadTechName(string jobNo)
+    {
+        if (jobNo == null) return "";
+        if (jobNo.Length == 0) return "";
+
+        try
+        {
+            TransactionOptions to = new TransactionOptions
+            {
+                IsolationLevel = IsolationLevel.ReadUncommitted
+            };
+
+            using (new TransactionScope(TransactionScopeOption.RequiresNew, to))
+            {
+                var job = GetJobByNo(jobNo);
+                if (job == null)
+                    return "";
+                return GetEmployeeNameByNo(job.Lead_Tech);
+            }
+        }
+        catch (Exception ex)
+        {
+            LogDebug("GetJobLeadTechName", ex.Message);
+        }
+        return "";
+    }
+
     public static Shermco_Job_Report GetSubmitJobReportByNo(string jobNo)
     {
         SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
@@ -4999,7 +5427,7 @@ public class SqlServer_Impl : WebService
     }
 
 
-    public static void RecordUnPostedClassStudent(SIU_Class_Completion _StudentClass)
+    public static SIU_Class_Completion RecordUnPostedClassStudent(SIU_Class_Completion _StudentClass)
     {
         SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
 
@@ -5021,6 +5449,7 @@ public class SqlServer_Impl : WebService
 
         nvDb.SIU_Class_Completions.InsertOnSubmit(_StudentClass);
         nvDb.SubmitChanges();
+        return _StudentClass;
     }
     public static string RemoveUnPostedClassStudent(string _RcdID)
     {
@@ -5237,7 +5666,27 @@ public class SqlServer_Impl : WebService
 
         return (newReport == null) ? _report.IncidentNo : newReport.IncidentNo;
     }
+    public static void RemoveSafetyPaysRpt(string IncNo)
+    {
+        try
+        {
+            SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
 
+            var rcd = (from spRcd in nvDb.SIU_SafetyPaysReports
+                       where spRcd.IncidentNo == int.Parse(IncNo)
+                       select spRcd
+                      ).SingleOrDefault();
+
+            if (rcd == null) throw (new Exception("Unable To Locate Key: " + IncNo));
+
+            nvDb.SIU_SafetyPaysReports.DeleteOnSubmit(rcd);
+            nvDb.SubmitChanges();
+        }
+        catch (Exception ex)
+        {
+            LogDebug("RemoveSafetyPaysRpt", ex.Message);
+        }        
+    }
     /////////////////////////////////////////////////////////////
     // Data Support For EHS Admin To Sort And Mark Each Safety //
     // Pays Admin As Either ACCPET, WORK, or REJECT            //
@@ -5343,15 +5792,37 @@ public class SqlServer_Impl : WebService
                 select new SIU_SafetyPaysReport_Rpt(spList)
                ).ToList();
     }
-    public static List<SIU_SafetyPaysReport_Rpt> GetNewSafetyPaysRpts()
+    public static List<SIU_SafetyPaysReport_Rpt> GetNewSafetyPaysRpts(int startIndex, int count, string SortBy)
+    {
+        SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
+
+        return (from spList in nvDb.SIU_SafetyPaysReports
+                  where spList.IncStatus == "New"
+                  select new SIU_SafetyPaysReport_Rpt(spList)
+
+               ).ToList().OrderBy(SortBy).Skip(startIndex).Take(count).ToList();
+    }
+
+    public static List<SIU_SafetyPaysReport_Rpt> GetNewSafetyPaysRpts(int startIndex, int count)
     {
         SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
 
         return (from spList in nvDb.SIU_SafetyPaysReports
                 where spList.IncStatus == "New"
                 select new SIU_SafetyPaysReport_Rpt(spList)
-               ).ToList();
+               ).Skip(startIndex).Take(count).ToList();
     }
+
+    public static int GetNewSafetyPaysRptsCount()
+    {
+        SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
+
+        return (from spList in nvDb.SIU_SafetyPaysReports
+                where spList.IncStatus == "New"
+                select spList
+               ).Count();
+    }
+
     public static List<SIU_SafetyPaysReport_Rpt> GetAllWorkingTasksSafetyPaysRpts()
     {
         SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
@@ -5423,7 +5894,6 @@ public class SqlServer_Impl : WebService
                 select new SIU_SafetyPays_TaskList_Rpt(spTaskList)
                ).ToList();
     }
-
     public static IEnumerable<SIU_SafetyPays_TaskStatus> GetSafetyPaysTaskStatus(int _incidentNo)
     {
         SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
@@ -5433,7 +5903,6 @@ public class SqlServer_Impl : WebService
                 select spTaskList
                );
     }
-
     public static List<SIU_SafetyPays_TaskStatus> GetSafetyPaysTaskStatusRpt(int _incidentNo, int _TaskNo)
     {
         SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
@@ -5473,7 +5942,7 @@ public class SqlServer_Impl : WebService
         {
             spRcd.ehsRepsonse = ehsRepsonse;
         }
-        
+
         nvDb.SubmitChanges();
 
         return spRcd;
@@ -5538,6 +6007,13 @@ public class SqlServer_Impl : WebService
 
         return task;
     }
+
+
+    struct RecordSafetyPaysPointsObsData
+    {
+        public int PtCnt;
+        public int UID;
+    }
     public static void RecordSafetyPaysPoints(SIU_SafetyPaysReport rptRcd)
     {
         SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
@@ -5551,7 +6027,8 @@ public class SqlServer_Impl : WebService
                 PointsGivenBy = rptRcd.IncLastTouchEmpID,
                 Comments = "Awarded for Safety Pays Submission",
                 Points = (int)rptRcd.PointsAssigned,
-                EventDate = rptRcd.IncidentDate ?? rptRcd.IncOpenTimestamp
+                EventDate = rptRcd.IncidentDate ?? rptRcd.IncOpenTimestamp,
+                SPR_UID = rptRcd.IncidentNo
             };
 
             if ( rptRcd.IncTypeSafeFlag ) newPts.ReasonForPoints = 1;
@@ -5574,6 +6051,37 @@ public class SqlServer_Impl : WebService
             }
 
             nvDb.SIU_SafetyPays_Points.InsertOnSubmit(newPts);
+
+            ///////////////////////////////////////////////////////////////////////
+            // If An Employee Was Identified In An "I Saw Something Safe" report //
+            // Award that employee points as well                                //
+            ///////////////////////////////////////////////////////////////////////
+            if (rptRcd.IncTypeSafeFlag && rptRcd.ObservedEmpID.Length > 0)
+            {
+
+                RecordSafetyPaysPointsObsData obsData = (
+                    from pc in nvDb.SIU_SafetyPays_Points_Types 
+                    where pc.Description.Contains("Identified")
+                    select new RecordSafetyPaysPointsObsData{ PtCnt = pc.PointsCount, UID = pc.UID }
+                ).Take(1).SingleOrDefault();
+
+                SIU_SafetyPays_Point newPtsObserved = new SIU_SafetyPays_Point
+                {
+                    Emp_No = rptRcd.ObservedEmpID,
+                    DatePointsGiven = DateTime.Now,
+                    PointsGivenBy = rptRcd.IncLastTouchEmpID,
+                    Comments = "Awarded for Safety Pays Submission (Observed)",
+                    Points = obsData.PtCnt,
+                    EventDate = rptRcd.IncidentDate ?? rptRcd.IncOpenTimestamp,
+                    ReasonForPoints = obsData.UID,
+                    SPR_UID = rptRcd.IncidentNo
+                };
+
+                nvDb.SIU_SafetyPays_Points.InsertOnSubmit(newPtsObserved);
+
+                WebMail.SafetyPaysObservedEMail(rptRcd, obsData.PtCnt);
+            }
+
             nvDb.SubmitChanges();
         }
 
@@ -5832,30 +6340,47 @@ public class SqlServer_Impl : WebService
 #endregion
 
 #region Safety Question Of the Month Methods
-    public static IEnumerable<SIU_Safety_MoQ> GetSafetyQomQList()
+
+    ////////////////////////////////////
+    // Called by JTable on Admin Page //
+    ////////////////////////////////////
+    public static List<SIU_Safety_MoQ> GetSafetyQomQList()
     {
         SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
 
-        DateTime yearOld = DateTime.Now.AddYears(-1);
+        DateTime periodStart = DateTime.Now.AddDays(-1);
 
         return (from qomList in nvDb.SIU_Safety_MoQs
-                where qomList.EndDate > yearOld
+                where qomList.StartDate <= periodStart
                 select qomList
-               );        
+               ).ToList();        
     }
-    public static List<SIU_Safety_MoQ> GetSafetyQomQOpenList()
+
+    ////////////////////////////////////////////////////////////////
+    // Lookup Active Qom Questions and Combine With And Responses //
+    // Submitted by User Combined With Any Awarded Points         //
+    ////////////////////////////////////////////////////////////////
+    public static List<SIU_Qom_QR> GetSafetyQomQRList(string Eid)
     {
         SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
 
-        int[] openQ =  (    from part1 in nvDb.SIU_Safety_MoQ_Responses
-                            where part1.ScoreDate == null
-                            select part1.Q_Id
-                       ).Distinct().ToArray();
+        DateTime periodStart = DateTime.Now.AddDays(-1);
 
-        return (    from part2 in nvDb.SIU_Safety_MoQs
-                    where openQ.Contains(part2.Q_Id)
-                    select part2
-               ).ToList();
+        var responses =
+            from respData in nvDb.SIU_SafetyPaysReports
+            where respData.EmpID == Eid && respData.IncTypeTxt.Contains("QOM")
+            select respData;
+
+        var questionResponse =
+            from qomQ in nvDb.SIU_Safety_MoQs
+            join empRespData in responses on qomQ.Q_Id equals empRespData.QOM_ID into oj
+            from joinedData in oj.DefaultIfEmpty()
+            where qomQ.StartDate <= DateTime.Now && qomQ.EndDate.AddDays(1) >= DateTime.Now
+            join spp in nvDb.SIU_SafetyPays_Points on joinedData.IncidentNo equals spp.SPR_UID into oj2
+            from allData in oj2.DefaultIfEmpty()
+            select new SIU_Qom_QR(qomQ, joinedData, allData);
+
+        return questionResponse.ToList();
     }
     public static SIU_Safety_MoQ GetSafetyQomQ(int QiD)
     {
@@ -5879,37 +6404,12 @@ public class SqlServer_Impl : WebService
                     select qomList
                 ).SingleOrDefault();
         }
-        catch {}
+        catch (Exception ex)
+        {
+            LogDebug("GetSafetyQomQ", ex.Message);
+        }
 
         return q;
-    }
-
-    public static List<SIU_Safety_MoQ_Response> GetSafetyQomRList(int QID)
-    {
-        SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
-
-        return (from qomRList in nvDb.SIU_Safety_MoQ_Responses
-                where qomRList.Q_Id == QID
-                select qomRList
-               ).ToList();
-    }
-    public static SIU_Safety_MoQ_Response GetSafetyQomR(int QiD, string EmpID)
-    {
-        SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
-
-            return (    from rom in nvDb.SIU_Safety_MoQ_Responses
-                        where rom.Q_Id == QiD && rom.Emp_ID == EmpID
-                        select rom
-                    ).SingleOrDefault();
-    }
-    public static SIU_Safety_MoQ_Response GetSafetyQomR(int QiD, int RiD)
-    {
-        SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
-
-        return (from rom in nvDb.SIU_Safety_MoQ_Responses
-                where rom.Q_Id == QiD && rom.Ans_Id == RiD
-                select rom
-                ).SingleOrDefault();
     }
     public static int CheckSafetyQomDateRange(DateTime Start, DateTime End)
     {
@@ -5923,106 +6423,94 @@ public class SqlServer_Impl : WebService
     }
     public static int RecordSafetyQomQuestion(SIU_Safety_MoQ _question)
     {
-        SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
         SIU_Safety_MoQ newQomQ = null;
 
-        /////////////////////////////////////////////
-        // If This Is A New Record, Perform Insert //
-        /////////////////////////////////////////////
-        if (_question.Q_Id == 0)
+        try
         {
-            nvDb.SIU_Safety_MoQs.InsertOnSubmit(_question);
-        }
+            SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
+            
+            /////////////////////////////////////////////
+            // If This Is A New Record, Perform Insert //
+            /////////////////////////////////////////////
+            if (_question.Q_Id == 0)
+            {
+                nvDb.SIU_Safety_MoQs.InsertOnSubmit(_question);
+            }
 
-        /////////////////////////////////
-        // Otherwise Perform An Update //
-        /////////////////////////////////
-        else
+            /////////////////////////////////
+            // Otherwise Perform An Update //
+            /////////////////////////////////
+            else
+            {
+                /////////////////////////////////
+                // Look For An Existing Record //
+                /////////////////////////////////
+                newQomQ = GetSafetyQomQ(_question.Q_Id);
+
+                //////////////////////////
+                // Start Update Process //
+                //////////////////////////
+                nvDb.SIU_Safety_MoQs.Attach(newQomQ);
+
+                ///////////////////////////////
+                // Copy Over New Data Fields //
+                ///////////////////////////////
+                Mapper.CreateMap<SIU_Safety_MoQ, SIU_Safety_MoQ>();
+                Mapper.Map(_question, newQomQ);
+
+
+            }
+            nvDb.SubmitChanges();
+
+            
+        }
+        catch (Exception ex)
         {
-            /////////////////////////////////
-            // Look For An Existing Record //
-            /////////////////////////////////
-            newQomQ = GetSafetyQomQ(_question.Q_Id);
-
-            //////////////////////////
-            // Start Update Process //
-            //////////////////////////
-            nvDb.SIU_Safety_MoQs.Attach(newQomQ);
-
-            ///////////////////////////////
-            // Copy Over New Data Fields //
-            ///////////////////////////////
-            Mapper.CreateMap<SIU_Safety_MoQ, SIU_Safety_MoQ>();
-            Mapper.Map(_question, newQomQ);
-
-
+            LogDebug("RecordSafetyQomQuestion", ex.Message);
         }
-        nvDb.SubmitChanges();
 
         return (newQomQ == null) ? _question.Q_Id : newQomQ.Q_Id;
     }
-    public static int RecordSafetyQomResponse(SIU_Safety_MoQ_Response _response)
+    public static void RemoveSafetyQomQuestion(string _UID)
     {
-        SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
-
-
-        /////////////////////////////////
-        // Look For An Existing Record //
-        /////////////////////////////////
-        SIU_Safety_MoQ_Response updQomR = GetSafetyQomR(_response.Q_Id, _response.Emp_ID);
-
-        /////////////////////////////////////////////
-        // If This Is A New Record, Perform Insert //
-        /////////////////////////////////////////////
-        if (updQomR.Ans_Id == 0)
+        try
         {
-            nvDb.SIU_Safety_MoQ_Responses.InsertOnSubmit(_response);
-        }
+            SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
 
-        /////////////////////////////////
-        // Otherwise Perform An Update //
-        /////////////////////////////////
-        else
+            var rcd = (from te in nvDb.SIU_Safety_MoQs
+                       where te.Q_Id == int.Parse(_UID)
+                       select te
+                      ).SingleOrDefault();
+
+            if (rcd == null) throw (new Exception(" Unable To Locate Key: " + _UID));
+
+            nvDb.SIU_Safety_MoQs.DeleteOnSubmit(rcd);
+            nvDb.SubmitChanges();
+        }
+        catch (Exception ex)
         {
-            //////////////////////////
-            // Start Update Process //
-            //////////////////////////
-            nvDb.SIU_Safety_MoQ_Responses.Attach(updQomR);
-
-            ///////////////////////////////
-            // Copy Over New Data Fields //
-            ///////////////////////////////
-            Mapper.CreateMap<SIU_Safety_MoQ_Response, SIU_Safety_MoQ_Response>()
-                .ForMember(dest => dest.Ans_Id, opt => opt.Ignore());
-            Mapper.Map(_response, updQomR);
+            LogDebug("RemoveSafetyQomQuestion", ex.Message);
         }
-        nvDb.SubmitChanges();
-
-        return (updQomR == null) ? _response.Q_Id : updQomR.Q_Id;
-    }
-    public static SIU_Safety_MoQ_Response RecordSafetyQomScore(int Q, int R, string S, string S_EmpId)
-    {
-        SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
-
-        /////////////////////////////////
-        // Get Existing Record //
-        /////////////////////////////////
-        SIU_Safety_MoQ_Response updQomR = GetSafetyQomR(Q, R);
-
-        ////////////////////////////
-        //// Start Update Process //
-        ////////////////////////////
-        nvDb.SIU_Safety_MoQ_Responses.Attach(updQomR);
-
-        updQomR.Score = int.Parse(S);
-        updQomR.ScoreDate = DateTime.Now;
-        updQomR.Score_Emp_ID = S_EmpId;
-
-        nvDb.SubmitChanges();
-
-        return updQomR;
     }
 #endregion
+
+#region Incident Accident
+
+    public static List<object> GetOpenIncidentAccident()
+    {
+        SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
+
+        return new List<object>
+        {(  from iaList in nvDb.SIU_Incident_Accidents
+            join emp in nvDb.Shermco_Employees on iaList.Emp_ID equals emp.No_ into outerJoin
+            
+            from iaList2 in outerJoin.DefaultIfEmpty()  // Left Outer Join
+            where iaList.Disposition == "Closed"
+
+            select new { iaList, iaList2.Last_Name, iaList2.Global_Dimension_1_Code, iaList2.First_Name }
+            ).ToList()};			        
+    }
+#endregion Incident Accident
 
 #region Summary Counts  Xtn Ex
     public static SIU_SummaryCountsResult GetSafetyPaysSummaryCounts()
@@ -6722,6 +7210,10 @@ public static class BusinessLayer
         List<string> errors = new List<string>();
         HolidayCalculator hc = new HolidayCalculator(DateTime.Now, HttpContext.Current.Server.MapPath(@"/App_Code/Holidays.xml"));
 
+
+        if ( TEV._OhAcct.Length == 0 && TEV._JobNo.Length == 0 )
+            errors.Add("You Must Provide A Job Or O/H Account.");
+
         //////////////////////////////////
         // No Absence Time For Holidays //
         //////////////////////////////////
@@ -6832,8 +7324,44 @@ public static class BusinessLayer
 
         return errors;
     }
+    public static IEnumerable<string> ValidateSafetyPays(SIU_SafetyPaysReport rpt)
+    {
+        List<string> errors = new List<string>();
+        DateTime minNavDate = DateTime.Parse("1/1/1753");
+
+        /////////////////////////////////////////////////////
+        // If 
+        /////////////////////////////////////////////////////
+        if (rpt.JobSite.Length == 0) 
+            errors.Add("Job Site Is Missing");
+        
+        ///////////////////////////////////////////////////
+        // Make Sure Comments Has More Than Just A Space //
+        ///////////////////////////////////////////////////
+        string splessComments = rpt.Comments.Replace('\n', ' ').Replace(" ", "");
+            
+        if (splessComments.Length == 0)
+            errors.Add("Description / Comments Missing");
+        
+        //////////////////////////////////////////////
+        // Get The Text Off the Checked Report Type //
+        //////////////////////////////////////////////
+        if ( rpt.IncTypeSafeFlag )
+            if (rpt.IncidentDate == minNavDate )
+                errors.Add("Incident Date Missing");
+
+        if ( rpt.IncTypeUnsafeFlag )
+            if (rpt.IncidentDate == minNavDate )
+                errors.Add( "Incident Date Missing");
 
 
+        if ( rpt.IncTypeSumFlag )
+            if (rpt.SafetyMeetingDate == minNavDate)
+                errors.Add( "Safety Meeting Date Missing");
+
+        return errors;
+                
+    }
 
     public static string UserName { get { return (((string)HttpContext.Current.Session["UserUser"]) == null ) ? "" : ((string)HttpContext.Current.Session["UserUser"]).ToUpper(); } }
     public static string UserEmail { get { return (((string)HttpContext.Current.Session["UserUser"]) == null) ? "" : ((string)HttpContext.Current.Session["UserEmail"]).ToUpper(); } }
@@ -7093,7 +7621,6 @@ public class DebugTextWriter : TextWriter
                     methodName = "OrderByDescending";
         }
 
-        //TODO: apply caching to the generic methodsinfos?
         return (IOrderedQueryable<T>)typeof(Queryable).GetMethods().Single(
             method => method.Name == methodName
                     && method.IsGenericMethodDefinition

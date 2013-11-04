@@ -35,15 +35,16 @@
                 <!---------------------------->
                 <label runat="server" ID="lblEmpName" ></label>
 
-                <p style="height: 10px;"></p> 
-                
-                
+                <p style="height: 10px;"></p>                 
 
                 <div  class="ui-helper-clearfix" >
                     <ul >
 				        <li class="l3"><a href="/Phone/ELO/MainMenu.aspx" >ELO</a></li>
                         <li class="l3"><a href="/Phone/LibDocPane.aspx" >Library</a></li>
                         <li class="l3"><a href="/Phone/Safety/SubmitSafetyPays.aspx">Safety Pays</a></li>
+                        <li class="l3"><a href="/Phone/UsefulLinks.aspx">Usefull Links</a></li>
+                        <p></p>
+                        <li class="l6"><a href="/Account/logoff.aspx">Logoff</a></li>
                     </ul>
                 </div>
             </div>
@@ -70,7 +71,7 @@
 
 
 	  <!-- Footer -->
-	  <section id="footer" class="footer_gallery" >		
+<%--	  <section id="footer" class="footer_gallery" >		
             <ul class="footer_gallery">
             </ul>
       </section>
@@ -79,7 +80,7 @@
         <a href="javascript:  window.location = window.location.protocol + '//' + window.location.hostname + '/' + '/homepage.aspx?force';">
             <img src="/Phone/Images/desktop1.png" alt="Desktop view" style="margin: 0; border: none; height: 60px;"/>
         </a>
-    </div>
+    </div>--%>
     
 </asp:Content>
 

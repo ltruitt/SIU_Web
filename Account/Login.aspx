@@ -1,79 +1,68 @@
-﻿<%@ Page Title="Log In" Language="C#" MasterPageFile="/SiteMaster2.master" AutoEventWireup="true" CodeFile="Login.aspx.cs" Inherits="Login" %>
+﻿<%@ Page Title="Log In" Language="C#" MasterPageFile="~/SiteMaster2.master" AutoEventWireup="true" CodeFile="Login.aspx.cs"     Inherits="Login" %>
 
-<asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
+<asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
     
     <title>Shermco You Login</title>
 
     <link rel="stylesheet" href="/Scripts/JqueryUI/development-bundle/themes/trontastic/jquery.ui.all.css" />
     <link rel="stylesheet" href="/styles/jquery.ui.form.css">
+    
+    <link href="/Styles/login.css" rel="stylesheet"  type="text/css" />
+    <script>
+        $(document).ready(function () {
+            $('#UserName').focus();
+        });
+    </script>
 </asp:Content>
 
 
-<asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
-    <center>
-<div style="background-color: black;">
-    <asp:Button ID="DoNothing" runat="server" Enabled="false" style="display: none;" />
-    <div id="FormWrapper" class="ui-widget ui-form" style="width: 320px;">
+<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
 
-        <!----------------->
-        <!-- Form Header -->
-        <!----------------->           
-        <div class="ui-widget-header ui-corner-all">
-            <h2>Please Sign In</h2>
-        </div>
+    <div style="background-color: #45473f;">
+        
+        <%--Put Here To Define Default Button--%>
+        <asp:Panel ID="Panel1" runat="server" DefaultButton="LoginButton">
     
-        <div class="ui-widget-content ui-corner-all">
-            <p>
-                <b>Please enter your username and password.</b>
-                <%--<asp:HyperLink ID="RegisterHyperLink" runat="server" EnableViewState="false">Register</asp:HyperLink> if you don't have an account.--%>
-            </p>
+            <div id="FormWrapper" class="ui-widget ui-form" style="width: 320px;">
     
+                <p></p>
 
-
-
-            <asp:Login ID="LoginUser" runat="server" EnableViewState="false" RenderOuterTable="false" RememberMeText="Remeber Me" RememberMeSet="False">
-                <LayoutTemplate>
-            
-                    <span class="failureNotification" >
-                        <asp:Literal ID="FailureText" runat="server"></asp:Literal>
-                    </span>
-            
-
-                    <asp:ValidationSummary ID="LoginUserValidationSummary" runat="server" CssClass="failureNotification" 
-                         ValidationGroup="LoginUserValidationGroup"/>
-
-                    <div class="accountInfo">
-                        <fieldset class="login">
-                            <legend style="color: white;">Account Information</legend>
-                            <p>
-                                
-                                <asp:Label ID="UserNameLabel" runat="server" AssociatedControlID="UserName">Username:</asp:Label>
-                                <asp:TextBox ID="UserName" runat="server" CssClass="textEntry" MaxLength="25"></asp:TextBox>
-                                <asp:RequiredFieldValidator ID="UserNameRequired" runat="server" ControlToValidate="UserName" 
-                                     CssClass="failureNotification" ErrorMessage="User Name is required." ToolTip="User Name is required." 
-                                     ValidationGroup="LoginUserValidationGroup"  Width="10px">*</asp:RequiredFieldValidator>
-                            </p>
-                            <p>
-                                <asp:Label ID="PasswordLabel" runat="server" AssociatedControlID="Password">Password:</asp:Label>
-                                <asp:TextBox ID="Password" runat="server" CssClass="passwordEntry" TextMode="Password"></asp:TextBox>
-                                <asp:RequiredFieldValidator ID="PasswordRequired" runat="server" ControlToValidate="Password" 
-                                     CssClass="failureNotification" ErrorMessage="Password is required." ToolTip="Password is required." 
-                                     ValidationGroup="LoginUserValidationGroup">*</asp:RequiredFieldValidator>
-                            </p>
-        <%--                    <p>
-                                <asp:CheckBox ID="RememberMe" runat="server"/>
-                                <asp:Label ID="RememberMeLabel" runat="server" AssociatedControlID="RememberMe" CssClass="inline">Keep me logged in</asp:Label>
-                            </p>--%>
-                        </fieldset>
-                        <p class="submitButton">
-                            <asp:Button ID="LoginButton" runat="server" CommandName="Login" Text="Log In" ValidationGroup="LoginUserValidationGroup"/>
-                        </p>
+                <div class="ui-widget-content ui-corner-all" >
+                
+                    <div class="failureNotification" style="margin-top: -10px;" >
+                        <asp:Literal ID="FailureText" runat="server" ></asp:Literal>
                     </div>
-                </LayoutTemplate>
-            </asp:Login>
 
-        </div>
-    </div>
-</div>    
-</center>
+                    <div style="margin-top: 35px;"/>
+            
+                            <div class="accountInfo">
+                                <fieldset class="login">
+                                    <legend style="color: white;">Account Information</legend>
+
+                                    <p id="eidBlk">
+                                        <asp:Label ID="UserNameLabel" runat="server" AssociatedControlID="UserName">Employee ID</asp:Label>
+                                        <asp:TextBox type="number" ID="UserName" runat="server" CssClass="DataInputCss DateEntryCss" MaxLength="5"></asp:TextBox>
+                                    </p>
+                                
+                                    <p  id="pwdBlk" runat="server">
+                                        <asp:Label ID="PasswordLabel" runat="server" AssociatedControlID="Password">Password:</asp:Label>
+                                        <asp:TextBox type="number" ID="Password" runat="server" CssClass="DataInputCss DateEntryCss" TextMode="Password"></asp:TextBox>
+                                    </p>
+
+                                </fieldset>
+                            
+                            
+                                <p class="submitButton">
+                                    <asp:Button ID="LoginButton" runat="server" Text="Log In" OnClick="LoginButton_Click"/>
+                                </p>
+
+                            
+                                <div style="clear: both;"></div>
+                            </div>
+                
+                </div>
+            </div>
+        </asp:Panel>
+    </div>    
+
 </asp:Content>

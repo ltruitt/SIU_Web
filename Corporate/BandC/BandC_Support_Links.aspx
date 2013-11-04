@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
     <!-- Page Layout -->
     <title>Badges and Certificates Support Links</title>
-    <link rel="stylesheet" href="../Styles/Corp.css" type="text/css"/>    
+    <link rel="stylesheet" href="/Styles/Corp.css" type="text/css"/>    
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">

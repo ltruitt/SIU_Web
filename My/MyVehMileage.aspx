@@ -45,31 +45,29 @@
 
             <section class="ui-widget-header ui-corner-all"  >
                 <div  style="text-align: center; font-size: 2em;">Vehilce Mileage</div>               
-               
+            </section>
             
     
-                <section class="ui-widget-content ui-corner-all">
+            <section class="ui-widget-content ui-corner-all">
 
-                    <!---------------------------->
-                    <!-- "Viewer ID" Section -->
-                    <!---------------------------->
+                <!---------------------------->
+                <!-- "Viewer ID" Section -->
+                <!---------------------------->
 <%--                    <div style="float: left; ">
-                        <label style="float: left; padding: 0; width:auto; margin-top: -20px;"  runat="server" ID="lblEmpName"></label><br/>
-                    </div>--%>
+                    <label style="float: left; padding: 0; width:auto; margin-top: -20px;"  runat="server" ID="lblEmpName"></label><br/>
+                </div>--%>
                     
-                    <div style="float: left; margin-top: -20px; width: 100%;">
-                        <label style="float: none; padding: 0; width:auto; "  runat="server" ID="lblEmpName"></label><br/>
-                        <span ID="imgReport" runat="server"  style="float: right; margin-left: 7px; "  >
-                            <a href="/ELO/VehMileage.aspx" style="color:white; font-weight: bold;">Enter Miles</a>
-                        </span> 
-                    </div>
+                <div style="float: left; margin-top: -20px; width: 100%;">
+                    <label style="float: none; padding: 0; width:auto; "  runat="server" ID="lblEmpName"></label><br/>
+                    <span ID="imgReport" runat="server"  style="float: right; margin-left: 7px; "  >
+                        <a href="/ELO/VehMileage.aspx" style="color:white; font-weight: bold;">Enter Miles</a>
+                    </span> 
+                </div>
 
-                    <p style="height: 5px;"></p> 
-                                 
-                     <div id="jTableContainer"></div>
-         
-                </section>                                   
-            </section>
+                <p style="height: 5px;"></p>  
+                <div id="jTableContainer"></div>
+            </section>                                   
+            
         </div>
         
     </div>        

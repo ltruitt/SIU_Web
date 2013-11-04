@@ -1,0 +1,39 @@
+﻿.Dev {
+    float: left;
+    width: 48%;
+}
+
+.Prod {
+    float: right;
+    width: 48%;
+}
+
+
+legend {
+    color: white; 
+    padding-left: 10px; 
+    padding-right: 10px; 
+    margin-left: 10px;
+}
+
+
+ul li {
+    font-size: 1.5em;
+    padding-bottom: 10px;
+}
+
+ul li ul {
+    margin-left: 20px;
+}
+
+ul li ul li {
+    font-size: .75em;
+    padding: 0;
+    margin: 0;
+}
+
+a {
+    font-size: 1em !important; 
+    font-weight: normal !important;
+}
+

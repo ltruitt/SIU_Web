@@ -1,0 +1,38 @@
+﻿.QomQDiv {
+    padding-left: 10px;
+    margin-left: 30px;
+    -ms-border-radius: 10px;
+    border-radius: 10px;
+    border: darkblue 10px double;
+    float: left;
+    background-color: skyblue ;
+    color: black;
+    font-size: 1.2em;
+}
+
+    .QomRDiv {
+    padding-left: 10px;
+    margin-left: 0;
+    margin-top: 10px;
+    -ms-border-radius: 10px;
+    border-radius: 10px;
+    border: brown 10px double;
+    float: left;
+    background-color: antiquewhite;
+    color: black;
+    font-size: 1.2em;
+}
+
+.holder {
+   overflow: hidden;
+   clear:    both;
+}
+
+.holder .even-height {
+   float: left;
+   padding-bottom: 100000px;
+   margin-bottom:  -100000px;
+}
+
+#column-one { width: 30%; }
+#column-two { width: 70%; }

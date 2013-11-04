@@ -1,6 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteMaster2.master" AutoEventWireup="true" CodeFile="TimeEntry.aspx.cs" Inherits="ELO_TimeEntry" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
+    <meta name="format-detection" content="telephone=no">
+
     <title>ELO Time Entry</title>
     
     <link href="/Styles/ELO.css" rel="stylesheet"  type="text/css" />
@@ -173,7 +175,7 @@
                     <span  id="hlblDailyHours"></span> 
                     <span  id="hlblEID" runat="server"></span> 
                     <span  id="hlblSD" runat="server"></span> 
-                    <span  id="hlblED" runat="server"></span> 
+                    <span  id="hlblEndD" runat="server"></span> 
                     <span  id="hlblEmpDept" runat="server"></span>
                     <span  id="hlblWeekIdx"></span>
                     <span  id="hldlOhAcct"></span>

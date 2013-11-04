@@ -4,21 +4,20 @@
     ///////////////////////////////////////////
     // Get Jason Array Of Total Hours By Day //
     ///////////////////////////////////////////
-    var SummaryCounts;
-    function GetMySiSum_success(data) {
-        SummaryCounts = $.parseJSON(data.d);
+    var summaryCounts;
+    function getMySiSumSuccess(data) {
+        summaryCounts = $.parseJSON(data.d);
         $('#WaitImg').hide();
         showSummary();
     }
-    function GetMySiSum() {
+    function getMySiSum() {
         hideAll();
-        DailyHoursDetails = null;
 
-        var GetMySiSum_Ajax = new AsyncServerMethod();
-        GetMySiSum_Ajax.add('EmpID', $('#hlblEID')[0].innerHTML);
-        GetMySiSum_Ajax.exec("/SIU_DAO.asmx/GetMySiSummaryCounts", GetMySiSum_success);
+        var getMySiSumAjax = new AsyncServerMethod();
+        getMySiSumAjax.add('EmpID', $('#hlblEID')[0].innerHTML);
+        getMySiSumAjax.exec("/SIU_DAO.asmx/GetMySiSummaryCounts", getMySiSumSuccess);
     }
-    GetMySiSum();
+    getMySiSum();
 
 
 
@@ -29,90 +28,97 @@
         $('#liMyYtdExp').show();
         
 
-        $('#SpMyOpen')[0].innerHTML = SummaryCounts.SpMyOpen;
-        $('#SpMyAssigned')[0].innerHTML = SummaryCounts.SpMyAssigned;
-        $('#SpMyLateTask')[0].innerHTML = SummaryCounts.SpMyLateTask;
-        $('#SpMyLateStatus')[0].innerHTML = SummaryCounts.SpMyLateStatus;
-        $('#LiSafetyPays').show();
-        
+
+        $('#SpMyOpen')[0].innerHTML = summaryCounts.SpMyOpen;
+        $('#SpMyAssigned')[0].innerHTML = summaryCounts.SpMyAssigned;
+        $('#SpMyLateTask')[0].innerHTML = summaryCounts.SpMyLateTask;
+        $('#SpMyLateStatus')[0].innerHTML = summaryCounts.SpMyLateStatus;
+        if (summaryCounts.SpMyOpen == 0)
+            $('#spOpen').hide();
+        if (summaryCounts.SpMyAssigned == 0)
+            $('#spAssigned').hide();
+        if (summaryCounts.SpMyLateTask == 0)
+            $('#spLateT').hide();
+        if (summaryCounts.SpMyLateStatus == 0)
+            $('#spLateS').hide();
 
         
         
         
 
 
-        if (SummaryCounts.VehIssues == 1)
-            $('#VehIssues')[0].innerHTML = SummaryCounts.VehIssues;
+        if (summaryCounts.VehIssues == 1)
+            $('#VehIssues')[0].innerHTML = summaryCounts.VehIssues;
         else
-            $('#VehIssues')[0].innerHTML = SummaryCounts.VehIssues;
+            $('#VehIssues')[0].innerHTML = summaryCounts.VehIssues;
 
-        if (SummaryCounts.VehIssues > 0)
+        if (summaryCounts.VehIssues > 0)
             $('#liVehIssues').show('slow');
 
 
 
 
-        if (SummaryCounts.JobRptsInProgress == 1)
-            $('#JobRptsInProgress')[0].innerHTML = SummaryCounts.JobRptsInProgress + " Job Report ";
+        if (summaryCounts.JobRptsInProgress == 1)
+            $('#JobRptsInProgress')[0].innerHTML = summaryCounts.JobRptsInProgress + " Job Report ";
         else
-            $('#JobRptsInProgress')[0].innerHTML = SummaryCounts.JobRptsInProgress + " Job Reports ";
+            $('#JobRptsInProgress')[0].innerHTML = summaryCounts.JobRptsInProgress + " Job Reports ";
 
-        if (SummaryCounts.JobRptsInProgress > 0)
+        if (summaryCounts.JobRptsInProgress > 0)
             $('#liJobRptsInProgress').show('slow');
 
 
 
-        if (SummaryCounts.JobRptsPastDue == 1)
-            $('#JobRptsPastDue')[0].innerHTML = SummaryCounts.JobRptsPastDue + " Job Report";
+        if (summaryCounts.JobRptsPastDue == 1)
+            $('#JobRptsPastDue')[0].innerHTML = summaryCounts.JobRptsPastDue + " Job Report";
         else
-            $('#JobRptsPastDue')[0].innerHTML = SummaryCounts.JobRptsPastDue + " Job Reports";
+            $('#JobRptsPastDue')[0].innerHTML = summaryCounts.JobRptsPastDue + " Job Reports";
 
-        if (SummaryCounts.JobRptsPastDue > 0)
+        if (summaryCounts.JobRptsPastDue > 0)
             $('#liJobRptsPastDue').show('slow');
 
 
 
-        if (SummaryCounts.RejectedTime == 1)
-            $('#RejectedTime')[0].innerHTML = SummaryCounts.RejectedTime + " Rejected Time Record";
+        if (summaryCounts.RejectedTime == 1)
+            $('#RejectedTime')[0].innerHTML = summaryCounts.RejectedTime + " Rejected Time Record";
         else
-            $('#RejectedTime')[0].innerHTML = SummaryCounts.RejectedTime + " Rejected Time Records";
+            $('#RejectedTime')[0].innerHTML = summaryCounts.RejectedTime + " Rejected Time Records";
 
-        if (SummaryCounts.RejectedTime > 0)
+        if (summaryCounts.RejectedTime > 0)
             $('#liRejectedTime').show('slow');
 
 
 
-        if (SummaryCounts.VehicleMileageReported == 1)
+        if (summaryCounts.VehicleMileageReported == 1)
             $('#VehicleMileageReported')[0].innerHTML = " DID";
         else
             $('#VehicleMileageReported')[0].innerHTML = " DID NOT";
 
-        if (SummaryCounts.VehicleMileageReported == 0)
+        if (summaryCounts.VehicleMileageReported == 0)
             $('#liVehicleMileageReported').show('slow');
 
 
-        if (SummaryCounts.ExpiringBandC == 1)
+        if (summaryCounts.ExpiringBandC == 1)
             $('#ExpiringBandC')[0].innerHTML = "1 Badge or Certificate ";
         else
-            $('#ExpiringBandC')[0].innerHTML = SummaryCounts.ExpiringBandC + " Badges and/or Certificates ";
+            $('#ExpiringBandC')[0].innerHTML = summaryCounts.ExpiringBandC + " Badges and/or Certificates ";
 
-        if (SummaryCounts.ExpiringBandC > 0)
+        if (summaryCounts.ExpiringBandC > 0)
             $('#liExpiringBandC').show('slow');
 
 
 
-        $('#MissedMeetings')[0].innerHTML = SummaryCounts.MissedMeetings;
-        if (SummaryCounts.SummaryCounts > 0)
+        $('#MissedMeetings')[0].innerHTML = summaryCounts.MissedMeetings;
+        if (summaryCounts.SummaryCounts > 0)
             $('#liMissedMeetings').show('slow');
 
 
 
-        if (SummaryCounts.OpenHwReq == 1)
+        if (summaryCounts.OpenHwReq == 1)
             $('#OpenHwReq')[0].innerHTML = "1 Hardware Request ";
         else
-            $('#OpenHwReq')[0].innerHTML = SummaryCounts.OpenHwReq + " Hardware Requests ";
+            $('#OpenHwReq')[0].innerHTML = summaryCounts.OpenHwReq + " Hardware Requests ";
 
-        if (SummaryCounts.OpenHwReq > 0)
+        if (summaryCounts.OpenHwReq > 0)
             $('#liOpenHwReq').show('slow');
 
 
@@ -127,27 +133,27 @@
 
 
 
-        if (SummaryCounts.HoursThisWeek == 1)
+        if (summaryCounts.HoursThisWeek == 1)
             $('#HoursThisWeek')[0].innerHTML = "1 Hour";
         else
-            $('#HoursThisWeek')[0].innerHTML = SummaryCounts.HoursThisWeek + " Hours";
+            $('#HoursThisWeek')[0].innerHTML = summaryCounts.HoursThisWeek + " Hours";
 
-        if (SummaryCounts.HoursToday == 0)
+        if (summaryCounts.HoursToday == 0)
             $('#HoursToday')[0].innerHTML = "Please turn in todays hours.";
         $('#liHoursThisWeek_HoursToday').show('slow');
 
 
 
-        $('#PHoliday')[0].innerHTML = SummaryCounts.PHoliday;
-        $('#Vacation')[0].innerHTML = SummaryCounts.Vacation;
-        $('#Sick')[0].innerHTML = SummaryCounts.Sick;
+        $('#PHoliday')[0].innerHTML = summaryCounts.PHoliday;
+        $('#Vacation')[0].innerHTML = summaryCounts.Vacation;
+        $('#Sick')[0].innerHTML = summaryCounts.Sick;
         $('#l1AccruedTime').show('slow');
 
 
-        $('#ExpCnt')[0].innerHTML = SummaryCounts.ExpCnt;
-        $('#ExpAmt')[0].innerHTML = '$' + SummaryCounts.ExpAmt;
+        $('#ExpCnt')[0].innerHTML = summaryCounts.ExpCnt;
+        $('#ExpAmt')[0].innerHTML = '$' + summaryCounts.ExpAmt;
 
-        if ( SummaryCounts.ExpCnt > 0 )
+        if ( summaryCounts.ExpCnt > 0 )
             $('#liExpCntExpAmt').show('slow');
 
         //$('#liMyYtdExp').show('slow');
@@ -201,7 +207,7 @@
     // Load List Of Employees So Supr Can Change Viewed Employee //
     ///////////////////////////////////////////////////////////////
     var listOfEmps = [];
-    function GetEmps_success(data) {
+    function getEmpsSuccess(data) {
         listOfEmps = data.d.split("\r");
         $("#ddEmpIds").autocomplete({ source: listOfEmps },
             {
@@ -213,20 +219,20 @@
                 max: 20,
                 delay: 0,
                 select: function (event, ui) {
-                    var DataPieces = ui.item.value.split(' ');
-                    $('#hlblEID')[0].innerHTML = DataPieces[0];
+                    var dataPieces = ui.item.value.split(' ');
+                    $('#hlblEID')[0].innerHTML = dataPieces[0];
                     $("#ddEmpIds").autocomplete("close");
-                    $("#ddEmpIds").val(DataPieces[0] + ' ' + DataPieces[2] + ', ' + DataPieces[3]);
-                    GetMySiSum();
+                    $("#ddEmpIds").val(dataPieces[0] + ' ' + dataPieces[2] + ', ' + dataPieces[3]);
+                    getMySiSum();
                 },
                 response: function (event, ui) {
                     if (ui.content.length == 1) {
-                        var DataPieces = ui.content[0].value.split(' ');
-                        $('#hlblEID')[0].innerHTML = DataPieces[0];
+                        var dataPieces = ui.content[0].value.split(' ');
+                        $('#hlblEID')[0].innerHTML = dataPieces[0];
                         $("#ddEmpIds").autocomplete("close");
-                        $("#ddEmpIds").val(DataPieces[0] + ' ' + DataPieces[2] + ', ' + DataPieces[3]);
+                        $("#ddEmpIds").val(dataPieces[0] + ' ' + dataPieces[2] + ', ' + dataPieces[3]);
 
-                        GetMySiSum();
+                        getMySiSum();
                     }
 
                     return ui;
@@ -237,7 +243,7 @@
 
     // Load Emps AutoComplete List
     if ($("#SuprArea").length > 0) {
-        var GetEmpsCall = new AsyncServerMethod();
-        GetEmpsCall.exec("/SIU_DAO.asmx/GetAutoCompleteActiveEmployees", GetEmps_success);
+        var getEmpsCall = new AsyncServerMethod();
+        getEmpsCall.exec("/SIU_DAO.asmx/GetAutoCompleteActiveEmployees", getEmpsSuccess);
     }
 });

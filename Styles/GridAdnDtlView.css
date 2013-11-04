@@ -99,7 +99,7 @@
 }
         
 .chkbox label {
-    padding-top:        0px;
+    padding-top:        0;
     background-color:   transparent;
     color:              #74736d;
     font-size:          18px;
@@ -112,10 +112,10 @@
     color:#CCCCCC;
 }
 
-.DataInputCss 
-{
+.DataInputCss {
     background-color: #CCCCDD;
-    border-radius:      7px; 
+    -ms-border-radius:  7px;
+    border-radius:      7px;
 }
 
 .ui-form label 

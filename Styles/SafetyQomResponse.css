@@ -1,0 +1,11 @@
+﻿html {
+    background-color: #45473f;
+}
+
+.LblScoreCss {
+    font-size: 1.2em;
+    text-align: center;
+    font-style: italic;
+    color: red;
+    background-color: yellow;
+}

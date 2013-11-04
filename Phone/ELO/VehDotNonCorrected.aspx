@@ -24,8 +24,8 @@
         <div id="FormWrapper" class="ui-widget ui-form">
         
             <section style="visibility: hidden; height: 0; width: 0;">
-                <span id="hlblEID"           runat="server"/>  
-                <span id="lblRefID"          runat="server"/> 
+                <span id="hlblEID"           runat="server"></span>  
+                <span id="lblRefID"          runat="server"></span> 
             </section>            
             
             <!----------------->
@@ -55,27 +55,27 @@
                                 
                 <div style="color: white; font-size: smaller;  display: none;"  id="DotRptDtlDiv">                   
                     <span style="width: 80px; font-weight: bold; display:inline-block;">Vehicle:</span>
-                    <span id="lblVehicle" runat="server" />
+                    <span id="lblVehicle" runat="server"></span>
                     
                     <span style="width: 15px; font-weight: bold; display:inline-block;"></span>
-                    <span id="lblPlate" runat="server" /><br/>
+                    <span id="lblPlate" runat="server"></span><br/>
                     
                     <span style="width: 80px; font-weight: bold; display:inline-block;"></span>
-                    <span id="lblMake" runat="server" />
-                    <span id="lblModel" runat="server" /><br/>
+                    <span id="lblMake" runat="server"></span>
+                    <span id="lblModel" runat="server"></span><br/>
                     
                                         
                     <span style="width: 80px; font-weight: bold; display:inline-block;">Date:</span>
-                    <span id="lblSubmitTimeStamp" runat="server" /><br/>
+                    <span id="lblSubmitTimeStamp" runat="server"></span><br/>
                     
                     <span style="width: 80px; font-weight: bold; display:inline-block;">By:</span>
-                    <span id="lblSubmitEmpID" runat="server" /><br/>
+                    <span id="lblSubmitEmpID" runat="server"></span><br/>
                     
                     <span style="width: 80px; font-weight: bold; display:inline-block;">Hazard:</span>
-                    <span id="lblHazard"  runat="server" /><br/>
+                    <span id="lblHazard"  runat="server"></span><br/>
 
                     <span style="width: 100%; font-weight: bold; margin-top: 10px; display:inline-block;">Corrective Action:</span>
-                    <span id="lblCorrection"  runat="server" /><br/>
+                    <span id="lblCorrection"  runat="server"></span><br/>
 <div id="uncorrectedDiv" style="display: none;">
                     
                     <div class="TimeRow" id="ClassDescDiv" style=" height: 79px;">

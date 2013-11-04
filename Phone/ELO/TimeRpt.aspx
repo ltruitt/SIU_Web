@@ -26,7 +26,7 @@
         <div id="FormWrapper" class="ui-widget ui-form">
         
             <section style="visibility: hidden; height: 0; width: 0;">
-                <span id="hlblEID"           runat="server"/>  
+                <span id="hlblEID"           runat="server"></span>
             </section>            
             
             <!----------------->
@@ -70,19 +70,19 @@
                  
                 <div style="color: white; font-size: smaller;"  id="TimeRptDtlDiv">                   
                     <span style="width: 80px; font-weight: bold; display:inline-block;">Dept:</span>
-                    <span id="lblDeptSelection" runat="server" /><br/>
+                    <span id="lblDeptSelection" runat="server"></span><br/>
                     
                     <span style="width: 80px; font-weight: bold; display:inline-block;">Job:</span>
-                    <span id="lblJobNoSelection" runat="server" /><br/>
+                    <span id="lblJobNoSelection" runat="server"></span><br/>
                     
                     <span style="width: 80px; font-weight: bold; display:inline-block;">Task:</span>
-                    <span id="lblTaskCodeSelection" runat="server" /><br/>
+                    <span id="lblTaskCodeSelection" runat="server"></span><br/>
                     
                     <span style="width: 80px; font-weight: bold; display:inline-block;">O/H:</span>
-                    <span id="lblOhAcctSelection"  runat="server" /><br/>
+                    <span id="lblOhAcctSelection"  runat="server"></span><br/>
                     
                     <span style="width: 80px; font-weight: bold; display:inline-block;">Status:</span>
-                    <span  id="lblStatusSelection"  runat="server" /><br/>
+                    <span  id="lblStatusSelection"  runat="server"></span><br/>
                 </div> 
 
                  <div id="jTableContainer"></div>

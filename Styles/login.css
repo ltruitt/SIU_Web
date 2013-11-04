@@ -1,0 +1,63 @@
+﻿html, body, #preFooter {
+    background-color: #45473f !important;
+}  
+
+.loginDisplay
+{
+    font-size: 1.1em;
+    display: block;
+    text-align: right;
+    color: White;
+}
+
+.footer_gallery, .SiteHeader-menu {
+    display: none;
+}
+
+
+
+.failureNotification
+{
+    font-size: 1.2em;
+    color: Red;
+    font-weight: bold;
+}
+
+
+fieldset
+{
+    border: 1px solid #ccc;
+}
+
+fieldset p 
+{
+    margin: 0 20px 10px 10px;
+}
+
+fieldset.login label, fieldset.register label, fieldset.changePassword label
+{
+    display: block;
+    font-size: 1.5em;
+    padding-top: 0;
+    width: 100%;
+}
+
+
+fieldset label.inline 
+{
+    display: inline;
+}
+
+legend 
+{
+    font-size: 1.1em;
+    font-weight: 600;
+    padding: 2px 4px 8px 4px;
+}
+
+#UserName, #Password {
+    width: 100px;
+    font-weight: bold;
+    font-size: 1.3em;
+}
+

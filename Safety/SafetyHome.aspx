@@ -2,6 +2,10 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
     <title>EHS Department Home Page</title>  
+    
+    <!-- Marquee Scroller Ref Scrolling.js for demo -->
+    <!-- http://www.maxvergelli.com/jquery-scroller/ -->
+<%--    <script src="/Scripts/jquery-scroller-v1.min.js" type="text/javascript"></script> --%>
 
     <script type="text/javascript" src="/Scripts/SiLibrary.js"></script>
     <script type="text/javascript">
@@ -16,7 +20,10 @@
                 $('#AdminIconA').prop('href', isAdmin);
                 $('#AdminFooterLi').show();
             }
-        }); 
+        });
+        
+
+
     </script>
     
 </asp:Content>
@@ -75,10 +82,6 @@
                     <div  style="text-align: center; font-size: 2em; width: 100%;  position:relative; margin-left: auto; margin-right: auto;">Environmental Health and Safety</div>
             </section> 
                 
-
-<%--            <a href="/Forms/SafetyQoMResponse.aspx" style="color: white; text-decoration: none;">
-                <marquee bgcolor="#000080" direction="left" loop="40"  style="margin-left: 40px; margin-right: 40px;" id="QomMarquee" runat="server"></marquee>
-            </a>--%>
         
 
             <ul class="DeptGallery2" >                                
@@ -131,7 +134,7 @@
                     
                     
                     <!-- Print Badge Or Certification -->
-                    <li style="height: 150px; border: none; margin-left: 35px;">
+<%--                    <li style="height: 150px; border: none; margin-left: 35px;">
                             <a href="/Corporate/BandC/iTextBasicLookup.aspx" >
                                 <img src="/Images/SI-Corp-Certifications.png" alt="Badges and Certs">
 					        </a>         
@@ -141,7 +144,7 @@
                             </a>
 
                             <div style="clear: both;"></div>             
-                    </li>     
+                    </li> --%>    
                     
                     <!-- Safety Pays Reports -->
                     <li style="height: 150px; border: none; margin-left: 35px; margin-top: 12px;">
@@ -157,8 +160,18 @@
                             </a>
 
                             <div style="clear: both;"></div>
+                    </li>
+                    
+                    <!-- Safety Pays QOM -->
+                    <li style="height: 150px; border: none; margin-left: 35px; margin-top: 12px;">
+                           
+                            
+                            <a href="/Safety/SafetyPays/SafetyQomUser.aspx" >
+                                <img src="/Images/QOM.png" style="width: 100px; height: 85px;  padding-bottom: 8px; margin-top: 0px;" alt="QOM">
+                                <div style="font-size: .8em; float: left; font-weight: bold;  width: 100%; width: 100%;  text-decoration: underline; margin-bottom: 5px; ">Submit Response</div>
+                            </a>
 
-                                            
+                            <div style="clear: both;"></div>
                     </li>
                                                                   
                     
@@ -179,12 +192,34 @@
 
          </section>
         
+
+<%--        <!-- Q. O. M.  -->
+        <div class="horizontal_scroller" style="height: 100px; width: 100%; margin: 0;" >
+            <div class="scrollingtext"  id="TeamPageMarquee" title="VEST_MARQUEE">
+                <span><b>Scrolling text ...</b></span>
+                <img src="/Images/Si-EHS-VEST.png" alt="Scrolling Container Example 1" height="50px;" />
+                <span><b>Scrolling text ...</b></span>
+            </div>
+        </div>--%>
+
     </div>   
     
 
 
    <script type="text/javascript">
        var $ = jQuery;
+       
+       //$('.horizontal_scroller').SetScroller({
+       //    velocity: 89,
+       //    direction: 'horizontal',
+       //    startfrom: 'right',
+       //    loop: 'infinite',
+       //    movetype: 'linear',
+       //    onmouseover: 'play',
+       //    onmouseout: 'play',
+       //    onstartup: 'play',
+       //    cursor: 'default'
+       //});
    </script>       
 
       

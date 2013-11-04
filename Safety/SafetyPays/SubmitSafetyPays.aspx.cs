@@ -24,7 +24,7 @@ public partial class Forms_SafetyIssue : System.Web.UI.Page
             ///////////////////////////
             StringCollection sessionVar = (StringCollection)Session["UserGroups"];
             if (sessionVar != null)
-                if (SuprArea != null) 
+                if (SuprArea != null)
                     SuprArea.Visible = (sessionVar.Contains("ShermcoYou_Safety_Pays"));
         }
 

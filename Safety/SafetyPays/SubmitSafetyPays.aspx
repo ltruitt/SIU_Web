@@ -165,7 +165,7 @@
                     <div style="clear: both; height: 10px; "></div> 
                     <div style="clear:both; ">
                         <div id="CommentLbl" style="font-size: 1.3em; font-weight: bold">Suggestion</div>
-                        <textarea id="Comments" Class="DataInputCss DateEntryCss"   runat="server" style="width: 99%; height: 100px; " maxlength="2400"  />
+                        <textarea id="Comments" Class="DataInputCss DateEntryCss" style="width: 99%; height: 100px; " maxlength="2400"></textarea>
                     </div>        
 
                 </div>

@@ -25,6 +25,7 @@
     
     <iframe name='proprofs' id='proprofs' class="restricted" ></iframe>
     <img id='NoQuiz' src="/Images/NoQuiz.jpg" alt="No Quiz Available For This Event" style="width: 450px; height: 404px; float: right; display: none; "/>
+    <img id='VidFirst' src="/Images/WatchVideoFirst.jpg" alt="Watch Video First" style="width: 450px; height: 404px; float: right; display: none; "/>
 
     <div style="clear: both;"></div>
     

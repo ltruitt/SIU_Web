@@ -10,7 +10,7 @@ public partial class ELO_TimeRpt : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        string Method = "ELO_TimeRpt.PageLoad";
+        string method = "ELO_TimeRpt.PageLoad";
 
         //////////////////////////////////////////////////////////
         // But Unless This Is A New / Refresh Form, We Are Done //
@@ -20,12 +20,12 @@ public partial class ELO_TimeRpt : System.Web.UI.Page
         ////////////////////////////
         // Show The Employee Name //
         ////////////////////////////
-        lblEmpName.InnerText = SqlServer_Impl.GetEmployeeNameByNo(BusinessLayer.UserEmpID);
+        lblEmpName.InnerHtml = SqlServer_Impl.GetEmployeeNameByNo(BusinessLayer.UserEmpID);
 
         ///////////////////////////////////////////
         // Bury The Employee ID For AJAX Lookups //
         ///////////////////////////////////////////
-        hlblEID.InnerText = BusinessLayer.UserEmpID;
+        hlblEID.InnerHtml = BusinessLayer.UserEmpID;
 
         //////////////////////////////////////////
         // Default The Time Entry Date To Today //

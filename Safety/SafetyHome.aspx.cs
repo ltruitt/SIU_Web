@@ -1,25 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+
 
 public partial class Safety_SafetyHome : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        string Method = "Safety_SafetyHome.PageLoad";
+        string method = "Safety_SafetyHome.PageLoad";
 
         if (!IsPostBack)
         {
             ///////////////////////////
             // Check For Admin Priv. //
             ///////////////////////////
-            StringCollection SessionVar = (StringCollection)Session["UserGroups"];
-            if (SessionVar != null)
-                if (SessionVar.Contains("ShermcoYou_Safety_Pays"))
+            StringCollection sessionVar = (StringCollection)Session["UserGroups"];
+            if (sessionVar != null)
+                if (sessionVar.Contains("ShermcoYou_Safety_Pays"))
                     Sx.InnerHtml = "/Safety/SafetyAdminHome.aspx";
 
             ////////////////////////////////

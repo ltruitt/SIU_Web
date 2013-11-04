@@ -1,0 +1,18 @@
+﻿html {
+    background-color: #45473f;
+    background-color: white;
+}   
+
+.QuestionInputCSS {
+    Width: 300px;
+    Height: 18px;
+}
+        
+.LblBadNameErrorCss {
+    font-size: 1.5em;
+    text-align: center;
+    font-style: italic;
+    color: red;
+    background-color: yellow;
+    border: 2px solid red;
+}   

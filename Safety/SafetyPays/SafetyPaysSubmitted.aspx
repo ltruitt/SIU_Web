@@ -26,6 +26,7 @@
                     
         <section style="visibility: hidden; height: 0; width: 0;">
             <span id="hlblEID"           runat="server"/>  
+            <span id="hlblSID"           runat="server"/>
             <span id="hlblKey"           runat="server"/>
         </section>            
             
@@ -59,7 +60,7 @@
                         <span id="lblIncTypeTxt"></span>
                     </div>
                     <div style=" display: inline-block;">
-                        <span style="width: 80px; font-weight: bold; display:inline-block;">Location:</span>
+                        <span id="lbllblJobSite" style="width: 80px; font-weight: bold; display:inline-block;">Location:</span>
                         <span style="color: yellow;" id="lblJobSite"></span>
                     </div>
                 </div>
@@ -71,10 +72,10 @@
                         <span id="lblIncOpenTimestamp"></span>
                     </div>
                     <div style="width: 300px; display: inline-block;">                    
-                        <span style="width: 80px; font-weight: bold; display:inline-block;">Occured:</span>
+                        <span id="lbllblIncidentDate" style="width: 80px; font-weight: bold; display:inline-block;">Occured:</span>
                         <span id="lblIncidentDate"></span>
                     </div>
-                    <span style="width: 80px; font-weight: bold; display:inline-block;">Mtg Date:</span>
+                    <span id="lbllblSafetyMeetingDate" style="width: 80px; font-weight: bold; display:inline-block;">Mtg Date:</span>
                     <span id="lblSafetyMeetingDate"></span>
                 </div>
 
@@ -85,10 +86,10 @@
                         <span id="lblReportedByEmpName"></span>
                     </div>
                     <div style="width: 300px; display: inline-block;">
-                        <span style="width: 80px; font-weight: bold; display:inline-block;">Observed:</span>
+                        <span id="lbllblObservedEmpName" style="width: 80px; font-weight: bold; display:inline-block;">Observed:</span>
                         <span id="lblObservedEmpName"></span>
                     </div>
-                    <span style="width: 80px; font-weight: bold; display:inline-block;">Mtg Type:</span>
+                    <span id ="lbllblSafetyMeetingType" style="width: 80px; font-weight: bold; display:inline-block;">Mtg Type:</span>
                     <span id="lblSafetyMeetingType"></span>
                 </div>
 
@@ -96,8 +97,8 @@
 
                 <span style="width: 80px; font-weight: bold; display:inline-block;">Comments:</span>
                 <span  id="lblComments" ></span><br/>
-
-                <span style="width: 180px; font-weight: bold; display:inline-block;">Initial Employee Response:</span>
+                
+                <span id="lbllblInitialResponse" style="width: 180px; font-weight: bold; display:inline-block;">Initial Employee Response:</span>
                 <span  id="lblInitialResponse"></span><br/>
                 
 
@@ -107,6 +108,17 @@
 
             <div id="cmdDiv" style="display: inline-block; margin-top: 5px;">
                 
+                <div>
+                    <div style="background-color: khaki; width: 750px; height: 5px; "></div>
+                    <span style="width: 120px; font-weight: bold; display:inline-block; color: khaki; vertical-align: top;">EHS Response:</span>
+                    <textarea ID="ehsRepsonse"  name="ehsResponse"  cols="1" style="width: 620px; height: 60px;" Class="DataInputCss" maxlength="2000" ></textarea>
+                    
+                    <div style="margin-top: 5px;">
+                        <div style="width: 120px;; color: khaki; font-weight: bold; display:inline-block; float: none;">Email Copy:</div>
+                        <input ID="ddEmpIds" class="DataInputCss" style="width: 400px; display: inline-block; float: none;" />         
+                    </div>
+                </div>
+
                 <br/>
 
                 <div style="display: inline-block; margin-bottom: 0; float: left; ">
@@ -132,11 +144,7 @@
                 </div>
                 
                 <br/>
-                <div style="margin-top: 60px;">
-                    <div style="background-color: khaki; width: 750px; height: 5px; "></div>
-                    <span style="width: 120px; font-weight: bold; display:inline-block; color: khaki; vertical-align: top;">EHS Response:</span>
-                    <textarea ID="ehsRepsonse"  name="ehsResponse"  cols="1" style="width: 620px; height: 60px;" Class="DataInputCss" maxlength="2000" ></textarea>
-                </div>
+
                                 
             </div>
 

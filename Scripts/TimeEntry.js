@@ -10,7 +10,7 @@
     // Prevent Buttons From Firing Events On Server //
     //////////////////////////////////////////////////
     $("#aspnetForm").submit(function (e) { e.preventDefault(); });
-
+    
     /////////////////////////////
     // Set Week To "This" Week //
     /////////////////////////////
@@ -52,6 +52,7 @@
     var weeklyHours = Array(0, 0, 0);
     function getWeekSumHours() {
         $('#lblHoursThisWeek')[0].innerHTML = '<b>--</b>';
+                
         var getWeekSumHoursAjax = new AsyncServerMethod();
         getWeekSumHoursAjax.add('EmpID', $('#hlblEID')[0].innerHTML);
         getWeekSumHoursAjax.add('StartDate', $('#hlblSD')[0].innerHTML);
@@ -99,7 +100,7 @@
         var getSumHoursByDayCall = new AsyncServerMethod();
         getSumHoursByDayCall.add('EmpID', $('#hlblEID')[0].innerHTML);
         getSumHoursByDayCall.add('StartDate', $('#hlblSD')[0].innerHTML);
-        getSumHoursByDayCall.add('EndDate', $('#hlblED')[0].innerHTML);
+        getSumHoursByDayCall.add('EndDate', $('#hlblEndD')[0].innerHTML);
         getSumHoursByDayCall.exec("/SIU_DAO.asmx/GetTimeTotHoursByDay", getSumHoursByDaySuccess);
     }
     getSumHoursByDay();
@@ -109,7 +110,7 @@
     // Setup Calendar //
     ////////////////////
     var startDate = new Date($('#hlblSD')[0].innerHTML);
-    var endDate = new Date($('#hlblED')[0].innerHTML);
+    var endDate = new Date($('#hlblEndD')[0].innerHTML);
 
     $('#txtEntryDate').datepicker({
         minDate: startDate,
@@ -498,6 +499,8 @@
         showDept();
     }
     function getJobDetails() {
+        $('#hlblJobNoSelection')[0].innerHTML = $('#ddJobNo').val();
+        
         var getTimeJobCall = new AsyncServerMethod();
         getTimeJobCall.add('jobNo', $('#ddJobNo').val());
         getTimeJobCall.exec("/SIU_DAO.asmx/GetTimeJob", getTimeJobSuccess);
@@ -674,7 +677,7 @@
     $('.DowBtnCSS').click(function () {
 
         var idx = parseInt($('#hlblWeekIdx')[0].innerHTML);
-
+        
         if (idx == 0)
             $('#txtEntryDate').val(this.getAttribute('DateForThis'));
 
@@ -722,6 +725,13 @@
         $('#txtEntryDate').removeClass('ValidationError');
         
         var hours = $('#txtTime').val();
+
+
+        if ($('#hlblJobNoSelection')[0].innerHTML.length == 0 && $('#hlblOhAcctSelection')[0].innerHTML.length == 0) {
+            $('#btnSubmit').hide();
+            return;
+        }
+        
 
         ////////////////////////////////
         // Date Value Must Be Present //

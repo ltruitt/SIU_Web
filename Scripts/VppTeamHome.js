@@ -3,42 +3,39 @@
     //////////////////////
     // Get Blog Content //
     //////////////////////
-    function GetBlogContent() {
-        var GetWeekSumHours_ajax = new AsyncServerMethod();
-        GetWeekSumHours_ajax.add('BlogName', $('#TeamPageBlog')[0].title);
-        GetWeekSumHours_ajax.exec("/SIU_DAO.asmx/GetMarquee", GetAdvertisedBlog_success);
+    function getBlogContent() {
+        var getWeekSumHoursAjax = new AsyncServerMethod();
+        getWeekSumHoursAjax.add('BlogName', $('#TeamPageBlog')[0].title);
+        getWeekSumHoursAjax.exec("/SIU_DAO.asmx/GetMarquee", getAdvertisedBlogSuccess);
     }
 
-    function GetAdvertisedBlog_success(data) {
-        var Content = data.d.replace(/SliderText/g, 'None');
-        $('#TeamPageBlog')[0].innerHTML = Content;
+    function getAdvertisedBlogSuccess(data) {
+        var content = data.d.replace(/SliderText/g, 'None');
+        $('#TeamPageBlog')[0].innerHTML = content;
     }
 
 
     //////////////////////
     // Get Blog Content //
     //////////////////////
-    function GetMarqueeContent() {
-        var GetWeekSumHours_ajax = new AsyncServerMethod();
-        GetWeekSumHours_ajax.add('BlogName', $('#TeamPageMarquee')[0].title);
-        GetWeekSumHours_ajax.exec("/SIU_DAO.asmx/GetMarquee", GetMarqueeContent_success);
+    function getMarqueeContent() {
+        var getWeekSumHoursAjax = new AsyncServerMethod();
+        getWeekSumHoursAjax.add('BlogName', $('#TeamPageMarquee')[0].title);
+        getWeekSumHoursAjax.exec("/SIU_DAO.asmx/GetMarquee", getMarqueeContentSuccess);
     }
 
-    function GetMarqueeContent_success(data) {
-        var Content = data.d.replace(/div/g, 'span');
-        Content = Content.replace(/<li>/g, '');
-        Content = Content.replace(/<\/li>/g, '<img alt="Scrolling Container Example 1" src="/Images/Si-EHS-VEST.png">');
-        Content = Content.replace(/<p>/g, '').replace(/<\/p>/g, '');
-        Content = Content.replace(/ class="SliderText"/g, '');
-        var x1 = $('#TeamPageMarquee')[0].innerHTML;
-        $('#TeamPageMarquee')[0].innerHTML = Content;
-
-        var x2 = $('#TeamPageMarquee')[0].innerHTML;
-        $('#TeamPageMarquee')[0].innerHTML = Content;
+    function getMarqueeContentSuccess(data) {
+        var content = data.d.replace(/div/g, 'span');
+        content = content.replace(/<li>/g, '');
+        content = content.replace(/<\/li>/g, '<img alt="Scrolling Container Example 1" src="/Images/Si-EHS-VEST.png">');
+        content = content.replace(/<p>/g, '').replace(/<\/p>/g, '');
+        content = content.replace(/ class="SliderText"/g, '');
+        $('#TeamPageMarquee')[0].innerHTML = content;
+        $('#TeamPageMarquee')[0].innerHTML = content;
     }
 
-    GetBlogContent();
-    GetMarqueeContent();
+    getBlogContent();
+    getMarqueeContent();
 
 
 
@@ -65,9 +62,9 @@
     });
     
 
-    function ConstructionWarning() {
+    function constructionWarning() {
         //Get The Popup Window Container
-        warnBox = $('#popup-box');
+        var warnBox = $('#popup-box');
 
         // Fade in the Popup
         $(warnBox).fadeIn(300);
@@ -86,6 +83,6 @@
         $('#mask').fadeIn(300);
     }
     
-    ConstructionWarning();
+//    ConstructionWarning();
 
 });

@@ -53,6 +53,8 @@
         sorting: false,
         multiselect: false,
         selectingCheckboxes: false,
+        paging: true,
+        pagesize: 60,
         actions: {
             listAction: '/SIU_DAO.asmx/GetSafetyPaysRptData'
         },
@@ -193,7 +195,10 @@
                 list: false
             }
         },
-
+        loadingRecords:  function(event, data) {
+            $('#btnCloseRpt').hide();
+            $('#btnMngTasks').hide();
+        },
         //Register to selectionChanged event to hanlde events
         selectionChanged: function () {
 
@@ -229,6 +234,7 @@
 
                     $('#txtPts').val(record.defaultPoints);
 
+                    $('#btnMngTasks').show();
                     if (record.TotalTasks > 0 && record.OpenTasks == 0 && record.LateTasks == 0)
                         $('#btnCloseRpt').show();
                     else

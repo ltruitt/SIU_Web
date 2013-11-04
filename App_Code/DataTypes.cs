@@ -2,10 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Xml;
 using System.Data;
-using System.Data.SqlClient;
-using AjaxControlToolkit;
 using AutoMapper;
 
 using System.Globalization;
@@ -38,7 +35,6 @@ namespace ShermcoYou.DataTypes
         Rejected = 7,
         Posted = 8
     }
-
     public enum Job_Status
     {
         Planning = 0,
@@ -46,10 +42,23 @@ namespace ShermcoYou.DataTypes
         Order = 2,
         Completed = 3
     }
-
-
-
-
+    public enum Employee_Status
+    {
+        Active = 0,
+        Inactive = 1,
+        Terminated = 2
+    }
+    public enum LogonValid
+    {
+        Fail = 0,
+        Success = 1,
+        LockedOut = -99
+    }
+    public class SIU_LogonProbeRcd
+    {
+        public int? Valid;
+        public int? Mail;
+    }
     public class SIU_SortedEmployees
     {
         public string sEmpNo { get; set; }
@@ -58,7 +67,6 @@ namespace ShermcoYou.DataTypes
         public string EmpFirstName { get; set; }
         public string EmpDisplayNoName { get; set; }
     }
-
     public class SIU_DOT_Rpt
     {
         private string _Vehicle;
@@ -113,8 +121,6 @@ namespace ShermcoYou.DataTypes
         public string Hazard { get; set; }
         public string Correction { get; set; }
     }
-
-
     public class SIU_SafetyPays_TaskList_Rpt
     {
         public int IncidentNo;
@@ -143,17 +149,73 @@ namespace ShermcoYou.DataTypes
             AssignedEmpName = SqlServer_Impl.GetEmployeeNameByNo(Rpt.AssignedEmpID);
         }
     }
+    public class SIU_Qom_QR
+    {
+        public int Q_Id;
+        public DateTime StartDate;
+        public DateTime EndDate;
 
+        public string Question = "";
+        public string Response = "";
+        public string EhsResponse = "";
+        public int SPP_UID;
+        public string Q_Grp = "";
+        public string Status = "No Response";
+        public string Points = "";
 
+        private static readonly string RootFilesPath = HttpContext.Current.Server.MapPath("/Files");
+
+        public SIU_Qom_QR()
+        {
+        }
+
+        public SIU_Qom_QR(SIU_Safety_MoQ Q, SIU_SafetyPaysReport R, SIU_SafetyPays_Point P)
+        {
+            Q_Id = Q.Q_Id;
+            StartDate = Q.StartDate;
+            EndDate = Q.EndDate;
+            Q_Grp = Q.QuestionGroup;
+            if ( Q.Question != null )
+                Question = Q.Question + Environment.NewLine;
+            if (  Q.QuestionFile != null )
+                if ( Q.QuestionFile.Length > 0)
+                {
+                    string filePath = RootFilesPath + @"\UPLOADS\" + Q.QuestionFile;
+
+                    if (System.IO.File.Exists(filePath))
+                    {
+                        System.IO.StreamReader QomFile = new System.IO.StreamReader(filePath);
+                        Question += QomFile.ReadToEnd();
+                        QomFile.Close();
+                    }
+                }
+
+            if (R != null)
+            {
+                Status = R.IncStatus;
+                Response = R.Comments;
+                EhsResponse = R.ehsRepsonse;
+
+                if ( P != null) 
+                    if ( P.Points > 0 )
+                        Points = P.Points.ToString(CultureInfo.InvariantCulture);
+            }
+
+            if (Status == "New") Status = "Submitted";
+            if (Status == "Closed") Status = "Accepted";
+            if (Status == "Reject") Status = "Decline";
+        }
+
+    }
     public class SIU_SafetyPaysReport_Rpt
     {
-        public int IncidentNo;
+        private int _incidentNo;
         public string IncStatus;
         public string JobSite;
         public string Comments;
 
 
-        public string IncTypeTxt;
+        private string _incTypeTxt;
         public bool IncTypeSafeFlag;
         public bool IncTypeUnsafeFlag;
         public bool IncTypeSuggFlag;
@@ -166,11 +228,11 @@ namespace ShermcoYou.DataTypes
         public string IncLastTouchEmpID;    public string LastModifedByEmpName;
         public string ObservedEmpID;        public string ObservedEmpName;
 
-        public DateTime IncOpenTimestamp;
+        private DateTime _incOpenTimestamp;
         public DateTime IncCloseTimestamp;
         public DateTime IncLastTouchTimestamp;
         public DateTime PointsAssignedTimeStamp;
-        public DateTime IncidentDate;
+        private DateTime _incidentDate;
         public DateTime SafetyMeetingDate;
 
         public int PointsAssigned;
@@ -185,12 +247,12 @@ namespace ShermcoYou.DataTypes
 
         public SIU_SafetyPaysReport_Rpt(SIU_SafetyPaysReport Rpt)
         {
-            IncidentNo = Rpt.IncidentNo;
+            _incidentNo = Rpt.IncidentNo;
             IncStatus = Rpt.IncStatus;
             JobSite  = Rpt.JobSite;
             Comments  = Rpt.Comments;
 
-            IncTypeTxt  = Rpt.IncTypeTxt;
+            _incTypeTxt  = Rpt.IncTypeTxt;
             IncTypeSafeFlag  = Rpt.IncTypeSafeFlag;
             IncTypeUnsafeFlag  = Rpt.IncTypeUnsafeFlag;
             IncTypeSuggFlag  = Rpt.IncTypeSuggFlag;
@@ -204,7 +266,7 @@ namespace ShermcoYou.DataTypes
             ObservedEmpID  = Rpt.ObservedEmpID;
 
             if (Rpt.IncOpenTimestamp != null)
-                IncOpenTimestamp  = (System.DateTime)Rpt.IncOpenTimestamp;
+                _incOpenTimestamp  = (System.DateTime)Rpt.IncOpenTimestamp;
 
             if ( Rpt.IncCloseTimestamp != null)
                   IncCloseTimestamp = (System.DateTime)Rpt.IncCloseTimestamp;
@@ -216,7 +278,7 @@ namespace ShermcoYou.DataTypes
                 PointsAssignedTimeStamp = (System.DateTime)Rpt.PointsAssignedTimeStamp;
 
             if (Rpt.IncidentDate != null)
-                IncidentDate = (System.DateTime)Rpt.IncidentDate;
+                _incidentDate = (System.DateTime)Rpt.IncidentDate;
 
             if (Rpt.SafetyMeetingDate != null)
                 SafetyMeetingDate = (System.DateTime)Rpt.SafetyMeetingDate;
@@ -229,7 +291,7 @@ namespace ShermcoYou.DataTypes
             LastModifedByEmpName = SqlServer_Impl.GetEmployeeNameByNo(IncLastTouchEmpID);
             ObservedEmpName = SqlServer_Impl.GetEmployeeNameByNo(ObservedEmpID);
 
-            defaultPoints = SqlServer_Impl.GetAutoCompletePointTypes().Where(c => c.Description == IncTypeTxt).Select(c => c.PointsCount).SingleOrDefault();
+            defaultPoints = SqlServer_Impl.GetAutoCompletePointTypes().Where(c => c.Description == _incTypeTxt).Select(c => c.PointsCount).SingleOrDefault();
 
             TotalTasks = 0;
             OpenTasks = 0;
@@ -238,15 +300,38 @@ namespace ShermcoYou.DataTypes
 
             if (IncStatus.ToLower() == "working")
             {
-                var tasks = SqlServer_Impl.GetSafetyPaysTasks(IncidentNo);
+                var tasks = SqlServer_Impl.GetSafetyPaysTasks(_incidentNo);
                 TotalTasks = tasks.Count();
                 OpenTasks = tasks.Where(c => c.CompletedDate == null).Count();
                 LateTasks = tasks.Where(c => c.CompletedDate == null && c.DueDate < DateTime.Now).Count();
-                LateStatus = SqlServer_Impl.GetSafetyPaysTaskStatus(IncidentNo).Where(c => c.ResponseDate == null).Count();
+                LateStatus = SqlServer_Impl.GetSafetyPaysTaskStatus(_incidentNo).Where(c => c.ResponseDate == null).Count();
             }
         }
+
+        public int IncidentNo
+        {
+            get { return _incidentNo; }
+            set { _incidentNo = value; }
+        }
+
+        public DateTime IncidentDate
+        {
+            get { return _incidentDate; }
+            set { _incidentDate = value; }
+        }
+
+        public DateTime IncOpenTimestamp
+        {
+            get { return _incOpenTimestamp; }
+            set { _incOpenTimestamp = value; }
+        }
+
+        public string IncTypeTxt
+        {
+            get { return _incTypeTxt; }
+            set { _incTypeTxt = value; }
+        }
     }
-        	
     public class SIU_Meeting_Log_Ext
     {
         public int TL_UID;
@@ -267,9 +352,6 @@ namespace ShermcoYou.DataTypes
         public bool? QuizPass;
         public int? PreReq;
     }
-
-
-
     public class SIU_ELO_Meal_Opts
     {
         public class SIU_ELO_Meal_Opt
@@ -288,7 +370,6 @@ namespace ShermcoYou.DataTypes
             return MealOpts;
         }
     }
-
     public class SIU_YTD_Exp_Rpt
     {
         public DateTime WorkMonth { get; set; }
@@ -315,7 +396,6 @@ namespace ShermcoYou.DataTypes
         }
 
     }
-
     public class JqGridData
     {
         public int total { get; set; }
@@ -364,7 +444,6 @@ namespace ShermcoYou.DataTypes
         }
 
     }
-
     public class SIU_TimeSheet_Job
     {
         public string JobNo;
@@ -453,8 +532,6 @@ namespace ShermcoYou.DataTypes
         public string OhAcct { get; set; }
         public int Status { get; set; }
     }
-
-
     public class SIU_TimeSheet_HoursRpt_Mo
     {
 
@@ -515,9 +592,6 @@ namespace ShermcoYou.DataTypes
 
 
     }
-
-
-
     public class SIU_TimeSheet_HoursRpt_JobOh
     {
 
@@ -552,8 +626,6 @@ namespace ShermcoYou.DataTypes
             }
         }
     }
-
-
     public class InProgressJobReport
     {
         public string JobNo;
@@ -605,8 +677,6 @@ namespace ShermcoYou.DataTypes
             ReadyDate = (init.Tech_Review_Completed == DateTime.Parse("1753-01-01"))            ? "" : init.Tech_Review_Completed.ToShortDateString();
         }
     };
-
-
     public class PastDueJobReport
     {
         public string JobNo;
@@ -641,7 +711,6 @@ namespace ShermcoYou.DataTypes
             DaysLate = (System.DateTime.Now - LLD).Days;
         }
     }
-
     public class BugReport_Report : SIU_TaskList
     {
         public bool Accepted;
@@ -658,21 +727,17 @@ namespace ShermcoYou.DataTypes
             Testing = (Task.TestingTimeStamp != null) ? true : false;
         }
     }
-
-
     public class DirectoryListing
     {
         public string DirectoryName;
         public string Html;
         public int MenuItemNo;
     }
-
     public class VehModelNoList
     {
         public string VehNo;
         public string VehModel;
     }
-
     public class SIU_TimeSheet_TimeEntryView
     {
         public string UserEmpID { get; set; }
@@ -705,8 +770,6 @@ namespace ShermcoYou.DataTypes
                    );
         }
     }
-
-
     public class SIU_SubmitJobRptView
     {
         public string jobNo { get; set; }
@@ -721,9 +784,6 @@ namespace ShermcoYou.DataTypes
         public string chkCallCust { get; set; }
         public string comments { get; set; }
     }
-
-
-
     public class SIU_Oh_Accounts
     {
         public string Account { get; set; }
@@ -734,7 +794,6 @@ namespace ShermcoYou.DataTypes
             get { return Account + " " + Desc; }
         }
     }
-
     public class SIU_Divs_Depts
     {
         public string Code { get; set; }
@@ -831,10 +890,6 @@ namespace ShermcoYou.DataTypes
             get { return EmpID + " " + FirstName + " " + LastName + " " + FirstName; }
         }
     }
-
-
-
-
     public class LogonRcd
     {
         private readonly string _firstName;
@@ -866,7 +921,6 @@ namespace ShermcoYou.DataTypes
         public string LastName { get { return _lastName; } }
         public string FirstName { get { return _firstName; } }
     }
-
     public class DirectoryList
     {
         public string DisplayName;
@@ -877,7 +931,6 @@ namespace ShermcoYou.DataTypes
         public string Ext;
         public string SubPath;  //Full Path less Virt Root and Shortname
     }
-
     public class PhoneDirectoryList
     {
         public string RootDirName;

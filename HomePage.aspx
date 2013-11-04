@@ -79,6 +79,16 @@
 				    </li> 
                     
                     
+                    <!----------------------------------->	
+				    <!--  Recorded Safety Meeting Link -->
+                    <!----------------------------------->	
+				    <li style="height: 100px; clear:both;">
+					    <a href="/Library/LibVideoPane.aspx?VR=/Videos&Path=Safety" >
+						    <img  alt="Previous Safety Meeting" src="/Images/icon-MeetingPrevious.png" style="height: 57px; width: 57px"/>
+                                    <br/>Recorded Meetings
+					    </a>  
+				    </li>
+                    
                     
                     <!--------------->	
 				    <!-- News Icon -->			
@@ -227,6 +237,9 @@
 					</a>
                     <div style="width: 100%; text-align: center;">
                         <a href="/video/FlowPlayerVideo.aspx?Video=ELO.mp4&Path=/Videos/WEB/Intro" id="A1" style="color: blue; font-size: .8em; text-align: center;" target="_Intro">ELO</a>
+                    </div>
+                    <div style="width: 100%; text-align: center;">
+                        <a href="/video/FlowPlayerVideo.aspx?Video=SP.mp4&Path=/Videos/WEB/Intro" id="A8" style="color: blue; font-size: .8em; text-align: center;" target="_Intro">Safety Pays</a>
                     </div>
 				</li>  
 

@@ -109,9 +109,9 @@
 
 		<div id="DeptGallery" style="margin-left:0; " >
 		        
-			<ul class="menu_gallery" style="background-color: transparent;">
+<%--			<ul class="menu_gallery" style="background-color: transparent;">
 
-                <!-- Safety Pays -->
+                <!--  -->
                 <li style="height: 150px; border: none; margin-right: 5px;">
                         <a href="/Library/LibDocPaneMobile.aspx?Path=/ESD/SOPs">
 						    <img  style="height: 75px; margin-left: 35px; padding-top: 10px; margin-bottom: 5px;"  alt="Safety Pays" src="/Images/library.png" />
@@ -128,7 +128,7 @@
                     
 
                 </li>          
-            </ul>  
+            </ul> --%> 
         </div>          
 
     </div>

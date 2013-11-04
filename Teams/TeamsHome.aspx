@@ -76,7 +76,7 @@
                         <!-- VPP Team -->
                         <li style="height: 150px; border: none; margin-right: 35px;">
 					        <a href="/Teams/VPP/VppHome.aspx" >
-					            <img  style="width: 150px; height: 75px; margin: 0px; padding-top: 10px; margin-bottom: 5px;"  alt="Shermco's VPP Program" src="/Images/Si-VPP.png" />
+					            <img  style="width: 150px; height: 75px; margin: 0; padding-top: 10px; margin-bottom: 5px;"  alt="Shermco's VPP Program" src="/Images/Si-VPP.png" />
                                 <div style="font-size: .8em; float: left; text-decoration: underline; font-weight: bold;   width: 50px; width: 100%;">VPP</div>
 					        </a>
                         </li>
@@ -84,18 +84,18 @@
                         <!-- VPP Team -->
                         <li style="height: 150px; border: none; margin-right: 5px;">
 					        <a href="/Teams/VEST/VestTeamHome.aspx" >
-					            <img  style="width: 75px; height: 75px; margin: 0px; padding-top: 10px; margin-bottom: 5px;"  alt="Shermco's VEST Program" src="/Images/Si-EHS-VEST.png" />
+					            <img  style="width: 75px; height: 75px; margin: 0; padding-top: 10px; margin-bottom: 5px;"  alt="Shermco's VEST Program" src="/Images/Si-EHS-VEST.png" />
                                 <div style="font-size: .8em; float: left; text-decoration: underline; font-weight: bold;   width: 75px;">VEST</div>
 					        </a>
                         </li>
 
                         <!-- VPP Team -->
-                        <li style="height: 150px; border: none; margin-right: 5px;">
+<%--                        <li style="height: 150px; border: none; margin-right: 5px;">
 					        <a href="#" >
 					            <img  style="width: 75px; height: 75px; margin: 0px; padding-top: 10px; margin-bottom: 5px;"  alt="This Web Site Team" src="/Images/Si-Teams.png" />
                                 <div style="font-size: .8em; float: left; text-decoration: underline; font-weight: bold;   width: 75px;">This Web Site Advisory</div>
 					        </a>
-                        </li>                    
+                        </li> --%>                   
                     		    
                     </ul>
                 </div>

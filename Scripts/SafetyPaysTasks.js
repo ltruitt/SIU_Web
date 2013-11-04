@@ -611,6 +611,8 @@
     var loadSafetyPaysRptCall = new AsyncServerMethod();
     loadSafetyPaysRptCall.add('DataFilter', $('#hlblKey')[0].innerHTML);
     loadSafetyPaysRptCall.add('isA', $('#hlblAdmin')[0].innerHTML);
+    loadSafetyPaysRptCall.add('jtStartIndex', 0);
+    loadSafetyPaysRptCall.add('jtPageSize', 0);
     loadSafetyPaysRptCall.exec("/SIU_DAO.asmx/GetSafetyPaysRptData", showRptDtl);
    
     loadTasks();

@@ -16,7 +16,8 @@
 
 			<ul>
 				<li class="l2"><a href="/Forms/QualCodes.aspx" id="BandCCodesLink">&nbsp;Badge and Certification Codes</a></li>
-                <li class="l2"><a href="/Forms/NewsBlog.aspx?BlogID=HOME" id="BlogLink">Home Page Blog</a></li>
+                <li class="l2"><a href="#" id="BlogLink">Document Synchronization</a></li>
+                <%--<li class="l2"><a href="/Forms/NewsBlog.aspx?BlogID=HOME" id="BlogLink">Home Page Blog</a></li>--%>
 			</ul>
         </div>    
 </asp:Content>

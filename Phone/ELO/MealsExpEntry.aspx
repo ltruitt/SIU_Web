@@ -100,17 +100,18 @@
 
                 <!-- Display Labels Showing Selected Charge Account From DD Selections -->
                 <div style="color: white; font-size: smaller;">
-                    <span runat="server" id="lblDate"            />
-                    <span runat="server" id="lblJobNo"           />
-                    <span runat="server" id="lblOhAcct"          />
-                    <span runat="server" id="lblJobDesc"         />
-                    <span runat="server" id="lblJobSite"         />
-                    <span runat="server" id="lblMiles"           />
-                    <span runat="server" id="lblMeals"           /><br/>
+                    <span runat="server" id="lblDate"></span>
+                    <span runat="server" id="lblJobNo"></span>
+                    <span runat="server" id="lblOhAcct"></span>
+                    <span runat="server" id="lblJobDesc"></span>
+                    <span runat="server" id="lblJobSite"></span>
+                    <span runat="server" id="lblMiles"></span>
+                    <span runat="server" id="lblMeals"></span>
+                    <br/>
                     
                     <!-- Dept Code Time Being Charged To    --> 
                     <div id="DepDiv" class="TimeRow"   runat="server">
-                        <span runat="server" id="lblAmount"   />
+                        <span runat="server" id="lblAmount"></span>
                         <input ID="ovrAmount" class="DataInputCss" runat="server"  style="width: 60px; float: none; margin-left: 10px;" />
                     </div>   
                     
@@ -141,16 +142,16 @@
             
                 <!-- Hidden Labels Keeping Selected Charge Account From DD Selections -->
                 <section style="visibility: hidden; height: 0; width: 0;">
-                   job <span runat="server" id="hlblJobNo"            />
-                   oh <span runat="server" id="hlblOhAcct"            />
-                   miles <span runat="server" id="hlblMiles"          />
-                   meals <span runat="server" id="hlblMeals"          />
-                   Idx <span runat="server" id="hlblMealsIdx"         />
-                   amount <span runat="server" id="hlblAmount"        />
-                   eid <span runat="server" id="hlblEID"              />
-                   sd <span runat="server" id="hlblSD"                />
-                   ed <span runat="server" id="hlblED"                />
-                   rate <span runat="server" id="hlblMileRate"        />
+                   job <span runat="server" id="hlblJobNo"></span>
+                   oh <span runat="server" id="hlblOhAcct"></span>
+                   miles <span runat="server" id="hlblMiles"></span>
+                   meals <span runat="server" id="hlblMeals"></span>
+                   Idx <span runat="server" id="hlblMealsIdx"></span>
+                   amount <span runat="server" id="hlblAmount"></span>
+                   eid <span runat="server" id="hlblEID"></span>
+                   sd <span runat="server" id="hlblSD"></span>
+                   ed <span runat="server" id="hlblED"></span>
+                   rate <span runat="server" id="hlblMileRate"></span>
                     
                 </section>
         </div>

@@ -88,8 +88,8 @@ public static class WebMail
         // Use Web Config For Config Info //
         ////////////////////////////////////
         SmtpClient client = new SmtpClient {UseDefaultCredentials = false};
-        //client.EnableSsl = true;
-
+        if (Environment.MachineName.ToLower() == "tsdc-dev") txtTo = "ltruitt@shermco.com";
+        
         try
         {
             client.Send(new MailMessage("noreply@shermco.com", txtTo, Subject, MailMessage));
@@ -121,7 +121,9 @@ public static class WebMail
         ///////////////////////////
         string eMailSubject = "Safety Pays " + Report.IncTypeTxt + " Submission From: " + UserFullName;
 
-        string emailBody = "Submitted By: " + UserFullName + Environment.NewLine;
+        string emailBody = "";
+        emailBody += "Report ID: " + Report.IncidentNo + Environment.NewLine;
+        emailBody += "Submitted By: " + UserFullName + Environment.NewLine;
         emailBody += "Date Submitted: " + ToShortDate(Report.IncOpenTimestamp) + Environment.NewLine;
         emailBody += "Submission Type: " + Report.IncTypeTxt + Environment.NewLine;
         if (Report.JobNo.Length > 0)
@@ -154,7 +156,7 @@ public static class WebMail
         //////////////////////////////////
         NetMail(UserEmail, eMailSubject, emailBody);
     }
-    public static void SafetyPaysAcceptEMail(SIU_SafetyPaysReport UpdRcd, string UserEmail, string UserFullName)
+    public static void SafetyPaysAcceptEMail(SIU_SafetyPaysReport UpdRcd, string ccUserEmail, string UserFullName)
     {
         Shermco_Employee rptByEmp = SqlServer_Impl.GetEmployeeByNo(UpdRcd.EmpID);
 
@@ -164,7 +166,7 @@ public static class WebMail
         string eMailSubject = "Approved and Closed Safety Pays Report " + UpdRcd.IncTypeTxt;
 
         string emailBody = "";
-
+        emailBody += "Report ID: " + UpdRcd.IncidentNo + Environment.NewLine;
         emailBody += "Submitted By: " + rptByEmp.Last_Name + ", " + rptByEmp.First_Name + Environment.NewLine;
         emailBody += "Date Submitted: " + ToShortDate(UpdRcd.IncOpenTimestamp) + Environment.NewLine;
         emailBody += "Submission Type: " + UpdRcd.IncTypeTxt + Environment.NewLine;
@@ -207,8 +209,18 @@ public static class WebMail
             return;
 
         NetMail(rptByEmp.Company_E_Mail, eMailSubject, emailBody);
+
+        //////////////////////////////////////////////////
+        // If A Courtesy Copy Was Requested, Send It On //
+        //////////////////////////////////////////////////
+        if ( ccUserEmail.Length > 0 )
+        {
+            eMailSubject = "Courtesy Copy: " + eMailSubject;
+            emailBody = "The EHS Department requested that a copy of the following Email be forwarded to you." + emailBody + Environment.NewLine + Environment.NewLine;
+            NetMail(ccUserEmail, eMailSubject, emailBody);
+        }
     }
-    public static void SafetyPaysRejectedEMail(SIU_SafetyPaysReport UpdRcd, string UserEmail, string UserFullName)
+    public static void SafetyPaysRejectedEMail(SIU_SafetyPaysReport UpdRcd, string ccUserEmail, string UserFullName)
     {
         Shermco_Employee rptByEmp = SqlServer_Impl.GetEmployeeByNo(UpdRcd.EmpID);
 
@@ -218,6 +230,7 @@ public static class WebMail
         string eMailSubject = "Not Approved and Closed Safety Pays Report " + UpdRcd.IncTypeTxt;
 
         string emailBody = "";
+        emailBody += "Report ID: " + UpdRcd.IncidentNo + Environment.NewLine;
         emailBody += "Submitted By: " + rptByEmp.Last_Name + ", " + rptByEmp.First_Name + Environment.NewLine;
         emailBody += "Date Submitted: " + ToShortDate(UpdRcd.IncOpenTimestamp) + Environment.NewLine;
         emailBody += "Submission Type: " + UpdRcd.IncTypeTxt + Environment.NewLine;
@@ -257,8 +270,18 @@ public static class WebMail
         //////////////////////////////////
         if (rptByEmp != null)
             NetMail(rptByEmp.Company_E_Mail, eMailSubject, emailBody);
+
+        //////////////////////////////////////////////////
+        // If A Courtesy Copy Was Requested, Send It On //
+        //////////////////////////////////////////////////
+        if (ccUserEmail.Length > 0)
+        {
+            eMailSubject = "Courtesy Copy: " + eMailSubject;
+            emailBody = "The EHS Department requested that a copy of the following Email be forwarded to you." + Environment.NewLine + Environment.NewLine + emailBody;
+            NetMail(ccUserEmail, eMailSubject, emailBody);
+        }
     }
-    public static void SafetyPaysWorkingEMail(SIU_SafetyPaysReport UpdRcd, string UserEmail, string UserFullName)
+    public static void SafetyPaysWorkingEMail(SIU_SafetyPaysReport UpdRcd, string ccUserEmail, string UserFullName)
     {
         Shermco_Employee rptByEmp = SqlServer_Impl.GetEmployeeByNo(UpdRcd.EmpID);
 
@@ -268,6 +291,7 @@ public static class WebMail
         string eMailSubject = "Accepted with Task Safety Pays Report " + UpdRcd.IncTypeTxt;
 
         string emailBody = "";
+        emailBody += "Report ID: " + UpdRcd.IncidentNo + Environment.NewLine;
         emailBody += "Submitted By: " + rptByEmp.Last_Name + ", " + rptByEmp.First_Name + Environment.NewLine;
         emailBody += "Date Submitted: " + ToShortDate(UpdRcd.IncOpenTimestamp) + Environment.NewLine;
         emailBody += "Submission Type: " + UpdRcd.IncTypeTxt + Environment.NewLine;
@@ -308,8 +332,18 @@ public static class WebMail
         ///////////////////////////
         if (rptByEmp != null)
             NetMail(rptByEmp.Company_E_Mail, eMailSubject, emailBody);
+
+        //////////////////////////////////////////////////
+        // If A Courtesy Copy Was Requested, Send It On //
+        //////////////////////////////////////////////////
+        if (ccUserEmail.Length > 0)
+        {
+            eMailSubject = "Courtesy Copy: " + eMailSubject;
+            emailBody = "The EHS Department requested that a copy of the following Email be forwarded to you." + Environment.NewLine + Environment.NewLine + emailBody;
+            NetMail(ccUserEmail, eMailSubject, emailBody);
+        }
     }
-    public static void SafetyPaysClosedEMail(SIU_SafetyPaysReport UpdRcd, string UserEmail, string UserFullName)
+    public static void SafetyPaysClosedEMail(SIU_SafetyPaysReport UpdRcd, string ccUserEmail, string UserFullName)
     {
         Shermco_Employee rptByEmp = SqlServer_Impl.GetEmployeeByNo(UpdRcd.EmpID);
 
@@ -319,7 +353,7 @@ public static class WebMail
         string eMailSubject = "Closed Safety Pays Report " + UpdRcd.IncTypeTxt;
 
         string emailBody = "";
-
+        emailBody += "Report ID: " + UpdRcd.IncidentNo + Environment.NewLine;
         emailBody += "Submitted By: " + rptByEmp.Last_Name + ", " + rptByEmp.First_Name + Environment.NewLine;
         emailBody += "Date Submitted: " + ToShortDate(UpdRcd.IncOpenTimestamp) + Environment.NewLine;
         emailBody += "Submission Type: " + UpdRcd.IncTypeTxt + Environment.NewLine;
@@ -358,6 +392,16 @@ public static class WebMail
         ////////////////////////////
         if (rptByEmp != null)
             NetMail(rptByEmp.Company_E_Mail, eMailSubject, emailBody);
+
+        //////////////////////////////////////////////////
+        // If A Courtesy Copy Was Requested, Send It On //
+        //////////////////////////////////////////////////
+        if (ccUserEmail.Length > 0)
+        {
+            eMailSubject = "Courtesy Copy: " + eMailSubject;
+            emailBody = "The EHS Department requested that a copy of the following Email be forwarded to you." + Environment.NewLine + Environment.NewLine + emailBody;
+            NetMail(ccUserEmail, eMailSubject, emailBody);
+        }
     }
     public static void SafetyPaysTaskAssignEMail(SIU_SafetyPays_TaskList UpdRcd, string UserEmail, string UserFullName)
     {
@@ -372,6 +416,12 @@ public static class WebMail
             string eMailSubject = "New Safety Pays Task Assigned To " + SqlServer_Impl.GetEmployeeNameByNo(UpdRcd.AssignedEmpID);
 
             string emailBody = "";
+            emailBody += "Report ID: " + UpdRcd.IncidentNo + Environment.NewLine;
+            emailBody += "Manage your task status here: http://" + System.Environment.MachineName + "/Safety/SafetyPays/SafetyPaysTasks.aspx?RptID=" + UpdRcd.IncidentNo + Environment.NewLine;
+            emailBody += "Submit status reports weekly." + Environment.NewLine;
+            emailBody += "Close the task when you complete the work." + Environment.NewLine + Environment.NewLine;
+
+
             emailBody += "Submitted By: " + rptByEmp.Last_Name + ", " + rptByEmp.First_Name + Environment.NewLine;
             emailBody += "Date Submitted: " + ToShortDate(report.IncOpenTimestamp) + Environment.NewLine;
             emailBody += "Submission Type: " + report.IncTypeTxt + Environment.NewLine;
@@ -403,10 +453,6 @@ public static class WebMail
             emailBody += "Task Created By: " + UserFullName + Environment.NewLine;
             emailBody += "Task Due By: " + UpdRcd.DueDate + Environment.NewLine;
             emailBody += "Task Description: " + UpdRcd.TaskDefinition + Environment.NewLine + Environment.NewLine;
-
-            emailBody += "Manage your task status here: http://" +  System.Environment.MachineName +  "/Safety/SafetyPays/SafetyPaysTasks.aspx?RptID=" + UpdRcd.IncidentNo + Environment.NewLine;
-            emailBody += "Submit status reports weekly." + Environment.NewLine;
-            emailBody += "Close the task when you complete the work."  + Environment.NewLine;
 
             ////////////////////////////
             // Send To Original  User //
@@ -440,7 +486,7 @@ public static class WebMail
             emailBody += "notice will be sent when all tasks are complete " + Environment.NewLine;
             emailBody += "and the report is closed." + Environment.NewLine + Environment.NewLine;
 
-
+            emailBody += "Report ID: " + UpdRcd.IncidentNo + Environment.NewLine;
             emailBody += "Submitted By: " + rptByEmp.Last_Name + ", " + rptByEmp.First_Name + Environment.NewLine;
             emailBody += "Date Submitted: " + ToShortDate(report.IncOpenTimestamp) + Environment.NewLine;
             emailBody += "Submission Type: " + report.IncTypeTxt + Environment.NewLine;
@@ -489,21 +535,85 @@ public static class WebMail
             NetMail(rptByEmp.Company_E_Mail, eMailSubject, emailBody);
         }
     }
+    public static void SafetyPaysObservedEMail(SIU_SafetyPaysReport UpdRcd, int Points)
+    {
+        Shermco_Employee rptByEmp = SqlServer_Impl.GetEmployeeByNo(UpdRcd.EmpID);
+        
+        /////////////////////////////////////
+        // Send Observed and Awarded Email //
+        /////////////////////////////////////
+        string eMailSubject = "You Were Observed In A Safe Act And Awarded One Or More Points" + UpdRcd.IncTypeTxt;
 
+        string emailBody = "";
+
+        emailBody += "Submitted By: " + rptByEmp.Last_Name + ", " + rptByEmp.First_Name + Environment.NewLine;
+        emailBody += "Date Submitted: " + ToShortDate(UpdRcd.IncOpenTimestamp) + Environment.NewLine;
+        emailBody += "Submission Type: " + UpdRcd.IncTypeTxt + Environment.NewLine;
+        if (UpdRcd.JobNo.Length > 0)
+            emailBody += "Job: " + UpdRcd.JobNo + Environment.NewLine;
+        emailBody += "Location: " + UpdRcd.JobSite + Environment.NewLine + Environment.NewLine;
+
+        if (UpdRcd.IncTypeTopicFlag || UpdRcd.IncTypeSumFlag)
+            emailBody += "Meeting: " + UpdRcd.SafetyMeetingType + Environment.NewLine;
+
+        if (UpdRcd.IncTypeSumFlag)
+            emailBody += "Meeting Date: " + ToShortDate(UpdRcd.SafetyMeetingDate) + Environment.NewLine + Environment.NewLine;
+
+        if (UpdRcd.IncTypeUnsafeFlag || UpdRcd.IncTypeSafeFlag)
+            emailBody += "Event Date: " + ToShortDate(UpdRcd.IncidentDate) + Environment.NewLine;
+
+        if (UpdRcd.IncTypeSafeFlag)
+            emailBody += "Involving Employee: " + UpdRcd.ObservedEmpID + Environment.NewLine + Environment.NewLine;
+
+        emailBody += "Original  Submission:" + Environment.NewLine;
+        emailBody += UpdRcd.Comments + Environment.NewLine + Environment.NewLine;
+
+        if (UpdRcd.IncTypeUnsafeFlag)
+        {
+            emailBody += "Corrective Action:" + Environment.NewLine;
+            emailBody += UpdRcd.InitialResponse + Environment.NewLine + Environment.NewLine;
+        }
+
+        emailBody += "Points Awarded: " + Points + "  On  " + ToShortDate(UpdRcd.PointsAssignedTimeStamp) + Environment.NewLine + Environment.NewLine;
+
+        emailBody += "Closed On: " + ToShortDate(UpdRcd.IncCloseTimestamp) + Environment.NewLine + Environment.NewLine;
+
+        emailBody += "Notes From EHS: " + Environment.NewLine + UpdRcd.ehsRepsonse + Environment.NewLine;
+
+        Shermco_Employee ObsByEmp = SqlServer_Impl.GetEmployeeByNo(UpdRcd.ObservedEmpID);
+        NetMail(ObsByEmp.Company_E_Mail, eMailSubject, emailBody);
+    }
 
     public static void JobReportIrNotice(Shermco_Job_Report Rpt)
     {
         const string eMailSubject = "I/R Alert for Reports";
         const string addressList = "SIU_IR_JOBRPT@shermco.com";
 
-        string emailBody = "An I/R report was submitted for job: " + Rpt.Job_No_ + Environment.NewLine + Environment.NewLine;
+        string emailBody = "An I/R report was submitted for job: " + Rpt.Job_No_ + Environment.NewLine;
+        emailBody += "Data in Dropbox: " + ((Rpt.TmpIRData == 1) ? "Yes" : "No") + Environment.NewLine;
+        emailBody += "Copies Requested: " + Rpt.No__of_Copies + Environment.NewLine;
+        emailBody += "Email: " + Rpt.Email + Environment.NewLine;
+        emailBody += "Comment: " + Rpt.Comment + Environment.NewLine;
+        emailBody += "Submitted by: " +  SqlServer_Impl.GetEmployeeNameByNo(Rpt.Turned_in_By_Emp__No_) + Environment.NewLine;
+        emailBody += "Lead Tech: " + SqlServer_Impl.GetJobLeadTechName(Rpt.Job_No_) + Environment.NewLine;
+        emailBody += ((Rpt.IROnly == 1) ? "This is the only report for the job." : "IR is portion of Final Report") + Environment.NewLine;
 
-        emailBody += ((Rpt.IROnly == 1) ? "This is the only report for the job." : "This is the I/R report for the job. More reports to come.") + Environment.NewLine + Environment.NewLine;
-        emailBody += "Report Data in Dropbox: " + ((Rpt.TmpIRData == 1) ? "YES" : "NO") + Environment.NewLine;
-        emailBody += Rpt.No__of_Copies + " Hard copies were requested." + Environment.NewLine + Environment.NewLine;;
+        NetMail(addressList, eMailSubject, emailBody);
+    }
+    public static void JobSalesNotice(Shermco_Job_Report Rpt)
+    {
+        const string eMailSubject = "Job Report Sales Follow-up Notice";
+        string addressList = "kahrendt@shermco.com, spayne@shermco.com, rloveless@shermco.com";
 
-        if (Rpt.Email.Length > 0)
-            emailBody += "Additional Customer Email: " + Rpt.Email + Environment.NewLine + Environment.NewLine;
+        var jr = SqlServer_Impl.GetJobByNo(Rpt.Job_No_);
+        var sp = SqlServer_Impl.GetEmployeeByNo(jr.Sales_Person);
+        if (sp != null)
+            addressList += ", " + sp.Company_E_Mail;
+        
+
+        string emailBody = "A report was submitted for job: " + Rpt.Job_No_ + " with deficiencies or sales follow-up" + Environment.NewLine + Environment.NewLine;
+
+        emailBody += Rpt.SalesFollowUp_Comment;
 
         emailBody += Environment.NewLine + Environment.NewLine + "Comments:" + Environment.NewLine;
         emailBody += Rpt.Comment;
@@ -511,10 +621,36 @@ public static class WebMail
 
         NetMail(addressList, eMailSubject, emailBody);
     }
+
+    public static void MovieCompletedEMail(string empID, string videoName)
+    {
+        const string eMailSubject = "Training Video Completed";
+        string addressList = SqlServer_Impl.GetEmployeeByNo(empID).Company_E_Mail;
+
+        if (addressList == null) return;
+        if (addressList.Length == 0) return;
+
+
+        string emailBody = "Thank you for viewing the following video persentation." + Environment.NewLine + Environment.NewLine;
+
+        emailBody += "Video: " + videoName + Environment.NewLine + Environment.NewLine;
+
+        emailBody += "There may be related documents and quizzes. "   + Environment.NewLine;
+        emailBody += "These documents will be listed to the right of the"  + Environment.NewLine;
+        emailBody += "video under the heading SUPPORT DOCUMENTS." + Environment.NewLine;
+
+
+        NetMail(addressList, eMailSubject, emailBody);        
+    }
+
+
+
+
+
     public static void TestEmail(string addressList)
     {
         const string eMailSubject = "SIU EMAIL TEST";
-        //const string addressList = "ltruitt@shermco.com;";
+        //addressList = "ltruitt@shermco.com, truittjl@texassdc.com, truittjl@tx.rr.com";
 
         string emailBody = "This is an SIU Web site test message" + Environment.NewLine + Environment.NewLine;
 
@@ -676,66 +812,32 @@ public static class WebMail
         NetMail("ltruitt@shermco.com", eMailSubject, emailBody);
     }
 
-    /////////////////////////////////
-    // Safety QOM Email Generation //
-    /////////////////////////////////
-    public static void SafetyQomResponseEMail(SIU_Safety_MoQ_Response UpdRcd)
+
+    public static void SafetyQomScoreEMail(ShermcoYou.DataTypes.SIU_Qom_QR UpdRcd)
     {
-        SIU_Safety_MoQ question = SqlServer_Impl.GetSafetyQomQ(UpdRcd.Q_Id);
+        //SIU_Safety_MoQ question = SqlServer_Impl.GetSafetyQomQ(UpdRcd.Q_Id);
 
-        //////////////////////////////////
-        // Send Closed / Accepted Email //
-        //////////////////////////////////
-        string eMailSubject = "Response For Safety Question Of The Month Submitted By " + SqlServer_Impl.GetEmployeeNameByNo(UpdRcd.Emp_ID);
+        ////////////////////////////////////
+        //// Send Closed / Accepted Email //
+        ////////////////////////////////////
+        //const string eMailSubject = "Safety Question Of The Month Scored";
 
-        string emailBody = "";
-        emailBody += "Question ID: " + UpdRcd.Q_Id + Environment.NewLine;
-        emailBody += "Question Text " + question.Question + Environment.NewLine + Environment.NewLine;
+        //string emailBody = "";
+        //emailBody += "Question ID: " + UpdRcd.Q_Id + Environment.NewLine;
+        //emailBody += "Question Text " + question.Question + Environment.NewLine + Environment.NewLine;
 
-        emailBody += "Response Date: " + UpdRcd.ResponseDate + Environment.NewLine;
-        emailBody += "Response Text: " + UpdRcd.Response + Environment.NewLine;
+        //emailBody += "Response Date: " + UpdRcd.ResponseDate + Environment.NewLine;
+        //emailBody += "Response Text: " + UpdRcd.Response + Environment.NewLine + Environment.NewLine;
 
-        ////////////////////////////////
-        // Send Email To Safety Group //
-        ////////////////////////////////
-        NetMail("SIU_EHS_QOM_Admin", eMailSubject, emailBody);
+//        emailBody += "Score Date: " + UpdRcd.ScoreDate + Environment.NewLine;
+//        emailBody += "Scored By: " + SqlServer_Impl.GetEmployeeNameByNo(UpdRcd.Score_Emp_ID) + Environment.NewLine;
+//        emailBody += "Score: " + UpdRcd.Score + Environment.NewLine;
 
         ///////////////////////////
         // And To Original  User //
         ///////////////////////////
-        Shermco_Employee emp = SqlServer_Impl.GetEmployeeByNo(UpdRcd.Emp_ID);
-        NetMail(emp.Company_E_Mail, eMailSubject, emailBody);
-    }
-    public static void SafetyQomScoreEMail(SIU_Safety_MoQ_Response UpdRcd)
-    {
-        SIU_Safety_MoQ question = SqlServer_Impl.GetSafetyQomQ(UpdRcd.Q_Id);
-
-        //////////////////////////////////
-        // Send Closed / Accepted Email //
-        //////////////////////////////////
-        const string eMailSubject = "Safety Question Of The Month Scored";
-
-        string emailBody = "";
-        emailBody += "Question ID: " + UpdRcd.Q_Id + Environment.NewLine;
-        emailBody += "Question Text " + question.Question + Environment.NewLine + Environment.NewLine;
-
-        emailBody += "Response Date: " + UpdRcd.ResponseDate + Environment.NewLine;
-        emailBody += "Response Text: " + UpdRcd.Response + Environment.NewLine + Environment.NewLine;
-
-        emailBody += "Score Date: " + UpdRcd.ScoreDate + Environment.NewLine;
-        emailBody += "Scored By: " + SqlServer_Impl.GetEmployeeNameByNo(UpdRcd.Score_Emp_ID) + Environment.NewLine;
-        emailBody += "Score: " + UpdRcd.Score + Environment.NewLine;
-
-        ////////////////////////////////
-        // Send Email To Safety Group //
-        ////////////////////////////////
-        NetMail("SIU_EHS_QOM_Admin", eMailSubject, emailBody);
-
-        ///////////////////////////
-        // And To Original  User //
-        ///////////////////////////
-        Shermco_Employee emp = SqlServer_Impl.GetEmployeeByNo(UpdRcd.Emp_ID);
-        NetMail(emp.Company_E_Mail, eMailSubject, emailBody);
+        //Shermco_Employee emp = SqlServer_Impl.GetEmployeeByNo(UpdRcd.Emp_ID);
+        //NetMail(emp.Company_E_Mail, eMailSubject, emailBody);
     }
 
     ///////////////////////////////////////

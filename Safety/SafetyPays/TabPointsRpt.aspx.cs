@@ -1,29 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 using System.IO;
 using ShermcoYou.DataTypes;
 
 public partial class Safety_SafetyPays_TabPointsRpt : System.Web.UI.Page
 {
-    DateTime start = DateTime.Parse("1/1/2013");
-    DateTime end = DateTime.Parse("2/1/2013");
+    DateTime _start = DateTime.Parse("1/1/2013");
+    DateTime _end = DateTime.Parse("2/1/2013");
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        string Method = "TabPointsRpt.PageLoad";
-
         //////////////////////////////////////////////////////////
         // But Unless This Is A New / Refresh Form, We Are Done //
         //////////////////////////////////////////////////////////
         if (IsPostBack)
         {
-            start = DateTime.Parse(StartDate.Value);
-            end = DateTime.Parse(EndDate.Value);
+            _start = DateTime.Parse(StartDate.Value);
+            _end = DateTime.Parse(EndDate.Value);
             return;
         }
 
@@ -54,61 +50,59 @@ public partial class Safety_SafetyPays_TabPointsRpt : System.Web.UI.Page
         public int[] ReasonPts;
     }
 
-    protected void ByDeptExportToExcelButton_Click(object sender, System.EventArgs e)
+    protected void ByDeptExportToExcelButton_Click(object sender, EventArgs e)
     {
         System.Text.UnicodeEncoding uniEncoding = new System.Text.UnicodeEncoding();
-        if (end.Day == 1)
-            end = end.AddDays(-1);
+        if (_end.Day == 1)
+            _end = _end.AddDays(-1);
 
         using (MemoryStream ms = new MemoryStream())
         {
 
-            Dictionary<int, string> Months = new Dictionary<int, string>();                 // List Of Months  < 1, "1" >
+            Dictionary<int, string> months = new Dictionary<int, string>();                 // List Of Months  < 1, "1" >
 
             EmpByMon SumEmpPts;                                                             // Array [14] (One For Each Month  [0] For Sum 
             Dictionary<string, EmpByMon> sumEmpMon = new Dictionary<string, EmpByMon>();    // Sum By Emp  <"empNo",  Array[14] As Above
             
             
-
-
             var sw = new StreamWriter(ms, uniEncoding);
-            int StartRowCnt = 5;
-            int EndRowCnt = 5;
+            int startRowCnt = 5;
+            int endRowCnt = 5;
             try
             {
                 /////////////////////////////////////////////////////////////
                 // Get Employee Points Detail Records For Reporting Period //
                 /////////////////////////////////////////////////////////////
-                var data = SqlServer_Impl.GetAdminPointsRptEmpPoints(start, end).OrderBy("EmpDept");
+                var data = SqlServer_Impl.GetAdminPointsRptEmpPoints(_start, _end).OrderBy("EmpDept");
 
                 /////////////////////////////
                 // Build Projection Tables //
                 /////////////////////////////
-                _PrjPts Pts = new _PrjPts(start, end);
+                _PrjPts pts = new _PrjPts(_start, _end);
 
                 ///////////////////////////////////////////////////////////
                 // Build A Summary Array For Each Employee For Each Dept //
                 //////////////////////////////////////////////////////////
-                foreach (SIU_Points_Rpt RptRcd in data)
+                foreach (SIU_Points_Rpt rptRcd in data)
                 {
-                    if (sumEmpMon.ContainsKey(RptRcd.Emp_No))
+                    if (sumEmpMon.ContainsKey(rptRcd.Emp_No))
                     {
-                        SumEmpPts = sumEmpMon[RptRcd.Emp_No];
-                        SumEmpPts.Months[RptRcd.EventDate.Month] += RptRcd.Points;
-                        SumEmpPts.Months[13] += RptRcd.Points;
+                        SumEmpPts = sumEmpMon[rptRcd.Emp_No];
+                        SumEmpPts.Months[rptRcd.EventDate.Month] += rptRcd.Points;
+                        SumEmpPts.Months[13] += rptRcd.Points;
                     }
                     else
                     {
                         SumEmpPts = new EmpByMon();
-                        SumEmpPts.Months[RptRcd.EventDate.Month] = RptRcd.Points;
-                        SumEmpPts.Months[13] = RptRcd.Points;
-                        sumEmpMon.Add(RptRcd.Emp_No, SumEmpPts);
+                        SumEmpPts.Months[rptRcd.EventDate.Month] = rptRcd.Points;
+                        SumEmpPts.Months[13] = rptRcd.Points;
+                        sumEmpMon.Add(rptRcd.Emp_No, SumEmpPts);
                     }
 
 
-                    if (!Months.ContainsKey(RptRcd.EventDate.Month))
-                        Months.Add(RptRcd.EventDate.Month, RptRcd.EventDate.Month.ToString());
-                    Months = Months.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
+                    if (!months.ContainsKey(rptRcd.EventDate.Month))
+                        months.Add(rptRcd.EventDate.Month, rptRcd.EventDate.Month.ToString(CultureInfo.InvariantCulture));
+                    months = months.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
                 }
 
                 ///////////////////////////////////////////////////
@@ -119,93 +113,96 @@ public partial class Safety_SafetyPays_TabPointsRpt : System.Web.UI.Page
                 ///////////////////
                 // Report Header //
                 ///////////////////
-                sw.Write("<span style=\"font-size:1.7em; font-weight: bold\">Points Calculated For " + start.ToShortDateString() + " - " + end.ToShortDateString() +  "</span>");
+                sw.Write("<span style=\"font-size:1.7em; font-weight: bold\">Points Calculated For " + _start.ToShortDateString() + " - " + _end.ToShortDateString() +  "</span>");
                 sw.WriteLine("<br/>");
 
-                string PrevDept = "FIRSTRCD";
-                string PrevEmp = "FIRSTRCD";
-                int DeptSum = 0;
+                string prevDept = "FIRSTRCD";
+                string prevEmp = "FIRSTRCD";
+                int deptSum = 0;
 
 
                 ///////////////////////////////////////////////////////////////////
                 // Walking Back Through The Data Of Emp Detail Rcds By Dept, Emp //
                 ///////////////////////////////////////////////////////////////////
-                foreach (SIU_Points_Rpt RptRcd in data)
+                foreach (SIU_Points_Rpt rptRcd in data)
                 {
                     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     // First Time We See An Emp -- Grab Summary Record From Above (sumEmpMon) And Produce A  Dept Detail Line //
                     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                    if (PrevEmp != RptRcd.Emp_No)
+                    if (prevEmp != rptRcd.Emp_No)
                     {
                         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                         // But If We Switched To A New Department -- Write Out Summary Row, Then New Deaprtment Header, Then Column Headers //
                         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                        if (PrevDept != RptRcd.EmpDept)
+                        if (prevDept != rptRcd.EmpDept)
                         {
+                            deptSum = Convert.ToInt32(pts.GetPrjSumForDept(rptRcd.EmpDept)[0]);
+
+
                             ////////////////////////////////
                             // Add Sum Row For Department //
                             ////////////////////////////////
-                            if (PrevDept != "FIRSTRCD")
+                            if (prevDept != "FIRSTRCD")
                             {
                                 ////////////////////////////////////////////////////////////////////////////////////////////////
                                 // Get Projections For Department (Summed Across Reporting Period -- Applies To Each Employee //
                                 ////////////////////////////////////////////////////////////////////////////////////////////////
-                                DeptSum = Convert.ToInt32(Pts.GetPrjSumForDept(RptRcd.EmpDept)[0]);
+                                //DeptSum = Convert.ToInt32(Pts.GetPrjSumForDept(RptRcd.EmpDept)[0]);
 
-                                EndRowCnt--;
+                                endRowCnt--;
                                 sw.Write("<tr>");
                                 sw.Write("<td class=\"SumRow\"></td>");
-                                sw.Write("<td class=\"SumRow\">=SUM(B" + StartRowCnt.ToString() + ":B" + EndRowCnt.ToString() + ")</td>");  // Points Sum
-                                sw.Write("<td class=\"SumRow\">=SUM(C" + StartRowCnt.ToString() + ":C" + EndRowCnt.ToString() + ")</td>");  // Prj Pts Sum
+                                sw.Write("<td class=\"SumRow\">=SUM(B" + startRowCnt + ":B" + endRowCnt + ")</td>");  // Points Sum
+                                sw.Write("<td class=\"SumRow\">=SUM(C" + startRowCnt + ":C" + endRowCnt + ")</td>");  // Prj Pts Sum
 
                                 int col = 'D';
-                                foreach (KeyValuePair<int, string> pair in Months)
-                                    sw.Write("<td class=\"SumRow\">=SUM(" + (char)col + StartRowCnt.ToString() + ":" + (char)col++ + EndRowCnt.ToString() + ")</td>");
+                                foreach (KeyValuePair<int, string> pair in months)
+                                    sw.Write("<td class=\"SumRow\">=SUM(" + (char)col + startRowCnt + ":" + (char)col++ + endRowCnt + ")</td>");
 
-                                sw.Write("<td class=\"SumRow\">=TEXT( (B" + (EndRowCnt + 1).ToString() + "/C" + (EndRowCnt + 1).ToString() + "),\"#%\")</td>");  // Pct Compliance
+                                sw.Write("<td class=\"SumRow\">=TEXT( (B" + (endRowCnt + 1) + "/C" + (endRowCnt + 1) + "),\"#%\")</td>");  // Pct Compliance
 
                                 sw.Write("</tr>");
                                 sw.Write("</table>");
-                                StartRowCnt = EndRowCnt + 5;
-                                EndRowCnt = StartRowCnt;
+                                startRowCnt = endRowCnt + 5;
+                                endRowCnt = startRowCnt;
                             }
 
                             /////////////////////////////////
                             // Header For Next Deptartment //
                             /////////////////////////////////
                             sw.WriteLine("<br/>");
-                            sw.Write("<span style=\"font-size:1.7em; font-weight: bold\">Department " + ((RptRcd.EmpDept.Length > 0) ? RptRcd.EmpDept : "Missing") + "</span>");
+                            sw.Write("<span style=\"font-size:1.7em; font-weight: bold\">Department " + ((rptRcd.EmpDept.Length > 0) ? rptRcd.EmpDept : "Missing") + "</span>");
 
                             ///////////////////////////////////////////
                             // Start New Table -- Add Column Headers //
                             ///////////////////////////////////////////
                             sw.Write("<table border=\"0\">");
                             sw.Write("<tr border=\"0\"><th>Name</th><th>Points</th><th>Expected Points</th>");
-                            foreach (KeyValuePair<int, string> pair in Months)
-                                sw.Write("<th>" +  System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName( pair.Key ) + "</th>");
+                            foreach (KeyValuePair<int, string> pair in months)
+                                sw.Write("<th>" +  CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName( pair.Key ) + "</th>");
                             sw.Write("<th>Pct of Exp</th>");
 
 
-                            PrevDept = RptRcd.EmpDept;
+                            prevDept = rptRcd.EmpDept;
                         }
 
                         ///////////////////////////////////////
                         // Write Out Employee Summary Record //
                         ///////////////////////////////////////
-                        SumEmpPts = sumEmpMon[RptRcd.Emp_No];
+                        SumEmpPts = sumEmpMon[rptRcd.Emp_No];
 
                         sw.Write("<tr style=\"text-align:center;\" >");
-                        sw.Write("<td>" + RptRcd.EmpName + "</td>");
+                        sw.Write("<td>" + rptRcd.EmpName + "</td>");
                         sw.Write("<td>" + SumEmpPts.Months[13] + "</td>");
-                        sw.Write("<td>" + DeptSum.ToString() + "</td>");
+                        sw.Write("<td>" + deptSum + "</td>");
 
-                        foreach (KeyValuePair<int, string> pair in Months)
+                        foreach (KeyValuePair<int, string> pair in months)
                             sw.Write("<td>" + SumEmpPts.Months[pair.Key] + "</td>");
-                        sw.Write("<td >=TEXT( (B" + EndRowCnt.ToString() + "/C" + EndRowCnt.ToString() + "),\"#%\")</td>");  // Pct Compliance
+                        sw.Write("<td >=TEXT( (B" + endRowCnt + "/C" + endRowCnt + "),\"#%\")</td>");  // Pct Compliance
                         sw.Write("</tr>");
 
-                        PrevEmp = RptRcd.Emp_No;
-                        EndRowCnt++;
+                        prevEmp = rptRcd.Emp_No;
+                        endRowCnt++;
                     }
                 }
 
@@ -213,18 +210,18 @@ public partial class Safety_SafetyPays_TabPointsRpt : System.Web.UI.Page
                 /////////////////////////////////////
                 // Add Sum Row To Last Deptartment //
                 /////////////////////////////////////
-                if (PrevDept != "FIRSTRCD")
+                if (prevDept != "FIRSTRCD")
                 {
-                    EndRowCnt--;
+                    endRowCnt--;
                     sw.Write("<tr style=\"text-align:center;\" >");
                     sw.Write("<td class=\"SumRow\"></td>");
-                    sw.Write("<td class=\"SumRow\">=SUM(B" + StartRowCnt.ToString() + ":B" + EndRowCnt.ToString() + ")</td>");
-                    sw.Write("<td class=\"SumRow\">=SUM(C" + StartRowCnt.ToString() + ":C" + EndRowCnt.ToString() + ")</td>");  // Prj Pts Sum
+                    sw.Write("<td class=\"SumRow\">=SUM(B" + startRowCnt + ":B" + endRowCnt + ")</td>");
+                    sw.Write("<td class=\"SumRow\">=SUM(C" + startRowCnt + ":C" + endRowCnt + ")</td>");  // Prj Pts Sum
                     int col = 'D';
-                    foreach (KeyValuePair<int, string> pair in Months)
-                        sw.Write("<td class=\"SumRow\">=SUM(" + (char)col + StartRowCnt.ToString() + ":" + (char)col++ + EndRowCnt.ToString() + ")</td>");
+                    foreach (KeyValuePair<int, string> pair in months)
+                        sw.Write("<td class=\"SumRow\">=SUM(" + (char)col + startRowCnt + ":" + (char)col++ + endRowCnt + ")</td>");
 
-                    sw.Write("<td class=\"SumRow\">=TEXT( (B" + (EndRowCnt + 1).ToString() + "/C" + (EndRowCnt + 1).ToString() + "),\"#%\")</td>");  // Pct Compliance
+                    sw.Write("<td class=\"SumRow\">=TEXT( (B" + (endRowCnt + 1) + "/C" + (endRowCnt + 1) + "),\"#%\")</td>");  // Pct Compliance
                     sw.Write("</tr>");
                 }
 
@@ -239,11 +236,11 @@ public partial class Safety_SafetyPays_TabPointsRpt : System.Web.UI.Page
             }
         }
     }
-    protected void EmpDtlExportToExcelButton_Click(object sender, System.EventArgs e)
+    protected void EmpDtlExportToExcelButton_Click(object sender, EventArgs e)
     {
         System.Text.UnicodeEncoding uniEncoding = new System.Text.UnicodeEncoding();
-        if (end.Day == 1)
-            end = end.AddDays(-1);
+        if (_end.Day == 1)
+            _end = _end.AddDays(-1);
 
         using (MemoryStream ms = new MemoryStream())
         {
@@ -251,22 +248,22 @@ public partial class Safety_SafetyPays_TabPointsRpt : System.Web.UI.Page
             //////////////////////////////////////////////////////////////////////////////////////////
             // Buid Dict To Hold Freq Used Conversion of PointsType Index to PointsType Description //
             //////////////////////////////////////////////////////////////////////////////////////////
-            Dictionary<int, string> PtTypes = SqlServer_Impl.GetAutoCompletePointTypes().ToDictionary(mc => (int)mc.UID, mc => (string)mc.Description);
+            Dictionary<int, string> ptTypes = SqlServer_Impl.GetAutoCompletePointTypes().ToDictionary(mc => mc.UID, mc => mc.Description);
             EmpDtl ed = new EmpDtl();
-            ed.ReasonPts = new int[PtTypes.Count];
-            SIU_Points_Rpt PrevRcd = null;
+            ed.ReasonPts = new int[ptTypes.Count];
+            SIU_Points_Rpt prevRcd = null;
 
             var sw = new StreamWriter(ms, uniEncoding);
             try
             {
-                var data = SqlServer_Impl.GetAdminPointsRptEmpPoints(start, end);
+                var data = SqlServer_Impl.GetAdminPointsRptEmpPoints(_start, _end);
 
                 ///////////////////////////////////////////////////
                 // Write Styles To Help Format Excel Spreadsheet //
                 ///////////////////////////////////////////////////
                 sw.Write( BuildStyle() );
 
-                sw.Write("<span style=\"font-size:1.7em; font-weight: bold\">Points Calculated For " + start.ToShortDateString() + " - " + end.ToShortDateString() + "</span>");
+                sw.Write("<span style=\"font-size:1.7em; font-weight: bold\">Points Calculated For " + _start.ToShortDateString() + " - " + _end.ToShortDateString() + "</span>");
                 sw.WriteLine("<br/>");
                 sw.WriteLine("<br/>");
                 
@@ -277,56 +274,83 @@ public partial class Safety_SafetyPays_TabPointsRpt : System.Web.UI.Page
                 sw.Write("<td class=\"UnderlineRow\" style=\"width: 125px; \">Name</td>");
                 sw.Write("<td class=\"UnderlineRow\" style=\"width: 45px; \">Dept</td>");
                 sw.Write("<td class=\"UnderlineRow\" style=\"width: 60px; border-right: 2px solid black !important;\">Eligibility</td>");
-                foreach (KeyValuePair<int, string> pair in PtTypes)
+                foreach (KeyValuePair<int, string> pair in ptTypes)
                     sw.Write("<td class=\"UnderlineRow\"  style=\"width: 65px; \">" + pair.Value + "</td>");
                 sw.Write("<td class=\"UnderlineRow\"  style=\"width: 40px; \">Total</td>");
                 sw.Write("</tr>");
 
-                string PrevEmp = "FIRSTRCD";
-                int RowCnt = 4;
-                int LastCol = 'D' + PtTypes.Count - 1;
+                string prevEmp = "FIRSTRCD";
+                int rowCnt = 4;
 
-                foreach (SIU_Points_Rpt RptRcd in data)
+
+                //////////////////////////////////////////////////////////////////////////////////////////
+                // The First Column Is Always D.  The Last Column Is Based On The Number Of Point Types //
+                // Columns Are Base 26 (A - Z, AA - AZ, Ba - BZ, ... )                                  //
+                // Calculate The Last Column So We Can Build A Sum Formula                              //
+                //////////////////////////////////////////////////////////////////////////////////////////
+                int lastColP1 = 0;
+                if (ptTypes.Count > 23)
+                    lastColP1 = ((ptTypes.Count + 3) / 26);      // Convert to Base 26 (A - Z) Skipping First 3 Columns
+
+                int lastColP2 = (ptTypes.Count % 26) - (lastColP1 * 26);
+                lastColP2 += 'D' - 1;
+
+                string lastCol = "";
+                if (lastColP1 > 0)
                 {
-                    if (PrevEmp != RptRcd.Emp_No && PrevEmp != "FIRSTRCD")
+                    lastColP1--;
+                    lastColP1 += 'A';                      // Convert to Alpha
+                    lastCol = ((char)lastColP1).ToString(CultureInfo.InvariantCulture);
+                }
+                lastCol += ((char)lastColP2).ToString(CultureInfo.InvariantCulture);
+
+                ////////////////////////////////
+                // Walk Through Eash Data Row //
+                ////////////////////////////////
+                foreach (SIU_Points_Rpt rptRcd in data)
+                {
+                    /////////////////////////////////////////////////////////////////////////////
+                    // For Each Data Record For A Given Employee, Write The Cell To The  Table //
+                    /////////////////////////////////////////////////////////////////////////////
+                    if (prevEmp != rptRcd.Emp_No && prevEmp != "FIRSTRCD")
                     {
                         sw.Write("<tr class=\"tblRow\" style=\"text-align:center;\" >");
-                        sw.Write("<td>" + PrevRcd.EmpName + "</td>");
-                        sw.Write("<td>" + ((PrevRcd.EmpDept.Length > 0) ? PrevRcd.EmpDept : "----") + "</td>");
+                        sw.Write("<td>" + prevRcd.EmpName + "</td>");
+                        sw.Write("<td>" + ((prevRcd.EmpDept.Length > 0) ? prevRcd.EmpDept : "----") + "</td>");
                         sw.Write("<td>" + "-" + "</td>");
 
-                        foreach (var PtCnt in ed.ReasonPts)
-                            sw.Write("<td>" +   (( PtCnt > 0 ) ? PtCnt.ToString() : "") + "</td>");
+                        foreach (var ptCnt in ed.ReasonPts)
+                            sw.Write("<td>" +   (( ptCnt > 0 ) ? ptCnt.ToString(CultureInfo.InvariantCulture) : "") + "</td>");
 
-                        sw.Write("<td>=SUM(D" + RowCnt.ToString() + ":" + (char)LastCol + RowCnt.ToString() + ")</td>");
+                        sw.Write("<td>=SUM(D" + rowCnt + ":" + lastCol + rowCnt + ")</td>");
 
 
                         sw.Write("</tr>");
 
-                        RowCnt++;
-                        PrevEmp = RptRcd.Emp_No;
-                        ed.ReasonPts = new int[PtTypes.Count];
+                        rowCnt++;
+                        prevEmp = rptRcd.Emp_No;
+                        ed.ReasonPts = new int[ptTypes.Count];
                     }
 
-                    ed.ReasonPts[RptRcd.ReasonForPoints] += RptRcd.Points;
-                    PrevEmp = RptRcd.Emp_No;
-                    PrevRcd = RptRcd;
 
-
+                    
+                    ed.ReasonPts[rptRcd.ReasonForPoints - 1] += rptRcd.Points;
+                    prevEmp = rptRcd.Emp_No;
+                    prevRcd = rptRcd;
                 }
 
                 ///////////////////
                 // Last Employee //
                 ///////////////////
                 sw.Write("<tr class=\"tblRow\" style=\"text-align:center;\" >");
-                sw.Write("<td>" + PrevRcd.EmpName + "</td>");
-                sw.Write("<td>" + ((PrevRcd.EmpDept.Length > 0) ? PrevRcd.EmpDept : "----") + "</td>");
+                sw.Write("<td>" + prevRcd.EmpName + "</td>");
+                sw.Write("<td>" + ((prevRcd.EmpDept.Length > 0) ? prevRcd.EmpDept : "----") + "</td>");
                 sw.Write("<td>" + "-" + "</td>");
 
-                foreach (var PtCnt in ed.ReasonPts)
-                    sw.Write("<td>" + ((PtCnt > 0) ? PtCnt.ToString() : "") + "</td>");
+                foreach (var ptCnt in ed.ReasonPts)
+                    sw.Write("<td>" + ((ptCnt > 0) ? ptCnt.ToString(CultureInfo.InvariantCulture) : "") + "</td>");
 
-                sw.Write("<td>=SUM(D" + RowCnt.ToString() + ":" + (char)LastCol + RowCnt.ToString() + ")</td>");
+                sw.Write("<td>=SUM(D" + rowCnt + ":" + lastCol + rowCnt + ")</td>");
 
                 sw.Write("</tr>");
 
@@ -343,11 +367,11 @@ public partial class Safety_SafetyPays_TabPointsRpt : System.Web.UI.Page
             }
         }
     }
-    protected void PrjPtsExportToExcelButton_Click(object sender, System.EventArgs e)
+    protected void PrjPtsExportToExcelButton_Click(object sender, EventArgs e)
     {
         System.Text.UnicodeEncoding uniEncoding = new System.Text.UnicodeEncoding();
-        if (end.Day == 1)
-            end = end.AddDays(-1);
+        if (_end.Day == 1)
+            _end = _end.AddDays(-1);
 
         using (MemoryStream ms = new MemoryStream())
         {
@@ -355,12 +379,12 @@ public partial class Safety_SafetyPays_TabPointsRpt : System.Web.UI.Page
             //////////////////////////////////////////////////////////////////////////////////////////
             // Buid Dict To Hold Freq Used Conversion of PointsType Index to PointsType Description //
             //////////////////////////////////////////////////////////////////////////////////////////
-            Dictionary<int, string> PtTypes = SqlServer_Impl.GetAutoCompletePointTypes().ToDictionary(mc => (int)mc.UID, mc => (string)mc.Description);
+            Dictionary<int, string> ptTypes = SqlServer_Impl.GetAutoCompletePointTypes().ToDictionary(mc => mc.UID, mc => mc.Description);
 
             /////////////////////////////
             // Build Projection Tables //
             /////////////////////////////
-            _PrjPts Pts = new _PrjPts(start, end);
+            _PrjPts pts = new _PrjPts(_start, _end);
 
             var sw = new StreamWriter(ms, uniEncoding);
             try
@@ -373,7 +397,7 @@ public partial class Safety_SafetyPays_TabPointsRpt : System.Web.UI.Page
 /////////////////////////
 // Start Summary Table //
 /////////////////////////
-                sw.Write("<span style=\"font-size:1.7em; font-weight: bold\">Projected Points Calculation For " + start.ToShortDateString() + " - " + end.ToShortDateString() + "</span>");
+                sw.Write("<span style=\"font-size:1.7em; font-weight: bold\">Projected Points Calculation For " + _start.ToShortDateString() + " - " + _end.ToShortDateString() + "</span>");
                 sw.WriteLine("<br/><br/>");
 
 
@@ -384,33 +408,33 @@ public partial class Safety_SafetyPays_TabPointsRpt : System.Web.UI.Page
                 sw.Write("<table class=\"tbl\">");
                 sw.Write("<tr>");
                 sw.Write("<th class=\"UnderlineRow\">Dept</th>");
-                foreach (KeyValuePair<int, string> pair in PtTypes)
-                    sw.Write("<th class=\"UnderlineRow\"  >" + pair.Value + " (" + pair.Key.ToString() + ")</th>");
+                foreach (KeyValuePair<int, string> pair in ptTypes)
+                    sw.Write("<th class=\"UnderlineRow\"  >" + pair.Value + " (" + pair.Key + ")</th>");
                 sw.Write("<th class=\"UnderlineRow\"  style=\"width: 40px; \">Total</th>");
                 sw.Write("</tr>");
 
                 /////////////////////////////////////////
                 // Setup To Start Summary Table Detail //
                 /////////////////////////////////////////
-                int RowCnt = 4;
-                int LastCol = 'B' + PtTypes.Count - 1;
+                int rowCnt = 4;
+                int lastCol = 'B' + ptTypes.Count - 1;
 
 
                 //////////////////////////////
                 // Write Summary Table Data //
                 //////////////////////////////
-                foreach (var SumRptRcd in Pts.GetPrjSumDict())
+                foreach (var sumRptRcd in pts.GetPrjSumDict())
                 {
                     sw.Write("<tr class=\"tblRow\" style=\"text-align:center;\" >");
-                    sw.Write("<td>" + ((SumRptRcd.Key.Length > 0) ? SumRptRcd.Key : "----") + "</td>");
+                    sw.Write("<td>" + ((sumRptRcd.Key.Length > 0) ? sumRptRcd.Key : "----") + "</td>");
 
-                    foreach (double PtCnt in SumRptRcd.Value.Skip(1) )
-                        sw.Write("<td>" + ((PtCnt > 0) ? PtCnt.ToString() : "0") + "</td>");
+                    foreach (double ptCnt in sumRptRcd.Value.Skip(1) )
+                        sw.Write("<td>" + ((ptCnt > 0) ? ptCnt.ToString(CultureInfo.InvariantCulture) : "0") + "</td>");
 
-                    sw.Write("<td>=SUM(B" + RowCnt.ToString() + ":" + (char)LastCol + RowCnt.ToString() + ")</td>");
+                    sw.Write("<td>=SUM(B" + rowCnt + ":" + (char)lastCol + rowCnt + ")</td>");
                     sw.Write("</tr>");
 
-                    RowCnt++;
+                    rowCnt++;
                 }
                 sw.Write("</table>");
                 sw.Write("<br/><br/>");
@@ -423,17 +447,17 @@ public partial class Safety_SafetyPays_TabPointsRpt : System.Web.UI.Page
                 ///////////////////////////////////////////
                 // Get List Of Months Included In Report //
                 ///////////////////////////////////////////
-                foreach (var RptMonths in Pts.GetDatesDict())
+                foreach (var rptMonths in pts.GetDatesDict())
                 {
                     /////////////////////////////
                     // Adjust Detail Row Index //
                     /////////////////////////////
-                    RowCnt += 4;
+                    rowCnt += 4;
 
                     //////////////////////////
                     // Monthly Table Header //
                     //////////////////////////
-                    sw.Write("<span style=\"font-size:1.7em; font-weight: bold\">Projected Points Calculation For " + RptMonths.Key + "</span>");
+                    sw.Write("<span style=\"font-size:1.7em; font-weight: bold\">Projected Points Calculation For " + rptMonths.Key + "</span>");
 
                     //////////////////////////////////
                     // Monthly Table Column Headers //
@@ -441,26 +465,26 @@ public partial class Safety_SafetyPays_TabPointsRpt : System.Web.UI.Page
                     sw.Write("<table class=\"tbl\">");
                     sw.Write("<tr>");
                     sw.Write("<td class=\"UnderlineRow\" >Dept</td>");
-                    foreach (KeyValuePair<int, string> pair in PtTypes)
-                        sw.Write("<td class=\"UnderlineRow\"  >" + pair.Value + " (" + pair.Key.ToString() + ")</td>");
+                    foreach (KeyValuePair<int, string> pair in ptTypes)
+                        sw.Write("<td class=\"UnderlineRow\"  >" + pair.Value + " (" + pair.Key + ")</td>");
                     sw.Write("<td class=\"UnderlineRow\"  style=\"width: 40px; \">Total</td>");
                     sw.Write("</tr>");
 
                     //////////////////////////////
                     // Write Monthly Table Data //
                     //////////////////////////////
-                    foreach (var MonRptRcd in Pts.GetMonthlyDict(RptMonths.Value))
+                    foreach (var monRptRcd in pts.GetMonthlyDict(rptMonths.Value))
                     {
                         sw.Write("<tr class=\"tblRow\" style=\"text-align:center;\" >");
-                        sw.Write("<td>" + ((MonRptRcd.Key.Length > 0) ? MonRptRcd.Key : "----") + "</td>");
+                        sw.Write("<td>" + ((monRptRcd.Key.Length > 0) ? monRptRcd.Key : "----") + "</td>");
 
-                        foreach (double PtCnt in MonRptRcd.Value.Skip(1))
-                            sw.Write("<td>" + ((PtCnt > 0) ? PtCnt.ToString() : "0") + "</td>");
+                        foreach (double ptCnt in monRptRcd.Value.Skip(1))
+                            sw.Write("<td>" + ((ptCnt > 0) ? ptCnt.ToString(CultureInfo.InvariantCulture) : "0") + "</td>");
 
-                        sw.Write("<td>=SUM(B" + RowCnt.ToString() + ":" + (char)LastCol + RowCnt.ToString() + ")</td>");
+                        sw.Write("<td>=SUM(B" + rowCnt + ":" + (char)lastCol + rowCnt + ")</td>");
                         sw.Write("</tr>");
 
-                        RowCnt++;
+                        rowCnt++;
                     }
 
                     sw.Write("</table>");
@@ -486,7 +510,7 @@ public partial class Safety_SafetyPays_TabPointsRpt : System.Web.UI.Page
         }
     }
 
-    protected void StdPrjPtsExportToExcelButton_Click(object sender, System.EventArgs e)
+    protected void StdPrjPtsExportToExcelButton_Click(object sender, EventArgs e)
     {
         System.Text.UnicodeEncoding uniEncoding = new System.Text.UnicodeEncoding();
 
@@ -496,12 +520,12 @@ public partial class Safety_SafetyPays_TabPointsRpt : System.Web.UI.Page
             //////////////////////////////////////////////////////////////////////////////////////////
             // Buid Dict To Hold Freq Used Conversion of PointsType Index to PointsType Description //
             //////////////////////////////////////////////////////////////////////////////////////////
-            Dictionary<int, string> PtTypes = SqlServer_Impl.GetAutoCompletePointTypes().ToDictionary(mc => (int)mc.UID, mc => (string)mc.Description);
+            Dictionary<int, string> ptTypes = SqlServer_Impl.GetAutoCompletePointTypes().ToDictionary(mc => mc.UID, mc => mc.Description);
 
             /////////////////////////////
             // Build Projection Tables //
             /////////////////////////////
-            _StdPrjPts Pts = new _StdPrjPts();
+            _StdPrjPts pts = new _StdPrjPts();
 
             var sw = new StreamWriter(ms, uniEncoding);
             try
@@ -525,33 +549,33 @@ public partial class Safety_SafetyPays_TabPointsRpt : System.Web.UI.Page
                 sw.Write("<table class=\"tbl\">");
                 sw.Write("<tr>");
                 sw.Write("<th class=\"UnderlineRow\">Dept</th>");
-                foreach (KeyValuePair<int, string> pair in PtTypes)
-                    sw.Write("<th class=\"UnderlineRow\"  >" + pair.Value + " (" + pair.Key.ToString() + ")</th>");
+                foreach (KeyValuePair<int, string> pair in ptTypes)
+                    sw.Write("<th class=\"UnderlineRow\"  >" + pair.Value + " (" + pair.Key + ")</th>");
                 sw.Write("<th class=\"UnderlineRow\"  style=\"width: 40px; \">Total</th>");
                 sw.Write("</tr>");
 
                 /////////////////////////////////////////
                 // Setup To Start Summary Table Detail //
                 /////////////////////////////////////////
-                int RowCnt = 4;
-                int LastCol = 'B' + PtTypes.Count - 1;
+                int rowCnt = 4;
+                int lastCol = 'B' + ptTypes.Count - 1;
 
 
                 //////////////////////////////
                 // Write Summary Table Data //
                 //////////////////////////////
-                foreach (var SumRptRcd in Pts.GetPrjSumDict())
+                foreach (var sumRptRcd in pts.GetPrjSumDict())
                 {
                     sw.Write("<tr class=\"tblRow\" style=\"text-align:center;\" >");
-                    sw.Write("<td>" + ((SumRptRcd.Key.Length > 0) ? SumRptRcd.Key : "----") + "</td>");
+                    sw.Write("<td>" + ((sumRptRcd.Key.Length > 0) ? sumRptRcd.Key : "----") + "</td>");
 
-                    foreach (double PtCnt in SumRptRcd.Value.Skip(1))
-                        sw.Write("<td>" + ((PtCnt > 0) ? PtCnt.ToString() : "0") + "</td>");
+                    foreach (double ptCnt in sumRptRcd.Value.Skip(1))
+                        sw.Write("<td>" + ((ptCnt > 0) ? ptCnt.ToString(CultureInfo.InvariantCulture) : "0") + "</td>");
 
-                    sw.Write("<td>=SUM(B" + RowCnt.ToString() + ":" + (char)LastCol + RowCnt.ToString() + ")</td>");
+                    sw.Write("<td>=SUM(B" + rowCnt + ":" + (char)lastCol + rowCnt + ")</td>");
                     sw.Write("</tr>");
 
-                    RowCnt++;
+                    rowCnt++;
                 }
                 sw.Write("</table>");
                 sw.Write("<br/><br/>");
@@ -571,7 +595,7 @@ public partial class Safety_SafetyPays_TabPointsRpt : System.Web.UI.Page
             }
         }
     }
-    protected void AssignPtsExportToExcelButton_Click(object sender, System.EventArgs e)
+    protected void AssignPtsExportToExcelButton_Click(object sender, EventArgs e)
     {
         System.Text.UnicodeEncoding uniEncoding = new System.Text.UnicodeEncoding();
 
@@ -602,11 +626,11 @@ public partial class Safety_SafetyPays_TabPointsRpt : System.Web.UI.Page
                 sw.Write("</tr>");
 
 
-                foreach (var PT in  SqlServer_Impl.GetAutoCompletePointTypes() )
+                foreach (var pt in  SqlServer_Impl.GetAutoCompletePointTypes() )
                 {
                     sw.Write("<tr>");
-                    sw.Write("<td>" + PT.Description + "</td>");
-                    sw.Write("<td>" + PT.PointsCount.ToString() + "</td>");
+                    sw.Write("<td>" + pt.Description + "</td>");
+                    sw.Write("<td>" + pt.PointsCount + "</td>");
                     sw.Write("</tr>");
                 }
 
@@ -647,43 +671,43 @@ public partial class Safety_SafetyPays_TabPointsRpt : System.Web.UI.Page
 
     private string BuildStyle()
     {
-        string Style = string.Empty;
-        Style += "<style>";
-        Style += "    .tbl";
-        Style += "    {";
-        Style += "	    border-width: 0px;";
-        Style += "	    border-spacing: 0px;";
-        Style += "	    border-style: hidden;";
-        Style += "	    border-collapse: collapse;";
-        Style += "	    background-color: white;";
-        Style += "    }";
-        Style += "    .tblRow {";
-        Style += "	    border-width: 2px;";
-        Style += "	    padding: 2px;";
-        Style += "	    border-style: solid;";
-        Style += "	    border-color: rgb(219, 217, 217);";
-        Style += "    }";
-        Style += "    .UnderlineRow";
-        Style += "    {";
-        Style += "	    border-style: solid;";
-        Style += "	    border-color: rgb(219, 217, 217);";
-        Style += "      border-bottom: 2px solid black !important;";
-        Style += "	    text-align:center;";
-        Style += "	    vertical-align: middle;";
-        Style += "    }";
-        Style += "    .SumRow";
-        Style += "    {";
-        Style += "      border: none !important;";
-        Style += "      border-top: 2px solid black !important;";
-        Style += "	    text-align:center;";
-        Style += "    }";
-        Style += "    .RightBorder";
-        Style += "    {";
-        Style += "        border-right: 2px solid black !important;";
-        Style += "    }";
-        Style += "</style>";
+        string style = string.Empty;
+        style += "<style>";
+        style += "    .tbl";
+        style += "    {";
+        style += "	    border-width: 0px;";
+        style += "	    border-spacing: 0px;";
+        style += "	    border-style: hidden;";
+        style += "	    border-collapse: collapse;";
+        style += "	    background-color: white;";
+        style += "    }";
+        style += "    .tblRow {";
+        style += "	    border-width: 2px;";
+        style += "	    padding: 2px;";
+        style += "	    border-style: solid;";
+        style += "	    border-color: rgb(219, 217, 217);";
+        style += "    }";
+        style += "    .UnderlineRow";
+        style += "    {";
+        style += "	    border-style: solid;";
+        style += "	    border-color: rgb(219, 217, 217);";
+        style += "      border-bottom: 2px solid black !important;";
+        style += "	    text-align:center;";
+        style += "	    vertical-align: middle;";
+        style += "    }";
+        style += "    .SumRow";
+        style += "    {";
+        style += "      border: none !important;";
+        style += "      border-top: 2px solid black !important;";
+        style += "	    text-align:center;";
+        style += "    }";
+        style += "    .RightBorder";
+        style += "    {";
+        style += "        border-right: 2px solid black !important;";
+        style += "    }";
+        style += "</style>";
 
-        return Style;
+        return style;
     }
 
 }

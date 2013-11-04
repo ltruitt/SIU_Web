@@ -9,7 +9,15 @@ public partial class SiteMaster2 : System.Web.UI.MasterPage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        LitUserFullName.Text = "Welcome... " + SqlServer_Impl.GetEmployeeNameByNo(BusinessLayer.UserEmpID);
+        if ( Request.IsAuthenticated )
+        {
+            //LitUserFullName.Text = "Welcome... " + SqlServer_Impl.GetEmployeeNameByNo(BusinessLayer.UserEmpID);
+            LitUserFullName.Text = "Welcome... " + BusinessLayer.UserFullName;
+        }
+        else
+        {
+            LitUserFullName.Text = "Please Logon...";
+        }
 
         if (!SqlServer_Impl.isProdDB)
         {

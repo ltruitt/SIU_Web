@@ -49,6 +49,17 @@ $(document).ready(function () {
     };
 
 
+
+    jQuery.fn.parseJsonDate = function(jsonDateString, format) {
+        if (typeof (jsonDateString) == "undefined")
+            return '';
+
+        var xxx = jsonDateString.replace('/Date(', '').replace(')/', '');
+        var yyy = new Date(parseInt(xxx));
+        return $.datepicker.formatDate(format, yyy);
+    }
+    
+
     ////////////////////////////////////
     // Define A Default Text Function //
     ////////////////////////////////////
@@ -109,6 +120,8 @@ function AsyncServerMethod() {
 
     this.add = function(paramName, paramValue) {
         this.ParamArray[this.ParamArray.length] = { n: paramName, v: paramValue };
+        if (paramName == 'StartDate' && paramValue.length > 10)
+            alert('Request To Add Bad Param Trapped: ' + this.ParamArray[pCnt].v + ' : ' + this.ParamArray[pCnt].v);
     };
 
     this.exec = function (_url, _successMethod, _failMethod) {
@@ -128,6 +141,8 @@ function AsyncServerMethod() {
         var timestamp = new Date();
         this.ParamStr = '{';
         for (var pCnt = 0; pCnt < this.ParamArray.length; pCnt++) {
+            if (this.ParamArray[pCnt].n == 'StartDate' && this.ParamArray[pCnt].v.length > 10)
+                alert('Ready To Send With Trapped Bad Param: ' + this.ParamArray[pCnt].v + ' : ' + this.ParamArray[pCnt].v);
             this.ParamStr += '"' + this.ParamArray[pCnt].n + '":';
             this.ParamStr += '"' + this.ParamArray[pCnt].v + '",';
         }

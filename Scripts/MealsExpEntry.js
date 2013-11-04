@@ -18,29 +18,29 @@
     ///////////////////////////
     // Submit Button Handler //
     ///////////////////////////
-    function MileExpSubmit_success(data) {
-        var ErrorMsg = data.d;
+    function mileExpSubmitSuccess(data) {
+        var errorMsg = data.d;
 
-        if (ErrorMsg.length == 0) {
+        if (errorMsg.length == 0) {
             ////////////////////
             // Reset The Form //
             ////////////////////
             $("#btnClear").trigger('click');
 
         } else {
-            $('#lblErrServer')[0].innerHTML = ErrorMsg;
+            $('#lblErrServer')[0].innerHTML = errorMsg;
         }
     }
     $("#btnSubmit").click(function () {
-        var MileExpSubmitCall = new AsyncServerMethod();
-        MileExpSubmitCall.add('empNo', $('#hlblEID')[0].innerHTML);
-        MileExpSubmitCall.add('workDate', $('#txtWorkDate').val());
-        MileExpSubmitCall.add('JobNo', $('#hlblJobNo')[0].innerHTML);
-        MileExpSubmitCall.add('OhAcct', $('#hlblOhAcct')[0].innerHTML);
-        MileExpSubmitCall.add('Miles', $('#hlblMiles')[0].innerHTML);
-        MileExpSubmitCall.add('Meals', $('#hlblMealsIdx')[0].innerHTML);
-        MileExpSubmitCall.add('Amount', $('#hlblAmount')[0].innerHTML);
-        MileExpSubmitCall.exec("/SIU_DAO.asmx/MileExpSubmit", MileExpSubmit_success);
+        var mileExpSubmitCall = new AsyncServerMethod();
+        mileExpSubmitCall.add('empNo', $('#hlblEID')[0].innerHTML);
+        mileExpSubmitCall.add('workDate', $('#txtWorkDate').val());
+        mileExpSubmitCall.add('JobNo', $('#hlblJobNo')[0].innerHTML);
+        mileExpSubmitCall.add('OhAcct', $('#hlblOhAcct')[0].innerHTML);
+        mileExpSubmitCall.add('Miles', $('#hlblMiles')[0].innerHTML);
+        mileExpSubmitCall.add('Meals', $('#hlblMealsIdx')[0].innerHTML);
+        mileExpSubmitCall.add('Amount', $('#hlblAmount')[0].innerHTML);
+        mileExpSubmitCall.exec("/SIU_DAO.asmx/MileExpSubmit", mileExpSubmitSuccess);
     });
 
 
@@ -92,12 +92,12 @@
     ////////////////////
     // Setup Calendar //
     ////////////////////
-    var StartDate = new Date($('#hlblSD')[0].innerHTML);
-    var EndDate = new Date($('#hlblED')[0].innerHTML);
+    var startDate = new Date($('#hlblSD')[0].innerHTML);
+    var endDate = new Date($('#hlblED')[0].innerHTML);
 
     $('#txtWorkDate').datepicker({
-        minDate: StartDate,
-        maxDate: EndDate,
+        minDate: startDate,
+        maxDate: endDate,
         constrainInput: true,
         onSelect: showWorkDate
     });
@@ -119,7 +119,7 @@
     // Setup Job No Lookup //
     /////////////////////////
     var listOfJobs = [];
-    function GetTimeJobs_success(data) {
+    function getTimeJobsSuccess(data) {
         listOfJobs = data.d.split("\r");
 
         $("#ddJobNo").autocomplete({ source: listOfJobs },
@@ -131,16 +131,16 @@
             cacheLength: 20,
             max: 20,
             select: function (event, ui) {
-                var DataPieces = ui.item.value.split(' ');
-                $(this).val(DataPieces[0]);
-                ShowJobDetails();
+                var dataPieces = ui.item.value.split(' ');
+                $(this).val(dataPieces[0]);
+                showJobDetails();
                 $('#txtMiles').focus();
             },
             response: function (event, ui) {
                 if (ui.content.length == 1) {
-                    var DataPieces = ui.content[0].value.split(' ');
-                    $(this).val(DataPieces[0]);
-                    ShowJobDetails();
+                    var dataPieces = ui.content[0].value.split(' ');
+                    $(this).val(dataPieces[0]);
+                    showJobDetails();
                     $("#ddJobNo").autocomplete("close");
                     $('#txtMiles').focus();
                 }
@@ -149,18 +149,18 @@
             }
         });
     }
-    function GetTimeJobs() {
-
-        GetTimeJobs_Ajax = new AsyncServerMethod();
-        GetTimeJobs_Ajax.exec("/SIU_DAO.asmx/GetTimeJobs", GetTimeJobs_success);
+    function getTimeJobs() {
+        var getTimeJobsAjax = new AsyncServerMethod();
+        getTimeJobsAjax.exec("/SIU_DAO.asmx/GetTimeJobs", getTimeJobsSuccess);
     }
-    GetTimeJobs();
 
-    function ShowJobDetails() {
-        var Job = $('#ddJobNo').val();
+    getTimeJobs();
 
-        $('#hlblJobNo')[0].innerHTML = Job;
-        $('#lblJobNo')[0].innerHTML = "<b>Job No:</b> " + Job + "<br/>";
+    function showJobDetails() {
+        var job = $('#ddJobNo').val();
+
+        $('#hlblJobNo')[0].innerHTML = job;
+        $('#lblJobNo')[0].innerHTML = "<b>Job No:</b> " + job + "<br/>";
 
         $('.MilesAndMeals').show('slow');
         $('.JobAndOh').hide();
@@ -175,7 +175,7 @@
     // Load List Of O/H Accounts //
     ///////////////////////////////
     var listOfAccounts = [];
-    function GetTimeOHAccts_success(data) {
+    function getTimeOhAcctsSuccess(data) {
         listOfAccounts = data.d.split("\r");
 
         $("#ddOhAcct").autocomplete({ source: listOfAccounts },
@@ -187,16 +187,16 @@
             cacheLength: 20,
             max: 20,
             select: function (event, ui) {
-                var DataPieces = ui.item.value.split(' ');
-                $(this).val(DataPieces[0]);
-                ShowOhDetails();
+                var dataPieces = ui.item.value.split(' ');
+                $(this).val(dataPieces[0]);
+                showOhDetails();
                 $('#txtMiles').focus();
             },
             response: function (event, ui) {
                 if (ui.content.length == 1) {
-                    var DataPieces = ui.content[0].value.split(' ');
-                    $(this).val(DataPieces[0]);
-                    ShowOhDetails();
+                    var dataPieces = ui.content[0].value.split(' ');
+                    $(this).val(dataPieces[0]);
+                    showOhDetails();
                     $("#ddOhAcct").autocomplete("close");
                     $('#txtMiles').focus();
                 }
@@ -208,15 +208,13 @@
         });
     }
 
-    function GetTimeOHAccts() {
-        AvailHours = "";
-
-        var GetTimeOHAccts_Ajax = new AsyncServerMethod();
-        GetTimeOHAccts_Ajax.exec("/SIU_DAO.asmx/GetTimeOHAccts", GetTimeOHAccts_success);
+    function getTimeOhAccts() {
+        var getTimeOhAcctsAjax = new AsyncServerMethod();
+        getTimeOhAcctsAjax.exec("/SIU_DAO.asmx/GetTimeOHAccts", getTimeOhAcctsSuccess);
     }
-    GetTimeOHAccts();
+    getTimeOhAccts();
 
-    function ShowOhDetails() {
+    function showOhDetails() {
         var ohAcct = $('#ddOhAcct').val();
 
         $('#hlblOhAcct')[0].innerHTML = ohAcct;
@@ -245,22 +243,22 @@
         }
     });
     $("#txtMiles").keyup(function (e) {
-        var KeyID = (window.event) ? event.keyCode : e.keyCode;
+        var keyId = (window.event) ? event.keyCode : e.keyCode;
 
-        if (KeyID == 13) {
-            Miles();
+        if (keyId == 13) {
+            miles();
         }
 
     });
-    $("#txtMiles").blur(function (e) {
-        Miles();
+    $("#txtMiles").blur(function () {
+        miles();
     });
 
     ///////////////////////////
     // Show Miles and Amount //
     // Show Meals and Amount //
     ///////////////////////////
-    function Miles() {
+    function miles() {
         if (!$.isNumeric($('#txtMiles').val())) {
             $('#txtMiles').addClass('ValidationError');
             return;
@@ -284,7 +282,7 @@
             $('#btnSubmit').focus();
         }
     }
-    function Meals() {
+    function meals() {
         if ($('#txtMeals option:selected').val() > 0) {
 
             $('#hlblMeals')[0].innerHTML = $('#txtMeals option:selected').val();
@@ -306,9 +304,9 @@
     /////////////////////
     // Get Meals Rates //
     /////////////////////
-    var MealRates = [];
-    function GetMealRates_success(data) {
-        MealRates = $.parseJSON(data.d);
+    var mealRates = [];
+    function getMealRatesSuccess(data) {
+        mealRates = $.parseJSON(data.d);
 
         //        for (var c = 0; c < MealRates.length; c++) {
         //            $('#txtMeals').append(new Option(MealRates[c].DisplayString, MealRates[c].Amount));
@@ -316,21 +314,19 @@
 
         // IE8 Work Around
         var sel = $("#txtMeals");
-        for (var c = 0; c < MealRates.length; c++) {
-            var temp = new Option(MealRates[c].DisplayString, MealRates[c].Amount);
+        for (var c = 0; c < mealRates.length; c++) {
+            var temp = new Option(mealRates[c].DisplayString, mealRates[c].Amount);
             sel[0].options[sel[0].options.length] = temp;
         }
 
 
 
     }
-    function GetMealRates() {
-        AvailHours = "";
-
-        var GetMealRates_Ajax = new AsyncServerMethod();
-        GetMealRates_Ajax.exec("/SIU_DAO.asmx/GetMealRates", GetMealRates_success);
+    function getMealRates() {
+        var getMealRatesAjax = new AsyncServerMethod();
+        getMealRatesAjax.exec("/SIU_DAO.asmx/GetMealRates", getMealRatesSuccess);
     }
-    GetMealRates();
+    getMealRates();
 
 
 
@@ -341,7 +337,7 @@
     $('#ovrAmount').keyup(function () {
         validateOvrAmt();
     });
-    $("#ovrAmount").change(function (e) {
+    $("#ovrAmount").change(function () {
         if (validateOvrAmt() == true) {
             $('#hlblAmount')[0].innerHTML = $("#ovrAmount").val();
             $('#lblAmount')[0].innerHTML = "<b>Amount:</b> " + $('#hlblAmount')[0].innerHTML;
@@ -363,9 +359,9 @@
 
         return true;
     };
-    $("#txtMeals").change(function (e) {
+    $("#txtMeals").change(function () {
         if ($('#txtMeals').val() != null)
-            Meals();
+            meals();
     });
 
 
@@ -437,7 +433,7 @@
     // Load List Of Employees So Supr Can Change Viewed Employee //
     ///////////////////////////////////////////////////////////////
     var listOfEmps = [];
-    function GetEmps_success(data) {
+    function getEmpsSuccess(data) {
         listOfEmps = data.d.split("\r");
         $("#ddEmpIds").autocomplete({ source: listOfEmps },
             {
@@ -449,18 +445,18 @@
                 max: 20,
                 delay: 0,
                 select: function (event, ui) {
-                    var DataPieces = ui.item.value.split(' ');
-                    $('#hlblEID')[0].innerHTML = DataPieces[0];
+                    var dataPieces = ui.item.value.split(' ');
+                    $('#hlblEID')[0].innerHTML = dataPieces[0];
                     $("#ddEmpIds").autocomplete("close");
-                    $("#ddEmpIds").val(DataPieces[0] + ' ' + DataPieces[2] + ', ' + DataPieces[3]);
+                    $("#ddEmpIds").val(dataPieces[0] + ' ' + dataPieces[2] + ', ' + dataPieces[3]);
                     clear();
                 },
                 response: function (event, ui) {
                     if (ui.content.length == 1) {
-                        var DataPieces = ui.content[0].value.split(' ');
-                        $('#hlblEID')[0].innerHTML = DataPieces[0];
+                        var dataPieces = ui.content[0].value.split(' ');
+                        $('#hlblEID')[0].innerHTML = dataPieces[0];
                         $("#ddEmpIds").autocomplete("close");
-                        $("#ddEmpIds").val(DataPieces[0] + ' ' + DataPieces[2] + ', ' + DataPieces[3]);
+                        $("#ddEmpIds").val(dataPieces[0] + ' ' + dataPieces[2] + ', ' + dataPieces[3]);
 
                         clear();
                     }
@@ -473,7 +469,7 @@
 
     // Load Emps AutoComplete List
     if ($("#SuprArea").length > 0) {
-        var GetEmpsCall = new AsyncServerMethod();
-        GetEmpsCall.exec("/SIU_DAO.asmx/GetAutoCompleteActiveEmployees", GetEmps_success);
+        var getEmpsCall = new AsyncServerMethod();
+        getEmpsCall.exec("/SIU_DAO.asmx/GetAutoCompleteActiveEmployees", getEmpsSuccess);
     }
 });

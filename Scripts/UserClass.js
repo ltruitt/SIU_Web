@@ -42,8 +42,6 @@
 
                     if (data.record.VideoComplete == true)
                         $img = $('<img style="width: 20px; height: 20px; margin-left: 10px;" src="/Images/GreenChk.png" title="Incomplete" />');
-                    //else
-                    //    $img = $('<img style="width: 10px; height: 10px; margin-left: 10px;" src="/Images/close.png" title="Incomplete" />');
                     return $img;
                 }
             },
@@ -78,14 +76,14 @@
                 sorting: false,
                 width: '15%',
                 list: true,
-                display: function (Data) {
+                display: function (data) {
                     var t = '';
                     for (var c = 0; c < listOfTypes.length; c++) {
                         var strParts = listOfTypes[c].split(" ");
-                        if (strParts[0] == Data.record.MeetingType) {
+                        if (strParts[0] == data.record.MeetingType) {
                             var mta = listOfTypes[c].split(' ');
                             mta.splice(0, 2);
-                            t = '<span style="font-weight: bold !important">' + mta.join(' ') + '</span><br/>' + Data.record.Topic;
+                            t = '<span style="font-weight: bold !important">' + mta.join(' ') + '</span><br/>' + data.record.Topic;
                         }
                     }
                     return t;
@@ -127,10 +125,10 @@
                 sorting: false,
                 list: true,
                 display: function (data) {
-                    var $img = $('<a href="/Safety/Training/TrainingVideo.aspx?id=' + data.record.TL_UID + '"><img style="width:40px; height: 40px; margin-left: 10px;" src="/Images/SI-Corp-Certifications.png" title="Open Form" /></a>');
+                    var $img = $('<a href="/Safety/Training/TrainingVideo.aspx?id=' + data.record.TL_UID + '"><img style="width:40px; height: 40px; margin-left: 15px;" src="/Images/SI-Corp-Certifications.png" title="Open Form" /></a>');
                     return $img;
                 },
-                width: '5%'
+                width: '6%'
             },
 
             QuizName: {
@@ -141,7 +139,7 @@
 
             StartTime: {
                 list: true,
-                title: 'Start Time',
+                title: 'Start',
                 width: '5%',
                 sorting: false,
                 display: function (data) {
@@ -167,9 +165,7 @@
                 //Show selected rows
                 $selectedRows.each(function () {
                     var record = $(this).data('record');
-                    tlUid = record.TL_UID;
-                    
-                    //window.location.href = "http://" + window.location.hostname + '/Safety/Training/TrainingVideo.aspx?id=' + record.TL_UID;
+                    tlUid = record.TL_UID; //window.location.href = "http://" + window.location.hostname + '/Safety/Training/TrainingVideo.aspx?id=' + record.TL_UID;
                 });
             }
         }

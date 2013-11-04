@@ -15,13 +15,15 @@
 
 <style>
 
-    .ValidationError {	
-    color:              red;
-    border-radius:      7px; 
-    border:             2px solid red;         
+    .ValidationError {
+        color:              red;
+        -ms-border-radius:      7px;
+        border-radius:      7px; 
+    border:             2px solid red;
     }
 
-    .ValidationSuccess     {
+    .ValidationSuccess {
+        -ms-border-radius: 7px;
         border-radius: 7px;
         border: 2px solid green;
     }
@@ -40,7 +42,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
 
     <!-- Hidden Labels Keeping Selected Charge Account From DD Selections -->
-    <section style="visibility: hidden; height: 0px; width: 0px;">
+    <section style="visibility: hidden; height: 0; width: 0;">
         <span runat="server" id="hlblEID"                      /> 
         <span runat="server" id="hlblPointsType"               /> 
     </section>
@@ -51,7 +53,7 @@
             <!-- Form Header -->
             <!----------------->                   
             <section class="ui-widget-header ui-corner-all" style="height: 45px;" >
-                <span  style="text-align: center; font-size: 2em; width: 100%;  position:absolute; left: 0px; margin-left: auto; margin-right: auto;">Safety Pays Points Administration</span>
+                <span  style="text-align: center; font-size: 2em; width: 100%;  position:absolute; left: 0; margin-left: auto; margin-right: auto;">Safety Pays Points Administration</span>
             </section>  
     
             <section class="ui-widget-content ui-corner-all">
@@ -61,7 +63,7 @@
                 <div style="margin-left: -15px;  width: auto;">
                     
                     <div style="margin-top: -20px;">
-                        <label style="float: none; padding: 0px; width:auto; margin-top: -20px;"  runat="server" ID="lblEmpName"></label>
+                        <label style="float: none; padding: 0; width:auto; margin-top: -20px;"  runat="server" ID="lblEmpName"></label>
                     </div>
                 </div>
 

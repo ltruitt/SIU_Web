@@ -93,13 +93,16 @@
             <div class="SideBar-BoxBorder" style=" float: right; height: 600px;"/>
             
         </section>
-
-        <!-- Menu -->
-        <div id="MyHomeNotifications" class="AdminMenu"  style="background-color: white; margin-top: -0px; ">
-            
+        
             <div class="ui-widget-header ui-corner-all" >
                 <div  style="text-align: center; font-size: 2em;">My Shermco</div>
-            </div>      
+            </div> 
+
+     
+        <!-- Menu -->
+        <div id="MyHomeNotifications" class="AdminMenu"  style="background-color: white; margin-top: 0; ">
+            
+     
             
             <div style="margin-left: auto; margin-right: auto; text-align: center;">
                 <img id="WaitImg" src="/Images/slider-loading.gif" alt="Please Wait" />
@@ -108,14 +111,57 @@
             <div class="toolbar">
 			    <ul>
                     
-                    <li >
+<%--                <li >
                         <a href="/Safety/Training/UserClass.aspx"  ID="A22" runat="server" style="color: black; font-size: .9em; text-decoration: underline; text-align: center; width: 180px; ">
 						    <img  style="width: 75px; height: 75px; margin: 0; padding-top: 0; margin-bottom: 0; margin-left: auto; margin-right: auto; margin-top: -10px;"  alt="LMS Events" src="/Images/SI-Corp-Certifications.png" />
                             <div style="text-align: center;">Take a Safety Class<br/>< Experimental ></div>
 					    </a>         
-                    </li> 
+                    </li> --%>
+                    
+                   <!-- Safety Pays -->
+                    <li style="height: 190px; border: none; margin-right: 5px; margin-top: -20px; -ms-border-radius: 0; border-radius: 0;">
+                        <a href="/Safety/SafetyPays/SubmitSafetyPays.aspx" >
+						    <img  style="width: 150px; height: 75px; margin: 0; padding-top: 10px; margin-bottom: 0;"  alt="Safety Pays" src="/Images/SI-SafetyPays.png" />
+					    </a>         
+                            
+                        <div style="text-align: left; margin-left: 20px; height: 20px; ">
+                            <div>
+                                <a href="/Safety/SafetyPays/SubmitSafetyPays.aspx" style="height: 20px;">
+                                    <div style="width: 100px; font-weight: normal; font-size: 1em; display: inline-block; margin-left: -5px; text-align: center;">Submit Report </div>
+                                </a>
+                            </div>
 
-                    <li class="l8" id="LiSafetyPays" >
+                            <div id="spOpen">
+                                <a href="/Safety/SafetyPays/SafetyPaysWorking.aspx?isA=0" ID="A17" style="height: 20px;">
+                                    <span style="width: 100px; font-weight: normal; font-size: 1em; display: inline-block; margin-left: -5px;">Opened By Me: </span>
+                                    <span id="SpMyOpen" style="text-align: center; width: 20px; display: inline-block;"/>
+                                </a>
+                            </div>
+                            
+                            <div id="spAssigned">
+                                <a href="/Safety/SafetyPays/SafetyPaysWorking.aspx?s=ass&isA=0" ID="A1"  style="height: 18px;">
+                                   <span style="width: 100px; font-weight: normal; font-size: 1em; display: inline-block; margin-left: -5px;">Assigned to Me: </span>
+                                    <span id="SpMyAssigned" style="text-align: center; width: 20px; display: inline-block;" /><br/>
+                                </a>
+                            </div>
+                            
+                            <div id="spLateT">
+                                <a href="/Safety/SafetyPays/SafetyPaysWorking.aspx?s=tsk&isA=0" ID="A18"  style="height: 18px;">
+                                    <span style="width: 100px; font-weight: normal; font-size: 1em; display: inline-block; margin-left: -5px;">Late Task: </span>
+                                    <span id="SpMyLateTask" style="text-align: center; color: red; width: 20px; display: inline-block;"/>
+                                </a>
+                            </div>
+                            
+                            <div id="spLateS">
+                                <a href="/Safety/SafetyPays/SafetyPaysWorking.aspx?s=sta&isA=0" ID="A19"  style="height: 18px;">
+                                    <span style="width: 100px; font-weight: normal; font-size: 1em; display: inline-block; margin-left: -5px;">Late Status: </span>
+                                    <span id="SpMyLateStatus" style="text-align: center;  color: red; width: 20px; display: inline-block;"/>
+                                </a>
+                            </div>
+                        </div>
+                                          
+                    </li> 
+<%--                    <li class="l8" id="LiSafetyPays" >
                         <span id="Span2"  runat="server" style="text-align: center; color: black;">Safety Pays<br/></span>
                         
                         <div style="text-align: left; margin-left: 20px; ">
@@ -149,7 +195,7 @@
                             </div>
                         </div>
                         
-                    </li>
+                    </li>--%>
                     
 
                     
@@ -304,7 +350,7 @@
         
         
         <%--------------------%>                    
-        <%-- Submit Buttons --%>                    
+        <%-- Show All Buttons --%>                    
         <%--------------------%>
         <div style="width: 100%;  display: inline-block; margin-top: 10px;">
             <div style="float: left; width: 10%; ">
@@ -313,7 +359,9 @@
             
         </div>
         
+
         
+                
 
     </div>   
 

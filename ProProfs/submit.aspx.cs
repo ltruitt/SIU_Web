@@ -1,5 +1,4 @@
 ﻿using System;
-using ShermcoYou.DataTypes;
 
 /*
 # Variable Name Variable Description Data Type Example (PHP) 
@@ -26,9 +25,9 @@ using ShermcoYou.DataTypes;
 */
 
 
-// http://localhost/proprofs/submit.aspx?result_id=39165507&user_name=TRUITT,LARRY&total_marks=100&attempt_date=1379100594&user_obtained_marks=100&user_percent_marks=100&user_totalcorrect_answers=2&user_totalwrong_answers=0&user_Id=10371&user_Email=&user_Address=&user_City=N%2FA&user_State=N%2FA&user_Zipcode=N/A&user_Phone=&quiz_id=528021&quiz_name=SI+Test+Quiz+1&status=new
-
-
+// http://localhost/proprofs/submit.aspx?result_id=39165507&user_name=TRUITT,LARRY&total_marks=100&attempt_date=1379100594&user_obtained_marks=100&user_percent_marks=100&user_totalcorrect_answers=2&user_totalwrong_answers=0&user_Id=10371:1&user_Email=&user_Address=&user_City=N%2FA&user_State=N%2FA&user_Zipcode=N/A&user_Phone=&quiz_id=528021&quiz_name=SI+Test+Quiz+1&status=new
+// http://localhost/proprofs/submit.aspx?result_id=40071587&user_name=TRUITT,LARRY&total_marks=100&attempt_date=1380577777&user_obtained_marks=45&user_percent_marks=45.45&user_totalcorrect_answers=5&user_totalwrong_answers=6&user_Id=10371:9&user_Email=&user_Address=&user_City=N%2FA&user_State=N%2FA&user_Zipcode=N/A&user_Phone=&quiz_id=554422&quiz_name=GHS+Part+1+of+2&status=new
+// http://localhost/proprofs/submit.aspx?result_id=40143841&user_name=TRUITT,LARRY&total_marks=100&attempt_date=1380679115&user_obtained_marks=45&user_percent_marks=45.45&user_totalcorrect_answers=5&user_totalwrong_answers=6&user_Id=10371%3A13&user_Email=&user_Address=&user_City=N%2FA&user_State=N%2FA&user_Zipcode=N/A&user_Phone=&quiz_id=557983&quiz_name=GHS+Part+2+of+2&status=new
 public partial class ProProfs_submit : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
@@ -36,77 +35,82 @@ public partial class ProProfs_submit : System.Web.UI.Page
         if (IsPostBack)
             return;
 
-
-
-        string quizId = Request["quiz_id"];
-        string quizName = Request["quiz_name"];
-        string userName = Request["user_name"];
-        string totalMarks = Request["total_marks"];
-        string userObtainedMarks = Request["user_obtained_marks"];
-        string userPercentMarks = Request["user_percent_marks"];
-        string userTotalcorrectAnswers = Request["user_totalcorrect_answers"];
-        string userTotalwrongAnswers = Request["user_totalwrong_answers"];
-        string userEmail = Request["user_Email"];
-        string userAddress = Request["user_Address"];
-        string userCity = Request["user_City"];
-        string userState = Request["user_State"];
-        string userZipcode = Request["user_Zipcode"];
-        string userPhone = Request["user_Phone"];
-        string userId = Request["user_Id"];
-
-        string dbgRcd = "(" + userId + ")   (" + quizName + ") " + userName + "  " + userPercentMarks + " pct  +" + userTotalcorrectAnswers + " -" + userTotalwrongAnswers;
-        SqlServer_Impl.LogDebug("ProProfs_submit", dbgRcd);
-
-        //////////////////////////////////////////////////////////////////////////////////
-        // A Cludge -- Passed Traing Log ID and Employee ID to PreProfs as single field //
-        // Now we need to split them back out                                           //
-        // But we gotta pass the TL_UID down the line, so we pass it in zip             //
-        //////////////////////////////////////////////////////////////////////////////////
-        string[] uidEmp = userId.Split(':');
-        userId = uidEmp[0];
-        userZipcode = uidEmp[1];
-
-        ///////////////////
-        // Clean Up Data //
-        ///////////////////
-        if (quizId ==  null) quizId = "0";
-        if (quizId.Length == 0) quizId = "0";
-        if (quizName == null) quizName = "unknown";
-        if (userName == null) userName = "unknown";
-        if (totalMarks == null) totalMarks = "0";
-        if (userObtainedMarks == null) userObtainedMarks = "0";
-        if (userPercentMarks == null) userPercentMarks = "0";
-        if (userTotalcorrectAnswers == null) userTotalcorrectAnswers = "0";
-        if (userTotalwrongAnswers == null) userTotalwrongAnswers = "0";
-        if (userId == null) userId = "";
-        if (userEmail == null) userEmail = "";
-        if (userAddress == null) userAddress = "";
-        if (userCity == null) userCity = "";
-        if (userState == null) userState = "";
-        if (userZipcode == null) userZipcode = "";
-        if (userPhone == null) userPhone = "0";
-        if (userPhone.Length == 0) userPhone = "0";
-
-        SIU_Training_Quiz testRcd = new SIU_Training_Quiz
+        try
         {
-            Quiz_ID = int.Parse(quizId),
-            Quiz_Name = quizName,
-            Attempt_Date = DateTime.Now,
-            User_Name = userName,
-            Total_Marks = int.Parse(totalMarks),
-            User_Marks = int.Parse(userObtainedMarks),
-            User_Pct_Marks = int.Parse(userPercentMarks),
-            Total_Correct = int.Parse(userTotalcorrectAnswers),
-            Total_Wrong = int.Parse(userTotalwrongAnswers),
-            User_ID = userId,
-            User_Email = userEmail,
-            User_Address = userAddress,
-            User_City = userCity,
-            User_State = userState,
-            User_Zipcode = userZipcode,
-            User_Phone = int.Parse(userPhone)
-        };
+            string quizId = Request["quiz_id"];
+            string quizName = Request["quiz_name"];
+            string userName = Request["user_name"];
+            string totalMarks = Request["total_marks"];
+            string userObtainedMarks = Request["user_obtained_marks"];
+            string userPercentMarks = Request["user_percent_marks"];
+            string userTotalcorrectAnswers = Request["user_totalcorrect_answers"];
+            string userTotalwrongAnswers = Request["user_totalwrong_answers"];
+            string userEmail = Request["user_Email"];
+            string userAddress = Request["user_Address"];
+            string userCity = Request["user_City"];
+            string userState = Request["user_State"];
+            string userZipcode; // = Request["user_Zipcode"];
+            string userPhone = Request["user_Phone"];
+            string userId = Request["user_Id"];
 
-        SqlServer_Impl.RecordTest(testRcd);
+            string dbgRcd = "(" + userId + ")   (" + quizName + ") " + userName + "  " + userPercentMarks + " pct  +" + userTotalcorrectAnswers + " -" + userTotalwrongAnswers;
+            SqlServer_Impl.LogDebug("ProProfs_submit", dbgRcd);
+
+            //////////////////////////////////////////////////////////////////////////////////
+            // A Cludge -- Passed Traing Log ID and Employee ID to PreProfs as single field //
+            // Now we need to split them back out                                           //
+            // But we gotta pass the TL_UID down the line, so we pass it in zip             //
+            //////////////////////////////////////////////////////////////////////////////////
+            string[] uidEmp = userId.Split(':');
+            userId = uidEmp[0];
+            userZipcode = uidEmp[1];
+
+            ///////////////////
+            // Clean Up Data //
+            ///////////////////
+            if (quizId ==  null) quizId = "0";
+            if (quizId.Length == 0) quizId = "0";
+            if (quizName == null) quizName = "unknown";
+            if (userName == null) userName = "unknown";
+            if (totalMarks == null) totalMarks = "0";
+            if (userObtainedMarks == null) userObtainedMarks = "0";
+            if (userPercentMarks == null) userPercentMarks = "0";
+            if (userTotalcorrectAnswers == null) userTotalcorrectAnswers = "0";
+            if (userTotalwrongAnswers == null) userTotalwrongAnswers = "0";
+            if (userId == null) userId = "";
+            if (userEmail == null) userEmail = "";
+            if (userAddress == null) userAddress = "";
+            if (userCity == null) userCity = "";
+            if (userState == null) userState = "";
+            if (userZipcode == null) userZipcode = "";
+            if (userPhone == null) userPhone = "0";
+            if (userPhone.Length == 0) userPhone = "0";
+
+            SIU_Training_Quiz testRcd = new SIU_Training_Quiz
+            {
+                Quiz_ID = int.Parse(quizId),
+                Quiz_Name = quizName,
+                Attempt_Date = DateTime.Now,
+                User_Name = userName,
+                Total_Marks = int.Parse(totalMarks),
+                User_Marks = int.Parse(userObtainedMarks),
+                User_Pct_Marks = (int)Math.Round(float.Parse(userPercentMarks)),
+                Total_Correct = int.Parse(userTotalcorrectAnswers),
+                Total_Wrong = int.Parse(userTotalwrongAnswers),
+                User_ID = userId,
+                User_Email = userEmail,
+                User_Address = userAddress,
+                User_City = userCity,
+                User_State = userState,
+                User_Zipcode = userZipcode,
+                User_Phone = int.Parse(userPhone)
+            };
+
+            SqlServer_Impl.RecordTest(testRcd);
+        }
+        catch (Exception ex)
+        {
+            SqlServer_Impl.LogDebug("ProProfs_submit: ", ex.Message);
+        }
     }    
 }

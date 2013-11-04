@@ -119,9 +119,9 @@ public static class PopupMenuSupport
             return null;
         }
 
-        //////////////////////////////////////////////
-        // Addn List Of Files In The Home Directory //
-        //////////////////////////////////////////////
+        /////////////////////////////////////////////
+        // Add List Of Files In The Root Directory //
+        /////////////////////////////////////////////
         PhoneFileList(phyRootDirInfo, VirtualDirectory, ref dirList);
 
 
@@ -150,7 +150,7 @@ public static class PopupMenuSupport
         /////////////////////////////////////////////////////
         // Dont Forget List Of Files In The Root Directory //
         /////////////////////////////////////////////////////
-        PhoneFileList(phyRootDirInfo, VirtualDirectory, ref dirList);
+        //PhoneFileList(phyRootDirInfo, VirtualDirectory, ref dirList);
 
         return dirList;
     }
@@ -197,7 +197,7 @@ public static class PopupMenuSupport
                 thisFileList.FileName = thisFileList.FileName.Replace(".url", "");
             }
 
-            if (thisFileList.FileType != "db")
+            if (thisFileList.FileType != "db" && thisFileList.FileType != "dat")
                 DirList.Add((thisFileList));
         }        
     }
@@ -1067,6 +1067,7 @@ public static class PopupMenuSupport
     {
         string logGalleryPath = @"//" + Environment.MachineName + Path;
         string phyGalleryPath = HttpContext.Current.Server.MapPath(Path);
+        string host = HttpContext.Current.Request.Url.DnsSafeHost;
 
         if (Path == "null" || FileName == "null" )
             return "";
@@ -1086,14 +1087,15 @@ public static class PopupMenuSupport
                 if ( ! IsVideo(subFiles.Extension))
                 {
                     //string ImageIcon = SetIcon(SubFiles.Extension);
-
+// LogonRcd URL CHANGE
                     string fullPath = logGalleryPath + "/" + subFiles.Name;
+                    fullPath = "http://" + host + "/" + Path + "/" + subFiles.Name;
                     string displayName = subFiles.Name;
 
                     if (displayName.Length > 13)
                         displayName = displayName.Replace(subFiles.Extension, "");
 
-                    supportDocuments += "            <a target='_viddoc' href='" +    fullPath             + "' >" + displayName + "</a><br/>\n";
+                    supportDocuments += "            <a class='aButton' target='_viddoc' href='" +    fullPath             + "' >" + displayName + "</a><br/>\n";
                 }
             }
         }
