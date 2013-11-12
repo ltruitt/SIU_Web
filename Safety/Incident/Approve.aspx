@@ -44,7 +44,7 @@
             <section class="ui-widget-header ui-corner-all" style="height: 45px;" >
                 <a href="/Safety/SafetyAdminHome.aspx" style="text-decoration: none;">
                     <span style="position: relative; left: 3px; vertical-align: top; font-size: .8em; line-height: 10px;">Safety admin</span>
-                    <span  style="text-align: center; font-size: 2em; width: 100%;  position:absolute; left: 0; margin-left: auto; margin-right: auto;">Incident Recorder</span>
+                    <span  style="text-align: center; font-size: 2em; width: 100%;  position:absolute; left: 0; margin-left: auto; margin-right: auto;">Incident Approval</span>
                 </a>
             </section> 
             

@@ -44,7 +44,7 @@
             
 
             <section class="ui-widget-header ui-corner-all"  >
-                <div  style="text-align: center; font-size: 2em;">Vehilce Mileage</div>               
+                <div  style="text-align: center; font-size: 2em;">Vehicle Mileage</div>               
             </section>
             
     

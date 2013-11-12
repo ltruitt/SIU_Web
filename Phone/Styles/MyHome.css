@@ -1,6 +1,6 @@
 ﻿.toolbar ul { 
     display: block;
-    margin: 0px;
+    margin: 0;
 } 
         
 .toolbar ul li 
@@ -16,13 +16,13 @@
 .toolbar ul li a { 
     display:table-cell; 
     vertical-align: middle; 
-    height:100px; 
+    height:100px;
     border: none 1px black; 
 }
-        
+
 .AdminMenu span {
     float: none;
-    margin: 0px;
+    margin: 0;
     font-weight: bold;
     font-size: 1.2em;
 }

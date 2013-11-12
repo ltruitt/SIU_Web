@@ -94,8 +94,8 @@
             
         </section>
         
-            <div class="ui-widget-header ui-corner-all" >
-                <div  style="text-align: center; font-size: 2em;">My Shermco</div>
+            <div class="ui-widget-header ui-corner-all">
+                <div  style="text-align: center; font-size: 2em; ">My Shermco</div>
             </div> 
 
      
@@ -119,12 +119,12 @@
                     </li> --%>
                     
                    <!-- Safety Pays -->
-                    <li style="height: 190px; border: none; margin-right: 5px; margin-top: -20px; -ms-border-radius: 0; border-radius: 0;">
+                    <li style="height: 190px; border: none; margin-left: 35px; margin-top: 0;">
                         <a href="/Safety/SafetyPays/SubmitSafetyPays.aspx" >
-						    <img  style="width: 150px; height: 75px; margin: 0; padding-top: 10px; margin-bottom: 0;"  alt="Safety Pays" src="/Images/SI-SafetyPays.png" />
+                            <img src="/Images/SP_Cal.png" style="width: 100px; height: 85px;  padding-bottom: 0; margin-top: 0;" alt="SP">
 					    </a>         
                             
-                        <div style="text-align: left; margin-left: 20px; height: 20px; ">
+                        <div style="text-align: left; margin-left: 7px; height: 20px; ">
                             <div>
                                 <a href="/Safety/SafetyPays/SubmitSafetyPays.aspx" style="height: 20px;">
                                     <div style="width: 100px; font-weight: normal; font-size: 1em; display: inline-block; margin-left: -5px; text-align: center;">Submit Report </div>
@@ -161,6 +161,27 @@
                         </div>
                                           
                     </li> 
+                    
+                    
+                    <!-- Safety Pays QOM -->
+                    <li style="height: 150px; border: none; margin-left: 0; margin-top: -35px; width: 110px; -ms-border-radius: 0; border-radius: 0;">
+                           
+                            <a href="/Safety/SafetyPays/SafetyQomUser.aspx" >
+                                <img src="/Images/QOM.png" style="width: 100px; height: 90px;  padding-bottom: 5px; margin-top: 0;" alt="QOM">
+                                <br/>
+                                <div style="width: 45px; font-weight: normal; font-size: 1em; display: inline-block; margin-left: -15px;">Open: </div>
+                                <span id="QomOpen"  runat="server" style="text-align: center; width: 20px; display: inline-block;"/><br/>
+                        
+                                <div style="width: 45px; font-weight: normal; font-size: 1em; display: inline-block; margin-left: -15px;">Pend: </div>
+                                <span id="QomPend"  runat="server" style="text-align: center; width: 20px; display: inline-block;"/><br/>
+
+                                <div style="width: 45px; font-weight: normal; font-size: 1em; display: inline-block; margin-left: -15px;">Accept: </div>
+                                <span id="QomAccept"  runat="server" style="text-align: center; width: 20px; display: inline-block;"/>
+                            </a>
+
+                            <div style="clear: both;"></div>
+                    </li>                         
+
 <%--                    <li class="l8" id="LiSafetyPays" >
                         <span id="Span2"  runat="server" style="text-align: center; color: black;">Safety Pays<br/></span>
                         
@@ -198,41 +219,85 @@
                     </li>--%>
                     
 
-                    
-                                        
+                    <!-- Accrued Time -->
+                    <li style="border: none; font-weight: normal !important; height: 200px; margin-left: 0; margin-top: 20px; -ms-border-radius: 0; border-radius: 0;">
+                           
+                            <a href="#" >
+                                <img src="/Images/Rpt2.png" style="height: 160px; width: 150px; padding-bottom: 0; margin-top: 0;" alt="Accrued">
+                                <div style="margin-top: -150px; margin-left: 60px; border-bottom: 1px solid black; width: 60px;">
+                                    <div style="width:60px;">Accrued Time</div>
+                                </div>
+                                <br/>
 
-                    <li id="l1AccruedTime">
-                        <span id="Span1"  runat="server" style="text-align: center; ">Accrued Time<br/></span>
+                                <div style="width: 45px; font-size: 1em; display: inline-block; margin-left: 35px;">Hol: </div>
+                                <span id="PHoliday"  style="text-align: center; width: 20px; display: inline-block;"></span><br/>
                         
-                        <div style="text-align: left; margin-left: 20px;">
-                            <div style="width: 75px; font-weight: normal; font-size: 1em; display: inline-block; margin-left: 10px;">Holiday: </div>
-                            <span id="PHoliday"  runat="server" style="text-align: center; width: 20px; display: inline-block;"/><br/>
-                        
-                            <div style="width: 75px; font-weight: normal; font-size: 1em; display: inline-block;  margin-left: 10px;">Vacation: </div>
-                            <span id="Vacation"  runat="server" style="text-align: center; width: 20px; display: inline-block;"/><br/>
+                                <div style="width: 45px; font-size: 1em; display: inline-block; margin-left: 35px;">Vac: </div>
+                                <span id="Vacation" style="text-align: center; width: 20px; display: inline-block;"></span><br/>
 
-                            <div style="width: 75px; font-weight: normal; font-size: 1em; display: inline-block;  margin-left: 10px;">Sick: </div>
-                            <span id="Sick"  runat="server" style="text-align: center; width: 20px; display: inline-block;"/>
-                        </div>
-                    </li>
-                				
-                    <li class="l1" id="liTimeStudy" style=" font-weight: bold;">
-                        <a href="/My/MyTimeStudy.aspx" ID="A3"  runat="server" style="font-weight: bold; text-align: center; width: 100%; display: inline-block; margin-top: 40px;">
-                         View Time Study
-                        </a>
+                                <div style="width: 45px; font-size: 1em; display: inline-block; margin-left: 35px;">Sick: </div>
+                                <span id="Sick"  style="text-align: center; width: 20px; display: inline-block;"></span>
+
+                            </a>
+
+                            <div style="clear: both;"></div>
                     </li> 
                     
-                    <li class="l1" id="liBandC" style=" font-weight: bold;">
-                        <a href="/Corporate/BandC/AllBandC_Rpt.aspx" ID="A2"  runat="server" style="font-weight: bold; text-align: center; width: 100%; display: inline-block; margin-top: 40px;">
-                         All My Badges and Certifications
-                        </a>
-                    </li>
-                                    
-                    <li class="l1" id="liMyYtdExp" style=" font-weight: bold;">
-                        <a href="/My/MyExpenses.aspx" ID="A16"  runat="server" style="font-weight: bold; text-align: center; width: 100%; display: inline-block; margin-top: 40px;">
-                            View Y.T.D. Expenses
-                        </a>
-                    </li>    
+                    
+                    
+                    
+
+                    <!-- My Time Study-->
+                    <li id="liTimeStudy" style="border: none;  height: 200px; margin-left: 0; margin-top: -30px; -ms-border-radius: 0; border-radius: 0;">
+                           
+                            <a href="/My/MyTimeStudy.aspx" >
+                                <img src="/Images/Rpt2.png" style="height: 160px; width: 150px; padding-bottom: 0; margin-top: 0;" alt="Accrued">
+                                <div style="margin-top: -140px; margin-left: 60px; ">
+                                    <div style="width:60px;">My Time Study</div>
+                                </div>
+
+                            </a>
+
+                            <div style="clear: both;"></div>
+                    </li>                                                     
+                    
+                				
+                    
+                    
+                    
+                    <!-- My Badges and Certs -->
+                    <li id="liBandC" style="border: none;  height: 200px; margin-left: 0; margin-top: 0; -ms-border-radius: 0; border-radius: 0;">
+                           
+                            <a href="/Corporate/BandC/AllBandC_Rpt.aspx" >
+                                <img src="/Images/Rpt2.png" style="height: 160px; width: 150px; padding-bottom: 0; margin-top: 0;" alt="Accrued">
+                                <div style="margin-top: -140px; margin-left: 55px; ">
+                                    <div style="width:60px;">My Badges and Certifications</div>
+                                </div>
+
+                            </a>
+
+                            <div style="clear: both;"></div>
+                    </li>                                                     
+
+                    
+                    
+                    
+                    <!-- My YTD Expenses -->
+                    <li id="liMyYtdExp" style="border: none;  height: 200px; margin-left: 0; margin-top: 0; -ms-border-radius: 0; border-radius: 0;">
+                           
+                            <a href="/My/MyExpenses.aspx" >
+                                <img src="/Images/Rpt2.png" style="height: 160px; width: 150px; padding-bottom: 0; margin-top: 0;" alt="Accrued">
+                                <div style="margin-top: -140px; margin-left: 55px; ">
+                                    <div style="width:60px;">My YTD Expenses</div>
+                                </div>
+                            </a>
+
+                            <div style="clear: both;"></div>
+                    </li>   
+                    
+                    
+
+                   
                 
                     <li class="l1" id="liVehicleMileageReport">
                         <a href="/My/MyVehMileage.aspx" ID="A14"  runat="server">

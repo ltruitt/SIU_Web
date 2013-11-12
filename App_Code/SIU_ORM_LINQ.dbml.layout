@@ -260,22 +260,28 @@
         <elementListCompartment Id="5426fbac-efcb-4a57-8472-9e9478f53101" absoluteBounds="6.7650000000000006, 4.21, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="f8e02c8c-43ef-4280-b415-6a69c6f9c864" isExpanded="false" absoluteBounds="6.75, 5.375, 2, 0.45">
-      <DataClassMoniker Name="/SIU_ORM_LINQDataContext/SIU_Incident_Accident" />
-      <nestedChildShapes>
-        <elementListCompartment Id="58a90288-2dfe-46b5-aca4-5795b9c2eb18" absoluteBounds="6.7650000000000006, 5.835, 1.9700000000000002, 5.249226888020833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
-    <classShape Id="5c944d05-e93d-4a00-9397-aefb4ecd3e75" isExpanded="false" absoluteBounds="6.75, 2, 2, 0.45">
-      <DataClassMoniker Name="/SIU_ORM_LINQDataContext/SIU_SafetyPays_Point" />
-      <nestedChildShapes>
-        <elementListCompartment Id="b950ae49-7d2f-43c3-ba00-41c9a08d7e82" absoluteBounds="6.765, 2.46, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
     <classShape Id="aeb30b6d-ae5f-4439-8ff0-c7fd4ec94535" isExpanded="false" absoluteBounds="6.75, 0.5, 2, 0.45">
       <DataClassMoniker Name="/SIU_ORM_LINQDataContext/SIU_SafetyPaysReport" />
       <nestedChildShapes>
         <elementListCompartment Id="36e9fdac-5fce-4c4b-bc0b-ec0a42a41071" absoluteBounds="6.765, 0.96, 1.9700000000000002, 5.0569254557291661" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="64d9a94f-11b4-4af0-a282-7bc1349584c3" isExpanded="false" absoluteBounds="6.75, 2, 2, 0.45">
+      <DataClassMoniker Name="/SIU_ORM_LINQDataContext/SIU_SafetyPays_Point" />
+      <nestedChildShapes>
+        <elementListCompartment Id="c9b27cbd-e411-4b03-9f08-18fbce6973a6" absoluteBounds="6.765, 2.46, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="baacb5fd-4cac-4693-8c60-3b0f185222cc" isExpanded="false" absoluteBounds="4.375, 0.5, 2, 0.45">
+      <DataClassMoniker Name="/SIU_ORM_LINQDataContext/SIU_Role" />
+      <nestedChildShapes>
+        <elementListCompartment Id="23890746-2ef4-4c59-a8d1-435596f074f9" absoluteBounds="4.39, 0.96, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="605de563-32b7-4bdd-a05a-7678b5042f2b" isExpanded="false" absoluteBounds="6.75, 4.375, 2, 0.45">
+      <DataClassMoniker Name="/SIU_ORM_LINQDataContext/SIU_Incident_Accident" />
+      <nestedChildShapes>
+        <elementListCompartment Id="0c60c522-18bd-48d7-8af9-48be7b4f21c7" absoluteBounds="6.765, 4.835, 1.9700000000000002, 5.6338297526041661" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

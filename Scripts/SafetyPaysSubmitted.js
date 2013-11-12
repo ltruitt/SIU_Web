@@ -8,6 +8,7 @@
         processSafetyPaysCall.add('Points', $('#txtPts').val());
         processSafetyPaysCall.add('ehsRepsonse', $('#ehsRepsonse').val());
         processSafetyPaysCall.add('SuprID', $('#hlblSID')[0].innerHTML);
+        processSafetyPaysCall.add('QID', $('#hlblQID')[0].innerHTML);
 
         processSafetyPaysCall.exec("/SIU_DAO.asmx/RecordSafetyPaysStatusAcceptClosed", removeSelectedRow);
         
@@ -23,6 +24,7 @@
         processSafetyPaysCall.add('Points', $('#txtPts').val());
         processSafetyPaysCall.add('ehsRepsonse', $('#ehsRepsonse').val());
         processSafetyPaysCall.add('SuprID', $('#hlblSID')[0].innerHTML);
+        processSafetyPaysCall.add('QID', $('#hlblQID')[0].innerHTML);
         
         processSafetyPaysCall.exec("/SIU_DAO.asmx/RecordSafetyPaysStatusWork", removeSelectedRow);
     });
@@ -37,6 +39,7 @@
         processSafetyPaysCall.add('EmpID', $('#hlblEID')[0].innerHTML);
         processSafetyPaysCall.add('ehsRepsonse', $('#ehsRepsonse').val());
         processSafetyPaysCall.add('SuprID', $('#hlblSID')[0].innerHTML);
+        processSafetyPaysCall.add('QID', $('#hlblQID')[0].innerHTML);
         
         processSafetyPaysCall.exec("/SIU_DAO.asmx/RecordSafetyPaysStatusReject", removeSelectedRow);
     });
@@ -222,7 +225,8 @@
                     var mtgDate = new Date(parseInt(record.SafetyMeetingDate.substr(6)));
 
                     $('#hlblKey')[0].innerHTML = record.IncidentNo;
-
+                    $('#hlblQID')[0].innerHTML = record.QOM_ID;
+                    
                     $('#lblIncTypeTxt')[0].innerHTML = record.IncTypeTxt;
                     $('#lblIncOpenTimestamp')[0].innerHTML = $.datepicker.formatDate('mm-dd-yy', openDate);
                     
@@ -297,8 +301,23 @@
                         $('#lblInitialResponse')[0].innerHTML = record.InitialResponse;
                     }
 
+
+
                     $('#txtPts').val(record.defaultPoints);
+                    
+
+
                     $('#ehsRepsonse').val('');
+
+
+
+                    $('#btnWork').show();
+                    $('#btnWorkEmpz').show();
+                    if (record.QOM_ID > 0) {
+                        $('#btnWork').hide();
+                        $('#btnWorkEmpz').hide();
+                    }
+
 
                     $('#cmdDiv').show('');
                 });

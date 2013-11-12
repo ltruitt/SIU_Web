@@ -206,7 +206,6 @@ public class LDAP
         {
             DirectorySearcher search = new DirectorySearcher(entry);
             search.Filter = "(SAMAccountName=" + strUser + ")";
-            //search.Filter = "(SAMAccountName=aschumacher)";
             SearchResult result = search.FindOne();
             if (null == result)
                 return _groups;

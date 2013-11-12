@@ -72,7 +72,7 @@
 				            Email: (hr@shermco.com)
                         </a>
 			            <div class="contact" style="text-align: center;">
-				            Contact Krista Hunter at &nbsp; <a href="tel:972-793-5523">972.793.5523</a><br/>ext. 10234
+				            Contact Krista Hunter at &nbsp; <a href="tel:972-793-5540,10234">972.793.5523</a><br/>ext. 10234
 			            </div>
 			        </div>
 
@@ -134,7 +134,7 @@
 				            Email: (corporateservices@shermco.com)
                         </a>
 			            <div class="contact" style="text-align: center;">
-				            Contact Susan Strong at &nbsp; <a href="tel:972-793-5523">972.793.5523</a><br/>ext. 10196
+				            Contact Susan Strong at &nbsp; <a href="tel:972-793-5540,10196">972.793.5523</a><br/>ext. 10196
 			            </div>
 			        </div>
 
@@ -167,8 +167,8 @@
 
 			            <div class="contact" style="text-align: center; padding-top: 5px; text-align: center;">
                             <div style="padding-top: 8px;">For Technical Support call:<br/><a href="tel:972-652-3800">972.652.3800</a></div>
-                            <div style="padding-top: 8px;">For I. T. call:<br/>Reuben Najera &nbsp; <a href="tel:972-793-5523">972.793.5523</a> ext. 10264</div>
-                            <div style="padding-top: 8px;">For Development call:<br/>Carlos Silva &nbsp; <a href="tel:972-793-5523">972.793.5523</a> ext. 10264  </div>
+                            <div style="padding-top: 8px;">For I. T. call:<br/>Reuben Najera &nbsp; <a href="tel:972-793-5540,10264">972.793.5523</a> ext. 10264</div>
+                            <div style="padding-top: 8px;">For Development call:<br/>Carlos Silva &nbsp; <a href="tel:972-793-5540,10264">972.793.5523</a> ext. 10264  </div>
 			            </div>
 			        </div>
 
@@ -195,7 +195,7 @@
 				            Email: (facilities@shermco.com)
                         </a>
 			            <div class="contact" style="text-align: center;">
-				            Contact Bob Jett at &nbsp; <a href="tel:972-793-5523">972.793.5523</a><br/>ext. 10342
+				            Contact Bob Jett at &nbsp; <a href="tel:972-793-5540,10342">972.793.5523</a><br/>ext. 10342
 			            </div>
 			        </div>
 
@@ -216,7 +216,7 @@
 				            Email: (procurement@shermco.com)
                         </a>
 			            <div class="contact" style="text-align: center;">
-				            Contact Tanner Cook at &nbsp; <a href="tel:972-793-5523">972.793.5523</a><br/>ext. 10389
+				            Contact Tanner Cook at &nbsp; <a href="tel:972-793-5540,10389">972.793.5523</a><br/>ext. 10389
 			            </div>
 			        </div>
 

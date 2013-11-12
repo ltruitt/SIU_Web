@@ -175,7 +175,7 @@
     // Load List Of O/H Accounts //
     ///////////////////////////////
     var listOfAccounts = [];
-    function getTimeOhAcctsSuccess(data) {
+    function GetExpenseOHAcctsSuccess(data) {
         listOfAccounts = data.d.split("\r");
 
         $("#ddOhAcct").autocomplete({ source: listOfAccounts },
@@ -208,11 +208,11 @@
         });
     }
 
-    function getTimeOhAccts() {
-        var getTimeOhAcctsAjax = new AsyncServerMethod();
-        getTimeOhAcctsAjax.exec("/SIU_DAO.asmx/GetTimeOHAccts", getTimeOhAcctsSuccess);
+    function GetExpenseOHAccts() {
+        var GetExpenseOHAcctsAjax = new AsyncServerMethod();
+        GetExpenseOHAcctsAjax.exec("/SIU_DAO.asmx/GetExpenseOHAccts", GetExpenseOHAcctsSuccess);
     }
-    getTimeOhAccts();
+    GetExpenseOHAccts();
 
     function showOhDetails() {
         var ohAcct = $('#ddOhAcct').val();

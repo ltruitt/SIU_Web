@@ -121,6 +121,24 @@ namespace ShermcoYou.DataTypes
         public string Hazard { get; set; }
         public string Correction { get; set; }
     }
+    public class SIU_BasicEmployee
+    {
+        public string Name;
+        public string EID;
+        public string Super;
+        public string Dept;
+
+        public SIU_BasicEmployee(Shermco_Employee e)
+        {
+            Name = e.Last_Name + ", " + e.First_Name;
+            EID = e.No_;
+            Dept = e.Global_Dimension_1_Code;
+
+            Super = SqlServer_Impl.GetEmployeeNameByNo(e.Manager_No_);
+        }
+    }
+
+
     public class SIU_SafetyPays_TaskList_Rpt
     {
         public int IncidentNo;
@@ -245,6 +263,8 @@ namespace ShermcoYou.DataTypes
         public int LateTasks = 0;
         public int LateStatus = 0;
 
+        public int QOM_ID;
+
         public SIU_SafetyPaysReport_Rpt(SIU_SafetyPaysReport Rpt)
         {
             _incidentNo = Rpt.IncidentNo;
@@ -291,7 +311,7 @@ namespace ShermcoYou.DataTypes
             LastModifedByEmpName = SqlServer_Impl.GetEmployeeNameByNo(IncLastTouchEmpID);
             ObservedEmpName = SqlServer_Impl.GetEmployeeNameByNo(ObservedEmpID);
 
-            defaultPoints = SqlServer_Impl.GetAutoCompletePointTypes().Where(c => c.Description == _incTypeTxt).Select(c => c.PointsCount).SingleOrDefault();
+            defaultPoints = SqlServer_Impl.GetAutoCompletePointTypes().Where(c => c.Description.ToLower() == _incTypeTxt.ToLower()).Select(c => c.PointsCount).SingleOrDefault();
 
             TotalTasks = 0;
             OpenTasks = 0;
@@ -306,6 +326,9 @@ namespace ShermcoYou.DataTypes
                 LateTasks = tasks.Where(c => c.CompletedDate == null && c.DueDate < DateTime.Now).Count();
                 LateStatus = SqlServer_Impl.GetSafetyPaysTaskStatus(_incidentNo).Where(c => c.ResponseDate == null).Count();
             }
+
+            if ( Rpt.QOM_ID != null )
+                QOM_ID = (int)Rpt.QOM_ID;
         }
 
         public int IncidentNo
@@ -794,6 +817,25 @@ namespace ShermcoYou.DataTypes
             get { return Account + " " + Desc; }
         }
     }
+
+    public class SIU_Oh_Exp_Accounts
+    {
+        public string Liab_Account { get; set; }
+        public string Exp_Account { get; set; }
+        public string Code { get; set; }
+        public string Desc { get; set; }
+
+        public string AccountDesc
+        {
+            get
+            {
+                if ( Liab_Account.Length > 0 )
+                    return Liab_Account + " " + Code;
+                return Exp_Account + " " + Code;
+            }
+        }
+    }
+
     public class SIU_Divs_Depts
     {
         public string Code { get; set; }

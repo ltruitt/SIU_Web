@@ -25,9 +25,10 @@
     <div id="FormWrapper" class="ui-widget ui-form">
                     
         <section style="visibility: hidden; height: 0; width: 0;">
-            <span id="hlblEID"           runat="server"/>  
-            <span id="hlblSID"           runat="server"/>
-            <span id="hlblKey"           runat="server"/>
+            <span id="hlblEID"           runat="server"></span>  
+            <span id="hlblQID"></span>  
+            <span id="hlblSID"></span>  
+            <span id="hlblKey"></span>  
         </section>            
             
         <!----------------->
@@ -123,7 +124,7 @@
 
                 <div style="display: inline-block; margin-bottom: 0; float: left; ">
                     <div style="display: inline-block; background-color:  rgb(35, 135, 16); width: 350px; height: 5px; "></div>
-                    <div style="display: inline-block; background-color:  red; width: 150px; height: 5px; margin-left: 45px;"></div>
+                    <div id="btnWorkEmpz" style="display: inline-block; background-color:  red; width: 150px; height: 5px; margin-left: 45px;"></div>
                 </div>
                 <div style="clear: both;"></div>
 
@@ -135,7 +136,7 @@
                     <input id="txtPts" Class="DataInputCss" style="float: left; width: 35px; margin-right: 5px; background-color: rgb(180, 248, 177); font-weight: bold; text-align: center; font-size: 1.5em; padding: 0; margin-top: -3px;" />
                 </div>
 
-                <div style="float: left; width: 200px; ">
+                <div id="btnWorkDiv" style="float: left; width: 200px; ">
                     <input type="button" ID="btnWork" value="Approved w/ Task" Class="SearchBtnCSS" style="width: 150px; color: green;"/>
                 </div>
                                                                             

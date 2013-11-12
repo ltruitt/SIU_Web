@@ -234,7 +234,11 @@ public partial class Login : System.Web.UI.Page
             // Lookup AD Group Memberships //
             /////////////////////////////////
             LDAP cred = new LDAP();
-            Session.Add("UserGroups", cred.GetGroups(BusinessLayer.UserName) );
+            StringCollection Roles = cred.GetGroups(BusinessLayer.UserName);
+            foreach (string Role in SqlServer_Impl.SIU_GetRoles(UserName.Text))
+                Roles.Add(Role);
+
+            Session.Add("UserGroups", Roles);
 
 
 

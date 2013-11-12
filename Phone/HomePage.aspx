@@ -9,7 +9,7 @@
             margin-left: auto; 
             margin-right: auto; 
             width: 100%; 
-            background-color: red;        
+            background-color: red;  
         }
     </style>
        

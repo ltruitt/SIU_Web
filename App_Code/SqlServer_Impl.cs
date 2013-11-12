@@ -226,6 +226,24 @@ public class SiuDao : WebService
         return ohList;
     }
 
+    //////////////////////////////////////////////////////////////
+    // Lookup OverHead Accounts Available For Expense Reporting //
+    // Support For Expense Entry Form                              //
+    //////////////////////////////////////////////////////////////
+    [WebMethod(EnableSession = true)]
+    public string GetExpenseOHAccts()
+    {
+        string ohList = string.Empty;
+
+        foreach (var oh in SqlServer_Impl.GetExpenseOHAccts())
+        {
+            if (ohList.Length > 0) ohList += "\r";
+            ohList += oh.AccountDesc;
+        }
+
+        return ohList;
+    }
+
     ////////////////////////////////////////////////////////
     // Get OverHead Account Department For Time Reporting //
     // Support For Time Entry Form                        //
@@ -1422,7 +1440,7 @@ public class SiuDao : WebService
     // Close Safety Pays Report //
     //////////////////////////////
     [WebMethod(EnableSession = true)]
-    public void RecordSafetyPaysStatusAcceptClosed(string RcdID, string EmpID, string Points, string ehsRepsonse, string SuprID)
+    public void RecordSafetyPaysStatusAcceptClosed(string RcdID, string EmpID, string Points, string ehsRepsonse, string SuprID, string QID)
     {
         string suprEmail = "";
         if (SuprID.Length > 0)
@@ -1439,7 +1457,7 @@ public class SiuDao : WebService
     // Set A Safety Pays Report Status to ACCEPTED and WORKING //
     /////////////////////////////////////////////////////////////
     [WebMethod(EnableSession = true)]
-    public void RecordSafetyPaysStatusWork(string RcdID, string EmpID, string Points, string ehsRepsonse, string SuprID)
+    public void RecordSafetyPaysStatusWork(string RcdID, string EmpID, string Points, string ehsRepsonse, string SuprID, string QID)
     {
         string suprEmail = "";
         if ( SuprID.Length > 0 )
@@ -1454,7 +1472,7 @@ public class SiuDao : WebService
     // Reject Safety Pays Report //
     ///////////////////////////////
     [WebMethod(EnableSession = true)]
-    public void RecordSafetyPaysStatusReject(string RcdID, string EmpID, string ehsRepsonse, string SuprID)
+    public void RecordSafetyPaysStatusReject(string RcdID, string EmpID, string ehsRepsonse, string SuprID, string QID)
     {
         string suprEmail = "";
         if (SuprID.Length > 0)
@@ -1761,7 +1779,7 @@ public class SiuDao : WebService
         JavaScriptSerializer serializer = new JavaScriptSerializer();
         try
         {
-            List<object> jasonResp = SqlServer_Impl.GetOpenIncidentAccident();
+            List<object> jasonResp = SqlServer_Impl.GetIncidentAccident("Open");
             return serializer.Serialize(new { Result = "OK", Records = jasonResp[0] });
         }
         catch (Exception ex)
@@ -1770,6 +1788,181 @@ public class SiuDao : WebService
             return serializer.Serialize(new { Result = "ERROR", ex.Message });
         }         
     }
+
+    [WebMethod(EnableSession = true)]
+    public string GetSubmitIncidentAccident()
+    {
+        ////////////////////////////////
+        // Build Response Data Object //
+        ////////////////////////////////
+        JavaScriptSerializer serializer = new JavaScriptSerializer();
+        try
+        {
+            List<object> jasonResp = SqlServer_Impl.GetIncidentAccident("Submit");
+            return serializer.Serialize(new { Result = "OK", Records = jasonResp[0] });
+        }
+        catch (Exception ex)
+        {
+            SqlServer_Impl.LogDebug("SiuDao.GetOpenIncidentAccident", ex.Message);
+            return serializer.Serialize(new { Result = "ERROR", ex.Message });
+        }
+    }
+
+
+    [WebMethod(EnableSession = true)]
+    public string GetVehilceList()
+    {
+        try
+        {
+            List<string> rpts = SqlServer_Impl.GetVehilceList();
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            return serializer.Serialize(rpts);
+        }
+        catch (Exception ex)
+        {
+            SqlServer_Impl.LogDebug("SiuDao.GetVehilceList", ex.Message);
+            throw;
+        }
+    }
+
+    [WebMethod(EnableSession = true)]
+    public string GetEmpBasic(string EID)
+    {
+        try
+        {
+            SIU_BasicEmployee emp =  new SIU_BasicEmployee( SqlServer_Impl.GetEmployeeByNo(EID) );
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            return serializer.Serialize(emp);
+        }
+        catch (Exception ex)
+        {
+            SqlServer_Impl.LogDebug("SiuDao.GetEmpBasic", ex.Message);
+            throw;
+        }
+    }
+
+
+    
+    [WebMethod(EnableSession = true)]
+    public string recordIncidentAccident(   string hlblUID,         string _Inc_Type,           string _Inc_Type_Sub,           string _Inc_Loc,                    string _Emp_Veh_Involved, string _Emp_Job_No,
+                                            string _Claim_ID,       string _Inc_Desc,           string _Inc_Unsafe_Act_or_Condition, string _Osha_Restrict_Days,    string _Osha_Lost_Days,
+                                            string _Emp_ID,         string _Emp_Comments,       string _Follow_Discipline,      string _Follow_Prevent_Reoccur,     string _Follow_Comments,
+                                            string _Cost_inHouse,   string _Cost_Incurred,      string _Cost_Reserve,           string _Cost_Total,                 string _Follow_Responsible,
+                                            string _Inc_Occur_Date, string _Osha_Record_Med,    string _Emp_Drug_Alchol_Test,   string _Follow_Discipline_Issued_Flag
+                                        )
+    {
+
+        try
+        {
+            SIU_Incident_Accident incRcd = new SIU_Incident_Accident
+            {   
+                Claim_ID = _Claim_ID,
+                Inc_Type = _Inc_Type.TrimEnd(),
+                Inc_Type_Sub = _Inc_Type_Sub.TrimEnd(),
+                Inc_Desc = _Inc_Desc,
+                Inc_Loc = _Inc_Loc.TrimEnd(),
+                
+                Inc_Unsafe_Act_or_Condition = _Inc_Unsafe_Act_or_Condition,
+                Osha_Record_Med = (_Osha_Record_Med == "true"),
+                Osha_Restrict_Days =  ((_Osha_Restrict_Days.Length > 0) ? int.Parse(_Osha_Restrict_Days) : 0),
+                Osha_Lost_Days =      ((_Osha_Lost_Days.Length > 0) ? int.Parse(_Osha_Lost_Days) : 0),
+                Follow_Discipline = _Follow_Discipline,
+                Follow_Discipline_Issued_Flag = (_Follow_Discipline_Issued_Flag == "true"),
+                Follow_Prevent_Reoccur = _Follow_Prevent_Reoccur,
+                Follow_Comments = _Follow_Comments,
+                Emp_ID = _Emp_ID.TrimEnd(),
+                Emp_Drug_Alchol_Test = (_Emp_Drug_Alchol_Test == "true"),
+                Emp_Veh_Involved = _Emp_Veh_Involved.TrimEnd(),
+                Emp_Job_No = _Emp_Job_No,
+                Emp_Comments = _Emp_Comments,
+                Cost_inHouse =  (( _Cost_inHouse.Length > 0 ) ?  decimal.Parse(_Cost_inHouse) : 0),
+                Cost_Incurred = ((_Cost_Incurred.Length > 0) ? decimal.Parse(_Cost_Incurred) : 0),
+                Cost_Reserve = ((_Cost_Reserve.Length > 0) ? decimal.Parse(_Cost_Reserve) : 0),
+                Cost_Total = ((_Cost_Total.Length > 0) ? decimal.Parse(_Cost_Total) : 0),
+                Disposition = "Open",
+                UID = 0
+            };
+
+            if (hlblUID.Length > 0)
+                 incRcd.UID = int.Parse(hlblUID);
+
+            incRcd.Osha_Restrict_Duty = (incRcd.Osha_Restrict_Days > 0);
+            incRcd.Osha_Lost_Time = (incRcd.Osha_Lost_Days > 0);
+            if (_Inc_Occur_Date.Length >= 10)
+                incRcd.Inc_Occur_Date = DateTime.Parse(_Inc_Occur_Date);
+
+            return SqlServer_Impl.recordIncidentAccident(incRcd).ToString();
+        }
+        catch (Exception ex)
+        {
+            SqlServer_Impl.LogDebug("recordIncidentAccident", ex.Message);
+            return ("ERROR " + ex.Message);
+        }
+
+        return "";
+        
+    }
+
+    [WebMethod(EnableSession = true)]
+    public string submitIncidentAccident(string hlblUID, string _Inc_Type, string _Inc_Type_Sub, string _Inc_Loc, string _Emp_Veh_Involved, string _Emp_Job_No,
+                                            string _Claim_ID, string _Inc_Desc, string _Inc_Unsafe_Act_or_Condition, string _Osha_Restrict_Days, string _Osha_Lost_Days,
+                                            string _Emp_ID, string _Emp_Comments, string _Follow_Discipline, string _Follow_Prevent_Reoccur, string _Follow_Comments,
+                                            string _Cost_inHouse, string _Cost_Incurred, string _Cost_Reserve, string _Cost_Total, string _Follow_Responsible,
+                                            string _Inc_Occur_Date, string _Osha_Record_Med, string _Emp_Drug_Alchol_Test, string _Follow_Discipline_Issued_Flag
+                                        )
+    {
+
+        try
+        {
+            SIU_Incident_Accident incRcd = new SIU_Incident_Accident
+            {
+                Claim_ID = _Claim_ID,
+                Inc_Type = _Inc_Type,
+                Inc_Type_Sub = _Inc_Type_Sub,
+                Inc_Desc = _Inc_Desc,
+                Inc_Loc = _Inc_Loc,
+                Inc_Occur_Date = DateTime.Parse(_Inc_Occur_Date),
+                Inc_Unsafe_Act_or_Condition = _Inc_Unsafe_Act_or_Condition,
+                Osha_Record_Med = (_Osha_Record_Med == "true"),
+                Osha_Restrict_Days = int.Parse(_Osha_Restrict_Days),
+                Osha_Lost_Days = int.Parse(_Osha_Lost_Days),
+                Follow_Discipline = _Follow_Discipline,
+                Follow_Discipline_Issued_Flag = (_Follow_Discipline_Issued_Flag == "true"),
+                Follow_Prevent_Reoccur = _Follow_Prevent_Reoccur,
+                Follow_Comments = _Follow_Comments,
+                Emp_ID = _Emp_ID,
+                Emp_Drug_Alchol_Test = (_Emp_Drug_Alchol_Test == "true"),
+                Emp_Veh_Involved = _Emp_Veh_Involved,
+                Emp_Job_No = _Emp_Job_No,
+                Emp_Comments = _Emp_Comments,
+                Cost_inHouse = decimal.Parse(_Cost_inHouse),
+                Cost_Incurred = decimal.Parse(_Cost_Incurred),
+                Cost_Reserve = decimal.Parse(_Cost_Reserve),
+                Cost_Total = decimal.Parse(_Cost_Total),
+                Disposition = "Submit",
+                UID = 0
+            };
+
+            if (hlblUID.Length > 0)
+                incRcd.UID = int.Parse(hlblUID);
+
+            incRcd.Osha_Restrict_Duty = (incRcd.Osha_Restrict_Days > 0);
+            incRcd.Osha_Lost_Time = (incRcd.Osha_Lost_Days > 0);
+            if (_Inc_Occur_Date.Length >= 10)
+                incRcd.Inc_Occur_Date = DateTime.Parse(_Inc_Occur_Date);
+
+            return SqlServer_Impl.recordIncidentAccident(incRcd).ToString();
+        }
+        catch (Exception ex)
+        {
+            SqlServer_Impl.LogDebug("submitIncidentAccident", ex.Message);
+            return ("ERROR " + ex.Message);
+        }
+
+        return "";
+
+    }
+
 #endregion Incident Accident
 
 #region Training
@@ -2517,6 +2710,25 @@ public class SqlServer_Impl : WebService
             logonResp.Mail = 1;
         }
         return logonResp;
+    }
+    public static List<string> SIU_GetRoles(string UserID)
+    {
+        List<string> RolesList = new List<string> { };
+
+        try
+        {
+            SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
+            RolesList = (from rcds in nvDb.SIU_Roles
+                         where rcds.UserID == UserID
+                         select rcds.RoleID
+                        ).ToList();
+        }
+        catch (Exception ex)
+        {
+            LogDebug("SIU_GetRoles", ex.Message);
+        }
+
+        return RolesList;
     }
 #endregion Logon
 
@@ -3946,6 +4158,37 @@ public class SqlServer_Impl : WebService
 
 
 #region ELO TIME              Xtn Ex
+
+    public static List<SIU_Oh_Exp_Accounts> GetExpenseOHAccts()
+    {
+
+// No Indexes Suggested
+
+        try
+        {
+            SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
+
+            TransactionOptions to = new TransactionOptions
+            {
+                IsolationLevel = IsolationLevel.ReadUncommitted
+            };
+
+            using (new TransactionScope(TransactionScopeOption.Required, to))
+            {
+                return (from accountList in nvDb.Shermco_Payroll_Posting_Groups
+                        where accountList.Hover_Head == 1 && accountList.Earnings_Account.Length == 0
+                    orderby accountList.Code
+                        select new SIU_Oh_Exp_Accounts { Liab_Account = accountList.Liability_Account, Exp_Account   =  accountList.Expense_Account,   Code = accountList.Code,  Desc = accountList.Description }
+                    ).ToList();
+            }
+        }
+        catch (Exception ex)
+        {
+            LogDebug("GetExpenseOHAccts", ex.Message);
+        }
+        return new List<SIU_Oh_Exp_Accounts>();
+    }
+
     public static List<SIU_Oh_Accounts> GetTimeOhAccounts()
     {
 
@@ -4677,6 +4920,28 @@ public class SqlServer_Impl : WebService
         }
         return new List<string>();
     }
+    public static List<string> GetVehilceList()
+    {
+        try
+        {
+            SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
+
+            TransactionOptions to = new TransactionOptions();
+            to.IsolationLevel = IsolationLevel.ReadUncommitted;
+
+            using (new TransactionScope(TransactionScopeOption.RequiresNew, to))
+            {
+                return (from veh in nvDb.Shermco_Vehicles
+                        where (veh.Blocked == 0 && veh.Hide == 0)
+                        select veh.No_).ToList();
+            }
+        }
+        catch (Exception ex)
+        {
+            LogDebug("GetVehilceList", ex.Message);
+        }
+        return new List<string>();
+    }
     public static Shermco_Assigend_Vehicle_Data GetVehicleMileageRecord(string empNo, DateTime WeekEnding)
     {
         try
@@ -5131,7 +5396,7 @@ public class SqlServer_Impl : WebService
         SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
 
         return (from pastDue in nvDb.Shermco_Job_Reports
-                where   pastDue.Turned_in_By_Emp__No_ == empNo && pastDue.Complete_and_Delivered ==  DateTime.Parse("1753-01-01")
+                where   pastDue.Turned_in_By_Emp__No_ == empNo && ( pastDue.Complete_and_Delivered ==  DateTime.Parse("1753-01-01") && pastDue.No_Report_Required == 0 )
                 select new InProgressJobReport(pastDue)
                ).ToList();
     }
@@ -6025,12 +6290,16 @@ public class SqlServer_Impl : WebService
                 Emp_No = rptRcd.EmpID,
                 DatePointsGiven = DateTime.Now,
                 PointsGivenBy = rptRcd.IncLastTouchEmpID,
-                Comments = "Awarded for Safety Pays Submission",
+                Comments = "Awarded for " + rptRcd.IncTypeTxt,
                 Points = (int)rptRcd.PointsAssigned,
                 EventDate = rptRcd.IncidentDate ?? rptRcd.IncOpenTimestamp,
-                SPR_UID = rptRcd.IncidentNo
+                SPR_UID = rptRcd.IncidentNo,
+                QOM_ID = rptRcd.QOM_ID
             };
 
+            ///////////////////////////////////////////////
+            // Manually Convert SP Form Type to Rpt Type //
+            ///////////////////////////////////////////////
             if ( rptRcd.IncTypeSafeFlag ) newPts.ReasonForPoints = 1;
             if ( rptRcd.IncTypeUnsafeFlag ) newPts.ReasonForPoints = 9;
             if ( rptRcd.IncTypeSuggFlag ) newPts.ReasonForPoints = 8;
@@ -6049,6 +6318,21 @@ public class SqlServer_Impl : WebService
                     newPts.ReasonForPoints = 5;
                 
             }
+
+
+
+            //////////////////////////////////////////////////////////
+            // If This is a QOM Record, Make Some Minor Adjustments //
+            //////////////////////////////////////////////////////////
+            if (rptRcd.QOM_ID > 0 )
+            {
+                if ( rptRcd.IncTypeTxt.ToLower().Contains("vest") )
+                    newPts.ReasonForPoints = 22;
+                else
+                    newPts.ReasonForPoints = 6;
+            }
+
+
 
             nvDb.SIU_SafetyPays_Points.InsertOnSubmit(newPts);
 
@@ -6495,8 +6779,7 @@ public class SqlServer_Impl : WebService
 #endregion
 
 #region Incident Accident
-
-    public static List<object> GetOpenIncidentAccident()
+    public static List<object> GetIncidentAccident(string _status)
     {
         SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
 
@@ -6505,11 +6788,77 @@ public class SqlServer_Impl : WebService
             join emp in nvDb.Shermco_Employees on iaList.Emp_ID equals emp.No_ into outerJoin
             
             from iaList2 in outerJoin.DefaultIfEmpty()  // Left Outer Join
-            where iaList.Disposition == "Closed"
+            where iaList.Disposition == _status
 
             select new { iaList, iaList2.Last_Name, iaList2.Global_Dimension_1_Code, iaList2.First_Name }
             ).ToList()};			        
     }
+    public static SIU_Incident_Accident GetIncidentAccident(int _UID)
+    {
+        SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
+
+        return ( from rcd in nvDb.SIU_Incident_Accidents
+                 where rcd.UID == _UID
+                 select rcd).SingleOrDefault();
+    }
+    public static int recordIncidentAccident(SIU_Incident_Accident _IncRcd)
+    {
+        SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
+        SIU_Incident_Accident newRcd = null;
+
+        /////////////////////////////////////////////
+        // If This Is A New Record, Perform Insert //
+        /////////////////////////////////////////////
+        if (_IncRcd.UID == 0)
+        {
+            nvDb.SIU_Incident_Accidents.InsertOnSubmit(_IncRcd);
+        }
+
+
+
+        /////////////////////////////////
+        // Otherwise Perform An Update //
+        /////////////////////////////////
+        else
+        {
+            /////////////////////////////////
+            // Look For An Existing Record //
+            /////////////////////////////////
+            newRcd = GetIncidentAccident(_IncRcd.UID);
+
+            if (newRcd == null) throw (new Exception("Unable To Locate Key: " + _IncRcd.UID));
+
+            //////////////////////////
+            // Start Update Process //
+            //////////////////////////
+            nvDb.SIU_Incident_Accidents.Attach(newRcd);
+
+            ///////////////////////////////
+            // Copy Over New Data Fields //
+            ///////////////////////////////
+            Mapper.CreateMap<SIU_Incident_Accident, SIU_Incident_Accident>();
+            Mapper.Map(_IncRcd, newRcd);
+
+
+        }
+        nvDb.SubmitChanges();
+
+        return (newRcd == null) ? _IncRcd.UID : newRcd.UID;
+    }
+    //public static void setIncidentAccidentStatus(string _UID, string _Status)
+    //{
+    //    SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
+
+    //    //////////////////////////////
+    //    // Look For Existing Record //
+    //    //////////////////////////////
+    //    SIU_Incident_Accident updRcd = GetIncidentAccident(_UID);
+
+    //    if (updRcd == null) throw (new Exception("Unable To Locate Key: " + _UID));
+
+    //    updRcd.Disposition = _Status;
+    //    nvDb.SubmitChanges();
+    //}
 #endregion Incident Accident
 
 #region Summary Counts  Xtn Ex
@@ -7295,12 +7644,12 @@ public static class BusinessLayer
         //////////////////////////////////////////////////////////
         // Verify Employee Allowed To Work More Than 8 Hours ST //
         //////////////////////////////////////////////////////////
-        if (TEV._HoursType == "OT")
-        {
-            if (TEV.EntryDate.DayOfWeek != DayOfWeek.Saturday && TEV.EntryDate.DayOfWeek != DayOfWeek.Sunday)
-                if (sums.OT + TEV._Hours > 4)
-                    errors.Add("Not Permitted More Than 4 Hours OT A Day.");
-        }
+        //if (TEV._HoursType == "OT")
+        //{
+        //    if (TEV.EntryDate.DayOfWeek != DayOfWeek.Saturday && TEV.EntryDate.DayOfWeek != DayOfWeek.Sunday)
+        //        if (sums.OT + TEV._Hours > 4)
+        //            errors.Add("Not Permitted More Than 4 Hours OT A Day.");
+        //}
 
 
         ////////////////////////

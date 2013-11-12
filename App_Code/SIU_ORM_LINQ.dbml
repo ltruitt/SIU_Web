@@ -1440,49 +1440,6 @@
       <Column Name="QuestionGroup" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
     </Type>
   </Table>
-  <Table Name="dbo.SIU_Incident_Accident" Member="SIU_Incident_Accidents">
-    <Type Name="SIU_Incident_Accident">
-      <Column Name="UID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Claim_ID" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
-      <Column Name="Disposition" Type="System.String" DbType="NChar(10) NOT NULL" CanBeNull="false" />
-      <Column Name="Inc_Type" Type="System.String" DbType="NChar(10) NOT NULL" CanBeNull="false" />
-      <Column Name="Inc_Type_Sub" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
-      <Column Name="Inc_Desc" Type="System.String" DbType="VarChar(3000) NOT NULL" CanBeNull="false" />
-      <Column Name="Inc_Loc" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="Inc_Occur_Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="Inc_Unsafe_Act_or_Condition" Type="System.String" DbType="VarChar(3000)" CanBeNull="true" />
-      <Column Name="Osha_Record_Med" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="Osha_Restrict_Duty" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="Osha_Restrict_Days" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Osha_Lost_Time" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="Osha_Lost_Days" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Follow_Discipline" Type="System.String" DbType="VarChar(3000)" CanBeNull="true" />
-      <Column Name="Follow_Prevent_Reoccur" Type="System.String" DbType="VarChar(3000)" CanBeNull="true" />
-      <Column Name="Follow_Responible_Eid" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
-      <Column Name="Follow_Comments" Type="System.String" DbType="VarChar(3000)" CanBeNull="true" />
-      <Column Name="Emp_ID" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
-      <Column Name="Emp_Drug_Alchol_Test" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="Emp_Veh_Involved" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
-      <Column Name="Emp_Job_No" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
-      <Column Name="Cost_inHourse" Type="System.Decimal" DbType="Money" CanBeNull="true" />
-      <Column Name="Cost_Incurred" Type="System.Decimal" DbType="Money" CanBeNull="true" />
-      <Column Name="Cost_Reserve" Type="System.Decimal" DbType="Money" CanBeNull="true" />
-      <Column Name="Cost_Total" Type="System.Decimal" DbType="Money" CanBeNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.SIU_SafetyPays_Points" Member="SIU_SafetyPays_Points">
-    <Type Name="SIU_SafetyPays_Point">
-      <Column Name="UID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Emp_No" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
-      <Column Name="ReasonForPoints" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="DatePointsGiven" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="PointsGivenBy" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
-      <Column Name="Comments" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="Points" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="EventDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="SPR_UID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.SIU_SafetyPaysReport" Member="SIU_SafetyPaysReports">
     <Type Name="SIU_SafetyPaysReport">
       <Column Name="IncidentNo" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -1510,6 +1467,59 @@
       <Column Name="SafetyMeetingDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="SafetyMeetingType" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
       <Column Name="JobNo" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SIU_SafetyPays_Points" Member="SIU_SafetyPays_Points">
+    <Type Name="SIU_SafetyPays_Point">
+      <Column Name="UID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Emp_No" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="ReasonForPoints" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DatePointsGiven" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="PointsGivenBy" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Comments" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Points" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="EventDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="SPR_UID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="QOM_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SIU_Roles" Member="SIU_Roles">
+    <Type Name="SIU_Role">
+      <Column Name="UID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="RoleID" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SIU_Incident_Accident" Member="SIU_Incident_Accidents">
+    <Type Name="SIU_Incident_Accident">
+      <Column Name="UID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Claim_ID" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="Disposition" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Inc_Type" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Inc_Type_Sub" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Inc_Desc" Type="System.String" DbType="VarChar(3000) NOT NULL" CanBeNull="false" />
+      <Column Name="Inc_Loc" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Inc_Occur_Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Inc_Unsafe_Act_or_Condition" Type="System.String" DbType="VarChar(3000)" CanBeNull="true" />
+      <Column Name="Osha_Record_Med" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Osha_Restrict_Duty" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Osha_Restrict_Days" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Osha_Lost_Time" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Osha_Lost_Days" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Follow_Discipline" Type="System.String" DbType="VarChar(3000)" CanBeNull="true" />
+      <Column Name="Follow_Discipline_Issued_Flag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Follow_Prevent_Reoccur" Type="System.String" DbType="VarChar(3000)" CanBeNull="true" />
+      <Column Name="Follow_Responsible" Type="System.String" DbType="VarChar(300)" CanBeNull="true" />
+      <Column Name="Follow_Comments" Type="System.String" DbType="VarChar(3000)" CanBeNull="true" />
+      <Column Name="Emp_ID" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="Emp_Drug_Alchol_Test" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Emp_Veh_Involved" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Emp_Job_No" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Emp_Comments" Type="System.String" DbType="VarChar(3000)" CanBeNull="true" />
+      <Column Name="Cost_inHouse" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Cost_Incurred" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Cost_Reserve" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Cost_Total" Type="System.Decimal" DbType="Money" CanBeNull="true" />
     </Type>
   </Table>
   <Function Name="dbo.SIU_ELO_GetBalance" Method="SIU_ELO_GetBalance">
@@ -1541,6 +1551,14 @@
       <Column Name="QomCurrentQiD" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </ElementType>
   </Function>
+  <Function Name="dbo.SIU_Logon" Method="SIU_Logon">
+    <Parameter Name="UserID" Parameter="userID" Type="System.String" DbType="NChar(10)" />
+    <Parameter Name="Pwd" Parameter="pwd" Type="System.String" DbType="NChar(10)" />
+    <Parameter Name="IP" Parameter="iP" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="Valid" Parameter="valid" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="Mail" Parameter="mail" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
   <Function Name="dbo.SIU_MySi_SummaryCounts" Method="SIU_MySi_SummaryCounts">
     <Parameter Name="EmpID" Parameter="empID" Type="System.String" DbType="VarChar(20)" />
     <ElementType Name="SIU_MySi_SummaryCountsResult">
@@ -1564,14 +1582,9 @@
       <Column Name="SpMyAssigned" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="SpMyLateTask" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="SpMyLateStatus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="QomOpen" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="QomPend" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="QomAccept" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
     </ElementType>
-  </Function>
-  <Function Name="dbo.SIU_Logon" Method="SIU_Logon">
-    <Parameter Name="UserID" Parameter="userID" Type="System.String" DbType="NChar(10)" />
-    <Parameter Name="Pwd" Parameter="pwd" Type="System.String" DbType="NChar(10)" />
-    <Parameter Name="IP" Parameter="iP" Type="System.String" DbType="VarChar(50)" />
-    <Parameter Name="Valid" Parameter="valid" Type="System.Int32" DbType="Int" Direction="InOut" />
-    <Parameter Name="Mail" Parameter="mail" Type="System.Int32" DbType="Int" Direction="InOut" />
-    <Return Type="System.Int32" />
   </Function>
 </Database>

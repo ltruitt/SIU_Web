@@ -128,7 +128,11 @@ public static class WebMail
         emailBody += "Submission Type: " + Report.IncTypeTxt + Environment.NewLine;
         if (Report.JobNo.Length > 0)
             emailBody += "Job: " + Report.JobNo + Environment.NewLine;
-        emailBody += "Location: " + Report.JobSite + Environment.NewLine + Environment.NewLine;
+
+        if ( Report.JobSite != "-")
+            emailBody += "Location: " + Report.JobSite + Environment.NewLine;
+
+        emailBody += Environment.NewLine;
 
         if (Report.IncTypeTopicFlag || Report.IncTypeSumFlag)
             emailBody += "Meeting: " + Report.SafetyMeetingType + Environment.NewLine;

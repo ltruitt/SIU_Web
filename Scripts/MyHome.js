@@ -42,7 +42,9 @@
         if (summaryCounts.SpMyLateStatus == 0)
             $('#spLateS').hide();
 
-        
+        $('#QomOpen')[0].innerHTML = summaryCounts.QomOpen;
+        $('#QomPend')[0].innerHTML = summaryCounts.QomPend;
+        $('#QomAccept')[0].innerHTML = summaryCounts.QomAccept;
         
         
 
@@ -147,7 +149,6 @@
         $('#PHoliday')[0].innerHTML = summaryCounts.PHoliday;
         $('#Vacation')[0].innerHTML = summaryCounts.Vacation;
         $('#Sick')[0].innerHTML = summaryCounts.Sick;
-        $('#l1AccruedTime').show('slow');
 
 
         $('#ExpCnt')[0].innerHTML = summaryCounts.ExpCnt;
@@ -155,8 +156,6 @@
 
         if ( summaryCounts.ExpCnt > 0 )
             $('#liExpCntExpAmt').show('slow');
-
-        //$('#liMyYtdExp').show('slow');
     }
 
     function hideAll() {

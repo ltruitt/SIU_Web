@@ -17,9 +17,9 @@
     <div id="FormWrapper" class="ui-widget ui-form">
 
         <section style="visibility: hidden; height: 0; width: 0;">
-            <span id="hlblEID"     runat="server"/>  
-            <span id="hlblObsEID"  runat="server"/>  
-            <span id="hlblJobNo"   runat="server"/>  
+            <span id="hlblEID"     runat="server"></span>
+            <span id="hlblObsEID"  runat="server"></span>  
+            <span id="hlblJobNo"   runat="server"></span>
         </section>  
 
         <section id="HomeMain" >

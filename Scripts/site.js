@@ -50,14 +50,35 @@ $(document).ready(function () {
 
 
 
-    jQuery.fn.parseJsonDate = function(jsonDateString, format) {
+    //jQuery.fn.parseJsonDate = function (jsonDateString, format) {
+    //    if (typeof (jsonDateString) == "undefined")
+    //        return '';
+
+    //    var xxx = jsonDateString.replace('/Date(', '').replace(')/', '');
+    //    var yyy = new Date(parseInt(xxx));
+    //    return $.datepicker.formatDate(format, yyy);
+    //};
+    
+    jQuery.fn.parseJsonDate = function (jsonDateString) {
         if (typeof (jsonDateString) == "undefined")
             return '';
 
-        var xxx = jsonDateString.replace('/Date(', '').replace(')/', '');
-        var yyy = new Date(parseInt(xxx));
-        return $.datepicker.formatDate(format, yyy);
-    }
+        if ( !jsonDateString )
+            return '';
+
+        if (jsonDateString == 'null' )
+            return '';
+
+        if (jsonDateString != null && jsonDateString !== undefined) {
+            return '';
+        }
+
+        if (jsonDateString.indexOf('/Date') == -1) {
+            return new Date(jsonDateString).toDateString();
+        }
+
+        return new Date(parseInt(jsonDateString.replace('/Date(', '')));
+    };
     
 
     ////////////////////////////////////
@@ -237,6 +258,40 @@ function number_format(number, decimals, dec_point, thousands_sep) {
 }
 
 
+function NumericInput(selector) {
+    $('#' + selector).keydown(function (event) {
+        
+        ////////////////////////////////////////////////////////
+        // Allow: backspace, delete, tab, escape, enter and . //
+        ////////////////////////////////////////////////////////
+        if ($.inArray(event.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
+            
+            ///////////////////
+            // Allow: Ctrl+A //
+            ///////////////////
+            (event.keyCode == 65 && event.ctrlKey === true) ||
+            
+            ///////////////////////////////////
+            // Allow: home, end, left, right //
+            ///////////////////////////////////
+            (event.keyCode >= 35 && event.keyCode <= 39)) {
+            
+            //////////////////////////////////////
+            // let it happen, don't do anything //
+            //////////////////////////////////////
+            return;
+        }
+        else {
+            
+            //////////////////////////////////////////////////////
+            // Ensure that it is a number and stop the keypress //
+            //////////////////////////////////////////////////////
+            if (event.shiftKey || (event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105)) {
+                event.preventDefault();
+            }
+        }
+    });
+}
 
 function mutex(className) {
         
