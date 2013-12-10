@@ -298,7 +298,7 @@ $(document).ready(function () {
     var yearWeeklyOptions = {
         chart: { renderTo: 'YearWeekly', type: 'column', marginRight: 80, marginBottom: 35, plotBackgroundColor: 'rgb(200, 200, 255)' },
         title: { text: 'Hours By Week of Year', x: -20 },
-        yAxis: { title: { text: 'Hours' }, max: 20, tickInterval: 8, id: 'y-axis', plotLines: [{ color: '#FF0000', width: .5, value: 8 }] },
+        yAxis: { title: { text: 'Hours' }, max: 112, tickInterval: 8, id: 'y-axis', plotLines: [{ color: '#FF0000', width: .5, value: 8 }] },
         tooltip: { formatter: function () { return this.y; } },
         legend: { layout: 'vertical', align: 'right', verticalAlign: 'top', x: -10, y: 20, borderWidth: 0 },
         plotOptions: { column: { stacking: 'normal'} },

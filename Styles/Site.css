@@ -26,8 +26,8 @@ form {
 }
 
 .ui-dialog .ui-dialog-titlebar-close span {
-    margin-top: 0 !important;
-    margin-left: 0 !important;
+    margin-top: -9px !important;
+    margin-left: -9px !important;
 }
 
 /*	Style the background of #header and #footer,  masks the background color of body  */

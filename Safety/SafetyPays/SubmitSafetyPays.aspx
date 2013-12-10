@@ -20,6 +20,7 @@
             <span id="hlblEID"     runat="server"></span>
             <span id="hlblObsEID"  runat="server"></span>  
             <span id="hlblJobNo"   runat="server"></span>
+            <span id="hlblIncidentNo"   runat="server"></span>
         </section>  
 
         <section id="HomeMain" >
@@ -50,7 +51,10 @@
                 
                 <div id="SuprArea" style="margin-top: 5px; margin-bottom: 20px; display:inline-block;" runat="server" >
                     <span style="float:left; margin-right: 20px; font-size: 1.3em; width: auto;  font-weight: bold; display:inline">Select Employee:</span>
-                    <input ID="ddEmpIds" class="DataInputCss" runat="server"   style="width: 400px;" />         
+                    <input ID="ddEmpIds" class="DataInputCss" runat="server"   style="width: 400px;  background-color:yellow; border-color: black;" />         
+                    
+                    <span style="float:left; margin-left: 20px;  margin-right: 20px; font-size: 1.3em; width: auto;  font-weight: bold; display:inline">Lookup Record:</span>
+                    <input ID="RcdId" class="DataInputCss" runat="server"   style="width: 40px; background-color:yellow; border-color: black;" />   
                 </div>
 
                 <!----------------------->

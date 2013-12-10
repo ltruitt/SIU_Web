@@ -33,7 +33,7 @@ $(document).ready(function () {
         colModel: [
             { name: 'category', index: 'category', width: 0, sortable: true, sorttype: "string", align: "left", formatter: 'string' },
             { name: 'From_Date', index: 'From Date ', width: 50, sortable: true, sorttype: "date", align: "center", formatter: 'date' },
-            { name: 'To_Date', index: 'To Date', width: 50, sortable: true, sorttype: "date", align: "center", formatter: 'date' },
+            { name: 'Expiration_Date', index: 'Expiration Date', width: 50, sortable: true, sorttype: "date", align: "center", formatter: 'date' },
             { name: 'Qualification_Code', index: 'Qualification_Code', width: 50, sortable: true, sorttype: "string", align: "center", formatter: 'string' },
             { name: 'Description', index: 'Description', width: 200, sortable: true, sorttype: "string", align: "center", formatter: 'string' }
         ],
@@ -58,7 +58,7 @@ $(document).ready(function () {
             jQuery("#BandC_Tbl").jqGrid('setGridHeight', $("#BandC_Tbl").height());
         },
         loadComplete: function () {
-            var iCol = getColumnIndexByName($(this), 'To_Date'),
+            var iCol = getColumnIndexByName($(this), 'Expiration_Date'),
             cRows = this.rows.length, iRow, row, className;
 
             for (iRow = 0; iRow < cRows; iRow++) {

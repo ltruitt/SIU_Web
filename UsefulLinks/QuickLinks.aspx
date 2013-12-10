@@ -3,7 +3,6 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
-        <center>
         <br/>
         <div id="PhoneMenu" class="PhoneMenu" style="display:inline; ">
 			<ul>
@@ -13,6 +12,5 @@
 			</ul>
         </div>
         <br/>
-        </center>    
 </asp:Content>
 

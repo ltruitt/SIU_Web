@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Specialized;
 
 public partial class Safety_SafetyPays_SafetyQomUser : System.Web.UI.Page
 {
@@ -17,6 +18,14 @@ public partial class Safety_SafetyPays_SafetyQomUser : System.Web.UI.Page
             //////////////////////////
             hlblEID.InnerText = BusinessLayer.UserEmpID;
             lblEmpName.InnerText = "(" + BusinessLayer.UserEmpID + ") " + BusinessLayer.UserFullName;
+
+            ///////////////////////////
+            // Check For Admin Priv. //
+            ///////////////////////////
+            StringCollection sessionVar = (StringCollection)Session["UserGroups"];
+            if (sessionVar != null)
+                if (SuprArea != null)
+                    SuprArea.Visible = (sessionVar.Contains("ShermcoYou_Safety_Pays"));
         }
 
         catch (Exception exc)

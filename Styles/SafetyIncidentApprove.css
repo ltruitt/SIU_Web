@@ -1,0 +1,73 @@
+﻿.Chk  {
+    border: none;  
+    padding-right: 10px;
+}
+
+.ui-tabs-nav  {
+    background-image: none;
+    border: none;
+    margin-top: -12px !important;
+}
+
+html {
+    background-color: grey;
+}
+
+.lblHead {
+    font-weight: bold;
+    text-align: center;
+    border-bottom: solid 1px white;
+}
+
+.lblHead2 {
+    font-weight: bold;
+    text-align: left;
+    width: 250px;
+    display: inline-block;
+}
+
+
+.lbl {
+    display: block;
+    min-height: 20px;
+    -moz-min-width: 20px;
+    -ms-min-width: 20px;
+    -o-min-width: 20px;
+    -webkit-min-width: 20px;
+    min-width: 20px;
+}
+
+.lblCtr {
+    text-align: center;
+    display: block;
+}
+
+.AppBtnCSS {
+    float: none !important;  
+    display: inline-block !important; 
+    height: 17px !important; 
+    line-height: 5px !important; 
+    color: red !important; 
+    font-weight: bold !important;
+}
+
+.lblName {
+    display: inline-block;
+    width: 120px;
+    text-align: left;
+}
+
+.lblEID {
+    display: inline-block;
+    width: 40px;
+}
+
+#Edit-Comment {
+    background-color: #CCCCDD;
+    -ms-border-radius:  7px;
+    border-radius:      7px;
+}
+
+.ui-icon-closethick {
+    margin-top: -30px !important;
+}

@@ -151,8 +151,8 @@
         $('#Sick')[0].innerHTML = summaryCounts.Sick;
 
 
-        $('#ExpCnt')[0].innerHTML = summaryCounts.ExpCnt;
-        $('#ExpAmt')[0].innerHTML = '$' + summaryCounts.ExpAmt;
+        $('#ExpCnt').html(summaryCounts.ExpCnt);
+        $('#ExpAmt').html('$' + summaryCounts.ExpAmt);
 
         if ( summaryCounts.ExpCnt > 0 )
             $('#liExpCntExpAmt').show('slow');

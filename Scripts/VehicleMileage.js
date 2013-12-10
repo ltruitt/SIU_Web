@@ -203,6 +203,14 @@
             $('#txtVehicleMileage').addClass('ValidationError');
             return;
         }
+        
+        //////////////////////////////////
+        // Vehicle Miles Must Be An Int //
+        //////////////////////////////////
+        if (parseInt($('#txtVehicleMileage').val()) != $('#txtVehicleMileage').val()) {
+            $('#txtVehicleMileage').addClass('ValidationError');
+            return;
+        }
 
         //////////////////////////////////////
         // Vehicle Miles Must Be Reasonable //

@@ -23,8 +23,8 @@ public partial class Reporting_SubmitJobReport : System.Web.UI.Page
         hlblEID.InnerText = BusinessLayer.UserEmpID;
         lblEmpName.InnerText = SqlServer_Impl.GetEmployeeNameByNo(BusinessLayer.UserEmpID);
 
-        SuprArea.Visible = (BusinessLayer.UserName.ToLower() == "ltruitt") ? true : false;
-        SuprArea.Visible = (BusinessLayer.UserName.ToLower() == "ltruitt" || BusinessLayer.UserName.ToLower() == "sstrong") ? true : false;
+        //SuprArea.Visible = (BusinessLayer.UserName.ToLower() == "ltruitt") ? true : false;
+        //SuprArea.Visible = (BusinessLayer.UserName.ToLower() == "ltruitt" || BusinessLayer.UserName.ToLower() == "sstrong") ? true : false;
 
     }
 

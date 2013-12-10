@@ -26,6 +26,14 @@ public partial class Safety_SafetyHome : System.Web.UI.Page
             //    QomMarquee.InnerHtml = "<b>Question Of The Month: </b>" + Q.Question;
             //else
             //    QomMarquee.Visible = false;
+
+            /////////////////////////////
+            // Check For HR Test Priv. //
+            /////////////////////////////
+            QomLI.Visible = false;
+            if (sessionVar != null)
+                if (sessionVar.Contains("EHS_TEST"))
+                    QomLI.Visible = true;
         }
             
     }

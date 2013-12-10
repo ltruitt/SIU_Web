@@ -162,6 +162,8 @@
         if ($('#EndDate').val().length == 0)
             return;
 
+        var xxx = $('#StartDate').val();
+        
         var postdata = $("#ExpTbl").jqGrid('getGridParam', 'postData');
         postdata.startDate = $('#StartDate').val();
         postdata.endDate = $('#EndDate').val();

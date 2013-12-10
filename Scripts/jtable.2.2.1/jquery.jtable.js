@@ -1921,6 +1921,11 @@ THE SOFTWARE.
                                     self._setEnabledOfDialogButton($saveButton, false, self.options.messages.saving);
                                     self._saveAddRecordForm($addRecordForm, $saveButton);
                                 }
+                                
+                                // Truitt Extneded function
+                                else {
+                                    self._$addRecordDiv.dialog('close');
+                                }
                             }
                         }],
                 close: function () {

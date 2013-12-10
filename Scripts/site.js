@@ -49,6 +49,21 @@ $(document).ready(function () {
     };
 
 
+    ////////////////////////////////////////////////
+    // Methods to track changes to data on a form //
+    ////////////////////////////////////////////////
+    jQuery.fn.extend({
+        trackChanges: function () {
+            $(":input", this).change(function () {
+                $(this.form).data("changed", true);
+            });
+        }
+     ,
+        isChanged: function () {
+            return this.data("changed");
+        }
+    });
+
 
     //jQuery.fn.parseJsonDate = function (jsonDateString, format) {
     //    if (typeof (jsonDateString) == "undefined")
@@ -69,9 +84,9 @@ $(document).ready(function () {
         if (jsonDateString == 'null' )
             return '';
 
-        if (jsonDateString != null && jsonDateString !== undefined) {
-            return '';
-        }
+        //if (jsonDateString != null && jsonDateString !== undefined) {
+        //    return '';
+        //}
 
         if (jsonDateString.indexOf('/Date') == -1) {
             return new Date(jsonDateString).toDateString();
@@ -80,6 +95,25 @@ $(document).ready(function () {
         return new Date(parseInt(jsonDateString.replace('/Date(', '')));
     };
     
+
+    
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // I THINK THIS IS THE CORRECT METHOD TO HET A JSOM DATE AND LOAD IT INTO A DATEPICKER OBJECT                                // 
+    // $('#SafetyMeetingDate').datepicker("setDate", $.datepicker.parseDate('mm-dd-yy', $.fn.dateTest(data.SafetyMeetingDate))); //
+    //                                                                                                                           //
+    // WHEREAS THIS WOULD WORK FOR DIV / SPAN                                                                                    //
+    // $('#SafetyMeetingDate').html($.datepicker.parseDate('mm-dd-yy', $.fn.dateTest(data.SafetyMeetingDate)));                  //
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    jQuery.fn.dateTest = function (datefield) {
+        var i = -1;
+        if (datefield != null)
+            i = parseInt(datefield.substr(6));
+
+        if (i > 0)
+            return $.datepicker.formatDate('mm-dd-yy', new Date(i));
+        else
+            return '';
+    };
 
     ////////////////////////////////////
     // Define A Default Text Function //

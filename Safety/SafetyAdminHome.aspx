@@ -114,10 +114,13 @@
                             <div style="color: black; font-size: .9em; text-align: center; width: 150px;" id="Div1">Record / Update Events</div>
                         </a>
 
-                       <a href="/Safety/Incident/Approve.aspx">
+                        <a href="/Safety/Incident/Approve.aspx">
                             <div style="color: black; font-size: .9em; text-align: center; width: 150px;" id="Div3">Approve / Reject Events</div>
                         </a>
 
+                        <a href="/Safety/Incident/Spreadsheet.aspx">
+                            <div style="color: black; font-size: .9em; text-align: center; width: 150px;" id="Div4">Generate Spreadsheet</div>
+                        </a>
                 </li> 
                 
 

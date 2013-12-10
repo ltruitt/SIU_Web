@@ -37,7 +37,7 @@
         
 
 .DtlViewCSS {
-    border: 0px;
+    border: 0;
 }
         
 .DtlViewHeaderCss {
@@ -64,7 +64,7 @@
 
 .SearchTextBoxCSS 
 {
-    padding: 0px;
+    padding: 0;
     background-color: yellow;
     font-size: 1.1em;
     border-color: yellow;
@@ -120,6 +120,6 @@
 
 .ui-form label 
 {
-    padding-top: 0px;
+    padding-top: 0;
     font-size: 1em;    
 }

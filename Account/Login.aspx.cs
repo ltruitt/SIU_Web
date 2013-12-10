@@ -128,6 +128,7 @@ public partial class Login : System.Web.UI.Page
             // Lookup Up User Based On EMployee ID //
             /////////////////////////////////////////
             Shermco_Employee emp = SqlServer_Impl.GetEmployeeByNo(UserName.Text);
+            Shermco_Employee suprEmp;
 
             if (emp == null)
             {
@@ -136,9 +137,6 @@ public partial class Login : System.Web.UI.Page
             }
             else
             {
-
-
-
                 if (emp.Employee_Password != Password.Text)
                 {
                     FailureText.Text = "Please Try Again";
@@ -178,12 +176,12 @@ public partial class Login : System.Web.UI.Page
             ////////////////////////////////////////
             // If Valid = -99, Show Lockout Error //
             ////////////////////////////////////////
-            //if ( logonResp.Valid == -99 )
-            //{
-            //    FailureText.Text = "Device AND ID blocked for 15 minutes.";
-            //    System.Threading.Thread.Sleep(5000);
-            //    PasswordSuccess = 0;                
-            //}
+            if (logonResp.Valid == -99)
+            {
+                FailureText.Text = "Device AND ID blocked for 15 minutes.";
+                System.Threading.Thread.Sleep(5000);
+                PasswordSuccess = 0;
+            }
 
             ////////////////////////////////////////////////////////////
             // if  Valid = -1 then a db error occured.  Email Warning //
@@ -225,10 +223,14 @@ public partial class Login : System.Web.UI.Page
             Session.Add("UserFullName", emp.Last_Name + ", " + emp.First_Name);
             Session.Add("UserEmail", emp.Company_E_Mail);
             Session.Add("UserEmpID", emp.No_);
-            
-            emp = SqlServer_Impl.GetEmployeeByNo(emp.Manager_No_);
+            Session.Add("UserDept", emp.Global_Dimension_1_Code );
             Session.Add("UserSuprEmpID", emp.Manager_No_);
-            Session.Add("UserSuprFullName", emp.Last_Name + ", " + emp.First_Name);
+
+            suprEmp = SqlServer_Impl.GetEmployeeByNo(emp.Manager_No_);
+            if (suprEmp != null)
+                Session.Add("UserSuprFullName", suprEmp.Last_Name + ", " + suprEmp.First_Name);
+            else
+                Session.Add("UserSuprFullName", "");
 
             /////////////////////////////////
             // Lookup AD Group Memberships //

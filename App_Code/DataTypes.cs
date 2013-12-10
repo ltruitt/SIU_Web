@@ -26,12 +26,12 @@ namespace ShermcoYou.DataTypes
     public enum TimeSheetEntry_Status
     {
         New = 0,
-        Pending_Employee_Approval = 1,
-        Employee_Approved = 2,
-        Pending_Verification = 3,
-        Being_Reviewed_by_Verifier = 4,
-        Pending_Manager_Approval = 5,
-        Manager_Approved = 6,
+        PendingEmployeeApproval = 1,
+        EmployeeApproved = 2,
+        PendingVerification = 3,
+        BeingReviewedByVerifier = 4,
+        PendingManagerApproval = 5,
+        ManagerApproved = 6,
         Rejected = 7,
         Posted = 8
     }
@@ -128,6 +128,14 @@ namespace ShermcoYou.DataTypes
         public string Super;
         public string Dept;
 
+        public SIU_BasicEmployee()
+        {
+            Name = BusinessLayer.UserFullName;
+            EID = BusinessLayer.UserEmpID;
+            Super = BusinessLayer.UserSuprEmpId + "  " + BusinessLayer.UserSuprFullName;
+            Dept = BusinessLayer.UserDept;
+        }
+
         public SIU_BasicEmployee(Shermco_Employee e)
         {
             Name = e.Last_Name + ", " + e.First_Name;
@@ -137,8 +145,61 @@ namespace ShermcoYou.DataTypes
             Super = SqlServer_Impl.GetEmployeeNameByNo(e.Manager_No_);
         }
     }
+    public class SIU_Incident_Accident_Reports_To
+    {
+        public string EmpId;
+        public string Dept;
+        public string SuprEmpId;
+        public string DeptMgrEmpId;
+        public string DivMgrEmpId;
+        public string VpEmpId;
+        public string GmEmpId;
+        public string PresEmpId;
 
+        public string SafetyMgrEmpId;
+        public string RiskMgrEmpId;
+        public string LegalMgrEmpId;
 
+        public string EmpName;
+        public string SuprName;
+        public string DeptMgrName;
+        public string DivMgrName;
+        public string VpName;
+        public string GmName;
+        public string PresName;
+
+        public string SafetyMgrName;
+        public string RiskMgrName;
+        public string LegalMgrName;
+
+        public DateTime SuprDate;
+        public DateTime DeptMgrDate;
+        public DateTime DivMgrDate;
+        public DateTime VpDate;
+        public DateTime GmDate;
+        public DateTime PresDate;
+
+        public DateTime SafetyMgrDate;
+        public DateTime RiskMgrDate;
+        public DateTime LegalMgrDate;
+
+        public bool readyToClose
+        {
+            get
+            {
+                if (SuprEmpId != null && SuprDate == DateTime.MinValue) return false;
+                if (DeptMgrEmpId != null && DeptMgrDate == DateTime.MinValue) return false;
+                if (DivMgrEmpId != null && DivMgrDate == DateTime.MinValue) return false;
+                if (VpEmpId != null && VpDate == DateTime.MinValue) return false;
+                if (GmEmpId != null && GmDate == DateTime.MinValue) return false;
+                if (PresEmpId != null && PresDate == DateTime.MinValue) return false;
+                if (SafetyMgrEmpId != null && SafetyMgrDate == DateTime.MinValue) return false;
+                if (RiskMgrEmpId != null && RiskMgrDate == DateTime.MinValue) return false;
+                if (LegalMgrEmpId != null && LegalMgrDate == DateTime.MinValue) return false;
+                return true;
+            }
+        }
+    }
     public class SIU_SafetyPays_TaskList_Rpt
     {
         public int IncidentNo;
@@ -817,7 +878,6 @@ namespace ShermcoYou.DataTypes
             get { return Account + " " + Desc; }
         }
     }
-
     public class SIU_Oh_Exp_Accounts
     {
         public string Liab_Account { get; set; }
@@ -835,7 +895,6 @@ namespace ShermcoYou.DataTypes
             }
         }
     }
-
     public class SIU_Divs_Depts
     {
         public string Code { get; set; }

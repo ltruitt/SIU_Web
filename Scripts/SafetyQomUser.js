@@ -122,7 +122,9 @@
                         $('#txtResponse').attr('disabled', false).css({ 'background-color': 'antiquewhite', 'border-color': 'brown' }).focus();
                     else
                         $('#txtResponse').attr('disabled', true).css({ 'background-color': 'gray', 'border-color': 'black' });
-                        
+                    
+                    $('#DivResponse').show();
+                    
                 });
             }
         }
@@ -146,7 +148,8 @@
         $('#btnSubmit').hide();
 
         var qomResponseSubmitCall = new AsyncServerMethod();
-        qomResponseSubmitCall.add('EID', $('#hlblEID')[0].innerHTML);
+        qomResponseSubmitCall.add('IncidentNo', '0');
+        qomResponseSubmitCall.add('EID', $('#hlblEID').html());
         qomResponseSubmitCall.add('JobNo', '');
 
         qomResponseSubmitCall.add('IncTypeSafeFlag', 0);
@@ -180,6 +183,52 @@
     // Form Setup //
     ////////////////   
     $('#btnSubmit').hide();
+    $('#DivResponse').hide();
+    
     $('#jTableQomList').jtable('load', { Eid: $('#hlblEID')[0].innerHTML, T: timestamp.getTime() });
     
+
+    /////////////////////////////////////////////////////
+    // Load List Of Employees into Observed Data Field //
+    /////////////////////////////////////////////////////
+    var listOfEmps = [];
+    function getEmpsSuccess(data) {
+        listOfEmps = data.d.split("\r");
+
+        $("#ddEmpIds").autocomplete({ source: listOfEmps },
+        {
+            matchContains: false,
+            minChars: 1,
+            autoFill: false,
+            mustMatch: false,
+            cacheLength: 20,
+            max: 20,
+            delay: 0,
+            select: function (event, ui) {
+                var dataPieces = ui.item.value.split(' ');
+                $('#hlblEID')[0].innerHTML = dataPieces[0];
+                $("#ddEmpIds").autocomplete("close");
+                $("#ddEmpIds").val(dataPieces[0] + ' ' + dataPieces[2] + ', ' + dataPieces[3]);
+                $('#jTableQomList').jtable('load', { Eid: $('#hlblEID')[0].innerHTML, T: timestamp.getTime() });
+            },
+            response: function (event, ui) {
+                if (ui.content.length == 1) {
+                    var dataPieces = ui.content[0].value.split(' ');
+                    $('#hlblEID')[0].innerHTML = dataPieces[0];
+                    $("#ddEmpIds").autocomplete("close");
+                    $("#ddEmpIds").val(dataPieces[0] + ' ' + dataPieces[2] + ', ' + dataPieces[3]);
+                    $('#jTableQomList').jtable('load', { Eid: $('#hlblEID')[0].innerHTML, T: timestamp.getTime() });
+                }
+
+                return ui;
+            }
+        });
+    }
+
+
+    // Load Emps AutoComplete List
+    if ($("#SuprArea").length > 0) {
+        var getEmpsCall = new AsyncServerMethod();
+        getEmpsCall.exec("/SIU_DAO.asmx/GetAutoCompleteActiveEmployees", getEmpsSuccess);
+    }
 });

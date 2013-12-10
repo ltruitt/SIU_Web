@@ -11,7 +11,8 @@ $(document).ready(function () {
     //////////////////////////////////////////////////
     // Prevent Buttons From Firing Events On Server //
     //////////////////////////////////////////////////
-    $("#aspnetForm").submit(function (e) { e.preventDefault(); });
+    $("#SiteWrapper").submit(function (e) { e.preventDefault(); });
+    
 
     /////////////////////////////////////////////
     // Setup Mutual Exclusion Data Check Boxes //
@@ -439,13 +440,43 @@ $(document).ready(function () {
             $('#lblReviewDate')[0].innerHTML = "<span class='FixedLabel'>Review</span>" + jobDetails.Tech_Review_Completed + '<br/>';
             $('#lblReadyDate')[0].innerHTML = "<span class='FixedLabel'>Delivered</span>" + jobDetails.Complete_and_Delivered + '<br/>';
 
-
+            
+            $("#SiteWrapper").data("changed", false);
             validate();
         }
     }
 
 
+    $("#SiteWrapper :input").change(function () {
+        $("#SiteWrapper").data("changed", true);
+        window.onbeforeunload = confirmPageExit;
+        validate();
+    });
+    
+
+    var confirmPageExit = function (e) {
+
+        if ($("#SiteWrapper").isChanged()) {
+            // If event not passed in, get it
+            e = e || window.event;
+
+            var message = 'You have unsaved changes.  Do you want to abondon these changes?';
+
+            return message;
+        }
+        
+
+    };
+    
+    
+
     function validate() {
+        
+        $('#NotReady').html('( Not Ready To Submit )');
+        
+        if ($("#SiteWrapper").isChanged()) {
+            $('#NotReady').html('( Changes Not Ready To Submit )');
+        }
 
         ////////////////////////////////////////////
         // If Email Address Given -- Check Format //
@@ -548,6 +579,11 @@ $(document).ready(function () {
         
 
         $('#btnSubmit').show();
+        $('#NotReady').html('( Ready To Submit )');
+        
+        if ($("#SiteWrapper").isChanged()) {
+            $('#NotReady').html('( Changes Ready To Submit )');
+        }
     }
     
 
@@ -558,13 +594,13 @@ $(document).ready(function () {
 
 
 
-    $('input:checkbox').change(function () {
-        validate();
-    });
+    //$('input:checkbox').change(function () {
+    //    validate();
+    //});
 
-    $('input:text').blur(function () {
-        validate();
-    });
+    //$('input:text').blur(function () {
+    //    validate();
+    //});
 
 
 
@@ -572,6 +608,8 @@ $(document).ready(function () {
     // Submit Data Processing //
     ////////////////////////////
     $("#btnSubmit").on("click", function () {
+        $("#SiteWrapper").data("changed", false);
+        
         $('#NoJobError').hide();
         var submitJobRptAjax = new AsyncServerMethod();
 
@@ -582,7 +620,7 @@ $(document).ready(function () {
         submitJobRptAjax.add('Partial', $('#chkPartial')[0].checked);
         submitJobRptAjax.add('PE', $('#chkPe')[0].checked);
         submitJobRptAjax.add('No_Report_Reason', $('#txtNoRpt')[0].value);
-        submitJobRptAjax.add('comments', $('#txtComments')[0].value);
+        submitJobRptAjax.add('comments', encodeURIComponent($('#txtComments').val()));
 
 
         submitJobRptAjax.add('chkNoData', $('#chkNoData')[0].checked);
@@ -641,7 +679,6 @@ $(document).ready(function () {
         submitJobRptAjax.add('BBT', $('#CbTestBBT')[0].checked);
         submitJobRptAjax.add('None', $('#CbTestNone')[0].checked);
 
-        //SubmitJobRpt_Ajax.add('IrData', $('#chkIrData')[0].checked);
         submitJobRptAjax.add('IrData', 'false');
         
         submitJobRptAjax.add('chkIrDrpBox', $('#IrDrpBoxY')[0].checked);
@@ -655,7 +692,7 @@ $(document).ready(function () {
         submitJobRptAjax.add('chkIrDrpBoxNo', $('#IrDrpBoxN')[0].checked);
         
         submitJobRptAjax.add('SalesFollowUp', $('#chkSalesY')[0].checked);
-        submitJobRptAjax.add('SalesNotes', $('#txtSalesNotes')[0].value);
+        submitJobRptAjax.add('SalesNotes', encodeURIComponent($('#txtSalesNotes').val()));
 
         submitJobRptAjax.exec("/SIU_DAO.asmx/SubmitJobRpt", submitJobRptSuccess);
     });
@@ -675,6 +712,8 @@ $(document).ready(function () {
     ////////////////////////
     $("#btnClear").click(function () {
 
+        $('#NotReady').html('');
+        
         ////////////////////////////////////////
         // Clear Data Confirmation Containers //
         ////////////////////////////////////////   
@@ -832,10 +871,10 @@ $(document).ready(function () {
 
 
     // Load Emps AutoComplete List
-    if ($("#SuprArea").length > 0) {
-        var getEmpsCall = new AsyncServerMethod();
-        getEmpsCall.exec("/SIU_DAO.asmx/GetAutoCompleteActiveEmployees", getEmpsSuccess);
-    }
+    //if ($("#SuprArea").length > 0) {
+    //    var getEmpsCall = new AsyncServerMethod();
+    //    getEmpsCall.exec("/SIU_DAO.asmx/GetAutoCompleteActiveEmployees", getEmpsSuccess);
+    //}
 
     // If A Job No Was Passed in, Go Get It
     var jobNo = $.fn.getURLParameter('Job');

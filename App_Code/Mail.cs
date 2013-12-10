@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
 using System.Web;
+using ShermcoYou.DataTypes;
 using MailMessage = System.Net.Mail.MailMessage;
 
 
@@ -88,8 +90,18 @@ public static class WebMail
         // Use Web Config For Config Info //
         ////////////////////////////////////
         SmtpClient client = new SmtpClient {UseDefaultCredentials = false};
-        if (Environment.MachineName.ToLower() == "tsdc-dev") txtTo = "ltruitt@shermco.com";
-        
+
+        if ( ! SqlServer_Impl.isProdDB )
+        {
+            string prefixMessage = "The Following Email was generated on the SiYOU! Development Web Site........" + Environment.NewLine;
+            prefixMessage += "The email would have been directed to (" + txtTo + ") if it was processed on the production web site." + Environment.NewLine + Environment.NewLine;
+            prefixMessage += MailMessage;
+
+            MailMessage = prefixMessage;
+            txtTo = BusinessLayer.UserEmail;
+        }
+
+
         try
         {
             client.Send(new MailMessage("noreply@shermco.com", txtTo, Subject, MailMessage));
@@ -606,20 +618,36 @@ public static class WebMail
     }
     public static void JobSalesNotice(Shermco_Job_Report Rpt)
     {
-        const string eMailSubject = "Job Report Sales Follow-up Notice";
         string addressList = "kahrendt@shermco.com, spayne@shermco.com, rloveless@shermco.com";
+        const string eMailSubject = "Priority - Contact Customer Regarding Work";
 
         var jr = SqlServer_Impl.GetJobByNo(Rpt.Job_No_);
         var sp = SqlServer_Impl.GetEmployeeByNo(jr.Sales_Person);
+        var cn = SqlServer_Impl.GetCustomerName(jr.Bill_to_Customer_No_);
         if (sp != null)
             addressList += ", " + sp.Company_E_Mail;
-        
 
-        string emailBody = "A report was submitted for job: " + Rpt.Job_No_ + " with deficiencies or sales follow-up" + Environment.NewLine + Environment.NewLine;
+        string emailBody = "Job No.: " + Rpt.Job_No_ + Environment.NewLine;
+        emailBody += "Customer: (" + jr.Bill_to_Customer_No_ + ") " + cn +  Environment.NewLine;
+        emailBody += "Job Description: " + jr.Description +  Environment.NewLine;
+        emailBody += "DivDep: " + jr.Global_Dimension_1_Code +  Environment.NewLine;
+        emailBody += "Tech Submitted: " + SqlServer_Impl.GetEmployeeNameByNo(Rpt.Turned_in_By_Emp__No_) + Environment.NewLine;
+        emailBody += "Comment for Sales: " + Rpt.SalesFollowUp_Comment + Environment.NewLine + Environment.NewLine;
 
-        emailBody += Rpt.SalesFollowUp_Comment;
+        emailBody += "Site Location: " + jr.Site_Location + Environment.NewLine;
+        emailBody += "Site Address: " + jr.Site_Address + Environment.NewLine;
+        if (jr.Site_Address_2.Length > 0 )
+            emailBody += "Site Address: " + jr.Site_Address_2 + Environment.NewLine;
+        emailBody += "Site City: " + jr.Site_City + Environment.NewLine;
+        emailBody += "Site State: " + jr.Site_County + Environment.NewLine;
+        emailBody += "Site Zip: " + jr.Site_Post_Code + Environment.NewLine + Environment.NewLine;
 
-        emailBody += Environment.NewLine + Environment.NewLine + "Comments:" + Environment.NewLine;
+        emailBody += "Sell-To Contact: "  + jr.Sell_To_Contact + Environment.NewLine;
+        emailBody += "Sell-To Contact Phone: " + jr.Sell_To_Contact_Phone_No_ + Environment.NewLine;
+        emailBody += "Sell-To Contact Mobile: " + jr.Sell_To_Contact_Mobile_No_ + Environment.NewLine;
+        emailBody += "Sell-To Contact Email: " + jr.Sell_To_Contact_Email + Environment.NewLine + Environment.NewLine;
+
+        emailBody += "Report Comments:" + Environment.NewLine;
         emailBody += Rpt.Comment;
         emailBody += Environment.NewLine;
 
@@ -647,14 +675,179 @@ public static class WebMail
         NetMail(addressList, eMailSubject, emailBody);        
     }
 
+    public static void AccidentIncidentSubmitted(SIU_Incident_Accident_Reports_To RT, SIU_Incident_Accident incRcd)
+    {
+        const string eMailSubject = "Accident or Incident Event Submitted For Completion Approval";
+        
+        string addressList = string.Empty;
+
+        List<string> empNos = new List<string>
+        {
+            RT.DeptMgrEmpId,
+            RT.DivMgrEmpId,
+            RT.GmEmpId,
+            RT.LegalMgrEmpId,
+            RT.SafetyMgrEmpId,
+            RT.SuprEmpId,
+            RT.VpEmpId
+        };
+
+        foreach (string emailAddr in SqlServer_Impl.GetEmployeeEmailByNo(empNos) )
+        {
+            if (emailAddr.Length > 0)
+            {
+                if (addressList.Length == 0)
+                    addressList = emailAddr;
+                else
+                    addressList += ", " + emailAddr;
+            }
+        }
+        
+        if (addressList.Length == 0) return;
 
 
+        string emailBody = "An Accident or Incident event was submitted for your approval." + Environment.NewLine + Environment.NewLine;
+
+        emailBody += "Your Approval is requested." + Environment.NewLine + Environment.NewLine;
+
+        emailBody += "Event Description: " + incRcd.Inc_Desc + Environment.NewLine;
+        emailBody += "Involved Employee: " + SqlServer_Impl.GetEmployeeNameByNo(incRcd.Emp_ID) + Environment.NewLine + Environment.NewLine;
+
+        emailBody += "You may view the details of the incident "   + Environment.NewLine;
+        emailBody += "as well as view and submit progress notes"  + Environment.NewLine;
+        emailBody += "here: http://" + System.Environment.MachineName + "/Safety/Incident/Approve.aspx?RptID=" + incRcd.UID + Environment.NewLine;
+
+
+        NetMail(addressList, eMailSubject, emailBody); 
+    }
+    public static void AccidentIncidentApproved(SIU_Incident_Accident_Reports_To RT, SIU_Incident_Accident incRcd)
+    {
+        string eMailSubject = "Accident or Incident Event Approved By " + BusinessLayer.UserFullName;
+        string addressList = string.Empty;
+
+        List<string> empNos = new List<string>
+        {
+            RT.DeptMgrEmpId,
+            RT.DivMgrEmpId,
+            RT.GmEmpId,
+            RT.LegalMgrEmpId,
+            RT.SafetyMgrEmpId,
+            RT.SuprEmpId,
+            RT.VpEmpId
+        };
+
+        foreach (string emailAddr in SqlServer_Impl.GetEmployeeEmailByNo(empNos))
+        {
+            if (emailAddr.Length > 0)
+            {
+                if (addressList.Length == 0)
+                    addressList = emailAddr;
+                else
+                    addressList += ", " + emailAddr;
+            }
+        }
+
+        if (addressList.Length == 0) return;
+
+        string emailBody = eMailSubject + Environment.NewLine + Environment.NewLine;
+
+        emailBody += "Event Description: " + incRcd.Inc_Desc + Environment.NewLine;
+        emailBody += "Involved Employee: " + SqlServer_Impl.GetEmployeeNameByNo(incRcd.Emp_ID) + Environment.NewLine + Environment.NewLine;
+
+        emailBody += "You may view the details of the incident " + Environment.NewLine;
+        emailBody += "as well as view and submit progress notes" + Environment.NewLine;
+        emailBody += "here: http://" + System.Environment.MachineName + "/Safety/Incident/Approve.aspx?RptID=" + incRcd.UID + Environment.NewLine;
+
+        
+
+        NetMail(addressList, eMailSubject, emailBody);
+    }
+    public static void AccidentIncidentCommented(SIU_Incident_Accident_Reports_To RT, SIU_Incident_Accident incRcd, string newComment)
+    {
+        string eMailSubject = "Accident or Incident Event Commented By " + BusinessLayer.UserFullName;
+        string addressList = string.Empty;
+
+        List<string> empNos = new List<string>
+        {
+            RT.DeptMgrEmpId,
+            RT.DivMgrEmpId,
+            RT.GmEmpId,
+            RT.LegalMgrEmpId,
+            RT.SafetyMgrEmpId,
+            RT.SuprEmpId,
+            RT.VpEmpId
+        };
+
+        foreach (string emailAddr in SqlServer_Impl.GetEmployeeEmailByNo(empNos))
+        {
+            if (emailAddr.Length > 0)
+            {
+                if (addressList.Length == 0)
+                    addressList = emailAddr;
+                else
+                    addressList += ", " + emailAddr;
+            }
+        }
+
+        if (addressList.Length == 0) return;
+
+        string emailBody = eMailSubject + Environment.NewLine + Environment.NewLine;
+
+        emailBody += "Event Description: " + incRcd.Inc_Desc + Environment.NewLine;
+        emailBody += "Involved Employee: " + SqlServer_Impl.GetEmployeeNameByNo(incRcd.Emp_ID) + Environment.NewLine + Environment.NewLine;
+
+        emailBody += "*** If you previously approved this event you will need to do so again using the link below..............." + Environment.NewLine + Environment.NewLine;
+
+        emailBody += "Notation or Comment added: " + newComment + Environment.NewLine + Environment.NewLine;
+
+        emailBody += "You may view the details of the incident " + Environment.NewLine;
+        emailBody += "as well as view and submit progress notes" + Environment.NewLine;
+        emailBody += "here: http://" + System.Environment.MachineName + "/Safety/Incident/Approve.aspx?RptID=" + incRcd.UID + Environment.NewLine;
+
+        NetMail(addressList, eMailSubject, emailBody);
+    }
+    public static void AccidentIncidentClosed(SIU_Incident_Accident_Reports_To RT, SIU_Incident_Accident incRcd)
+    {
+        const string eMailSubject = "Accident or Incident Event Completed.";
+        string addressList = string.Empty;
+
+        List<string> empNos = new List<string>
+        {
+            RT.DeptMgrEmpId,
+            RT.DivMgrEmpId,
+            RT.GmEmpId,
+            RT.LegalMgrEmpId,
+            RT.SafetyMgrEmpId,
+            RT.SuprEmpId,
+            RT.VpEmpId
+        };
+
+        foreach (string emailAddr in SqlServer_Impl.GetEmployeeEmailByNo(empNos))
+        {
+            if (emailAddr.Length > 0)
+            {
+                if (addressList.Length == 0)
+                    addressList = emailAddr;
+                else
+                    addressList += ", " + emailAddr;
+            }
+        }
+
+        if (addressList.Length == 0) return;
+
+        string emailBody = "Each manager approved the completion of this Accident or Incident event and the event is now closed." +Environment.NewLine + Environment.NewLine;
+
+        emailBody += "Event Description: " + incRcd.Inc_Desc + Environment.NewLine;
+        emailBody += "Involved Employee: " + SqlServer_Impl.GetEmployeeNameByNo(incRcd.Emp_ID) + Environment.NewLine + Environment.NewLine;
+
+        NetMail(addressList, eMailSubject, emailBody);
+    }
 
 
     public static void TestEmail(string addressList)
     {
         const string eMailSubject = "SIU EMAIL TEST";
-        //addressList = "ltruitt@shermco.com, truittjl@texassdc.com, truittjl@tx.rr.com";
+        addressList = "ltruitt@shermco.com, truittjl@texassdc.com, truittjl@tx.rr.com";
 
         string emailBody = "This is an SIU Web site test message" + Environment.NewLine + Environment.NewLine;
 
@@ -851,7 +1044,6 @@ public static class WebMail
     {
         string empNameEquipFor = SqlServer_Impl.GetEmployeeNameByNo(Req.For_EmpID);
         string empNameReq = SqlServer_Impl.GetEmployeeNameByNo(Req.Req_EmpID);
-        //string SuprEmpID =  ((Shermco_Employee) (SqlServer_Impl.GetEmployeeByNo(Req.Req_EmpID)  )).Manager_No_;
         string empNameReqSupr = SqlServer_Impl.GetEmployeeNameByNo(Req.Req_EmpID);
 
         string eMailSubject = "Equipment Request For Employee " + empNameEquipFor;

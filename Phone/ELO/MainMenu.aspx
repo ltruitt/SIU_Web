@@ -36,6 +36,9 @@
                 <label runat="server" ID="lblEmpName" ></label>
 
                 <p style="height: 10px;"></p> 
+                <div style="border: 2px solid red; background-color: yellow; color: red; font-weight: bold; padding: 5px;">
+                    Effective Dec. 30th Vehicle Inspections must be entered into Shermco YOU! for Time Approval
+                </div>
 
                 <div  class="ui-helper-clearfix" >
                     <ul >

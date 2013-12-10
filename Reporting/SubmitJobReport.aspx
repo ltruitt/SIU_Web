@@ -23,7 +23,7 @@
 
         }
 
-        .chkRptDisp .chkRptFmt .chkRts .chkPd .chkCt .chkOs .chkOsLtr .chkNoTest .ChkTest .chkIR {
+        .chkRptDisp .chkRptFmt .chkRts .chkPd .chkCt .chkOs .chkOsLtr .chkNoTest .ChkTest .chkIR .chkDrBox .chkIrDrBox .chkSales {
             border: none;  
         }
     </style>
@@ -32,11 +32,6 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
     
-    <div id="SuprArea" style="margin-top: 5px;" runat="server" >
-        <span style="float:left; margin-right: 20px; width: auto;  font-weight: bold; display:inline">Change Employee:</span>
-        <input ID="ddEmpIds" class="DataInputCss"   style="width: 400px;" />         
-    </div>
-
     <div >
         <div id="FormWrapper" class="ui-widget ui-form">
                     
@@ -44,10 +39,12 @@
             <!-- Form Header -->
             <!----------------->                               
             <section class="ui-widget-header ui-corner-all" style="height: 45px;" >
-                <a href="/ELO/MainMenu.aspx" style="text-decoration: none;">
-                    <span style="position: relative; left: 3px; vertical-align: top; font-size: .8em; line-height: 10px;">elo menu</span>
-                    <span  style="text-align: center; font-size: 2em; width: 100%;  position:absolute; left: 0; margin-left: auto; margin-right: auto;">Submit Job Report</span>
-                </a>
+                <%--<a href="/ELO/MainMenu.aspx" style="text-decoration: none;">--%>
+                    <%--<span style="position: relative; left: 3px; vertical-align: top; font-size: .8em; line-height: 10px;">elo menu</span>--%>
+                    <span  style="text-align: center; font-size: 2em; width: 100%;  position:absolute; left: 0; margin-left: auto; margin-right: auto;">Job Report
+                        <span id="NotReady" style="font-size: .7em; position: relative; top: -2px;" ></span>
+                    </span>
+                <%--</a>--%>
             </section>  
             
             
@@ -122,7 +119,7 @@
                         <div id="Comments" style="float: left; margin-right: 20px; ">
                             <div  style="float: left;  ">
                                 <div style="margin-top: 15px;">Comments</div>
-                                <textarea id="txtComments" class="DataInputCss" style="width: 120%;" rows="5"></textarea>
+                                <textarea id="txtComments" class="DataInputCss" style="width: 120%;" rows="5" maxlength="250"></textarea>
                             </div>
                     
 
@@ -175,7 +172,7 @@
 
                             <div style="display: inline-block; width: 100%;">
                                 <div>No Report (Reason Required)</div>
-                                <input type="text" id="txtNoRpt" class="DataInputCss" style="width: 80%;"/>
+                                <input type="text" id="txtNoRpt" class="DataInputCss" style="width: 80%;" maxlength="100"/>
                             </div>
                     
                         </section>                        
@@ -234,7 +231,7 @@
 
                             <div style="display: inline-block; width: 100%;">
                                 <div style="margin-top: 10px;">Other Data in Dropbox</div>
-                                <input type="text" id="OtherData" class="DataInputCss" style="width: 80%;"    />
+                                <input type="text" id="OtherData" class="DataInputCss" style="width: 80%;" maxlength="100"    />
                             </div>
                         
                         
@@ -416,13 +413,13 @@
                             
                             <div style="display: inline-block; width: 100%;   margin-bottom: 10px;">
                                 <div>How Many Hard Copies: </div>
-                                <input type="text" id="txtIrHardCnt" class="DataInputCss"  value="0"  maxlength="1"  style="width: 20px; text-align: center;"/>
+                                <input type="text" id="txtIrHardCnt" class="DataInputCss"  value="0"  maxlength="1"  style="width: 20px; text-align: center;"  />
                                 
                             </div>
                             
                             <div style="display: inline-block; width: 100%;   margin-bottom: 10px;">
                                 <div>Additional Email Address: </div>
-                                <input type="text" id="txtAddEmail" class="DataInputCss"  style="width: 400px;"/>
+                                <input type="text" id="txtAddEmail" class="DataInputCss"  style="width: 400px;" maxlength="50"/>
                             </div>
                             
 
@@ -448,7 +445,7 @@
                             
                             <div style="display: inline-block; width: 100%;   margin-bottom: 10px;">
                                 <div>Notes to salesperson: </div>
-                                <textarea id="txtSalesNotes" class="DataInputCss" style="width: 90%;" rows="5"></textarea>
+                                <textarea id="txtSalesNotes" class="DataInputCss" style="width: 90%;" rows="5" maxlength="100"></textarea>
                             </div>
                         </section>
                     </div>

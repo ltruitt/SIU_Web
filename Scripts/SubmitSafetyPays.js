@@ -110,9 +110,9 @@
 
 
 
-    ///////////////////////////////////////////////////////////////
-    // Load List Of Employees So Supr Can Change Viewed Employee //
-    ///////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////
+    // Load List Of Employees into Observed Data Field //
+    /////////////////////////////////////////////////////
     var listOfEmps = [];
     function getEmpsSuccess(data) {
         listOfEmps = data.d.split("\r");
@@ -254,7 +254,21 @@
     refTaskDefinition.focus(function () {
         refTaskDefinition.height(200);
     });
+    
+    NumericInput('RcdId');
+    $('#RcdId').keyup(function () { validate(); });
+    
+    ///////////////////////////////////
+    // CR Check For Job Number Field //
+    ///////////////////////////////////
+    $("#RcdId").keyup(function (e) {
+        var keyId = (window.event) ? event.keyCode : e.keyCode;
 
+        if (keyId == 13) {
+            $("#btnSubmit").click();
+        }
+    });
+    
     ////////////////////////////////////////////////////////
     // Check Form To See If All Data Fields Are Filled In //
     ////////////////////////////////////////////////////////
@@ -263,10 +277,29 @@
         /////////////////////////////////////////////////////
         // If 
         /////////////////////////////////////////////////////
+        if ($('#RcdId').val()) {
+            if ($('#RcdId').val().length > 0) {
+                $('#btnSubmit').show();
+                return;
+            }
+        }
+        
+        /////////////////////////////////////////////////////
+        // If 
+        /////////////////////////////////////////////////////
         if ($('#JobSite')[0].value.length == 0) {
             $('#btnSubmit').hide();
             return;
         }
+        
+        if ($('#hlblObsEID').html() == $('#hlblEID').html() ) {
+            alert('You can not observe yourself in a Safety Pays Report');
+            $('#hlblObsEID').html('');
+            $("#ObservedEmpID").val('');
+            $('#btnSubmit').hide();
+            return;
+        }
+            
 
         //////////////////////////////
         // Comments Must Be Present //
@@ -360,9 +393,19 @@
         //$('#btnSubmit').prop('disabled', true);
         $('#btnSubmit').hide();
 
+        if ($('#RcdId').val()) {
+            if ($('#RcdId').val().length > 0) {
+                Clear();
+                rcdLookup();
+                $('#RcdId').val('');
+                return;
+            }
+        }
+        
         var safetyPaysSubmitCall = new AsyncServerMethod();
-        safetyPaysSubmitCall.add('EID', $('#hlblEID')[0].innerHTML);
-        safetyPaysSubmitCall.add('JobNo', $('#hlblJobNo')[0].innerHTML);
+        safetyPaysSubmitCall.add('IncidentNo', $('#hlblIncidentNo').html());
+        safetyPaysSubmitCall.add('EID', $('#hlblEID').html());
+        safetyPaysSubmitCall.add('JobNo', $('#hlblJobNo').html());
 
         safetyPaysSubmitCall.add('IncTypeSafeFlag', $('#IncTypeSafeFlag')[0].checked);
         safetyPaysSubmitCall.add('IncTypeUnsafeFlag', $('#IncTypeUnsafeFlag')[0].checked);
@@ -372,12 +415,12 @@
 
         safetyPaysSubmitCall.add('IncidentDate', $('#IncidentDate').val());
         safetyPaysSubmitCall.add('ObservedEmpID', $('#hlblObsEID')[0].innerHTML);
-        safetyPaysSubmitCall.add('InitialResponse', $('#InitialResponse').val());
+        safetyPaysSubmitCall.add('InitialResponse',  encodeURIComponent( $('#InitialResponse').val())  );
 
         safetyPaysSubmitCall.add('SafetyMeetingType', $('#SafetyMeetingType').val());
         safetyPaysSubmitCall.add('SafetyMeetingDate', $('#SafetyMeetingDate').val());
 
-        safetyPaysSubmitCall.add('Comments', $('#Comments').val());
+        safetyPaysSubmitCall.add('Comments', encodeURIComponent( $('#Comments').val()) );
 
         safetyPaysSubmitCall.add('JobSite', $('#JobSite')[0].value);
         safetyPaysSubmitCall.add('IncTypeText', $('input:checkbox[class=chkbox]:checked')[0].value);
@@ -403,6 +446,64 @@
         }
     }
 
+    function rcdLookup() {
+        $('#hlblIncidentNo').html('0');
+        var safetyPaysGetCall = new AsyncServerMethod();
+        safetyPaysGetCall.add('RptID', $('#RcdId').val());
+        safetyPaysGetCall.exec("/SIU_DAO.asmx/GetSafetyPays", safetyPaysGetCallSuccess);
+    };
+    
+    function safetyPaysGetCallSuccess(data) {
+        data = JSON.parse(data.d);
+        if ( typeof data.JobNo === "undefined" )
+            return;
+        
+        $('#hlblIncidentNo').html(data.IncidentNo);
+        
+        if ( data.JobNo.length > 0 )
+            $("#JobNo").autocomplete("search", data.JobNo);
+
+        $("#ddEmpIds").autocomplete("search", data.EmpID);
+        
+        $('#IncTypeSafeFlag')[0].checked = data.IncTypeSafeFlag;
+        if ($('#IncTypeSafeFlag')[0].checked)
+            $('#IncTypeSafeFlag').change();
+        
+        $('#IncTypeUnsafeFlag')[0].checked = data.IncTypeUnsafeFlag;
+        if ($('#IncTypeUnsafeFlag')[0].checked)
+            $('#IncTypeUnsafeFlag').change();
+        
+        $('#IncTypeSuggFlag')[0].checked = data.IncTypeSuggFlag;
+        if ($('#IncTypeSuggFlag')[0].checked)
+            $('#IncTypeSuggFlag').change();
+
+        $('#IncTypeTopicFlag')[0].checked = data.IncTypeTopicFlag;
+        if ($('#IncTypeTopicFlag')[0].checked)
+            $('#IncTypeTopicFlag').change();
+
+        $('#IncTypeSumFlag')[0].checked = data.IncTypeSumFlag;
+        if ($('#IncTypeSumFlag')[0].checked)
+            $('#IncTypeSumFlag').change();
+        
+        $('#IncidentDate').val('');
+        if (data.IncidentDate)
+            $('#IncidentDate').datepicker("setDate", $.datepicker.parseDate('mm-dd-yy', $.fn.dateTest(data.IncidentDate)));
+
+        $('#InitialResponse').val(data.InitialResponse);
+
+        if (data.ObservedEmpID.length > 0)
+            $("#ObservedEmpID").autocomplete("search", data.ObservedEmpID);
+
+        $('#SafetyMeetingType').val(data.SafetyMeetingType);
+        $('#SafetyMeetingDate').val('');
+        if (data.SafetyMeetingDate)
+            $('#SafetyMeetingDate').datepicker("setDate", $.datepicker.parseDate('mm-dd-yy', $.fn.dateTest(data.SafetyMeetingDate)));
+        
+        $('#JobSite').val(data.JobSite);
+        $('#Comments').val(data.Comments);
+        validate();
+    }
+    
     $("#btnClear").click(function () {
         Clear();
     });
@@ -415,7 +516,7 @@
         $('#SafeActFields').hide();
         $('#MeetingTypeFields').hide();
 
-
+        $('#hlblIncidentNo').html('0');
         $('#hlblJobNo')[0].innerHTML = "";
         $('#hlblObsEID')[0].innerHTML = "";
         $('#IncTypeSuggFlag')[0].checked = true;
@@ -442,7 +543,10 @@
         $('#SafetyMeetingDate').val('');
         $('#Comments').val('');
     }
+    
 
+    $('#hlblIncidentNo').html('0');
     validate();
+    
 
 });

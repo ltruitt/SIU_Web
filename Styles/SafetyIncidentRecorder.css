@@ -1,0 +1,26 @@
+﻿.Chk  {
+    border: none;  
+    padding-right: 10px;
+}
+
+.ui-tabs-nav  {
+    background-image: none;
+    border: none;
+    margin-top: -12px !important;
+}
+
+html {
+    background-color: grey;
+}
+
+.lblHead {
+    font-weight: bold;
+    text-align: center;
+}
+
+.lblHead2 {
+    font-weight: bold;
+    text-align: left;
+    width: 250px;
+    display: inline-block;
+}

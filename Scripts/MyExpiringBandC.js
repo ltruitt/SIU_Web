@@ -20,7 +20,7 @@
                 type: 'date',
                 listClass: 'jTableTDcj'
             },
-            To_Date: {
+            Expiration_Date: {
                 title: 'Expires',
                 width: '2%',
                 type: 'date',

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Web;
@@ -27,7 +28,7 @@ public partial class HomePage : System.Web.UI.Page
             //////////////////////
             // Inject News Blog //
             //////////////////////
-            BlogInsertPoint.Text = Blogs.Create_Injectable_Blog_Advertisements(BlogInsertPoint.Text);
+            //BlogInsertPoint.Text = Blogs.Create_Injectable_Blog_Advertisements(BlogInsertPoint.Text);
 
             //////////////////////////////
             // Inject Ad Rotator Images //
@@ -38,6 +39,17 @@ public partial class HomePage : System.Web.UI.Page
             // Inject Video Folders And Popup File Lists //
             ///////////////////////////////////////////////
             PopupMenusVideoInsertPoint.Text = PopupMenuSupport.Create_Icon_Attached_Injectable_Video_Popup_Menu(PopupMenusVideoInsertPoint.Text);
+
+
+            /////////////////////////////
+            // Check For HR Test Priv. //
+            /////////////////////////////
+            //HR_Insurance.Visible = false;
+            //StringCollection sessionVar = (StringCollection)Session["UserGroups"];
+            //if (sessionVar != null)
+            //    if (sessionVar.Contains("HR_TEST"))
+            //        HR_Insurance.Visible = true;
+            
         }
 
 

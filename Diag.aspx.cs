@@ -75,8 +75,5 @@ public partial class Diag : System.Web.UI.Page
         return result;
     }
 
-    protected void TestEmailClick(object sender, EventArgs e)
-    {
-        WebMail.TestEmail(BusinessLayer.UserEmail);
-    }
+
 }

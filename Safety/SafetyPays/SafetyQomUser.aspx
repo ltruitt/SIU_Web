@@ -44,6 +44,10 @@
             <!---------------------------->
             <div style="float: left; margin-top: -20px; width: 100%;">
                 <label style="float: left; padding: 0; width:auto; "  runat="server" ID="lblEmpName"></label><br/>
+        <div id="SuprArea" style="margin-top: 5px; margin-bottom: 20px; display:inline-block;" runat="server" >
+            <span style="float:left; margin-right: 20px; font-size: 1.3em; width: auto;  font-weight: bold; display:inline">Select Employee:</span>
+            <input ID="ddEmpIds" class="DataInputCss" runat="server"   style="width: 400px;  background-color:yellow; border-color: black;" />         
+        </div>
             </div>
             
             <div style="height: 40px;">
@@ -66,7 +70,7 @@
             
             <div style="clear: both;"></div>
             
-            <div id="Div1" style="margin-left: -10px; margin-top: 10px; font-size: 1.2em;">
+            <div id="DivResponse" style="margin-left: -10px; margin-top: 10px; font-size: 1.2em;">
                 <%--------------------%>                    
                 <%-- Submit Buttons --%>                    
                 <%--------------------%>

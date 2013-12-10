@@ -248,12 +248,12 @@
                     
 
                     <!-- My Time Study-->
-                    <li id="liTimeStudy" style="border: none;  height: 200px; margin-left: 0; margin-top: -30px; -ms-border-radius: 0; border-radius: 0;">
+                    <li id="liTimeStudy" style="border: none;  height: 200px; margin-left: 0; margin-top: 0; -ms-border-radius: 0; border-radius: 0;">
                            
                             <a href="/My/MyTimeStudy.aspx" >
                                 <img src="/Images/Rpt2.png" style="height: 160px; width: 150px; padding-bottom: 0; margin-top: 0;" alt="Accrued">
                                 <div style="margin-top: -140px; margin-left: 60px; ">
-                                    <div style="width:60px;">My Time Study</div>
+                                    <div style="width:60px; height: 60px;">My Time Study</div>
                                 </div>
 
                             </a>
@@ -271,7 +271,7 @@
                             <a href="/Corporate/BandC/AllBandC_Rpt.aspx" >
                                 <img src="/Images/Rpt2.png" style="height: 160px; width: 150px; padding-bottom: 0; margin-top: 0;" alt="Accrued">
                                 <div style="margin-top: -140px; margin-left: 55px; ">
-                                    <div style="width:60px;">My Badges and Certifications</div>
+                                    <div style="width:60px; height: 60px;">My Badges and Certifications</div>
                                 </div>
 
                             </a>
@@ -288,7 +288,7 @@
                             <a href="/My/MyExpenses.aspx" >
                                 <img src="/Images/Rpt2.png" style="height: 160px; width: 150px; padding-bottom: 0; margin-top: 0;" alt="Accrued">
                                 <div style="margin-top: -140px; margin-left: 55px; ">
-                                    <div style="width:60px;">My YTD Expenses</div>
+                                    <div style="width:60px; height: 60px;">My YTD Expenses</div>
                                 </div>
                             </a>
 
@@ -296,8 +296,30 @@
                     </li>   
                     
                     
+                    <!-- Open Expenses -->
+                    <li id="liExpCntExpAmt" style="border: none;  height: 200px; margin-left: 0; margin-top: 0; -ms-border-radius: 0; border-radius: 0;">
+                           
+                            <a href="/ELO/MealsExpEntry.aspx" >
+                                <img src="/Images/Rpt2.png" style="height: 160px; width: 150px; padding-bottom: 0; margin-top: 0;" alt="Accrued">
+                                <div style="margin-top: -140px; margin-left: 55px; ">
+                                    <div style="width:60px; height: 60px;">
+                                        You have<br/>
+                                        <span id="ExpCnt"></span>
+                                        <br/>open expenses for<br/>
+                                        <span id="ExpAmt"></span>
+                                    </div>
+                                </div>
+                            </a>
+
+                            <div style="clear: both;"></div>
+                    </li>   
 
                    
+                    
+                    
+                    
+                    
+
                 
                     <li class="l1" id="liVehicleMileageReport">
                         <a href="/My/MyVehMileage.aspx" ID="A14"  runat="server">
@@ -305,14 +327,6 @@
                         </a>
                     </li>
 
-                    <li class="l1" id="liExpCntExpAmt">
-                        <a href="/ELO/MealsExpEntry.aspx" ID="A15"  runat="server">
-                            You have 
-                            <span id="ExpCnt"  runat="server"/> 
-                            open expenses for
-                            <span id="ExpAmt"  runat="server"/> 
-                        </a>
-                    </li> 
 
                     <li class="l8" id="liHoursThisWeek_HoursToday">
                         <a href="/ELO/TimeEntry.aspx" ID="A4"  runat="server">

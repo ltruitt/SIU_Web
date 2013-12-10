@@ -83,33 +83,45 @@
 				    <!--  Recorded Safety Meeting Link -->
                     <!----------------------------------->	
 				    <li style="height: 100px; clear:both;">
-					    <a href="/Library/LibVideoPane.aspx?VR=/Videos&Path=Safety" >
+					    <a  href="/Library/LibHome.aspx"    id="A6" >
 						    <img  alt="Previous Safety Meeting" src="/Images/icon-MeetingPrevious.png" style="height: 57px; width: 57px"/>
                                     <br/>Recorded Meetings
 					    </a>  
 				    </li>
+
+                    <!---------------------------------->	
+				    <!-- HR Insurabce Enrollment Info -->
+                    <!---------------------------------->	
+				    <li id="HR_Insurance" runat="server" style="height: 100px; clear:both;">
+                        <a  href="/HR/Insurance.aspx"    id="A7" >
+					        <img  alt="Previous Safety Meeting" src="/Images/Benifits.png" />
+                            <br/>
+                            2014 Open Enrollment
+					    </a>  
+				    </li>
                     
+                                        
                     
                     <!--------------->	
 				    <!-- News Icon -->			
                     <!--------------->	
-				    <li style="height: 90px; clear:both;">
+<%--				    <li style="height: 90px; clear:both;">
 					    <a href="/News/NewsHome.aspx">
 						    <img style="width: 57px; height: 57px;" alt="News" src="/Images/icon-newsletter.png"  />
 						    <br/>News
 					    </a>
-				    </li>  
+				    </li> --%> 
                 
 			    </ul>	
             
-                <hr/>
+<%--                <hr/>
 
                 <!-------------------->
                 <!-- Scrolling News --> 
                 <!-------------------->
                 <ul id="BlogSlider" style="display: none;">
                     <asp:Literal runat="server" ID="BlogInsertPoint">Home</asp:Literal>
-                </ul>                 					
+                </ul> --%>                					
 		    </div>	 	
             
             <div class="SideBar-BoxBorder" style=" float: right; height: 600px; "/>

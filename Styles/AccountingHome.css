@@ -1,0 +1,69 @@
+﻿.SectionHead {
+    margin-right:   10px;
+    padding-top:    10px;
+    text-align:     center;
+
+	font-size:      12.0pt;
+	font-weight:    700;
+	font-family:    Arial, sans-serif;
+	
+	border:     1.0pt solid black;
+    height:     23.0pt;
+
+    background: #f9fbfd; /* Old browsers */
+    background: -moz-linear-gradient(top,  #f9fbfd 0%, #9ebadb 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f9fbfd), color-stop(100%,#9ebadb)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #f9fbfd 0%,#9ebadb 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #f9fbfd 0%,#9ebadb 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #f9fbfd 0%,#9ebadb 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #f9fbfd 0%,#9ebadb 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f9fbfd', endColorstr='#9ebadb',GradientType=0 ); /* IE6-9 */
+
+}
+
+.colGroup {
+    margin-top:     10px;
+    margin-right:   10px;
+
+    width: 100%;
+
+	font-size:      10.0pt;
+	font-family:    Arial, sans-serif;
+}
+
+
+.mgrGroup {
+    margin-right: 10px;
+    width: 32.2%;
+
+    padding: 0;
+    padding-top: 5px;
+    text-align:     center;
+
+    float: left;
+}
+
+
+.pplHead
+{
+    font-weight: 700;
+    padding-top: 5px;
+
+    border: 1.0pt solid black;
+    height: 15.0pt;
+    
+    background: #8db4e2; /* Old browsers */
+}
+
+
+.pplTitle {	
+	border:     1.0pt solid black;
+    border-top: none;
+    padding-top: 7px;
+    padding-left: 2px;
+}
+
+hr {
+        height: 0;
+}
+

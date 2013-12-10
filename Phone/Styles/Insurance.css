@@ -1,0 +1,56 @@
+﻿/*@import url( "jquery.mobile.icons.css" );
+@import url( "jquery.mobile.theme.css" );
+@import url( "../../structure/jquery.mobile.structure.css" );*/
+
+
+ul {
+    list-style: none;
+}            
+.ui-btn 
+{
+    text-align: left;
+}
+            
+            
+.ui-icon-doc {
+    background-image: url("/images/word_32.gif");
+}
+            
+.ui-icon-docx {
+    background-image: url("/images/word_32.gif");
+}
+            
+.ui-icon-pdf {
+    background-image: url("/images/pdf_18.gif");
+}            
+                        
+@media only screen and (-webkit-min-device-pixel-ratio: 2) {
+    .ui-icon-doc {
+        background-image: url("/images/word_32.gif");
+        -ms-background-size: 18px 18px;
+        background-size: 18px 18px;
+    }
+
+    .ui-icon-docx {
+        background-image: url("/images/word_32.gif");
+        -ms-background-size: 18px 18px;
+        background-size: 18px 18px;
+    }
+
+    .ui-icon-pdf {
+        background-image: url("/images/pdf_18.gif");
+        -ms-background-size: 18px 18px;
+        background-size: 18px 18px;
+    }
+}
+        
+.ui-tabs .ui-tabs-nav {
+    background-image: none;
+    margin-top: -15px;
+    border: none;  
+}            
+.ui-form .ui-widget-content {
+    padding-left: 3px;
+    padding-right: 3px; 
+
+}

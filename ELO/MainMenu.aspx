@@ -39,8 +39,10 @@
                 <p style="height: 10px;"></p> 
                 
                 <div  class="ui-helper-clearfix" >
+                    <div style="border: 2px solid red; background-color: yellow; color: red; font-weight: bold; padding: 5px;">
+                        Effective Dec. 30th Vehicle Inspections must be entered into Shermco YOU! for Time Approval
+                    </div>
                     <ul >
-                        
 				        <li class="l3"><a href="/ELO/TimeEntry.aspx" ID="A5" runat="server">Record Time</a></li>
                         <li class="l3"><a href="/ELO/MealsExpEntry.aspx" ID="A7" runat="server">Reimbursable Meals and Mileage</a></li>
                         <li class="l3"><a href="/ELO/VehMileage.aspx" ID="A8" runat="server">Vehicle Mileage</a></li>

@@ -43,6 +43,7 @@
                         <li class="l3"><a href="/Phone/LibDocPane.aspx" >Library</a></li>
                         <li class="l3"><a href="/Phone/Safety/SubmitSafetyPays.aspx">Safety Pays</a></li>
                         <li class="l3"><a href="/Phone/UsefulLinks.aspx">Usefull Links</a></li>
+                        <li class="l3"><a href="/Phone/HR/Insurance.html">Insurance Benefits</a></li>
                         <p></p>
                         <li class="l6"><a href="/Account/logoff.aspx">Logoff</a></li>
                     </ul>

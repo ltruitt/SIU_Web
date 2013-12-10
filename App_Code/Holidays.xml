@@ -30,7 +30,7 @@
 
   <Holiday name="Thanksgiving Day">
     <Month>11</Month>
-    <DayOfWeek>4</DayOfWeek>
+    <DayOfWeek>5</DayOfWeek>
     <WeekOfMonth>4</WeekOfMonth>
   </Holiday>
   

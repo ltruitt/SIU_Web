@@ -4,6 +4,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Configuration;
 using System.Data;
+using System.Data.Linq.Mapping;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
@@ -23,8 +24,9 @@ using System.Web.Script.Serialization;
 using Calendar = System.Globalization.Calendar;
 using IsolationLevel = System.Transactions.IsolationLevel;
 
-//using Microsoft.Synchronization;
-//using Microsoft.Synchronization.Files;
+using Microsoft.Synchronization;
+using Microsoft.Synchronization.Files;
+using ChangeType = Microsoft.Synchronization.Files.ChangeType;
 
 public class DeveloperConfigurationSection : ConfigurationSection
 {
@@ -67,7 +69,6 @@ public class DeveloperConfigurationSection : ConfigurationSection
 [ScriptService]
 public class SiuDao : WebService
 {
-
 #region Certification and Classes 
     /////////////////////////////////////////////////////////////////////////////////
     // Build List Of All Possible Certification Codes (Classes) For AutoCompletion //
@@ -172,8 +173,6 @@ public class SiuDao : WebService
 
 
 #endregion Certification and Classes
-
-
 
 #region ELO Time And Time Reporting
     ////////////////////////////////////////////////////////
@@ -837,7 +836,7 @@ public class SiuDao : WebService
 
             tse.Work_Date = tev.EntryDate;
             tse.User_ID = tse.Last_Modified_User_id = BusinessLayer.UserName;
-            tse.Status = (int) TimeSheetEntry_Status.Employee_Approved;
+            tse.Status = (int) TimeSheetEntry_Status.EmployeeApproved;
             tse.Prior_Status = (int) TimeSheetEntry_Status.New;
             tse.Shortcut_Dimension_1_Code = tev._Dept;
             tse.Task_Code = tev._Task;
@@ -890,22 +889,187 @@ public class SiuDao : WebService
 
 #endregion ELO Time And Time Reporting
 
-
 #region Sync
-    //[WebMethod(EnableSession = true)]
-    //public string DirSync(string System, string Dept, string Dir)
-    //{
-    //    FileSyncOptions options = FileSyncOptions.RecycleDeletedFiles | FileSyncOptions.RecyclePreviousFileOnUpdates |
-    //             FileSyncOptions.RecycleConflictLoserFiles;
+    [WebMethod(EnableSession = true)]
+    public string DirSync(string System, string Dept, string Dir)
+    {
+        ApplyDirSync(@"F:\DFS\EHS\Forms", @"F:\PROD\EHS\Forms");
 
 
-    //    return "Success";
-    //}
+
+        return "Success";
+    }
+
+
+    private void ApplyDirSync(string SourcePath, string DestinationPath)
+    {
+
+        // RecycleDeletedFiles 
+        // If this value is set, the provider will move files deleted during change application to the recycle bin. 
+        // If this value is not set, files will be permanently deleted. 
+
+        // RecyclePreviousFileOnUpdates 
+        // If this value is set, the provider will move files overwritten during change application to the recycle bin. 
+        // If this value is not set, files will be overwritten in place and any data in the old file will be lost. 
+
+        // RecycleConflictLoserFiles 
+        // If this value is set, the provider will move files that are conflict losers to the recycle bin. 
+        // If this value is not set, the provider will move the files to a specified location. 
+        // Or, if no location is specified, the files will be permanently deleted. 
+
+        // CompareFileStreams 
+        // If this value is set, the provider will compute a hash value for each file that is based on the contents of 
+        // the whole file stream and use this value to compare files during change detection. 
+        // This option is expensive and will slow synchronization, but provides more robust change detection. 
+        // If this value is not set, an algorithm that compares modification times, file sizes, file names, and file 
+        // attributes will be used to determine whether a file has changed. 
+
+        try
+        {
+            const FileSyncOptions options = FileSyncOptions.RecycleDeletedFiles |
+                                            FileSyncOptions.RecyclePreviousFileOnUpdates |
+                                            FileSyncOptions.RecycleConflictLoserFiles |
+                                            FileSyncOptions.CompareFileStreams |
+                                            FileSyncOptions.ExplicitDetectChanges;
+
+            // Create a filter that excludes all *.lnk files. The same filter should be used 
+            // by both providers.
+            FileSyncScopeFilter filter = new FileSyncScopeFilter();
+            filter.FileNameExcludes.Add("*.lnk, *.config");
+
+            // Explicitly detect changes on both replicas before syncyhronization occurs.
+
+            string srcMeta = SourcePath.Replace('\\', '_').Replace(':', '_');
+            string dstMeta = DestinationPath.Replace('\\', '_').Replace(':', '_');
+            DetectChangesOnFileSystemReplica(SourcePath, filter, options, srcMeta);
+            DetectChangesOnFileSystemReplica(DestinationPath, filter, options, dstMeta);
+
+            // Synchronize the replicas in both directions. In the first session replica 1 is
+            // the source, and in the second session replica 2 is the source. The third parameter
+            // (the filter value) is null because the filter is specified in DetectChangesOnFileSystemReplica().
+            SyncFileSystemReplicasOneWay(SourcePath, DestinationPath, options, srcMeta, dstMeta);
+        }
+        catch (Exception e)
+        {
+            SqlServer_Impl.LogDebug("ApplyDirSync", e.Message);
+            throw e;
+        }
+        
+    }
+
+    private static void DetectChangesOnFileSystemReplica(string replicaRootPath, FileSyncScopeFilter filter, FileSyncOptions options, string syncFileName)
+    {
+        FileSyncProvider provider = null;
+
+        try
+        {
+            provider = new FileSyncProvider(replicaRootPath, filter, options, @"F:/Files/SyncDocs", syncFileName, Path.GetTempPath(), null);
+            provider.DetectChanges();
+        }
+        finally
+        {
+            // Release resources.
+            if (provider != null)
+                provider.Dispose();
+        }
+    }
+
+    private static void SyncFileSystemReplicasOneWay(string sourceReplicaRootPath, string destinationReplicaRootPath, FileSyncOptions options, string srcMeta, string dstMeta)
+    {
+        FileSyncProvider sourceProvider = null;
+        FileSyncProvider destinationProvider = null;
+
+        try
+        {
+            // Instantiate source and destination providers, with a null filter (the filter
+            // was specified in DetectChangesOnFileSystemReplica()), and options for both.
+            sourceProvider = new FileSyncProvider(sourceReplicaRootPath, null, options, @"F:/Files/SyncDocs", srcMeta, Path.GetTempPath(), null);
+            //sourceProvider.PreviewMode = true;
+            destinationProvider = new FileSyncProvider(destinationReplicaRootPath, null, options, @"F:/Files/SyncDocs", dstMeta, Path.GetTempPath(), null);
+            //destinationProvider.PreviewMode = true;
+
+            // Register event handlers so that we can write information
+            // to the console.
+            destinationProvider.AppliedChange += new EventHandler<AppliedChangeEventArgs>(OnAppliedChange);
+            destinationProvider.SkippedChange += new EventHandler<SkippedChangeEventArgs>(OnSkippedChange);
+
+            // Use SyncCallbacks for conflicting items.
+            SyncCallbacks destinationCallbacks = destinationProvider.DestinationCallbacks;
+            destinationCallbacks.ItemConflicting += new EventHandler<ItemConflictingEventArgs>(OnItemConflicting);
+            destinationCallbacks.ItemConstraint += new EventHandler<ItemConstraintEventArgs>(OnItemConstraint);
+
+            SyncOrchestrator agent = new SyncOrchestrator();
+            agent.LocalProvider = sourceProvider;
+            agent.RemoteProvider = destinationProvider;
+            agent.Direction = SyncDirectionOrder.Upload; // Upload changes from the source to the destination.
+
+            SqlServer_Impl.LogDebug("SyncFileSystemReplicasOneWay", destinationProvider.RootDirectoryPath);
+            agent.Synchronize();
+        }
+        finally
+        {
+            // Release resources.
+            if (sourceProvider != null) sourceProvider.Dispose();
+            if (destinationProvider != null) destinationProvider.Dispose();
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////
+    // Provide information about files that were affected by the synchronization session. //
+    ////////////////////////////////////////////////////////////////////////////////////////
+    public static void OnAppliedChange(object sender, AppliedChangeEventArgs args)
+    {
+        switch (args.ChangeType)
+        {
+            case ChangeType.Create:
+                SqlServer_Impl.LogDebug("SyncFileSystemReplicasOneWay", "CREATED file " + args.NewFilePath);
+                break;
+
+            case ChangeType.Delete:
+                SqlServer_Impl.LogDebug("SyncFileSystemReplicasOneWay", "DELETED file " + args.OldFilePath);
+                break;
+
+            case ChangeType.Update:
+                SqlServer_Impl.LogDebug("SyncFileSystemReplicasOneWay", "OVERWRITE file " + args.OldFilePath);
+                break;
+
+            case ChangeType.Rename:
+                SqlServer_Impl.LogDebug("SyncFileSystemReplicasOneWay", "RENAME file " + args.OldFilePath + " as " + args.NewFilePath);
+                break;
+        }
+    }
+
+    /////////////////////////////////////////////////////////////
+    // Log error information for any changes that were skipped //
+    /////////////////////////////////////////////////////////////
+    public static void OnSkippedChange(object sender, SkippedChangeEventArgs args)
+    {
+        SqlServer_Impl.LogDebug("SyncFileSystemReplicasOneWay", "-- Skipped applying " + args.ChangeType.ToString().ToUpper()
+              + " for " + (!string.IsNullOrEmpty(args.CurrentFilePath) ?
+                            args.CurrentFilePath : args.NewFilePath) + " due to error");
+
+        if (args.Exception != null)
+            SqlServer_Impl.LogDebug("SyncFileSystemReplicasOneWay", "   [" + args.Exception.Message + "]");
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////
+    // By default, conflicts are resolved in favor of the last writer. In this example, //
+    // the change from the source will always win the conflict.                         //
+    //////////////////////////////////////////////////////////////////////////////////////
+    public static void OnItemConflicting(object sender, ItemConflictingEventArgs args)
+    {
+        args.SetResolutionAction(ConflictResolutionAction.SourceWins);
+    }
+    public static void OnItemConstraint(object sender, ItemConstraintEventArgs args)
+    {
+        args.SetResolutionAction(ConstraintConflictResolutionAction.SourceWins);
+    }
+
+
 
 
 
 #endregion Sync
-
 
 #region Job Reports
     [WebMethod(EnableSession = true)]
@@ -972,15 +1136,40 @@ public class SiuDao : WebService
                                 string chkIrDrpBoxNo, string SalesFollowUp, string SalesNotes)
         
     {
-        Shermco_Job_Report jobRpt = SqlDataMapper<Shermco_Job_Report>.MakeNewDAO<Shermco_Job_Report>();
+
+        Shermco_Job_Report jobRpt = null;
+
         try
         {
-            string debugBody;
-            if (chkIrOnly == "true" || chkIrPort == "true")
-                debugBody = "Job: " + jobNo + "  " +  ((jobRpt.IROnly == 1) ? "IR Rpt Only " : "IR Partial Rpt ") + "  Emp: " + UserEmpID;
-            else
-                debugBody = "Job: " + jobNo + "  Emp: " + UserEmpID;    
-            SqlServer_Impl.LogDebug("SiuDao.SubmitJobRpt", debugBody);
+
+            /////////////////////////////////
+            // Look For An Existing Record //
+            /////////////////////////////////
+            jobRpt = SqlServer_Impl.GetSubmitJobReportByNo(jobNo);
+
+            ////////////////////////////////////////////////////
+            // If This Is A New Record, Create Default Values //
+            ////////////////////////////////////////////////////
+            if (jobRpt == null)
+                jobRpt = SqlDataMapper<Shermco_Job_Report>.MakeNewDAO<Shermco_Job_Report>();
+
+
+            //////////////////////////////////////
+            // UUDecode Free Format Text Fields //
+            //////////////////////////////////////
+            SalesNotes = Server.UrlDecode(SalesNotes);
+            comments = Server.UrlDecode(comments);
+            //int len = GetLengthLimit(jobRpt, "SalesFollowUp_Comment"); 
+
+            ///////////////////////////////////
+            // Record Debug Info For IR Jobs //
+            ///////////////////////////////////
+            //string debugBody;
+            //if (chkIrOnly == "true" || chkIrPort == "true")
+            //    debugBody = "Job: " + jobNo + "  " +  ((jobRpt.IROnly == 1) ? "IR Rpt Only " : "IR Partial Rpt ") + "  Emp: " + UserEmpID;
+            //else
+            //    debugBody = "Job: " + jobNo + "  Emp: " + UserEmpID;    
+            //SqlServer_Impl.LogDebug("SiuDao.SubmitJobRpt", debugBody);
 
             ////////////
             // Job No //
@@ -992,19 +1181,19 @@ public class SiuDao : WebService
             /////////////////////////////////////////////////
             if ( chkIrOnly == "true")
             {
-                jobRpt.Logged_In_By_Rpt_Dpt = DateTime.Now.Date;
-                jobRpt.Logged_In_By_Rpt_Dpt_User = BusinessLayer.UserName;
+                //jobRpt.Logged_In_By_Rpt_Dpt = DateTime.Now.Date;
+                //jobRpt.Logged_In_By_Rpt_Dpt_User = BusinessLayer.UserName;
 
-                jobRpt.Logged_and_Scanned_User = BusinessLayer.UserName;
-                jobRpt.Logged_and_Scanned = DateTime.Now.Date;
+                //jobRpt.Logged_and_Scanned_User = BusinessLayer.UserName;
+                //jobRpt.Logged_and_Scanned = DateTime.Now.Date;
 
                 jobRpt.Date_Report_Turned_In_by_Tech = DateTime.Now.Date;
 
                 jobRpt.Turned_in_by_Tech_Date = DateTime.Now.Date;
                 jobRpt.Turned_in_by_Tech_UserID = UserEmpID;
 
-                jobRpt.IR_Received_From_Tech = DateTime.Now.Date;
-                jobRpt.IR_Received_From_Tech_User = BusinessLayer.UserName;
+                //jobRpt.IR_Received_From_Tech = DateTime.Now.Date;
+                //jobRpt.IR_Received_From_Tech_User = BusinessLayer.UserName;
             }
 
             ///////////////////////////////////////////////////////
@@ -1122,12 +1311,17 @@ public class SiuDao : WebService
         catch (Exception ex)
         {
             SqlServer_Impl.LogDebug("SiuDao.SubmitJobRpt", ex.Message);
+            if (jobRpt != null)
+                SqlServer_Impl.LogDebug("SiuDao.SubmitJobRpt", 
+                                            "sales: " + jobRpt.SalesFollowUp_Comment.Length + 
+                                            " Comments: " + jobRpt.Comment.Length + 
+                                            " other: " + jobRpt.TmpOtherText.Length +
+                                            " email: " + jobRpt.Email.Length +
+                                            " NoRpt: " + jobRpt.No_Report_Required_Reason.Length);
             throw;
         }
     }
 #endregion Job Reports
-
-
 
 #region Vehicle Personal Miles
     ////////////////////////////////////////////////////////////////////////
@@ -1231,6 +1425,7 @@ public class SiuDao : WebService
             vehRpt.Emp__No = empNo;
             vehRpt.Week_Ending = DateTime.Parse(WeekEnding);
             vehRpt.Weekly_Personal_Mileage = int.Parse(Mileage);
+            
 
             return SqlServer_Impl.RemoveVehicleMileage(vehRpt);
         }
@@ -1242,8 +1437,6 @@ public class SiuDao : WebService
         }
     }
 #endregion Vehicle Personal Miles
-
-
 
 #region Vehicle Inspection
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1288,25 +1481,76 @@ public class SiuDao : WebService
     }
 #endregion Vehicle Inspection
 
-
-
-
 #region Safety Pays
 
-    ////////////////////////////
-    // New Safety Pays Report //
-    ////////////////////////////
-    [WebMethod(EnableSession = true)]
-    public string RecordSafetyPays(string EID, string JobNo, string IncTypeSafeFlag, string IncTypeUnsafeFlag, string IncTypeSuggFlag,
-                                 string IncTypeTopicFlag, string IncTypeSumFlag, string IncidentDate, string ObservedEmpID,
-                                 string InitialResponse, string SafetyMeetingType, string SafetyMeetingDate, string Comments,
-                                 string JobSite, string IncTypeText, string QomID)
+    /// <span class="code-SummaryComment"><summary></span>
+    /// Gets the length limit for a given field on a LINQ object ... or zero if not known
+    /// <span class="code-SummaryComment"></summary></span>
+    /// <span class="code-SummaryComment"><remarks></span>
+    /// You can use the results from this method to dynamically 
+    /// set the allowed length of an INPUT on your web page to
+    /// exactly the same length as the length of the database column.  
+    /// Change the database and the UI changes just by
+    /// updating your DBML and recompiling.
+    /// <span class="code-SummaryComment"></remarks></span>
+    public static int GetLengthLimit(object obj, string field)
     {
+        int dblenint = 0;   // default value = we can't determine the length
 
+        Type type = obj.GetType();
+        PropertyInfo prop = type.GetProperty(field);
+        // Find the Linq 'Column' attribute
+        // e.g. [Column(Storage="_FileName", DbType="NChar(256) NOT NULL", CanBeNull=false)]
+        object[] info = prop.GetCustomAttributes(typeof(ColumnAttribute), true);
+        // Assume there is just one
+        if (info.Length == 1)
+        {
+            ColumnAttribute ca = (ColumnAttribute)info[0];
+            string dbtype = ca.DbType;
+
+            if (dbtype.StartsWith("NChar") || dbtype.StartsWith("NVarChar") || dbtype.StartsWith("VarChar"))
+            {
+                int index1 = dbtype.IndexOf("(");
+                int index2 = dbtype.IndexOf(")");
+                string dblen = dbtype.Substring(index1 + 1, index2 - index1 - 1);
+                int.TryParse(dblen, out dblenint);
+            }
+        }
+        return dblenint;
+    }
+
+    /// <span class="code-SummaryComment"><summary></span>
+    /// If you don't care about truncating data that you are setting on a LINQ object, 
+    /// use something like this ...
+    /// <span class="code-SummaryComment"></summary></span>
+    public static void SetAutoTruncate(object obj, string field, string value)
+    {
+        int len = GetLengthLimit(obj, field);
+        if (len == 0) throw new ApplicationException("Field '" + field + "'does not have length metadata");
+
+        Type type = obj.GetType();
+        PropertyInfo prop = type.GetProperty(field);
+        if (value.Length > len)
+        {
+            prop.SetValue(obj, value.Substring(0, len), null);
+        }
+        else
+            prop.SetValue(obj, value, null);
+    } 
+
+    [WebMethod(EnableSession = true)]
+    public string RecordSafetyPays(     string IncidentNo, string EID, string JobNo, string IncTypeSafeFlag, string IncTypeUnsafeFlag, string IncTypeSuggFlag,
+                                        string IncTypeTopicFlag, string IncTypeSumFlag, string IncidentDate, string ObservedEmpID,
+                                        string InitialResponse, string SafetyMeetingType, string SafetyMeetingDate, string Comments,
+                                        string JobSite, string IncTypeText, string QomID)
+    {
         ///////////////////////////////////////////
         // Make And Initialize A New Data Object //
         ///////////////////////////////////////////
         SIU_SafetyPaysReport newReport = SqlDataMapper<SIU_SafetyPaysReport>.MakeNewDAO<SIU_SafetyPaysReport>();
+
+        InitialResponse = Server.UrlDecode(InitialResponse);
+        Comments = Server.UrlDecode(Comments);
 
         //////////////////
         // New Incident //
@@ -1315,7 +1559,7 @@ public class SiuDao : WebService
         newReport.EmpID = EID;
         newReport.IncLastTouchEmpID = BusinessLayer.UserEmpID;
         newReport.PointsAssigned = 0;
-        newReport.IncOpenTimestamp = DateTime.Parse( DateTime.Now.ToShortDateString() );
+        newReport.IncOpenTimestamp = DateTime.Parse(DateTime.Now.ToShortDateString());
         newReport.IncLastTouchTimestamp = newReport.IncOpenTimestamp;
 
         newReport.IncTypeSafeFlag = (IncTypeSafeFlag == "true");
@@ -1324,9 +1568,9 @@ public class SiuDao : WebService
         newReport.IncTypeTopicFlag = (IncTypeTopicFlag == "true");
         newReport.IncTypeSumFlag = (IncTypeSumFlag == "true");
 
-        if ( IncidentDate.Length > 0 )
+        if (IncidentDate.Length > 0)
             newReport.IncidentDate = DateTime.Parse(IncidentDate);
-        if ( SafetyMeetingDate.Length > 0 )
+        if (SafetyMeetingDate.Length > 0)
             newReport.SafetyMeetingDate = DateTime.Parse(SafetyMeetingDate);
         newReport.ObservedEmpID = ObservedEmpID;
         newReport.InitialResponse = InitialResponse;
@@ -1340,13 +1584,13 @@ public class SiuDao : WebService
 
         IEnumerable<string> errorList = BusinessLayer.ValidateSafetyPays(newReport).ToList();
         if (errorList.Any())
-            return "Error: " +  errorList.First();
+            return "Error: " + errorList.First();
 
 
         if (newReport.IncTypeTxt == "VEST" || newReport.IncTypeTxt == "VPP")
             newReport.IncTypeTxt += " QOM";
 
-        if ( QomID.Length > 0 )
+        if (QomID.Length > 0)
             newReport.QOM_ID = int.Parse(QomID);
 
 
@@ -1363,8 +1607,20 @@ public class SiuDao : WebService
             WebMail.SafetyPaysNewEmail(newReport, e.Company_E_Mail, e.Last_Name + ", " + e.First_Name);
         }
 
-        return "";
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        // If An Existing Incident No Was Passed In Close It And Replace It With This New Record //
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        if ( IncidentNo.Length > 0 )
+        {
+            if (IncidentNo != "0")
+                SqlServer_Impl.RecordSafetyPaysStatus(int.Parse(IncidentNo), "Replaced", BusinessLayer.UserEmpID, true, 0, "This Incident Was Replaced By Incident " + newReport.IncidentNo);
+            
+        }
+
+        return "";        
     }
+
+
 
     /////////////////////////////////
     // New Safety Pays Report Task //
@@ -1551,6 +1807,7 @@ public class SiuDao : WebService
      
 
     }    
+
     [WebMethod(EnableSession = true)]
     public string GetSafetyPaysRptData(string DataFilter, string isA, int jtStartIndex = 0, int jtPageSize = 0)
     {
@@ -1637,6 +1894,7 @@ public class SiuDao : WebService
             return serializer.Serialize(new { Result = "ERROR", ex.Message });
         }  
     }
+
     ////////////////////////////////////////////
     // Return List Of Open Safety Pays Report //
     // Filtered by Several Options            //
@@ -1678,7 +1936,24 @@ public class SiuDao : WebService
         }
     }
 
-        
+    [WebMethod(EnableSession = true)]
+    public string GetSafetyPays(string RptID)
+    {
+        JavaScriptSerializer serializer = new JavaScriptSerializer();
+
+        try
+        {
+            SIU_SafetyPaysReport jasonResp = SqlServer_Impl.GetSafetyPaysReport(int.Parse(RptID)).First(); 
+            return serializer.Serialize(jasonResp);
+        }
+        catch (Exception ex)
+        {
+            SqlServer_Impl.LogDebug("SiuDao.GetSafetyPays", RptID);
+            SqlServer_Impl.LogDebug("SiuDao.GetSafetyPays", ex.Message);
+            return serializer.Serialize(  "ERROR" + ex.Message );
+        }
+    }
+     
 #endregion Safety Pays
 #region QOM
     [WebMethod(EnableSession = true)]
@@ -1779,7 +2054,7 @@ public class SiuDao : WebService
         JavaScriptSerializer serializer = new JavaScriptSerializer();
         try
         {
-            List<object> jasonResp = SqlServer_Impl.GetIncidentAccident("Open");
+            List<object> jasonResp = SqlServer_Impl.GetIncidentAccidentOpen();
             return serializer.Serialize(new { Result = "OK", Records = jasonResp[0] });
         }
         catch (Exception ex)
@@ -1798,7 +2073,7 @@ public class SiuDao : WebService
         JavaScriptSerializer serializer = new JavaScriptSerializer();
         try
         {
-            List<object> jasonResp = SqlServer_Impl.GetIncidentAccident("Submit");
+            List<object> jasonResp = SqlServer_Impl.GetIncidentAccidentSubmit();
             return serializer.Serialize(new { Result = "OK", Records = jasonResp[0] });
         }
         catch (Exception ex)
@@ -1807,7 +2082,6 @@ public class SiuDao : WebService
             return serializer.Serialize(new { Result = "ERROR", ex.Message });
         }
     }
-
 
     [WebMethod(EnableSession = true)]
     public string GetVehilceList()
@@ -1826,6 +2100,22 @@ public class SiuDao : WebService
     }
 
     [WebMethod(EnableSession = true)]
+    public string GetIncidentAccidentApprovalNotes(string UID)
+    {
+        JavaScriptSerializer serializer = new JavaScriptSerializer();
+        try
+        {
+            List<object> rpts = SqlServer_Impl.GetIncidentAccidentApprovalNotes( int.Parse(UID) );
+            return serializer.Serialize(new { Result = "OK", Records = rpts[0]});
+        }
+        catch (Exception ex)
+        {
+            SqlServer_Impl.LogDebug("SiuDao.GetIncidentAccidentApprovalNotes", ex.Message);
+            return serializer.Serialize(new { Result = "ERROR", ex.Message });
+        }
+    }
+
+    [WebMethod(EnableSession = true)]
     public string GetEmpBasic(string EID)
     {
         try
@@ -1836,18 +2126,33 @@ public class SiuDao : WebService
         }
         catch (Exception ex)
         {
-            SqlServer_Impl.LogDebug("SiuDao.GetEmpBasic", ex.Message);
+            SqlServer_Impl.LogDebug("SiuDao.GetEmpBasic", "(" + EID + ") " +  ex.Message);
+        }
+        return null;
+    }
+
+    [WebMethod(EnableSession = true)]
+    public string ReportingChain(string UID)
+    {
+        try
+        {
+            SIU_Incident_Accident_Reports_To rt = BusinessLayer.IncidentAccidentReportsToByID( int.Parse(UID) );
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            return serializer.Serialize(rt);
+        }
+        catch (Exception ex)
+        {
+            SqlServer_Impl.LogDebug("SiuDao.ReportingChain", ex.Message);
             throw;
         }
     }
-
-
+    
     
     [WebMethod(EnableSession = true)]
     public string recordIncidentAccident(   string hlblUID,         string _Inc_Type,           string _Inc_Type_Sub,           string _Inc_Loc,                    string _Emp_Veh_Involved, string _Emp_Job_No,
                                             string _Claim_ID,       string _Inc_Desc,           string _Inc_Unsafe_Act_or_Condition, string _Osha_Restrict_Days,    string _Osha_Lost_Days,
                                             string _Emp_ID,         string _Emp_Comments,       string _Follow_Discipline,      string _Follow_Prevent_Reoccur,     string _Follow_Comments,
-                                            string _Cost_inHouse,   string _Cost_Incurred,      string _Cost_Reserve,           string _Cost_Total,                 string _Follow_Responsible,
+                                            string _Cost_inHouse,   string _Cost_Incurred,      string _Cost_Reserve,           string _Follow_Responsible,
                                             string _Inc_Occur_Date, string _Osha_Record_Med,    string _Emp_Drug_Alchol_Test,   string _Follow_Discipline_Issued_Flag
                                         )
     {
@@ -1878,7 +2183,6 @@ public class SiuDao : WebService
                 Cost_inHouse =  (( _Cost_inHouse.Length > 0 ) ?  decimal.Parse(_Cost_inHouse) : 0),
                 Cost_Incurred = ((_Cost_Incurred.Length > 0) ? decimal.Parse(_Cost_Incurred) : 0),
                 Cost_Reserve = ((_Cost_Reserve.Length > 0) ? decimal.Parse(_Cost_Reserve) : 0),
-                Cost_Total = ((_Cost_Total.Length > 0) ? decimal.Parse(_Cost_Total) : 0),
                 Disposition = "Open",
                 UID = 0
             };
@@ -1891,7 +2195,14 @@ public class SiuDao : WebService
             if (_Inc_Occur_Date.Length >= 10)
                 incRcd.Inc_Occur_Date = DateTime.Parse(_Inc_Occur_Date);
 
-            return SqlServer_Impl.recordIncidentAccident(incRcd).ToString();
+            int rcdUid = SqlServer_Impl.recordIncidentAccident(incRcd);
+
+            ////////////////////////////////////////////////////////////
+            // Remove Any Existing Approval Records.  I.E. Start Over //
+            ////////////////////////////////////////////////////////////
+            SqlServer_Impl.removeIncidentApproval(rcdUid);
+
+            return rcdUid.ToString();
         }
         catch (Exception ex)
         {
@@ -1907,7 +2218,7 @@ public class SiuDao : WebService
     public string submitIncidentAccident(string hlblUID, string _Inc_Type, string _Inc_Type_Sub, string _Inc_Loc, string _Emp_Veh_Involved, string _Emp_Job_No,
                                             string _Claim_ID, string _Inc_Desc, string _Inc_Unsafe_Act_or_Condition, string _Osha_Restrict_Days, string _Osha_Lost_Days,
                                             string _Emp_ID, string _Emp_Comments, string _Follow_Discipline, string _Follow_Prevent_Reoccur, string _Follow_Comments,
-                                            string _Cost_inHouse, string _Cost_Incurred, string _Cost_Reserve, string _Cost_Total, string _Follow_Responsible,
+                                            string _Cost_inHouse, string _Cost_Incurred, string _Cost_Reserve, string _Follow_Responsible,
                                             string _Inc_Occur_Date, string _Osha_Record_Med, string _Emp_Drug_Alchol_Test, string _Follow_Discipline_Issued_Flag
                                         )
     {
@@ -1921,7 +2232,6 @@ public class SiuDao : WebService
                 Inc_Type_Sub = _Inc_Type_Sub,
                 Inc_Desc = _Inc_Desc,
                 Inc_Loc = _Inc_Loc,
-                Inc_Occur_Date = DateTime.Parse(_Inc_Occur_Date),
                 Inc_Unsafe_Act_or_Condition = _Inc_Unsafe_Act_or_Condition,
                 Osha_Record_Med = (_Osha_Record_Med == "true"),
                 Osha_Restrict_Days = int.Parse(_Osha_Restrict_Days),
@@ -1938,7 +2248,6 @@ public class SiuDao : WebService
                 Cost_inHouse = decimal.Parse(_Cost_inHouse),
                 Cost_Incurred = decimal.Parse(_Cost_Incurred),
                 Cost_Reserve = decimal.Parse(_Cost_Reserve),
-                Cost_Total = decimal.Parse(_Cost_Total),
                 Disposition = "Submit",
                 UID = 0
             };
@@ -1951,16 +2260,112 @@ public class SiuDao : WebService
             if (_Inc_Occur_Date.Length >= 10)
                 incRcd.Inc_Occur_Date = DateTime.Parse(_Inc_Occur_Date);
 
-            return SqlServer_Impl.recordIncidentAccident(incRcd).ToString();
+            /////////////////////////////////////////////////
+            // Save or Update The Event With SUBMIT Status //
+            /////////////////////////////////////////////////
+            int rcdUid  =  SqlServer_Impl.recordIncidentAccident(incRcd);
+
+            ////////////////////////////////////////////////////////////
+            // Remove Any Existing Approval Records.  I.E. Start Over //
+            ////////////////////////////////////////////////////////////
+            SqlServer_Impl.removeIncidentApproval(rcdUid);
+
+            ///////////////////////////////////
+            // Send Emails To Approval Chain //
+            ///////////////////////////////////
+            SIU_Incident_Accident_Reports_To rt = BusinessLayer.IncidentAccidentReportsToByID(incRcd.UID);
+            WebMail.AccidentIncidentSubmitted(rt, incRcd);
+
+
+            //////////
+            // Done //
+            //////////
+            return rcdUid.ToString(CultureInfo.InvariantCulture);
         }
         catch (Exception ex)
         {
             SqlServer_Impl.LogDebug("submitIncidentAccident", ex.Message);
             return ("ERROR " + ex.Message);
         }
+    }
 
-        return "";
 
+    [WebMethod(EnableSession = true)]
+    public string approveIncidentAccident(string hlblUID)
+    {
+
+        try
+        {
+
+            int UID = int.Parse(hlblUID);
+
+            /////////////////////
+            // Record Approval //
+            /////////////////////
+            SqlServer_Impl.recordIncidentApproval( UID );
+
+            ///////////////////////////////
+            // Send Email About Approval //
+            ///////////////////////////////
+            SIU_Incident_Accident incRcd =  SqlServer_Impl.GetIncidentAccident(UID);
+            SIU_Incident_Accident_Reports_To rt = BusinessLayer.IncidentAccidentReportsToByID(UID);
+            WebMail.AccidentIncidentApproved(rt, incRcd);
+
+            ///////////////////////////////////////////////
+            // Check If All Approvals Have Been Received //
+            ///////////////////////////////////////////////
+            if ( rt.readyToClose ) {
+                incRcd.Disposition = "Closed";
+                SqlServer_Impl.recordIncidentAccident(incRcd);
+
+                WebMail.AccidentIncidentClosed(rt, incRcd);
+            }
+        }
+        catch (Exception ex)
+        {
+            SqlServer_Impl.LogDebug("SiuDao.approveIncidentAccident", ex.Message);
+            throw;
+        }
+
+        return "OK";
+    }
+
+    [WebMethod(EnableSession = true)]
+    public string RecordIncidentAccidentApprovalNote(string UID, string Note)
+    {
+        try
+        {
+
+            SIU_Incident_Accident_AppovalNote newNote = new SIU_Incident_Accident_AppovalNote()
+            {
+                Comments = Note,
+                EID = BusinessLayer.UserEmpID,
+                Ref_UID = int.Parse(UID),
+                TimeStamp = DateTime.Now
+            };
+
+            SqlServer_Impl.RecordIncidentAccidentApprovalNote(ref newNote);
+
+            ////////////////////////////////////////////////////////////
+            // Remove Any Existing Approval Records.  I.E. Start Over //
+            ////////////////////////////////////////////////////////////
+            SqlServer_Impl.removeIncidentApproval(newNote.Ref_UID);
+
+            ///////////////////////////////////
+            // Send Emails To Approval Chain //
+            ///////////////////////////////////
+            var incRcd = SqlServer_Impl.GetIncidentAccident(newNote.Ref_UID);
+            SIU_Incident_Accident_Reports_To rt = BusinessLayer.IncidentAccidentReportsToByID(incRcd.UID);
+            WebMail.AccidentIncidentCommented(rt, incRcd, Note);
+
+            JavaScriptSerializer serializer = new JavaScriptSerializer();            
+            return serializer.Serialize(new { Result = "OK", Records = newNote});
+        }
+        catch (Exception ex)
+        {
+            SqlServer_Impl.LogDebug("RecordIncidentAccidentApprovalNote", ex.Message);
+            return ("ERROR " + ex.Message);
+        }
     }
 
 #endregion Incident Accident
@@ -2315,9 +2720,6 @@ public class SiuDao : WebService
     }
 #endregion Document and Video Browsing
 
-
-
-
 #region Record Video Watching Event
     //////////////////////////////////////////////
     // Record Movie Watched OR Position Changed //
@@ -2372,9 +2774,6 @@ public class SiuDao : WebService
 
 
 #endregion Record Video Watching Event
-
-
-
 
 #region MySi Reporting
     ////////////////////////////////////////////////////////////////////////
@@ -2499,9 +2898,6 @@ public class SiuDao : WebService
     }
 #endregion MySi Reporting
 
-
-
-
 #region ELO Expense Reporting
     //////////////////////////////////
     // Lookup Expenses For Employee //
@@ -2565,9 +2961,6 @@ public class SiuDao : WebService
     }
 #endregion ELO Expense Reporting
 
-
-
-
 #region ItHwReq
     ////////////////////////////////
     // Remove An Unposted Expense //
@@ -2582,9 +2975,6 @@ public class SiuDao : WebService
         return serializer.Serialize(priceEst);
     }
 #endregion ItHwReq
-
-
-
 
 #region Blogs
     ////////////////////////////////////
@@ -2731,7 +3121,6 @@ public class SqlServer_Impl : WebService
         return RolesList;
     }
 #endregion Logon
-
 
 #region Debug
     public  static void LogDebug(string Module, string Msg)
@@ -3660,7 +4049,7 @@ public class SqlServer_Impl : WebService
     }
 #endregion
 
-#region Generic Employee Lookups          Xtn Ex
+#region Employee Lookups          Xtn Ex
     public static List<Shermco_Employee> GetActiveEmployees()
     {
         try
@@ -3833,7 +4222,30 @@ public class SqlServer_Impl : WebService
             LogDebug("GetEmployeeByNo", ex.Message);
         }
         return null;
-        return new Shermco_Employee();
+    }
+    public static List<string> GetEmployeeEmailByNo(List<string> empNos)
+    {
+        try
+        {
+            SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
+
+            TransactionOptions to = new TransactionOptions
+            {
+                IsolationLevel = IsolationLevel.ReadUncommitted
+            };
+
+            using (new TransactionScope(TransactionScopeOption.RequiresNew, to))
+            {
+                return (    from anEmp in nvDb.Shermco_Employees
+                            where empNos.Contains(anEmp.No_)
+                            select anEmp.Company_E_Mail).ToList();
+            }
+        }
+        catch (Exception ex)
+        {
+            LogDebug("GetEmployeeEmailByNo", ex.Message);
+        }
+        return null;
     }
     public static string GetEmployeeNameByNo(string empNo)
     {
@@ -3860,11 +4272,6 @@ public class SqlServer_Impl : WebService
                 if (nameParts == null)
                     return "unknown";
                 return "(" + empNo + ")     " + nameParts.Last_Name + ", " + nameParts.First_Name;
-
-                var emp = GetEmployeeByNo(empNo);
-                if (emp == null)
-                    return empNo;
-                return "(" + empNo + ")     " + emp.Last_Name + ", " + emp.First_Name;
             }
         }
         catch (Exception ex)
@@ -3920,6 +4327,23 @@ public class SqlServer_Impl : WebService
         }
         return new Shermco_Employee();
     }
+    public static SIU_ReportingChain GetEmployeeReportingChain(string Dept)
+    {
+        try
+        {
+            SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
+
+            return (    from chain in nvDb.SIU_ReportingChains
+                        where chain.Dept == Dept
+                        select chain).SingleOrDefault();
+        }
+        catch (Exception ex)
+        {
+            LogDebug("GetEmployeeReportingChain", ex.Message);
+        }
+        return null;        
+    }
+
     public static List<Shermco_Employee> GetActiveEmployeeCellPhones(List<Shermco_Employee> Emps)
     {
         try
@@ -4156,7 +4580,6 @@ public class SqlServer_Impl : WebService
     }
 #endregion
 
-
 #region ELO TIME              Xtn Ex
 
     public static List<SIU_Oh_Exp_Accounts> GetExpenseOHAccts()
@@ -4252,6 +4675,7 @@ public class SqlServer_Impl : WebService
         {
             SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
 
+            //var iJobNo = int.Parse(new string(JobNo.Where(char.IsDigit).ToArray())).ToString();
             TransactionOptions to = new TransactionOptions
             {
                 IsolationLevel = IsolationLevel.ReadUncommitted
@@ -5892,44 +6316,55 @@ public class SqlServer_Impl : WebService
         SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
         SIU_SafetyPaysReport newReport = null;
 
-        /////////////////////////////////////////////
-        // If This Is A New Record, Perform Insert //
-        /////////////////////////////////////////////
-        if (_report.IncidentNo == 0)
+        try
         {
-            nvDb.SIU_SafetyPaysReports.InsertOnSubmit(_report);
+
+
+            /////////////////////////////////////////////
+            // If This Is A New Record, Perform Insert //
+            /////////////////////////////////////////////
+            if (_report.IncidentNo == 0)
+            {
+                nvDb.SIU_SafetyPaysReports.InsertOnSubmit(_report);
+            }
+
+
+
+            /////////////////////////////////
+            // Otherwise Perform An Update //
+            /////////////////////////////////
+            else
+            {
+                /////////////////////////////////
+                // Look For An Existing Record //
+                /////////////////////////////////
+                newReport = GetSafetyPaysReport(_report.IncidentNo).SingleOrDefault();
+
+                if (newReport == null) throw (new Exception("Unable To Locate Key: " + _report.IncidentNo));
+
+                //////////////////////////
+                // Start Update Process //
+                //////////////////////////
+                nvDb.SIU_SafetyPaysReports.Attach(newReport);
+
+                ///////////////////////////////
+                // Copy Over New Data Fields //
+                ///////////////////////////////
+                Mapper.CreateMap<SIU_SafetyPaysReport, SIU_SafetyPaysReport>();
+                Mapper.Map(_report, newReport);
+
+
+            }
+            nvDb.SubmitChanges();
+
+            return (newReport == null) ? _report.IncidentNo : newReport.IncidentNo;
         }
 
-
-
-        /////////////////////////////////
-        // Otherwise Perform An Update //
-        /////////////////////////////////
-        else
+        catch (Exception ex)
         {
-            /////////////////////////////////
-            // Look For An Existing Record //
-            /////////////////////////////////
-            newReport = GetSafetyPaysReport(_report.IncidentNo).SingleOrDefault();
-
-            if (newReport == null) throw (new Exception("Unable To Locate Key: " + _report.IncidentNo));
-
-            //////////////////////////
-            // Start Update Process //
-            //////////////////////////
-            nvDb.SIU_SafetyPaysReports.Attach(newReport);
-
-            ///////////////////////////////
-            // Copy Over New Data Fields //
-            ///////////////////////////////
-            Mapper.CreateMap<SIU_SafetyPaysReport, SIU_SafetyPaysReport>();
-            Mapper.Map(_report, newReport);
-
-
+            LogDebug("RecordSafetyPaysReport", ex.Message);
+            throw;
         }
-        nvDb.SubmitChanges();
-
-        return (newReport == null) ? _report.IncidentNo : newReport.IncidentNo;
     }
     public static void RemoveSafetyPaysRpt(string IncNo)
     {
@@ -5952,6 +6387,8 @@ public class SqlServer_Impl : WebService
             LogDebug("RemoveSafetyPaysRpt", ex.Message);
         }        
     }
+
+
     /////////////////////////////////////////////////////////////
     // Data Support For EHS Admin To Sort And Mark Each Safety //
     // Pays Admin As Either ACCPET, WORK, or REJECT            //
@@ -6067,7 +6504,6 @@ public class SqlServer_Impl : WebService
 
                ).ToList().OrderBy(SortBy).Skip(startIndex).Take(count).ToList();
     }
-
     public static List<SIU_SafetyPaysReport_Rpt> GetNewSafetyPaysRpts(int startIndex, int count)
     {
         SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
@@ -6111,7 +6547,6 @@ public class SqlServer_Impl : WebService
                ).ToList();
     }
     
-
     /////////////////////////////////////////////////////////////////
     // Get A Safety Pays Report                                    // 
     // Called Internally For Adding New Report                     //
@@ -6128,9 +6563,6 @@ public class SqlServer_Impl : WebService
                 select reports
                );
     }
-
-
-    
 
     //////////////////////////////////////////////////////
     // Data Support For Management Of Safety Pays Tasks //
@@ -6551,8 +6983,20 @@ public class SqlServer_Impl : WebService
                 join emp in nvDb.Shermco_Employees on rptData.Emp_No equals emp.No_
                 join ptType in nvDb.SIU_SafetyPays_Points_Types on rptData.ReasonForPoints equals ptType.UID
                 where rptData.EventDate >= start && rptData.EventDate <= end
-                orderby emp.Global_Dimension_1_Code ascending, emp.Last_Name ascending
+                orderby emp.Global_Dimension_1_Code ascending, emp.No_ ascending, emp.Last_Name ascending
                 select (new SIU_Points_Rpt(rptData, emp.Global_Dimension_1_Code, emp.Last_Name + ", " + emp.First_Name, ptType.Description ))
+                ).ToList();
+    }
+    public static List<SIU_Points_Rpt> GetAdminPointsRptEmpPointsFromProd(DateTime start, DateTime end)
+    {
+        SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(ForcedProductionConnectString);
+
+        return (from rptData in nvDb.SIU_SafetyPays_Points
+                join emp in nvDb.Shermco_Employees on rptData.Emp_No equals emp.No_
+                join ptType in nvDb.SIU_SafetyPays_Points_Types on rptData.ReasonForPoints equals ptType.UID
+                where rptData.EventDate >= start && rptData.EventDate <= end
+                orderby emp.Global_Dimension_1_Code ascending, emp.No_ ascending, emp.Last_Name ascending
+                select (new SIU_Points_Rpt(rptData, emp.Global_Dimension_1_Code, emp.Last_Name + ", " + emp.First_Name, ptType.Description))
                 ).ToList();
     }
     public static List<SIU_Points_Rpt> GetAdminPointsRptDepts(string startDate, string endDate)
@@ -6632,10 +7076,10 @@ public class SqlServer_Impl : WebService
     {
         SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
 
-        DateTime periodStart = DateTime.Now.AddDays(-1);
+        DateTime periodEnd = DateTime.Now.AddDays(1);
 
         return (from qomList in nvDb.SIU_Safety_MoQs
-                where qomList.StartDate <= periodStart
+                where qomList.EndDate <= periodEnd
                 select qomList
                ).ToList();        
     }
@@ -6779,7 +7223,27 @@ public class SqlServer_Impl : WebService
 #endregion
 
 #region Incident Accident
-    public static List<object> GetIncidentAccident(string _status)
+    public static IEnumerable<object> GetIncidentAccident()
+    {
+        SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
+
+        var rcds = (    from iaList in nvDb.SIU_Incident_Accidents
+                        join emp in nvDb.Shermco_Employees on iaList.Emp_ID equals emp.No_ into outerJoin
+
+                        from iaList2 in outerJoin.DefaultIfEmpty() 
+                        join supr in nvDb.Shermco_Employees on iaList2.Manager_No_ equals supr.No_ into outerJoin2
+
+                        from iaList3 in outerJoin2.DefaultIfEmpty() 
+                        select new { 	iaList, 
+				                        EmpNo = iaList2.No_, EmpLast = iaList2.Last_Name, EmpFirst = iaList2.First_Name, EmpDept = iaList2.Global_Dimension_1_Code,
+				                        SuprNo = iaList3.No_, SuprLast = iaList3.Last_Name, SuprFirst = iaList3.First_Name
+			                        }
+                    );
+
+        return rcds;
+    }
+
+    public static List<object> GetIncidentAccidentOpen()
     {
         SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
 
@@ -6788,11 +7252,65 @@ public class SqlServer_Impl : WebService
             join emp in nvDb.Shermco_Employees on iaList.Emp_ID equals emp.No_ into outerJoin
             
             from iaList2 in outerJoin.DefaultIfEmpty()  // Left Outer Join
-            where iaList.Disposition == _status
+            where (new List<string>(){ "Open", "Submit"}).Contains(iaList.Disposition)
 
             select new { iaList, iaList2.Last_Name, iaList2.Global_Dimension_1_Code, iaList2.First_Name }
-            ).ToList()};			        
+            ).ToList()};
     }
+
+    public static List<object> GetIncidentAccidentSubmit()
+    {
+        SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
+
+        return new List<object>
+        {(  from iaList in nvDb.SIU_Incident_Accidents
+            join emp in nvDb.Shermco_Employees on iaList.Emp_ID equals emp.No_ into outerJoin
+            
+            from iaList2 in outerJoin.DefaultIfEmpty()  // Left Outer Join
+            where iaList.Disposition == "Submit"
+
+            select new { iaList, iaList2.Last_Name, iaList2.Global_Dimension_1_Code, iaList2.First_Name }
+            ).ToList()};
+    }
+
+
+    public static List<object> GetIncidentAccidentApprovalNotes(int UID)
+    {
+        SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
+
+        return new List<object>
+        {
+            (   from incNotes in nvDb.SIU_Incident_Accident_AppovalNotes
+                join emp in nvDb.Shermco_Employees on incNotes.EID equals emp.No_
+
+                where incNotes.Ref_UID == UID 
+
+				select new
+				{
+					Comment = incNotes.Comments,
+					CommentDate = incNotes.TimeStamp, 
+                    CommentsBy = emp.Last_Name + ", " + emp.First_Name,
+                    incNotes.Ref_UID
+				}	
+            ).ToList()
+        };
+    }
+    public static void RecordIncidentAccidentApprovalNote(ref SIU_Incident_Accident_AppovalNote ApprovalNote)
+    {
+        SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
+
+        try
+        {
+            nvDb.SIU_Incident_Accident_AppovalNotes.InsertOnSubmit(ApprovalNote);
+            nvDb.SubmitChanges();
+        }
+        catch (Exception ex)
+        {
+            LogDebug("SIU_DAO.RecordIncidentAccidentApprovalNote", ex.Message);
+            throw;
+        }       
+    }
+
     public static SIU_Incident_Accident GetIncidentAccident(int _UID)
     {
         SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
@@ -6845,20 +7363,60 @@ public class SqlServer_Impl : WebService
 
         return (newRcd == null) ? _IncRcd.UID : newRcd.UID;
     }
-    //public static void setIncidentAccidentStatus(string _UID, string _Status)
-    //{
-    //    SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
+    public static void removeIncidentApproval(int _UID)
+    {
+        SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
 
-    //    //////////////////////////////
-    //    // Look For Existing Record //
-    //    //////////////////////////////
-    //    SIU_Incident_Accident updRcd = GetIncidentAccident(_UID);
+        try
+        {
+            nvDb.ExecuteCommand("DELETE FROM SIU_Incident_Accident_Appoval WHERE Ref_UID = {0}", _UID);
+        }
+        catch (Exception ex)
+        {
+            SqlServer_Impl.LogDebug("submitIremoveIncidentApprovalncidentAccident", ex.Message);
+            throw;
+        }
+    }
+    public static void recordIncidentApproval(int _UID)
+    {
+        SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
 
-    //    if (updRcd == null) throw (new Exception("Unable To Locate Key: " + _UID));
+        try
+        {
 
-    //    updRcd.Disposition = _Status;
-    //    nvDb.SubmitChanges();
-    //}
+            SIU_Incident_Accident_Appoval appRcd = new SIU_Incident_Accident_Appoval
+            {
+                EID = BusinessLayer.UserEmpID,
+                Ref_UID = _UID,
+                TimeStamp = DateTime.Now
+            };
+
+            nvDb.SIU_Incident_Accident_Appovals.InsertOnSubmit(appRcd);
+            nvDb.SubmitChanges();        
+        }
+        catch (Exception ex)
+        {
+            LogDebug("SIU_DAO.recordIncidentApproval", ex.Message);
+            throw;
+        }
+    }
+    public static List<SIU_Incident_Accident_Appoval> GetIncidentAccidentApprovals(int _UID)
+    {
+        try
+        {
+            SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
+
+            return (from appRcds in nvDb.SIU_Incident_Accident_Appovals
+                    where appRcds.Ref_UID == _UID
+                    select appRcds
+                    ).ToList();
+        }
+        catch (Exception ex)
+        {
+            LogDebug("GetIncidentAccidentApprovals", ex.Message);
+            throw;
+        }
+    }
 #endregion Incident Accident
 
 #region Summary Counts  Xtn Ex
@@ -7340,7 +7898,7 @@ public class _PrjPts
             ///////////////////////////////////////////////
             // New Month -- Add Summary Points For Month //
             ///////////////////////////////////////////////
-            if ( prjPts.mon.ToString() + prjPts.yr.ToString() != prevMon )
+            if ( prjPts.mon + prjPts.yr.ToString() != prevMon )
             {
                 /////////////////////////////////
                 // Add Sum Array To Dictionary //
@@ -7731,6 +8289,7 @@ public static class BusinessLayer
     }
     public static string UserSuprFullName { get { return (((string)HttpContext.Current.Session["UserSuprFullName"]) == null) ? "" : (string)HttpContext.Current.Session["UserSuprFullName"]; } }
     public static string UserSuprEmpId { get { return (((string)HttpContext.Current.Session["UserSuprEmpID"]) == null) ? "" : (string)HttpContext.Current.Session["UserSuprEmpID"]; } }
+    public static string UserDept { get { return (((string)HttpContext.Current.Session["UserDept"]) == null) ? "" : (string)HttpContext.Current.Session["UserDept"]; } }
 
     public static string CalcHardwarePrice(string Computer, string MonitorCnt, string StandCnt, bool chkCase, bool chkDock, bool chkBackPack, bool chkAdobe, bool chkCAD, bool chkMsPrj, bool chkVisio)
     {
@@ -7804,6 +8363,117 @@ public static class BusinessLayer
 
 
         return price.ToString("C2");
+    }
+
+    public static SIU_Incident_Accident_Reports_To IncidentAccidentReportsToByID(int _UID)
+    {
+        SIU_Incident_Accident incRcd = (SIU_Incident_Accident)SqlServer_Impl.GetIncidentAccident(_UID);
+        SIU_Incident_Accident_Reports_To RC =  IncidentAccidentReportsToByEmp(incRcd.Emp_ID);
+
+        ////////////////////////////////////
+        // Now Add Already Approved Dates //
+        ////////////////////////////////////
+        List<SIU_Incident_Accident_Appoval> appRcds = SqlServer_Impl.GetIncidentAccidentApprovals(_UID);
+
+        RC.DeptMgrDate = (from rcd in appRcds where rcd.EID == RC.DeptMgrEmpId select rcd.TimeStamp).SingleOrDefault();
+        RC.DivMgrDate = (from rcd in appRcds where rcd.EID == RC.DivMgrEmpId select rcd.TimeStamp).SingleOrDefault();
+        RC.GmDate  = (from rcd in appRcds where rcd.EID == RC.GmEmpId select rcd.TimeStamp).SingleOrDefault();
+        RC.LegalMgrDate  = (from rcd in appRcds where rcd.EID == RC.LegalMgrEmpId select rcd.TimeStamp).SingleOrDefault();
+        RC.SafetyMgrDate  = (from rcd in appRcds where rcd.EID == RC.SafetyMgrEmpId select rcd.TimeStamp).SingleOrDefault();
+        RC.SuprDate = (from rcd in appRcds where rcd.EID == RC.SuprEmpId select rcd.TimeStamp).SingleOrDefault();
+        RC.VpDate = (from rcd in appRcds where rcd.EID == RC.VpEmpId select rcd.TimeStamp).SingleOrDefault();
+
+        return RC;
+    }
+    private static SIU_Incident_Accident_Reports_To IncidentAccidentReportsToByEmp(string EmpID)
+    {
+        //////////////////////////////////
+        // Create A New Response Record //
+        //////////////////////////////////
+        SIU_Incident_Accident_Reports_To R2 = new SIU_Incident_Accident_Reports_To();
+
+        /////////////////////////////////////////////
+        // Load The Emp For Whom We Are Looking Up //
+        /////////////////////////////////////////////
+        R2.EmpId = EmpID;
+        Shermco_Employee emp = SqlServer_Impl.GetEmployeeByNo(EmpID);
+        if (emp == null)
+            return R2;
+        R2.Dept = emp.Global_Dimension_1_Code;
+
+
+        ////////////////////////////////////////////////////////////////////
+        // And Then The Reporting Chain Based On The Employees Department //
+        ////////////////////////////////////////////////////////////////////
+        SIU_ReportingChain RC = SqlServer_Impl.GetEmployeeReportingChain(R2.Dept);
+        if (RC == null)
+            return R2;
+
+
+
+
+        /////////////////////////////////
+        // Load Supervisor Chain While //
+        // Also Eliminating Duplicates //
+        /////////////////////////////////
+        List<string> EIDs = new List<string>();
+
+        if (!EIDs.Contains(RC.GmEmpId))
+        {
+            R2.GmEmpId = RC.GmEmpId;
+            R2.GmName = RC.GmName;
+            EIDs.Add(RC.GmEmpId);
+        }
+
+        if (!EIDs.Contains(RC.VpEmpId))
+        {
+            R2.VpEmpId = RC.VpEmpId;
+            R2.VpName = RC.VpName;
+            EIDs.Add(RC.VpEmpId);
+        }
+
+        if (!EIDs.Contains(RC.SafetyMgrEmpId))
+        {
+            R2.SafetyMgrEmpId = RC.SafetyMgrEmpId;
+            R2.SafetyMgrName = RC.SafetyMgrName;
+            EIDs.Add(RC.SafetyMgrEmpId);
+        }
+
+        if (!EIDs.Contains(RC.LegalMgrEmpId))
+        {
+            R2.LegalMgrEmpId = RC.LegalMgrEmpId;
+            R2.LegalMgrName = RC.LegalMgrName;
+            EIDs.Add(RC.LegalMgrEmpId);
+        }
+
+        if (!EIDs.Contains(RC.DivMgrEmpId))
+        {
+            R2.DivMgrEmpId = RC.DivMgrEmpId;
+            R2.DivMgrName = RC.DivMgrName;
+            EIDs.Add(RC.DivMgrEmpId);
+        }
+
+
+        if (!EIDs.Contains(RC.DeptMgrEmpId))
+        {
+            R2.DeptMgrEmpId = RC.DeptMgrEmpId;
+            R2.DeptMgrName = RC.DeptMgrName;
+            EIDs.Add(RC.DeptMgrEmpId);
+        }
+
+        if (!EIDs.Contains(emp.Manager_No_))
+        {
+            R2.SuprEmpId = emp.Manager_No_;
+
+            /////////////////////////////////////
+            // Look Up The Employee Supervisor //
+            /////////////////////////////////////
+            emp = SqlServer_Impl.GetEmployeeByNo(R2.SuprEmpId);
+            if (emp != null)
+                R2.SuprName = emp.First_Name + " " + emp.Last_Name;
+        }
+
+        return R2;
     }
 }
 

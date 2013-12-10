@@ -155,6 +155,15 @@ public partial class SIU_ORM_LINQDataContext : System.Data.Linq.DataContext
   partial void InsertSIU_Incident_Accident(SIU_Incident_Accident instance);
   partial void UpdateSIU_Incident_Accident(SIU_Incident_Accident instance);
   partial void DeleteSIU_Incident_Accident(SIU_Incident_Accident instance);
+  partial void InsertSIU_ReportingChain(SIU_ReportingChain instance);
+  partial void UpdateSIU_ReportingChain(SIU_ReportingChain instance);
+  partial void DeleteSIU_ReportingChain(SIU_ReportingChain instance);
+  partial void InsertSIU_Incident_Accident_Appoval(SIU_Incident_Accident_Appoval instance);
+  partial void UpdateSIU_Incident_Accident_Appoval(SIU_Incident_Accident_Appoval instance);
+  partial void DeleteSIU_Incident_Accident_Appoval(SIU_Incident_Accident_Appoval instance);
+  partial void InsertSIU_Incident_Accident_AppovalNote(SIU_Incident_Accident_AppovalNote instance);
+  partial void UpdateSIU_Incident_Accident_AppovalNote(SIU_Incident_Accident_AppovalNote instance);
+  partial void DeleteSIU_Incident_Accident_AppovalNote(SIU_Incident_Accident_AppovalNote instance);
   #endregion
 	
 	public SIU_ORM_LINQDataContext() : 
@@ -560,6 +569,30 @@ public partial class SIU_ORM_LINQDataContext : System.Data.Linq.DataContext
 		get
 		{
 			return this.GetTable<SIU_Incident_Accident>();
+		}
+	}
+	
+	public System.Data.Linq.Table<SIU_ReportingChain> SIU_ReportingChains
+	{
+		get
+		{
+			return this.GetTable<SIU_ReportingChain>();
+		}
+	}
+	
+	public System.Data.Linq.Table<SIU_Incident_Accident_Appoval> SIU_Incident_Accident_Appovals
+	{
+		get
+		{
+			return this.GetTable<SIU_Incident_Accident_Appoval>();
+		}
+	}
+	
+	public System.Data.Linq.Table<SIU_Incident_Accident_AppovalNote> SIU_Incident_Accident_AppovalNotes
+	{
+		get
+		{
+			return this.GetTable<SIU_Incident_Accident_AppovalNote>();
 		}
 	}
 	
@@ -33945,6 +33978,792 @@ public partial class SIU_Incident_Accident : INotifyPropertyChanging, INotifyPro
 				this._Cost_Total = value;
 				this.SendPropertyChanged("Cost_Total");
 				this.OnCost_TotalChanged();
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+}
+
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SIU_ReportingChain")]
+public partial class SIU_ReportingChain : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _UID;
+	
+	private string _CompanyName;
+	
+	private string _Dept;
+	
+	private string _DeptMgrEmpId;
+	
+	private string _DeptMgrName;
+	
+	private string _DivMgrEmpId;
+	
+	private string _DivMgrName;
+	
+	private string _VpEmpId;
+	
+	private string _VpName;
+	
+	private string _GmEmpId;
+	
+	private string _GmName;
+	
+	private string _PresEmpId;
+	
+	private string _PresName;
+	
+	private string _SafetyMgrEmpId;
+	
+	private string _SafetyMgrName;
+	
+	private string _RiskMgrEmpId;
+	
+	private string _RiskMgrName;
+	
+	private string _LegalMgrEmpId;
+	
+	private string _LegalMgrName;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnUIDChanging(int value);
+    partial void OnUIDChanged();
+    partial void OnCompanyNameChanging(string value);
+    partial void OnCompanyNameChanged();
+    partial void OnDeptChanging(string value);
+    partial void OnDeptChanged();
+    partial void OnDeptMgrEmpIdChanging(string value);
+    partial void OnDeptMgrEmpIdChanged();
+    partial void OnDeptMgrNameChanging(string value);
+    partial void OnDeptMgrNameChanged();
+    partial void OnDivMgrEmpIdChanging(string value);
+    partial void OnDivMgrEmpIdChanged();
+    partial void OnDivMgrNameChanging(string value);
+    partial void OnDivMgrNameChanged();
+    partial void OnVpEmpIdChanging(string value);
+    partial void OnVpEmpIdChanged();
+    partial void OnVpNameChanging(string value);
+    partial void OnVpNameChanged();
+    partial void OnGmEmpIdChanging(string value);
+    partial void OnGmEmpIdChanged();
+    partial void OnGmNameChanging(string value);
+    partial void OnGmNameChanged();
+    partial void OnPresEmpIdChanging(string value);
+    partial void OnPresEmpIdChanged();
+    partial void OnPresNameChanging(string value);
+    partial void OnPresNameChanged();
+    partial void OnSafetyMgrEmpIdChanging(string value);
+    partial void OnSafetyMgrEmpIdChanged();
+    partial void OnSafetyMgrNameChanging(string value);
+    partial void OnSafetyMgrNameChanged();
+    partial void OnRiskMgrEmpIdChanging(string value);
+    partial void OnRiskMgrEmpIdChanged();
+    partial void OnRiskMgrNameChanging(string value);
+    partial void OnRiskMgrNameChanged();
+    partial void OnLegalMgrEmpIdChanging(string value);
+    partial void OnLegalMgrEmpIdChanged();
+    partial void OnLegalMgrNameChanging(string value);
+    partial void OnLegalMgrNameChanged();
+    #endregion
+	
+	public SIU_ReportingChain()
+	{
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int UID
+	{
+		get
+		{
+			return this._UID;
+		}
+		set
+		{
+			if ((this._UID != value))
+			{
+				this.OnUIDChanging(value);
+				this.SendPropertyChanging();
+				this._UID = value;
+				this.SendPropertyChanged("UID");
+				this.OnUIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompanyName", DbType="VarChar(50)")]
+	public string CompanyName
+	{
+		get
+		{
+			return this._CompanyName;
+		}
+		set
+		{
+			if ((this._CompanyName != value))
+			{
+				this.OnCompanyNameChanging(value);
+				this.SendPropertyChanging();
+				this._CompanyName = value;
+				this.SendPropertyChanged("CompanyName");
+				this.OnCompanyNameChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Dept", DbType="VarChar(10) NOT NULL", CanBeNull=false)]
+	public string Dept
+	{
+		get
+		{
+			return this._Dept;
+		}
+		set
+		{
+			if ((this._Dept != value))
+			{
+				this.OnDeptChanging(value);
+				this.SendPropertyChanging();
+				this._Dept = value;
+				this.SendPropertyChanged("Dept");
+				this.OnDeptChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DeptMgrEmpId", DbType="VarChar(10)")]
+	public string DeptMgrEmpId
+	{
+		get
+		{
+			return this._DeptMgrEmpId;
+		}
+		set
+		{
+			if ((this._DeptMgrEmpId != value))
+			{
+				this.OnDeptMgrEmpIdChanging(value);
+				this.SendPropertyChanging();
+				this._DeptMgrEmpId = value;
+				this.SendPropertyChanged("DeptMgrEmpId");
+				this.OnDeptMgrEmpIdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DeptMgrName", DbType="VarChar(50)")]
+	public string DeptMgrName
+	{
+		get
+		{
+			return this._DeptMgrName;
+		}
+		set
+		{
+			if ((this._DeptMgrName != value))
+			{
+				this.OnDeptMgrNameChanging(value);
+				this.SendPropertyChanging();
+				this._DeptMgrName = value;
+				this.SendPropertyChanged("DeptMgrName");
+				this.OnDeptMgrNameChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DivMgrEmpId", DbType="VarChar(10)")]
+	public string DivMgrEmpId
+	{
+		get
+		{
+			return this._DivMgrEmpId;
+		}
+		set
+		{
+			if ((this._DivMgrEmpId != value))
+			{
+				this.OnDivMgrEmpIdChanging(value);
+				this.SendPropertyChanging();
+				this._DivMgrEmpId = value;
+				this.SendPropertyChanged("DivMgrEmpId");
+				this.OnDivMgrEmpIdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DivMgrName", DbType="VarChar(50)")]
+	public string DivMgrName
+	{
+		get
+		{
+			return this._DivMgrName;
+		}
+		set
+		{
+			if ((this._DivMgrName != value))
+			{
+				this.OnDivMgrNameChanging(value);
+				this.SendPropertyChanging();
+				this._DivMgrName = value;
+				this.SendPropertyChanged("DivMgrName");
+				this.OnDivMgrNameChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VpEmpId", DbType="VarChar(10)")]
+	public string VpEmpId
+	{
+		get
+		{
+			return this._VpEmpId;
+		}
+		set
+		{
+			if ((this._VpEmpId != value))
+			{
+				this.OnVpEmpIdChanging(value);
+				this.SendPropertyChanging();
+				this._VpEmpId = value;
+				this.SendPropertyChanged("VpEmpId");
+				this.OnVpEmpIdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VpName", DbType="VarChar(50)")]
+	public string VpName
+	{
+		get
+		{
+			return this._VpName;
+		}
+		set
+		{
+			if ((this._VpName != value))
+			{
+				this.OnVpNameChanging(value);
+				this.SendPropertyChanging();
+				this._VpName = value;
+				this.SendPropertyChanged("VpName");
+				this.OnVpNameChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GmEmpId", DbType="VarChar(10)")]
+	public string GmEmpId
+	{
+		get
+		{
+			return this._GmEmpId;
+		}
+		set
+		{
+			if ((this._GmEmpId != value))
+			{
+				this.OnGmEmpIdChanging(value);
+				this.SendPropertyChanging();
+				this._GmEmpId = value;
+				this.SendPropertyChanged("GmEmpId");
+				this.OnGmEmpIdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GmName", DbType="VarChar(50)")]
+	public string GmName
+	{
+		get
+		{
+			return this._GmName;
+		}
+		set
+		{
+			if ((this._GmName != value))
+			{
+				this.OnGmNameChanging(value);
+				this.SendPropertyChanging();
+				this._GmName = value;
+				this.SendPropertyChanged("GmName");
+				this.OnGmNameChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PresEmpId", DbType="VarChar(10)")]
+	public string PresEmpId
+	{
+		get
+		{
+			return this._PresEmpId;
+		}
+		set
+		{
+			if ((this._PresEmpId != value))
+			{
+				this.OnPresEmpIdChanging(value);
+				this.SendPropertyChanging();
+				this._PresEmpId = value;
+				this.SendPropertyChanged("PresEmpId");
+				this.OnPresEmpIdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PresName", DbType="VarChar(50)")]
+	public string PresName
+	{
+		get
+		{
+			return this._PresName;
+		}
+		set
+		{
+			if ((this._PresName != value))
+			{
+				this.OnPresNameChanging(value);
+				this.SendPropertyChanging();
+				this._PresName = value;
+				this.SendPropertyChanged("PresName");
+				this.OnPresNameChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SafetyMgrEmpId", DbType="VarChar(10)")]
+	public string SafetyMgrEmpId
+	{
+		get
+		{
+			return this._SafetyMgrEmpId;
+		}
+		set
+		{
+			if ((this._SafetyMgrEmpId != value))
+			{
+				this.OnSafetyMgrEmpIdChanging(value);
+				this.SendPropertyChanging();
+				this._SafetyMgrEmpId = value;
+				this.SendPropertyChanged("SafetyMgrEmpId");
+				this.OnSafetyMgrEmpIdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SafetyMgrName", DbType="VarChar(50)")]
+	public string SafetyMgrName
+	{
+		get
+		{
+			return this._SafetyMgrName;
+		}
+		set
+		{
+			if ((this._SafetyMgrName != value))
+			{
+				this.OnSafetyMgrNameChanging(value);
+				this.SendPropertyChanging();
+				this._SafetyMgrName = value;
+				this.SendPropertyChanged("SafetyMgrName");
+				this.OnSafetyMgrNameChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RiskMgrEmpId", DbType="VarChar(10)")]
+	public string RiskMgrEmpId
+	{
+		get
+		{
+			return this._RiskMgrEmpId;
+		}
+		set
+		{
+			if ((this._RiskMgrEmpId != value))
+			{
+				this.OnRiskMgrEmpIdChanging(value);
+				this.SendPropertyChanging();
+				this._RiskMgrEmpId = value;
+				this.SendPropertyChanged("RiskMgrEmpId");
+				this.OnRiskMgrEmpIdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RiskMgrName", DbType="VarChar(50)")]
+	public string RiskMgrName
+	{
+		get
+		{
+			return this._RiskMgrName;
+		}
+		set
+		{
+			if ((this._RiskMgrName != value))
+			{
+				this.OnRiskMgrNameChanging(value);
+				this.SendPropertyChanging();
+				this._RiskMgrName = value;
+				this.SendPropertyChanged("RiskMgrName");
+				this.OnRiskMgrNameChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LegalMgrEmpId", DbType="VarChar(10)")]
+	public string LegalMgrEmpId
+	{
+		get
+		{
+			return this._LegalMgrEmpId;
+		}
+		set
+		{
+			if ((this._LegalMgrEmpId != value))
+			{
+				this.OnLegalMgrEmpIdChanging(value);
+				this.SendPropertyChanging();
+				this._LegalMgrEmpId = value;
+				this.SendPropertyChanged("LegalMgrEmpId");
+				this.OnLegalMgrEmpIdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LegalMgrName", DbType="VarChar(50)")]
+	public string LegalMgrName
+	{
+		get
+		{
+			return this._LegalMgrName;
+		}
+		set
+		{
+			if ((this._LegalMgrName != value))
+			{
+				this.OnLegalMgrNameChanging(value);
+				this.SendPropertyChanging();
+				this._LegalMgrName = value;
+				this.SendPropertyChanged("LegalMgrName");
+				this.OnLegalMgrNameChanged();
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+}
+
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SIU_Incident_Accident_Appoval")]
+public partial class SIU_Incident_Accident_Appoval : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _UID;
+	
+	private int _Ref_UID;
+	
+	private string _EID;
+	
+	private System.DateTime _TimeStamp;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnUIDChanging(int value);
+    partial void OnUIDChanged();
+    partial void OnRef_UIDChanging(int value);
+    partial void OnRef_UIDChanged();
+    partial void OnEIDChanging(string value);
+    partial void OnEIDChanged();
+    partial void OnTimeStampChanging(System.DateTime value);
+    partial void OnTimeStampChanged();
+    #endregion
+	
+	public SIU_Incident_Accident_Appoval()
+	{
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int UID
+	{
+		get
+		{
+			return this._UID;
+		}
+		set
+		{
+			if ((this._UID != value))
+			{
+				this.OnUIDChanging(value);
+				this.SendPropertyChanging();
+				this._UID = value;
+				this.SendPropertyChanged("UID");
+				this.OnUIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Ref_UID", DbType="Int NOT NULL")]
+	public int Ref_UID
+	{
+		get
+		{
+			return this._Ref_UID;
+		}
+		set
+		{
+			if ((this._Ref_UID != value))
+			{
+				this.OnRef_UIDChanging(value);
+				this.SendPropertyChanging();
+				this._Ref_UID = value;
+				this.SendPropertyChanged("Ref_UID");
+				this.OnRef_UIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EID", DbType="VarChar(10) NOT NULL", CanBeNull=false)]
+	public string EID
+	{
+		get
+		{
+			return this._EID;
+		}
+		set
+		{
+			if ((this._EID != value))
+			{
+				this.OnEIDChanging(value);
+				this.SendPropertyChanging();
+				this._EID = value;
+				this.SendPropertyChanged("EID");
+				this.OnEIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TimeStamp", DbType="DateTime NOT NULL")]
+	public System.DateTime TimeStamp
+	{
+		get
+		{
+			return this._TimeStamp;
+		}
+		set
+		{
+			if ((this._TimeStamp != value))
+			{
+				this.OnTimeStampChanging(value);
+				this.SendPropertyChanging();
+				this._TimeStamp = value;
+				this.SendPropertyChanged("TimeStamp");
+				this.OnTimeStampChanged();
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+}
+
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SIU_Incident_Accident_AppovalNotes")]
+public partial class SIU_Incident_Accident_AppovalNote : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _UID;
+	
+	private int _Ref_UID;
+	
+	private string _Comments;
+	
+	private string _EID;
+	
+	private System.DateTime _TimeStamp;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnUIDChanging(int value);
+    partial void OnUIDChanged();
+    partial void OnRef_UIDChanging(int value);
+    partial void OnRef_UIDChanged();
+    partial void OnCommentsChanging(string value);
+    partial void OnCommentsChanged();
+    partial void OnEIDChanging(string value);
+    partial void OnEIDChanged();
+    partial void OnTimeStampChanging(System.DateTime value);
+    partial void OnTimeStampChanged();
+    #endregion
+	
+	public SIU_Incident_Accident_AppovalNote()
+	{
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int UID
+	{
+		get
+		{
+			return this._UID;
+		}
+		set
+		{
+			if ((this._UID != value))
+			{
+				this.OnUIDChanging(value);
+				this.SendPropertyChanging();
+				this._UID = value;
+				this.SendPropertyChanged("UID");
+				this.OnUIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Ref_UID", DbType="Int NOT NULL")]
+	public int Ref_UID
+	{
+		get
+		{
+			return this._Ref_UID;
+		}
+		set
+		{
+			if ((this._Ref_UID != value))
+			{
+				this.OnRef_UIDChanging(value);
+				this.SendPropertyChanging();
+				this._Ref_UID = value;
+				this.SendPropertyChanged("Ref_UID");
+				this.OnRef_UIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Comments", DbType="VarChar(5000) NOT NULL", CanBeNull=false)]
+	public string Comments
+	{
+		get
+		{
+			return this._Comments;
+		}
+		set
+		{
+			if ((this._Comments != value))
+			{
+				this.OnCommentsChanging(value);
+				this.SendPropertyChanging();
+				this._Comments = value;
+				this.SendPropertyChanged("Comments");
+				this.OnCommentsChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EID", DbType="VarChar(10) NOT NULL", CanBeNull=false)]
+	public string EID
+	{
+		get
+		{
+			return this._EID;
+		}
+		set
+		{
+			if ((this._EID != value))
+			{
+				this.OnEIDChanging(value);
+				this.SendPropertyChanging();
+				this._EID = value;
+				this.SendPropertyChanged("EID");
+				this.OnEIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TimeStamp", DbType="DateTime NOT NULL")]
+	public System.DateTime TimeStamp
+	{
+		get
+		{
+			return this._TimeStamp;
+		}
+		set
+		{
+			if ((this._TimeStamp != value))
+			{
+				this.OnTimeStampChanging(value);
+				this.SendPropertyChanging();
+				this._TimeStamp = value;
+				this.SendPropertyChanged("TimeStamp");
+				this.OnTimeStampChanged();
 			}
 		}
 	}

@@ -163,9 +163,8 @@
                     </li>
                     
                     <!-- Safety Pays QOM -->
-                    <li style="height: 150px; border: none; margin-left: 35px; margin-top: 12px;">
+                    <li id="QomLI" runat="server" style="height: 150px; border: none; margin-left: 35px; margin-top: 12px;">
                            
-                            
                             <a href="/Safety/SafetyPays/SafetyQomUser.aspx" >
                                 <img src="/Images/QOM.png" style="width: 100px; height: 85px;  padding-bottom: 8px; margin-top: 0px;" alt="QOM">
                                 <div style="font-size: .8em; float: left; font-weight: bold;  width: 100%; width: 100%;  text-decoration: underline; margin-bottom: 5px; ">Submit Response</div>

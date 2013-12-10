@@ -86,7 +86,7 @@
                     <li>Bob Jett</li>
                     <li>Casey Morris</li>                     
                     <li>Paul Nelson</li>   
-                    <li>Bob Villarreal</li>   
+                    <li>John Stanfield</li>   
                     <li>Ray Weinberger</li>   
                 </ul>
                 

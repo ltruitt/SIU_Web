@@ -21,12 +21,16 @@ $(document).ready(function () {
     var NoSlides = 3;
 
 
-    if ($(window).width() < 1250) {
+    if ($(window).width() < 1200) {
         NoSlides = 2;
     }
 
     if ($(window).width() < 930) {
         NoSlides = 1;
+    }
+    
+    if ($(window).width() > 1450) {
+        NoSlides = 4;
     }
 
     $('#slider').anythingSlider({
@@ -39,33 +43,37 @@ $(document).ready(function () {
         buildStartStop: false
     });
 
-    $('#BlogSlider').anythingSlider({
-        hashTags: false,
-        theme: "HomeBlogSliderTheme",
-        delay: 6000,
-        mode: "vertical",
-        autoPlay: true,
-        buildArrows: false,
-        buildNavigation: false,
-        buildStartStop: false
-    });
+    //$('#BlogSlider').anythingSlider({
+    //    hashTags: false,
+    //    theme: "HomeBlogSliderTheme",
+    //    delay: 6000,
+    //    mode: "vertical",
+    //    autoPlay: true,
+    //    buildArrows: false,
+    //    buildNavigation: false,
+    //    buildStartStop: false
+    //});
 
 
-    $('#BlogSlider').show();
+    //$('#BlogSlider').show();
 
 
 
     $(window).resize(
         function () {
-            var NoSlides = 3;
+            NoSlides = 3;
 
 
-            if ($(window).width() < 1250) {
+            if ($(window).width() < 1200) {
                 NoSlides = 2;
             }
 
             if ($(window).width() < 930) {
                 NoSlides = 1;
+            }
+
+            if ($(window).width() > 1450) {
+                NoSlides = 4;
             }
 
             try {

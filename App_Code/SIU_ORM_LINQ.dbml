@@ -1522,6 +1522,46 @@
       <Column Name="Cost_Total" Type="System.Decimal" DbType="Money" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.SIU_ReportingChain" Member="SIU_ReportingChains">
+    <Type Name="SIU_ReportingChain">
+      <Column Name="UID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CompanyName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Dept" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="DeptMgrEmpId" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="DeptMgrName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="DivMgrEmpId" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="DivMgrName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="VpEmpId" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="VpName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="GmEmpId" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="GmName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PresEmpId" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="PresName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="SafetyMgrEmpId" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="SafetyMgrName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="RiskMgrEmpId" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="RiskMgrName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="LegalMgrEmpId" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="LegalMgrName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SIU_Incident_Accident_Appoval" Member="SIU_Incident_Accident_Appovals">
+    <Type Name="SIU_Incident_Accident_Appoval">
+      <Column Name="UID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Ref_UID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="EID" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="TimeStamp" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SIU_Incident_Accident_AppovalNotes" Member="SIU_Incident_Accident_AppovalNotes">
+    <Type Name="SIU_Incident_Accident_AppovalNote">
+      <Column Name="UID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Ref_UID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Comments" Type="System.String" DbType="VarChar(5000) NOT NULL" CanBeNull="false" />
+      <Column Name="EID" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="TimeStamp" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
   <Function Name="dbo.SIU_ELO_GetBalance" Method="SIU_ELO_GetBalance">
     <Parameter Name="EmpNo" Parameter="empNo" Type="System.String" DbType="VarChar(10)" />
     <ElementType Name="SIU_ELO_GetBalanceResult">

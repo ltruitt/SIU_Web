@@ -173,7 +173,7 @@
 
                             <div style="width: 100%;  display: inline-block; margin-top: 10px;">
                                 <div>No Report (Reason Required)</div>
-                                <input type="text" id="txtNoRpt" class="DataInputCss"  style="width: 80%;"     />
+                                <input type="text" id="txtNoRpt" class="DataInputCss"  style="width: 80%;"  maxlength="100"   />
                             </div>
                     
                     </section>                        
@@ -230,7 +230,7 @@
 
                             <div style="width: 100%;  display: inline-block; margin-top: 10px;">
                                 <div style="margin-top: 10px;">Other Data in Dropbox</div>
-                                <input type="text" id="OtherData" class="DataInputCss" style="width: 80%;"    />
+                                <input type="text" id="OtherData" class="DataInputCss" style="width: 80%;" maxlength="100"   />
                             </div>
                         
                         
@@ -430,7 +430,7 @@
                             
                         <div style="display: inline-block; width: 100%;   margin-bottom: 10px;">
                             <div>Additional Email Address: </div>
-                            <input type="text" id="txtAddEmail" class="DataInputCss"  style="width: 285px;"/>
+                            <input type="text" id="txtAddEmail" class="DataInputCss"  style="width: 285px;" maxlength="50"/>
                                 
                         </div>
 
