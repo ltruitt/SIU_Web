@@ -30,7 +30,7 @@ public partial class ELO_MealsExpEntry : System.Web.UI.Page
         hlblSD.InnerHtml = WeekDays.SunDate.AddDays(-14).ToShortDateString();
         hlblED.InnerHtml = WeekDays.SunDate.AddDays(6).ToShortDateString();
 
-        SuprArea.Visible = (BusinessLayer.UserName.ToLower() == "ltruitt") ? true : false;
+        //SuprArea.Visible = (BusinessLayer.UserName.ToLower() == "ltruitt") ? true : false;
 
     }
 }

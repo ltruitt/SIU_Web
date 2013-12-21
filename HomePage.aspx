@@ -22,7 +22,23 @@
 </asp:Content>
 
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
-	<div id="HomeWrapper">
+<%--    <div id="NoJS" class="noScriptMsg">
+        You do not appear to have javascript enabled.<br/>
+        You need to have scripting enabled to use this web site.
+        <hr style="margin: 0;"/>
+        
+        <div style="font-size: .8em; margin-top: 20px; color: black;">
+            Please contact I.T. or follow the instructions below:
+            <div style="font-size: .7em; margin-top: 10px; line-height: 25px;">
+                1)  Click The "Tools" Menu, and then click on "Internet Options"<br/>
+                2)  Click The "Security tab, and then click on the "Custom Level..." button<br/>
+                3)  Scroll down the security sections to the "Scripting" and then "Active scripting" section<br/>
+                4)  Click "Enable"
+            </div>
+        </div>
+    </div>--%>
+
+	<div id="HomeWrapper" style="xdisplay: none;">
 
 
 <!-- Left Side Of Main Content Area -->		  
@@ -82,12 +98,12 @@
                     <!----------------------------------->	
 				    <!--  Recorded Safety Meeting Link -->
                     <!----------------------------------->	
-				    <li style="height: 100px; clear:both;">
+<%--				    <li style="height: 100px; clear:both;">
 					    <a  href="/Library/LibHome.aspx"    id="A6" >
 						    <img  alt="Previous Safety Meeting" src="/Images/icon-MeetingPrevious.png" style="height: 57px; width: 57px"/>
                                     <br/>Recorded Meetings
 					    </a>  
-				    </li>
+				    </li>--%>
 
                     <!---------------------------------->	
 				    <!-- HR Insurabce Enrollment Info -->

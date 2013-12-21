@@ -19,6 +19,7 @@
             <span id="hlblEID"     runat="server"/>  
             <span id="hlblObsEID"  runat="server"/>  
             <span id="hlblJobNo"   runat="server"/>  
+            <span id="hlblIncidentNo"   runat="server"></span>
         </section>  
 
         <section id="HomeMain" >

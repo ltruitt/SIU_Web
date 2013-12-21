@@ -200,8 +200,8 @@ public class LDAP
 
     public StringCollection GetGroups(string strUser)
     {
-        DirectoryEntry entry = new DirectoryEntry(_path, @"Shermco\ltruitt", "Payday2013");
-
+        DirectoryEntry entry = new DirectoryEntry(_path, @"Shermco\ShermcoYou_Service", "$1uH3lpIt2");
+         
         try
         {
             DirectorySearcher search = new DirectorySearcher(entry);

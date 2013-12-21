@@ -468,6 +468,10 @@ $(document).ready(function () {
 
     };
     
+
+    $('#txtSalesNotes').keyup( function () {
+        validate(); 
+    });
     
 
     function validate() {
@@ -508,6 +512,16 @@ $(document).ready(function () {
         if ($('#chkIrOnly:checked').length > 0) {
             $('#btnSubmit').show();
             return;
+        }
+        
+        ///////////////////////////////////////////////////////////////////
+        // If Sales Contact Request Checked, Ensure Sales Notes Provided //
+        ///////////////////////////////////////////////////////////////////
+        if ($('#chkSalesY:checked').length > 0) {
+            if ($('#txtSalesNotes')[0].value.length == 0) {
+                $('#btnSubmit').hide();
+                return;                
+            }
         }
 
         /////////////////////////////////////////////////

@@ -77,9 +77,12 @@
         </section>        
                 
         <section id="HomeMain" >
-        
+            
             <section class="ui-widget-header ui-corner-all" style="height: 45px; width: 99%; margin-top: 10px; margin-bottom: 30px;" >
-                    <div  style="text-align: center; font-size: 2em; width: 100%;  position:relative; margin-left: auto; margin-right: auto;">Environmental Health and Safety</div>
+                <a href="/HomePage.aspx" style="text-decoration: none;">
+                    <span style="position: relative; left: 3px; vertical-align: top; font-size: .8em; line-height: 10px;">Home</span>
+                    <div  style="text-align: center; font-size: 2em; width: 100%;  position:relative; margin-left: auto; margin-right: auto;margin-top: -10px;">Environmental Health and Safety</div>
+                </a>
             </section> 
                 
         
@@ -128,7 +131,16 @@
                             <a href="/Safety/SafetyPays/SubmitSafetyPays.aspx" >
                                 <div style="font-size: .8em; float: left; font-weight: bold;  width: 100%;  text-decoration: underline; margin-bottom: 5px; padding-left: 14px; ">Submit Report</div>
                             </a>
-                                          
+                        
+                            <a href="/Safety/SafetyPays/TabPointsRpt.aspx" >
+                                <div style="font-size: .8em; float: left; font-weight: bold;  width: 100%;  text-decoration: underline; margin-bottom: 5px; padding-left: 14px;">Tabulated Points</div>
+                            </a>
+
+<%--                            <a href="/Safety/SafetyPays/PointsChart.aspx" >
+                                <div style="font-size: .8em; float: left; font-weight: bold;  width: 100%;  text-decoration: underline; margin-bottom: 5px; padding-left: 14px; ">Bar Chart</div>
+                            </a>--%>
+                        
+                                                                  
                     </li>          
                     
                     
@@ -145,46 +157,41 @@
 
                             <div style="clear: both;"></div>             
                     </li> --%>    
-                    
-                    <!-- Safety Pays Reports -->
-                    <li style="height: 150px; border: none; margin-left: 35px; margin-top: 12px;">
-                            <%--<a href="/Safety/SafetyPays/iTextBasicLookup.aspx" >--%>
-                                <img src="/Images/icon-SafetyPays.png" style="width: 130px; height: 60px;  padding-bottom: 8px;" alt="Safety Pays">
-					        <%--</a>         --%>
-                            
-                            <a href="/Safety/SafetyPays/PointsChart.aspx" >
-                                <div style="font-size: .8em; float: left; font-weight: bold;  width: 50px; width: 100%;  text-decoration: underline; margin-bottom: 5px; ">Bar Chart</div>
-                            </a>
-                            <a href="/Safety/SafetyPays/TabPointsRpt.aspx" >
-                                <div style="font-size: .8em; float: left; font-weight: bold;  width: 50px; width: 100%;  text-decoration: underline; margin-bottom: 5px; ">Tabular Lookup</div>
-                            </a>
 
-                            <div style="clear: both;"></div>
-                    </li>
                     
                     <!-- Safety Pays QOM -->
                     <li id="QomLI" runat="server" style="height: 150px; border: none; margin-left: 35px; margin-top: 12px;">
                            
                             <a href="/Safety/SafetyPays/SafetyQomUser.aspx" >
-                                <img src="/Images/QOM.png" style="width: 100px; height: 85px;  padding-bottom: 8px; margin-top: 0px;" alt="QOM">
+                                <img src="/Images/QOM.png" style="width: 110px; height: 100px;  padding-bottom: 8px; margin-top: 0;" alt="QOM">
                                 <div style="font-size: .8em; float: left; font-weight: bold;  width: 100%; width: 100%;  text-decoration: underline; margin-bottom: 5px; ">Submit Response</div>
                             </a>
 
                             <div style="clear: both;"></div>
                     </li>
-                                                                  
                     
+                    <!-- MSDS Online -->
+                    <li id="Li1" runat="server" style="height: 150px; border: none; margin-left: 35px; margin-top: 12px;">
+                           
+                            <a href="https://msdsmanagement.msdsonline.com/?ID=3f089f59-50a0-48d9-afdf-4b2ea14c32f2" target="_MSDS">
+                                <img src="/Images/msds225.png" style="padding-bottom: 8px; margin-top: 10px;" alt="MSDS Online">
+                                <div style="font-size: .8em; float: left; font-weight: bold;  width: 100%; width: 100%;  text-decoration: underline; margin-bottom: 5px; ">MSDS Online</div>
+                            </a>
 
-<%--                <li style="height: 150px; border: none; margin-right: 5px; display: none;">
-					<a href="/Forms/SafetyQoMResponse.aspx" >
-					    <img src="/Images/SI-QuestionMonth.png" alt="QOM" style="width: 150px; height: 75px; margin-left: -12px; margin-bottom: 5px;" />
-                        <div style="font-size: .8em; float: left; text-decoration: underline; font-weight: bold;   width: 50px; width: 100%;">Submit Response</div>
-					</a>
-                        
-                        <a href="/Forms/SafetyPays.aspx" >
-                            <div style="font-size: .8em; float: left; text-decoration: underline; font-weight: bold;   width: 50px; width: 100%;">View Report</div>
-                        </a>  
-                </li> --%> 
+                            <div style="clear: both;"></div>
+                    </li>
+                                                                  
+                    <!-- EHS Document "Blog" -->
+                    <li id="Li2" runat="server" style="height: 150px; border: none; margin-left: 0; margin-top: 12px;">
+                           
+                            <a href="/Safety/EhsBlog.aspx" >
+                                <%--<img src="/Images/News2.png" style="padding-bottom: 8px; margin-top: 10px;" alt="EHS Blog">--%>
+                                <img src="/Images/Ehs_blog.png" style="padding-bottom: 8px; margin-top: 10px;" alt="EHS Blog">
+                                <div style="font-size: .8em; float: left; font-weight: bold;  width: 120%; width: 100%;  text-decoration: underline; margin-bottom: 5px; ">EHS Blog</div>
+                            </a>
+
+                            <div style="clear: both;"></div>
+                    </li>                   
                             
                 </ul>
             </div>

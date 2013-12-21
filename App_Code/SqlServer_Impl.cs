@@ -4343,6 +4343,21 @@ public class SqlServer_Impl : WebService
         }
         return null;        
     }
+    public static List<SIU_ReportingChain> GetOshaDeptData()
+    {
+        try
+        {
+            SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
+
+            return (from chain in nvDb.SIU_ReportingChains
+                    select chain).ToList();
+        }
+        catch (Exception ex)
+        {
+            LogDebug("GetOshaDeptData", ex.Message);
+        }
+        return null;
+    }
 
     public static List<Shermco_Employee> GetActiveEmployeeCellPhones(List<Shermco_Employee> Emps)
     {
@@ -7064,7 +7079,59 @@ public class SqlServer_Impl : WebService
                 ).ToList();
     }
 
+    public static List<SIU_SafetyPays_AcceptReject_Rpt_SPResult> GetSafetyPaysDeptRpt(DateTime startDate, DateTime endDate)
+    {
+        try
+        {
+            SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
 
+            TransactionOptions to = new TransactionOptions
+            {
+                IsolationLevel = IsolationLevel.ReadUncommitted
+            };
+
+            using (new TransactionScope(TransactionScopeOption.RequiresNew, to))
+            {
+                return (from cntrs in nvDb.SIU_SafetyPays_AcceptReject_Rpt_SP(startDate, endDate)
+                        select cntrs
+                       ).ToList();
+            }
+        }
+        catch (Exception ex)
+        {
+            LogDebug("GetSafetyPaysDeptRpt", ex.Message);
+        }
+
+        return new List<SIU_SafetyPays_AcceptReject_Rpt_SPResult>();
+
+    }
+    public static List<SIU_SafetyPaysReport> GetSafetyPaysRawDataRpt(DateTime startDate, DateTime endDate)
+    {
+        try
+        {
+            SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
+
+            TransactionOptions to = new TransactionOptions
+            {
+                IsolationLevel = IsolationLevel.ReadUncommitted
+            };
+
+            using (new TransactionScope(TransactionScopeOption.RequiresNew, to))
+            {
+                return (from cntrs in nvDb.SIU_SafetyPaysReports
+                        where cntrs.IncidentDate >= startDate && cntrs.IncidentDate <= endDate
+                        select cntrs
+                       ).ToList();
+            }
+        }
+        catch (Exception ex)
+        {
+            LogDebug("GetSafetyPaysRawDataRpt", ex.Message);
+        }
+
+        return new List<SIU_SafetyPaysReport>();
+
+    }
 #endregion
 
 #region Safety Question Of the Month Methods
@@ -7836,7 +7903,7 @@ public class _PrjPts
     readonly Dictionary<DateTime, double[]> _prjPtsDeptSumDict;
 
     ///////////////////////////////////////////////////////////////////////////////////////
-    // Dictionary That Holds A Summary Array FOr Each Month Requested Plus A Total Array //
+    // Dictionary That Holds A Summary Array For Each Month Requested Plus A Total Array //
     ///////////////////////////////////////////////////////////////////////////////////////
     readonly Dictionary<string, Dictionary<DateTime, double[]> > _prjPtsRptDict;
 
@@ -7892,19 +7959,20 @@ public class _PrjPts
         /////////////////////////////////
         string prevDept = string.Empty;
         string prevMon = string.Empty;
+        string prevYr = string.Empty;
 
         foreach (var prjPts in SqlServer_Impl.GetProjectedPoints(start, end))
         {
             ///////////////////////////////////////////////
             // New Month -- Add Summary Points For Month //
             ///////////////////////////////////////////////
-            if ( prjPts.mon + prjPts.yr.ToString() != prevMon )
+            if ( prjPts.mon + prjPts.yr.ToString() != prevMon + prevYr )
             {
                 /////////////////////////////////
                 // Add Sum Array To Dictionary //
                 /////////////////////////////////
                 if (_prjPtsSumPts != null)
-                    _prjPtsDeptSumDict.Add(DateTime.Parse(prjPts.mon.ToString() + @"/1/" + prjPts.yr.ToString()).AddMonths(-1), _prjPtsMonPts);
+                    _prjPtsDeptSumDict.Add(DateTime.Parse(prevMon + @"/1/" + prevYr), _prjPtsMonPts);
 
                 ////////////////////////////////
                 // Reset Monthly Points Array //
@@ -7930,7 +7998,7 @@ public class _PrjPts
                     //////////////////////////////////////////////////////
                     // Add Dept Dictionary To Monthly Report Dictionary //
                     //////////////////////////////////////////////////////
-                    _prjPtsRptDict.Add(prjPts.Dept, _prjPtsDeptSumDict);
+                    _prjPtsRptDict.Add(prevDept, _prjPtsDeptSumDict);
                 }
 
                 /////////////////////////////////
@@ -7963,8 +8031,12 @@ public class _PrjPts
             // Reset Report Break Flags //
             //////////////////////////////
             prevDept = prjPts.Dept;
-            prevMon = prjPts.mon.ToString() + prjPts.yr.ToString();
+            prevMon = prjPts.mon.ToString();
+            prevYr = prjPts.yr.ToString();
         }
+
+
+
 
         if ( !_sumDict.ContainsKey(prevDept))
         {
@@ -7972,6 +8044,12 @@ public class _PrjPts
             // Add Summary Points Tp Dept Dictionary //
             ///////////////////////////////////////////
             _sumDict.Add(prevDept, _prjPtsSumPts);
+
+            //////////////////////////////////////////////////////
+            // Add Dept Dictionary To Monthly Report Dictionary //
+            //////////////////////////////////////////////////////
+            _prjPtsDeptSumDict.Add(DateTime.Parse(prevMon + @"/1/" + prevYr), _prjPtsMonPts);
+            _prjPtsRptDict.Add(prevDept, _prjPtsDeptSumDict);
         }
     }
 
@@ -8101,6 +8179,10 @@ public class _StdPrjPts
             prevDept = prjPts.Dept;
         }
 
+        //////////////////////////////////////////////////////
+        // Add Dept Dictionary To Monthly Report Dictionary //
+        //////////////////////////////////////////////////////
+        _prjPtsRptDict.Add(prevDept, _prjPtsMonPts);
     }
 
     public Dictionary<string, double[]> GetPrjSumDict()

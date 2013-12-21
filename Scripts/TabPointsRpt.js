@@ -5,28 +5,28 @@
 
     $('#StartDate').datepicker({
         constrainInput: true,
-        onSelect: LookUp()
+        onSelect: lookUp()
     });
 
     $('#EndDate').datepicker({
         constrainInput: true,
-        onSelect: LookUp()
+        onSelect: lookUp()
     });
 
 
-    function DefaultQuarter() {
+    function defaultQuarter() {
         var d = new Date();
         var quarter = Math.floor((d.getMonth() / 3));
         var firstDate = new Date(d.getFullYear(), quarter * 3, 1);
         $("#StartDate").datepicker("setDate", firstDate);
         $("#EndDate").datepicker("setDate", new Date(firstDate.getFullYear(), firstDate.getMonth() + 3, 0));
     }
-    DefaultQuarter();
+    defaultQuarter();
 
 
 
 
-    function SetQuarter(quarter) {
+    function setQuarter(quarter) {
         var d = new Date();
         quarter = quarter - 1;
 
@@ -36,23 +36,23 @@
     }
 
     $('#btnQ1').click(function () {
-        SetQuarter(1);
-        LookUp();
+        setQuarter(1);
+        lookUp();
     });
 
     $('#btnQ2').click(function () {
-        SetQuarter(2);
-        LookUp();
+        setQuarter(2);
+        lookUp();
     });
 
     $('#btnQ3').click(function () {
-        SetQuarter(3);
-        LookUp();
+        setQuarter(3);
+        lookUp();
     });
 
     $('#btnQ4').click(function () {
-        SetQuarter(4);
-        LookUp();
+        setQuarter(4);
+        lookUp();
     });
 
 
@@ -70,58 +70,56 @@
         switch (this.value.toLowerCase()) {
 
             case 'jan':
-                SetMonth(1);
+                setMonth(1);
                 break;
 
             case 'feb':
-                SetMonth(2);
+                setMonth(2);
                 break;
 
             case 'mar':
-                SetMonth(3);
+                setMonth(3);
                 break;
 
             case 'apr':
-                SetMonth(4);
+                setMonth(4);
                 break;
 
             case 'may':
-                SetMonth(5);
+                setMonth(5);
                 break;
 
             case 'jun':
-                SetMonth(6);
+                setMonth(6);
                 break;
 
             case 'jul':
-                SetMonth(7);
+                setMonth(7);
                 break;
 
             case 'aug':
-                SetMonth(8);
+                setMonth(8);
                 break;
 
             case 'sep':
-                SetMonth(9);
+                setMonth(9);
                 break;
 
             case 'oct':
-                SetMonth(10);
-                break
-
-            case 'nov':
-                SetMonth(11);
-                break
-
-            case 'dec':
-                SetMonth(12);
-                break
+                setMonth(10);
+                break;
+        case 'nov':
+                setMonth(11);
+                break;
+        case 'dec':
+                setMonth(12);
+                break;
         }
 
     });
 
 
-    function SetMonth(mon) {
+    function setMonth(mon) {
 
         mon = mon - 1;
 
@@ -136,33 +134,31 @@
 
         if ( $('#StartDate').val().length == 0 ) {
             $("#StartDate").datepicker("setDate", firstDate);
-            LookUp()
+            lookUp();
             return;
         }
 
         if ($('#EndDate').val().length == 0) {
             $("#EndDate").datepicker("setDate", lastDate);
-            LookUp()
+            lookUp();
             return;
         }
 
     }
 
-    $('.ui-icon-plus').on("click", function (event) {
-        var top = event.screenY;
-        var left = event.screenX;
-    });
+    //$('.ui-icon-plus').on("click", function (event) {
+    //    var top = event.screenY;
+    //    var left = event.screenX;
+    //});
 
 
-    function LookUp() {
+    function lookUp() {
 
         if ($('#StartDate').val().length == 0)
             return;
 
         if ($('#EndDate').val().length == 0)
             return;
-
-        var xxx = $('#StartDate').val();
         
         var postdata = $("#ExpTbl").jqGrid('getGridParam', 'postData');
         postdata.startDate = $('#StartDate').val();
@@ -179,7 +175,7 @@
     var h2 = 0;
     var h3 = 0;
 
-    var t2id = '';
+    var t2Id = '';
     jQuery("#ExpTbl").jqGrid({
 
         url: '/SIU_DAO.asmx/GetAdminPointsRptDepts',
@@ -234,10 +230,7 @@
         gridComplete: function () {
             h1 = jQuery("#ExpTbl").height();
 
-            var iWindowHeight = $(window).height();
             var iDocHeight = $(document).height();
-            var divPos = $('.ui-jqgrid-bdiv').position();
-            //var top = $(".ui-jqgrid-bdiv").offset().top + window.screenY;
 
             h1 = iDocHeight - 385;
 
@@ -249,15 +242,15 @@
 // Start Of Emp SUmmary Table //
         subGrid: true,
 
-        subGridRowExpanded: function(subgrid_id, row_id) {
+        subGridRowExpanded: function(subgridId, rowId) {
             // If we want to pass additional parameters to the url we can use
             // the method getRowData(row_id) - which returns associative array in type name-value
-            var subgrid_table_id;
+            var subgridTableId;
 
-            subgrid_table_id = subgrid_id + "_t";
-            jQuery("#" + subgrid_id).html("<table id='" + subgrid_table_id + "' class='scroll'></table>");
+            subgridTableId = subgridId + "_t";
+            jQuery("#" + subgridId).html("<table id='" + subgridTableId + "' class='scroll'></table>");
 
-            jQuery("#"+subgrid_table_id).jqGrid({
+            jQuery("#"+subgridTableId).jqGrid({
 
                 url: '/SIU_DAO.asmx/GetAdminPointsRptEmps',
                 datatype: 'json',
@@ -265,7 +258,7 @@
 
                 ajaxGridOptions: { contentType: 'application/json; charset=utf-8' },
         
-                postData: { startDate: $('#StartDate').val(), endDate: $('#EndDate').val(), dept: row_id, T: timestamp.getTime() },
+                postData: { startDate: $('#StartDate').val(), endDate: $('#EndDate').val(), dept: rowId, T: timestamp.getTime() },
                 serializeGridData: function (postData) {
                     return JSON.stringify(postData);
                 },
@@ -315,9 +308,9 @@
 
 
                 gridComplete: function () {
-                    t2id = "#" + subgrid_table_id;
-                    h2 = jQuery(t2id).height();
-                    jQuery(t2id).setGridHeight(h2 + 6);
+                    t2Id = "#" + subgridTableId;
+                    h2 = jQuery(t2Id).height();
+                    jQuery(t2Id).setGridHeight(h2 + 6);
                 },
 
 // Start Of Emp Detail View
@@ -359,7 +352,7 @@
 
                         gridComplete: function () {
                             h3 = jQuery("#" + subgrid_table_id).height();
-                            jQuery(t2id).setGridHeight(h2 + h3 + 40);
+                            jQuery(t2Id).setGridHeight(h2 + h3 + 40);
                             jQuery("#" + subgrid_table_id).setGridHeight(h3 + 6);
                         },
 
@@ -400,7 +393,7 @@
     // Load List Of Employees So Supr Can Change Viewed Employee //
     ///////////////////////////////////////////////////////////////
     var listOfEmps = [];
-    function GetEmps_success(data) {
+    function getEmpsSuccess(data) {
         listOfEmps = data.d.split("\r");
         $("#ddEmpIds").autocomplete({ source: listOfEmps },
             {
@@ -412,21 +405,21 @@
                 max: 20,
                 delay: 0,
                 select: function (event, ui) {
-                    var DataPieces = ui.item.value.split(' ');
-                    $('#hlblEID')[0].innerHTML = DataPieces[0];
+                    var dataPieces = ui.item.value.split(' ');
+                    $('#hlblEID')[0].innerHTML = dataPieces[0];
                     $("#ddEmpIds").autocomplete("close");
-                    $("#ddEmpIds").val(DataPieces[0] + ' ' + DataPieces[2] + ', ' + DataPieces[3]);
+                    $("#ddEmpIds").val(dataPieces[0] + ' ' + dataPieces[2] + ', ' + dataPieces[3]);
 
-                    $("#ExpTbl").setGridParam({ postData: { EmpID: DataPieces[0], T: timestamp.getTime() } }).trigger("reloadGrid", [{ page: 1 }]);
+                    $("#ExpTbl").setGridParam({ postData: { EmpID: dataPieces[0], T: timestamp.getTime() } }).trigger("reloadGrid", [{ page: 1 }]);
                 },
                 response: function (event, ui) {
                     if (ui.content.length == 1) {
-                        var DataPieces = ui.content[0].value.split(' ');
-                        $('#hlblEID')[0].innerHTML = DataPieces[0];
+                        var dataPieces = ui.content[0].value.split(' ');
+                        $('#hlblEID')[0].innerHTML = dataPieces[0];
                         $("#ddEmpIds").autocomplete("close");
-                        $("#ddEmpIds").val(DataPieces[0] + ' ' + DataPieces[2] + ', ' + DataPieces[3]);
+                        $("#ddEmpIds").val(dataPieces[0] + ' ' + dataPieces[2] + ', ' + dataPieces[3]);
 
-                        $("#ExpTbl").setGridParam({ postData: { EmpID: DataPieces[0], T: timestamp.getTime() } }).trigger("reloadGrid", [{ page: 1 }]);
+                        $("#ExpTbl").setGridParam({ postData: { EmpID: dataPieces[0], T: timestamp.getTime() } }).trigger("reloadGrid", [{ page: 1 }]);
                     }
 
                     return ui;
@@ -437,7 +430,7 @@
 
     // Load Emps AutoComplete List
     if ($("#SuprArea").length > 0) {
-        var GetEmpsCall = new AsyncServerMethod();
-        GetEmpsCall.exec("/SIU_DAO.asmx/GetAutoCompleteActiveEmployees", GetEmps_success);
+        var getEmpsCall = new AsyncServerMethod();
+        getEmpsCall.exec("/SIU_DAO.asmx/GetAutoCompleteActiveEmployees", getEmpsSuccess);
     }
 });

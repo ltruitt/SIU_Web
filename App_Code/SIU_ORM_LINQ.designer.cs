@@ -32,9 +32,6 @@ public partial class SIU_ORM_LINQDataContext : System.Data.Linq.DataContext
   partial void InsertShermco_Job(Shermco_Job instance);
   partial void UpdateShermco_Job(Shermco_Job instance);
   partial void DeleteShermco_Job(Shermco_Job instance);
-  partial void InsertShermco_Employee(Shermco_Employee instance);
-  partial void UpdateShermco_Employee(Shermco_Employee instance);
-  partial void DeleteShermco_Employee(Shermco_Employee instance);
   partial void InsertSIU_Complete_Job(SIU_Complete_Job instance);
   partial void UpdateSIU_Complete_Job(SIU_Complete_Job instance);
   partial void DeleteSIU_Complete_Job(SIU_Complete_Job instance);
@@ -155,15 +152,18 @@ public partial class SIU_ORM_LINQDataContext : System.Data.Linq.DataContext
   partial void InsertSIU_Incident_Accident(SIU_Incident_Accident instance);
   partial void UpdateSIU_Incident_Accident(SIU_Incident_Accident instance);
   partial void DeleteSIU_Incident_Accident(SIU_Incident_Accident instance);
-  partial void InsertSIU_ReportingChain(SIU_ReportingChain instance);
-  partial void UpdateSIU_ReportingChain(SIU_ReportingChain instance);
-  partial void DeleteSIU_ReportingChain(SIU_ReportingChain instance);
   partial void InsertSIU_Incident_Accident_Appoval(SIU_Incident_Accident_Appoval instance);
   partial void UpdateSIU_Incident_Accident_Appoval(SIU_Incident_Accident_Appoval instance);
   partial void DeleteSIU_Incident_Accident_Appoval(SIU_Incident_Accident_Appoval instance);
   partial void InsertSIU_Incident_Accident_AppovalNote(SIU_Incident_Accident_AppovalNote instance);
   partial void UpdateSIU_Incident_Accident_AppovalNote(SIU_Incident_Accident_AppovalNote instance);
   partial void DeleteSIU_Incident_Accident_AppovalNote(SIU_Incident_Accident_AppovalNote instance);
+  partial void InsertShermco_Employee(Shermco_Employee instance);
+  partial void UpdateShermco_Employee(Shermco_Employee instance);
+  partial void DeleteShermco_Employee(Shermco_Employee instance);
+  partial void InsertSIU_ReportingChain(SIU_ReportingChain instance);
+  partial void UpdateSIU_ReportingChain(SIU_ReportingChain instance);
+  partial void DeleteSIU_ReportingChain(SIU_ReportingChain instance);
   #endregion
 	
 	public SIU_ORM_LINQDataContext() : 
@@ -201,14 +201,6 @@ public partial class SIU_ORM_LINQDataContext : System.Data.Linq.DataContext
 		get
 		{
 			return this.GetTable<Shermco_Job>();
-		}
-	}
-	
-	public System.Data.Linq.Table<Shermco_Employee> Shermco_Employees
-	{
-		get
-		{
-			return this.GetTable<Shermco_Employee>();
 		}
 	}
 	
@@ -572,14 +564,6 @@ public partial class SIU_ORM_LINQDataContext : System.Data.Linq.DataContext
 		}
 	}
 	
-	public System.Data.Linq.Table<SIU_ReportingChain> SIU_ReportingChains
-	{
-		get
-		{
-			return this.GetTable<SIU_ReportingChain>();
-		}
-	}
-	
 	public System.Data.Linq.Table<SIU_Incident_Accident_Appoval> SIU_Incident_Accident_Appovals
 	{
 		get
@@ -593,6 +577,22 @@ public partial class SIU_ORM_LINQDataContext : System.Data.Linq.DataContext
 		get
 		{
 			return this.GetTable<SIU_Incident_Accident_AppovalNote>();
+		}
+	}
+	
+	public System.Data.Linq.Table<Shermco_Employee> Shermco_Employees
+	{
+		get
+		{
+			return this.GetTable<Shermco_Employee>();
+		}
+	}
+	
+	public System.Data.Linq.Table<SIU_ReportingChain> SIU_ReportingChains
+	{
+		get
+		{
+			return this.GetTable<SIU_ReportingChain>();
 		}
 	}
 	
@@ -631,6 +631,13 @@ public partial class SIU_ORM_LINQDataContext : System.Data.Linq.DataContext
 	{
 		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), empID);
 		return ((ISingleResult<SIU_MySi_SummaryCountsResult>)(result.ReturnValue));
+	}
+	
+	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SIU_SafetyPays_AcceptReject_Rpt_SP")]
+	public ISingleResult<SIU_SafetyPays_AcceptReject_Rpt_SPResult> SIU_SafetyPays_AcceptReject_Rpt_SP([global::System.Data.Linq.Mapping.ParameterAttribute(Name="StartDate", DbType="DateTime")] System.Nullable<System.DateTime> startDate, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="EndDate", DbType="DateTime")] System.Nullable<System.DateTime> endDate)
+	{
+		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), startDate, endDate);
+		return ((ISingleResult<SIU_SafetyPays_AcceptReject_Rpt_SPResult>)(result.ReturnValue));
 	}
 }
 
@@ -5471,4364 +5478,6 @@ public partial class Shermco_Job : INotifyPropertyChanging, INotifyPropertyChang
 				this._Risk_Job = value;
 				this.SendPropertyChanged("Risk_Job");
 				this.OnRisk_JobChanged();
-			}
-		}
-	}
-	
-	public event PropertyChangingEventHandler PropertyChanging;
-	
-	public event PropertyChangedEventHandler PropertyChanged;
-	
-	protected virtual void SendPropertyChanging()
-	{
-		if ((this.PropertyChanging != null))
-		{
-			this.PropertyChanging(this, emptyChangingEventArgs);
-		}
-	}
-	
-	protected virtual void SendPropertyChanged(String propertyName)
-	{
-		if ((this.PropertyChanged != null))
-		{
-			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-		}
-	}
-}
-
-[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Shermco$Employee")]
-public partial class Shermco_Employee : INotifyPropertyChanging, INotifyPropertyChanged
-{
-	
-	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-	
-	private System.Data.Linq.Binary _timestamp;
-	
-	private string _No_;
-	
-	private string _First_Name;
-	
-	private string _Middle_Name;
-	
-	private string _Last_Name;
-	
-	private string _Initials;
-	
-	private string _Job_Title;
-	
-	private string _Search_Name;
-	
-	private string _Address;
-	
-	private string _Address_2;
-	
-	private string _City;
-	
-	private string _Post_Code;
-	
-	private string _County;
-	
-	private string _Phone_No_;
-	
-	private string _Mobile_Phone_No_;
-	
-	private string _E_Mail;
-	
-	private string _Alt__Address_Code;
-	
-	private System.DateTime _Alt__Address_Start_Date;
-	
-	private System.DateTime _Alt__Address_End_Date;
-	
-	private System.Data.Linq.Binary _Picture;
-	
-	private System.DateTime _Birth_Date;
-	
-	private string _Social_Security_No_;
-	
-	private string _Union_Code;
-	
-	private string _Union_Membership_No_;
-	
-	private int _Sex;
-	
-	private string _Country_Code;
-	
-	private string _Manager_No_;
-	
-	private string _Emplymt__Contract_Code;
-	
-	private string _Statistics_Group_Code;
-	
-	private System.DateTime _Employment_Date;
-	
-	private int _Status;
-	
-	private System.DateTime _Inactive_Date;
-	
-	private string _Cause_of_Inactivity_Code;
-	
-	private System.DateTime _Termination_Date;
-	
-	private string _Grounds_for_Term__Code;
-	
-	private string _Global_Dimension_1_Code;
-	
-	private string _Global_Dimension_2_Code;
-	
-	private string _Resource_No_;
-	
-	private System.DateTime _Last_Date_Modified;
-	
-	private string _Extension;
-	
-	private string _Pager;
-	
-	private string _Fax_No_;
-	
-	private string _Company_E_Mail;
-	
-	private string _Title;
-	
-	private string _Salespers__Purch__Code;
-	
-	private string _No__Series;
-	
-	private string _Extra;
-	
-	private string _Employee_Password;
-	
-	private string _Manager_Group_Code;
-	
-	private byte _Accounting_Employee;
-	
-	private string _Time_Entry_Approval_Code;
-	
-	private int _Approval_level;
-	
-	private byte _Over_8_Hrs_ST;
-	
-	private System.DateTime _Original_Employment_Date;
-	
-	private System.DateTime _Original_Separation_Date;
-	
-	private byte _Temporary_Employee;
-	
-	private byte _Able_to_Post_Time;
-	
-	private string _Reports_To;
-	
-	private byte _Contractor;
-	
-	private System.DateTime _Achievement_TEC_Results_Date;
-	
-	private System.DateTime _TI_Background_Check_Date;
-	
-	private string _Maiden_Name;
-	
-	private string _Alias;
-	
-	private string _Previously_Used_Name;
-	
-	private string _Emergency_Contact_Name;
-	
-	private string _Emergency_Contact_Street_Addr_;
-	
-	private string _Emergency_Contact_City;
-	
-	private string _Emergency_Contact_State;
-	
-	private string _Emergency_Contact_Zip_Code;
-	
-	private string _Emergency_Contact_Phone_No_;
-	
-	private string _Emergency_Contact_Cell_No_;
-	
-	private string _Emergency_Contact_Rel__to_Empl;
-	
-	private string _Drivers_License_State;
-	
-	private string _Drivers_License_No_;
-	
-	private string _US_County;
-	
-	private System.DateTime _Address_Start_Date;
-	
-	private string _Birth_Place;
-	
-	private string _Preferred_Name;
-	
-	private string _Shermco_Cell_Phone_No_;
-	
-	private byte _Prior_TI_Access;
-	
-	private System.DateTime _Prior_TI_Access_Beginning_Date;
-	
-	private System.DateTime _Prior_TI_Access_Ending_Date;
-	
-	private byte _Denied_Access_to_TI;
-	
-	private byte _Citizen_of_United_States;
-	
-	private string _Visa_Category;
-	
-	private string _Admission__;
-	
-	private System.DateTime _Visa_Expiration_Date;
-	
-	private string _Country_of_Birth;
-	
-	private string _Country_of_Citizenship;
-	
-	private string _Work_Phone;
-	
-	private System.DateTime _Drug_Alcohol_Test_Date;
-	
-	private string _Referral_Source;
-	
-	private string _Referral_Employee_No_;
-	
-	private int _EOC_Race;
-	
-	private int _Veteran;
-	
-	private byte _Disabled;
-	
-	private byte _Temp_Block;
-	
-	private int _Pay_type;
-	
-	private string _Display_Name;
-	
-	private string _Class_Code;
-	
-	private string _Home_Phone_No_;
-	
-	private string _Suffix;
-	
-	private string _Race;
-	
-	private string _Position_Code;
-	
-	private byte _Blocked;
-	
-	private string _Middle_Initial;
-	
-	private string _Default_Work_Type_Code;
-	
-	private byte _Deceased;
-	
-	private byte _SSN_Is_Verified;
-	
-	private string _Pay_Cycle_Code;
-	
-	private string _Employer_No_;
-	
-	private byte _Statutory_Employee;
-	
-	private byte _Retirement_Plan;
-	
-	private byte _Legal_Representative;
-	
-	private byte _Household_Employee;
-	
-	private byte _Deferred_Compensation;
-	
-	private byte _Third_Party_Sick_Pay;
-	
-	private string _Default_Rep__Auth__Code;
-	
-	private string _Social_Insurance_No_;
-	
-	private byte _CPP_Exempt;
-	
-	private byte _EI_Exempt;
-	
-	private string _RPP_or_DPSP;
-	
-	private decimal _Override_Insurable_Hours;
-	
-	private byte _Salaried;
-	
-	private string _Language_Code;
-	
-	private string _HR_Rep__No_;
-	
-	private string _HR_Rep__Contact;
-	
-	private string _Salutation_Code;
-	
-	private decimal _F_T__Equivalent;
-	
-	private decimal _Score;
-	
-	private System.DateTime _MVR_Record_Retrieved;
-	
-	private System.DateTime _Veteran_Separation_Date;
-	
-	private byte _Block_Time_Entry;
-	
-	private string _Block_Time_Entry_Reason;
-	
-	private string _Block_Time_Entry_Req_By;
-	
-	private byte _Block_Phone_List;
-	
-	private byte _Block_Birthday_List;
-	
-	private byte _OT_to_Overhead;
-	
-	private byte _IT_New_Emp_Alert;
-	
-	private string _Amex_Name;
-	
-	private byte _DOT_Compliant;
-	
-	private byte _Driver_Application_Form;
-	
-	private System.DateTime _Driver_Med__Exam__Report;
-	
-	private System.DateTime _Driver_Med__Exam__Cert_;
-	
-	private System.DateTime _Driver_Record_of_Road_Test;
-	
-	private System.DateTime _Driver_Cert__of_Road_Test;
-	
-	private System.DateTime _Driver_Safety_Perf__History;
-	
-	private System.DateTime _Driver_M__V__Cert__Review;
-	
-	private System.DateTime _Date_Driving_for_Company;
-	
-	private int _Driver_License_Class;
-	
-	private string _Driver_Licnese_Class_Other;
-	
-	private int _Safety_Meeting;
-	
-	private byte _Show_on_Phone_List;
-	
-	private string _Gerdau_No_;
-	
-	private byte _Not_Billable;
-	
-	private string _ISN_ID;
-	
-	private byte _I9_Completed;
-	
-	private byte _Employee_Handbook_Receipt;
-	
-	private int _HR_Pay_Type;
-	
-	private string _Credit_Card_Approval_Code;
-	
-	private int _Credit_Card_Approval_Level;
-	
-	private byte _Jean_Allowance;
-	
-	private string _Jean_Gift_Card_No_;
-	
-	private byte _ExportPending;
-	
-	private byte _Shift_Difference;
-	
-	private int _Eligible_Rehire;
-	
-	private int _Eligible_to_Drive_SI_Vehicle;
-	
-	private byte _Temp_to_Perm;
-	
-	private byte _Part_Time;
-	
-	private byte _Co_Op;
-	
-	private int _Work_Location;
-	
-	private int _TShirt;
-	
-	private int _ButtonUp;
-	
-	private int _Polo;
-	
-	private int _Coverall;
-	
-	private int _GetCell;
-	
-	private int _GetComp;
-	
-	private int _GetLaptop;
-	
-	private int _EmpNo;
-	
-	private System.DateTime _Eligible_to_Drive_Date;
-	
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OntimestampChanging(System.Data.Linq.Binary value);
-    partial void OntimestampChanged();
-    partial void OnNo_Changing(string value);
-    partial void OnNo_Changed();
-    partial void OnFirst_NameChanging(string value);
-    partial void OnFirst_NameChanged();
-    partial void OnMiddle_NameChanging(string value);
-    partial void OnMiddle_NameChanged();
-    partial void OnLast_NameChanging(string value);
-    partial void OnLast_NameChanged();
-    partial void OnInitialsChanging(string value);
-    partial void OnInitialsChanged();
-    partial void OnJob_TitleChanging(string value);
-    partial void OnJob_TitleChanged();
-    partial void OnSearch_NameChanging(string value);
-    partial void OnSearch_NameChanged();
-    partial void OnAddressChanging(string value);
-    partial void OnAddressChanged();
-    partial void OnAddress_2Changing(string value);
-    partial void OnAddress_2Changed();
-    partial void OnCityChanging(string value);
-    partial void OnCityChanged();
-    partial void OnPost_CodeChanging(string value);
-    partial void OnPost_CodeChanged();
-    partial void OnCountyChanging(string value);
-    partial void OnCountyChanged();
-    partial void OnPhone_No_Changing(string value);
-    partial void OnPhone_No_Changed();
-    partial void OnMobile_Phone_No_Changing(string value);
-    partial void OnMobile_Phone_No_Changed();
-    partial void OnE_MailChanging(string value);
-    partial void OnE_MailChanged();
-    partial void OnAlt__Address_CodeChanging(string value);
-    partial void OnAlt__Address_CodeChanged();
-    partial void OnAlt__Address_Start_DateChanging(System.DateTime value);
-    partial void OnAlt__Address_Start_DateChanged();
-    partial void OnAlt__Address_End_DateChanging(System.DateTime value);
-    partial void OnAlt__Address_End_DateChanged();
-    partial void OnPictureChanging(System.Data.Linq.Binary value);
-    partial void OnPictureChanged();
-    partial void OnBirth_DateChanging(System.DateTime value);
-    partial void OnBirth_DateChanged();
-    partial void OnSocial_Security_No_Changing(string value);
-    partial void OnSocial_Security_No_Changed();
-    partial void OnUnion_CodeChanging(string value);
-    partial void OnUnion_CodeChanged();
-    partial void OnUnion_Membership_No_Changing(string value);
-    partial void OnUnion_Membership_No_Changed();
-    partial void OnSexChanging(int value);
-    partial void OnSexChanged();
-    partial void OnCountry_CodeChanging(string value);
-    partial void OnCountry_CodeChanged();
-    partial void OnManager_No_Changing(string value);
-    partial void OnManager_No_Changed();
-    partial void OnEmplymt__Contract_CodeChanging(string value);
-    partial void OnEmplymt__Contract_CodeChanged();
-    partial void OnStatistics_Group_CodeChanging(string value);
-    partial void OnStatistics_Group_CodeChanged();
-    partial void OnEmployment_DateChanging(System.DateTime value);
-    partial void OnEmployment_DateChanged();
-    partial void OnStatusChanging(int value);
-    partial void OnStatusChanged();
-    partial void OnInactive_DateChanging(System.DateTime value);
-    partial void OnInactive_DateChanged();
-    partial void OnCause_of_Inactivity_CodeChanging(string value);
-    partial void OnCause_of_Inactivity_CodeChanged();
-    partial void OnTermination_DateChanging(System.DateTime value);
-    partial void OnTermination_DateChanged();
-    partial void OnGrounds_for_Term__CodeChanging(string value);
-    partial void OnGrounds_for_Term__CodeChanged();
-    partial void OnGlobal_Dimension_1_CodeChanging(string value);
-    partial void OnGlobal_Dimension_1_CodeChanged();
-    partial void OnGlobal_Dimension_2_CodeChanging(string value);
-    partial void OnGlobal_Dimension_2_CodeChanged();
-    partial void OnResource_No_Changing(string value);
-    partial void OnResource_No_Changed();
-    partial void OnLast_Date_ModifiedChanging(System.DateTime value);
-    partial void OnLast_Date_ModifiedChanged();
-    partial void OnExtensionChanging(string value);
-    partial void OnExtensionChanged();
-    partial void OnPagerChanging(string value);
-    partial void OnPagerChanged();
-    partial void OnFax_No_Changing(string value);
-    partial void OnFax_No_Changed();
-    partial void OnCompany_E_MailChanging(string value);
-    partial void OnCompany_E_MailChanged();
-    partial void OnTitleChanging(string value);
-    partial void OnTitleChanged();
-    partial void OnSalespers__Purch__CodeChanging(string value);
-    partial void OnSalespers__Purch__CodeChanged();
-    partial void OnNo__SeriesChanging(string value);
-    partial void OnNo__SeriesChanged();
-    partial void OnExtraChanging(string value);
-    partial void OnExtraChanged();
-    partial void OnEmployee_PasswordChanging(string value);
-    partial void OnEmployee_PasswordChanged();
-    partial void OnManager_Group_CodeChanging(string value);
-    partial void OnManager_Group_CodeChanged();
-    partial void OnAccounting_EmployeeChanging(byte value);
-    partial void OnAccounting_EmployeeChanged();
-    partial void OnTime_Entry_Approval_CodeChanging(string value);
-    partial void OnTime_Entry_Approval_CodeChanged();
-    partial void OnApproval_levelChanging(int value);
-    partial void OnApproval_levelChanged();
-    partial void OnOver_8_Hrs_STChanging(byte value);
-    partial void OnOver_8_Hrs_STChanged();
-    partial void OnOriginal_Employment_DateChanging(System.DateTime value);
-    partial void OnOriginal_Employment_DateChanged();
-    partial void OnOriginal_Separation_DateChanging(System.DateTime value);
-    partial void OnOriginal_Separation_DateChanged();
-    partial void OnTemporary_EmployeeChanging(byte value);
-    partial void OnTemporary_EmployeeChanged();
-    partial void OnAble_to_Post_TimeChanging(byte value);
-    partial void OnAble_to_Post_TimeChanged();
-    partial void OnReports_ToChanging(string value);
-    partial void OnReports_ToChanged();
-    partial void OnContractorChanging(byte value);
-    partial void OnContractorChanged();
-    partial void OnAchievement_TEC_Results_DateChanging(System.DateTime value);
-    partial void OnAchievement_TEC_Results_DateChanged();
-    partial void OnTI_Background_Check_DateChanging(System.DateTime value);
-    partial void OnTI_Background_Check_DateChanged();
-    partial void OnMaiden_NameChanging(string value);
-    partial void OnMaiden_NameChanged();
-    partial void OnAliasChanging(string value);
-    partial void OnAliasChanged();
-    partial void OnPreviously_Used_NameChanging(string value);
-    partial void OnPreviously_Used_NameChanged();
-    partial void OnEmergency_Contact_NameChanging(string value);
-    partial void OnEmergency_Contact_NameChanged();
-    partial void OnEmergency_Contact_Street_Addr_Changing(string value);
-    partial void OnEmergency_Contact_Street_Addr_Changed();
-    partial void OnEmergency_Contact_CityChanging(string value);
-    partial void OnEmergency_Contact_CityChanged();
-    partial void OnEmergency_Contact_StateChanging(string value);
-    partial void OnEmergency_Contact_StateChanged();
-    partial void OnEmergency_Contact_Zip_CodeChanging(string value);
-    partial void OnEmergency_Contact_Zip_CodeChanged();
-    partial void OnEmergency_Contact_Phone_No_Changing(string value);
-    partial void OnEmergency_Contact_Phone_No_Changed();
-    partial void OnEmergency_Contact_Cell_No_Changing(string value);
-    partial void OnEmergency_Contact_Cell_No_Changed();
-    partial void OnEmergency_Contact_Rel__to_EmplChanging(string value);
-    partial void OnEmergency_Contact_Rel__to_EmplChanged();
-    partial void OnDrivers_License_StateChanging(string value);
-    partial void OnDrivers_License_StateChanged();
-    partial void OnDrivers_License_No_Changing(string value);
-    partial void OnDrivers_License_No_Changed();
-    partial void OnUS_CountyChanging(string value);
-    partial void OnUS_CountyChanged();
-    partial void OnAddress_Start_DateChanging(System.DateTime value);
-    partial void OnAddress_Start_DateChanged();
-    partial void OnBirth_PlaceChanging(string value);
-    partial void OnBirth_PlaceChanged();
-    partial void OnPreferred_NameChanging(string value);
-    partial void OnPreferred_NameChanged();
-    partial void OnShermco_Cell_Phone_No_Changing(string value);
-    partial void OnShermco_Cell_Phone_No_Changed();
-    partial void OnPrior_TI_AccessChanging(byte value);
-    partial void OnPrior_TI_AccessChanged();
-    partial void OnPrior_TI_Access_Beginning_DateChanging(System.DateTime value);
-    partial void OnPrior_TI_Access_Beginning_DateChanged();
-    partial void OnPrior_TI_Access_Ending_DateChanging(System.DateTime value);
-    partial void OnPrior_TI_Access_Ending_DateChanged();
-    partial void OnDenied_Access_to_TIChanging(byte value);
-    partial void OnDenied_Access_to_TIChanged();
-    partial void OnCitizen_of_United_StatesChanging(byte value);
-    partial void OnCitizen_of_United_StatesChanged();
-    partial void OnVisa_CategoryChanging(string value);
-    partial void OnVisa_CategoryChanged();
-    partial void OnAdmission__Changing(string value);
-    partial void OnAdmission__Changed();
-    partial void OnVisa_Expiration_DateChanging(System.DateTime value);
-    partial void OnVisa_Expiration_DateChanged();
-    partial void OnCountry_of_BirthChanging(string value);
-    partial void OnCountry_of_BirthChanged();
-    partial void OnCountry_of_CitizenshipChanging(string value);
-    partial void OnCountry_of_CitizenshipChanged();
-    partial void OnWork_PhoneChanging(string value);
-    partial void OnWork_PhoneChanged();
-    partial void OnDrug_Alcohol_Test_DateChanging(System.DateTime value);
-    partial void OnDrug_Alcohol_Test_DateChanged();
-    partial void OnReferral_SourceChanging(string value);
-    partial void OnReferral_SourceChanged();
-    partial void OnReferral_Employee_No_Changing(string value);
-    partial void OnReferral_Employee_No_Changed();
-    partial void OnEOC_RaceChanging(int value);
-    partial void OnEOC_RaceChanged();
-    partial void OnVeteranChanging(int value);
-    partial void OnVeteranChanged();
-    partial void OnDisabledChanging(byte value);
-    partial void OnDisabledChanged();
-    partial void OnTemp_BlockChanging(byte value);
-    partial void OnTemp_BlockChanged();
-    partial void OnPay_typeChanging(int value);
-    partial void OnPay_typeChanged();
-    partial void OnDisplay_NameChanging(string value);
-    partial void OnDisplay_NameChanged();
-    partial void OnClass_CodeChanging(string value);
-    partial void OnClass_CodeChanged();
-    partial void OnHome_Phone_No_Changing(string value);
-    partial void OnHome_Phone_No_Changed();
-    partial void OnSuffixChanging(string value);
-    partial void OnSuffixChanged();
-    partial void OnRaceChanging(string value);
-    partial void OnRaceChanged();
-    partial void OnPosition_CodeChanging(string value);
-    partial void OnPosition_CodeChanged();
-    partial void OnBlockedChanging(byte value);
-    partial void OnBlockedChanged();
-    partial void OnMiddle_InitialChanging(string value);
-    partial void OnMiddle_InitialChanged();
-    partial void OnDefault_Work_Type_CodeChanging(string value);
-    partial void OnDefault_Work_Type_CodeChanged();
-    partial void OnDeceasedChanging(byte value);
-    partial void OnDeceasedChanged();
-    partial void OnSSN_Is_VerifiedChanging(byte value);
-    partial void OnSSN_Is_VerifiedChanged();
-    partial void OnPay_Cycle_CodeChanging(string value);
-    partial void OnPay_Cycle_CodeChanged();
-    partial void OnEmployer_No_Changing(string value);
-    partial void OnEmployer_No_Changed();
-    partial void OnStatutory_EmployeeChanging(byte value);
-    partial void OnStatutory_EmployeeChanged();
-    partial void OnRetirement_PlanChanging(byte value);
-    partial void OnRetirement_PlanChanged();
-    partial void OnLegal_RepresentativeChanging(byte value);
-    partial void OnLegal_RepresentativeChanged();
-    partial void OnHousehold_EmployeeChanging(byte value);
-    partial void OnHousehold_EmployeeChanged();
-    partial void OnDeferred_CompensationChanging(byte value);
-    partial void OnDeferred_CompensationChanged();
-    partial void OnThird_Party_Sick_PayChanging(byte value);
-    partial void OnThird_Party_Sick_PayChanged();
-    partial void OnDefault_Rep__Auth__CodeChanging(string value);
-    partial void OnDefault_Rep__Auth__CodeChanged();
-    partial void OnSocial_Insurance_No_Changing(string value);
-    partial void OnSocial_Insurance_No_Changed();
-    partial void OnCPP_ExemptChanging(byte value);
-    partial void OnCPP_ExemptChanged();
-    partial void OnEI_ExemptChanging(byte value);
-    partial void OnEI_ExemptChanged();
-    partial void OnRPP_or_DPSPChanging(string value);
-    partial void OnRPP_or_DPSPChanged();
-    partial void OnOverride_Insurable_HoursChanging(decimal value);
-    partial void OnOverride_Insurable_HoursChanged();
-    partial void OnSalariedChanging(byte value);
-    partial void OnSalariedChanged();
-    partial void OnLanguage_CodeChanging(string value);
-    partial void OnLanguage_CodeChanged();
-    partial void OnHR_Rep__No_Changing(string value);
-    partial void OnHR_Rep__No_Changed();
-    partial void OnHR_Rep__ContactChanging(string value);
-    partial void OnHR_Rep__ContactChanged();
-    partial void OnSalutation_CodeChanging(string value);
-    partial void OnSalutation_CodeChanged();
-    partial void OnF_T__EquivalentChanging(decimal value);
-    partial void OnF_T__EquivalentChanged();
-    partial void OnScoreChanging(decimal value);
-    partial void OnScoreChanged();
-    partial void OnMVR_Record_RetrievedChanging(System.DateTime value);
-    partial void OnMVR_Record_RetrievedChanged();
-    partial void OnVeteran_Separation_DateChanging(System.DateTime value);
-    partial void OnVeteran_Separation_DateChanged();
-    partial void OnBlock_Time_EntryChanging(byte value);
-    partial void OnBlock_Time_EntryChanged();
-    partial void OnBlock_Time_Entry_ReasonChanging(string value);
-    partial void OnBlock_Time_Entry_ReasonChanged();
-    partial void OnBlock_Time_Entry_Req_ByChanging(string value);
-    partial void OnBlock_Time_Entry_Req_ByChanged();
-    partial void OnBlock_Phone_ListChanging(byte value);
-    partial void OnBlock_Phone_ListChanged();
-    partial void OnBlock_Birthday_ListChanging(byte value);
-    partial void OnBlock_Birthday_ListChanged();
-    partial void OnOT_to_OverheadChanging(byte value);
-    partial void OnOT_to_OverheadChanged();
-    partial void OnIT_New_Emp_AlertChanging(byte value);
-    partial void OnIT_New_Emp_AlertChanged();
-    partial void OnAmex_NameChanging(string value);
-    partial void OnAmex_NameChanged();
-    partial void OnDOT_CompliantChanging(byte value);
-    partial void OnDOT_CompliantChanged();
-    partial void OnDriver_Application_FormChanging(byte value);
-    partial void OnDriver_Application_FormChanged();
-    partial void OnDriver_Med__Exam__ReportChanging(System.DateTime value);
-    partial void OnDriver_Med__Exam__ReportChanged();
-    partial void OnDriver_Med__Exam__Cert_Changing(System.DateTime value);
-    partial void OnDriver_Med__Exam__Cert_Changed();
-    partial void OnDriver_Record_of_Road_TestChanging(System.DateTime value);
-    partial void OnDriver_Record_of_Road_TestChanged();
-    partial void OnDriver_Cert__of_Road_TestChanging(System.DateTime value);
-    partial void OnDriver_Cert__of_Road_TestChanged();
-    partial void OnDriver_Safety_Perf__HistoryChanging(System.DateTime value);
-    partial void OnDriver_Safety_Perf__HistoryChanged();
-    partial void OnDriver_M__V__Cert__ReviewChanging(System.DateTime value);
-    partial void OnDriver_M__V__Cert__ReviewChanged();
-    partial void OnDate_Driving_for_CompanyChanging(System.DateTime value);
-    partial void OnDate_Driving_for_CompanyChanged();
-    partial void OnDriver_License_ClassChanging(int value);
-    partial void OnDriver_License_ClassChanged();
-    partial void OnDriver_Licnese_Class_OtherChanging(string value);
-    partial void OnDriver_Licnese_Class_OtherChanged();
-    partial void OnSafety_MeetingChanging(int value);
-    partial void OnSafety_MeetingChanged();
-    partial void OnShow_on_Phone_ListChanging(byte value);
-    partial void OnShow_on_Phone_ListChanged();
-    partial void OnGerdau_No_Changing(string value);
-    partial void OnGerdau_No_Changed();
-    partial void OnNot_BillableChanging(byte value);
-    partial void OnNot_BillableChanged();
-    partial void OnISN_IDChanging(string value);
-    partial void OnISN_IDChanged();
-    partial void OnI9_CompletedChanging(byte value);
-    partial void OnI9_CompletedChanged();
-    partial void OnEmployee_Handbook_ReceiptChanging(byte value);
-    partial void OnEmployee_Handbook_ReceiptChanged();
-    partial void OnHR_Pay_TypeChanging(int value);
-    partial void OnHR_Pay_TypeChanged();
-    partial void OnCredit_Card_Approval_CodeChanging(string value);
-    partial void OnCredit_Card_Approval_CodeChanged();
-    partial void OnCredit_Card_Approval_LevelChanging(int value);
-    partial void OnCredit_Card_Approval_LevelChanged();
-    partial void OnJean_AllowanceChanging(byte value);
-    partial void OnJean_AllowanceChanged();
-    partial void OnJean_Gift_Card_No_Changing(string value);
-    partial void OnJean_Gift_Card_No_Changed();
-    partial void OnExportPendingChanging(byte value);
-    partial void OnExportPendingChanged();
-    partial void OnShift_DifferenceChanging(byte value);
-    partial void OnShift_DifferenceChanged();
-    partial void OnEligible_RehireChanging(int value);
-    partial void OnEligible_RehireChanged();
-    partial void OnEligible_to_Drive_SI_VehicleChanging(int value);
-    partial void OnEligible_to_Drive_SI_VehicleChanged();
-    partial void OnTemp_to_PermChanging(byte value);
-    partial void OnTemp_to_PermChanged();
-    partial void OnPart_TimeChanging(byte value);
-    partial void OnPart_TimeChanged();
-    partial void OnCo_OpChanging(byte value);
-    partial void OnCo_OpChanged();
-    partial void OnWork_LocationChanging(int value);
-    partial void OnWork_LocationChanged();
-    partial void OnTShirtChanging(int value);
-    partial void OnTShirtChanged();
-    partial void OnButtonUpChanging(int value);
-    partial void OnButtonUpChanged();
-    partial void OnPoloChanging(int value);
-    partial void OnPoloChanged();
-    partial void OnCoverallChanging(int value);
-    partial void OnCoverallChanged();
-    partial void OnGetCellChanging(int value);
-    partial void OnGetCellChanged();
-    partial void OnGetCompChanging(int value);
-    partial void OnGetCompChanged();
-    partial void OnGetLaptopChanging(int value);
-    partial void OnGetLaptopChanged();
-    partial void OnEmpNoChanging(int value);
-    partial void OnEmpNoChanged();
-    partial void OnEligible_to_Drive_DateChanging(System.DateTime value);
-    partial void OnEligible_to_Drive_DateChanged();
-    #endregion
-	
-	public Shermco_Employee()
-	{
-		OnCreated();
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_timestamp", AutoSync=AutoSync.Always, DbType="rowversion NOT NULL", CanBeNull=false, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
-	public System.Data.Linq.Binary timestamp
-	{
-		get
-		{
-			return this._timestamp;
-		}
-		set
-		{
-			if ((this._timestamp != value))
-			{
-				this.OntimestampChanging(value);
-				this.SendPropertyChanging();
-				this._timestamp = value;
-				this.SendPropertyChanged("timestamp");
-				this.OntimestampChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_No_", DbType="VarChar(20) NOT NULL", CanBeNull=false, IsPrimaryKey=true, UpdateCheck=UpdateCheck.Never)]
-	public string No_
-	{
-		get
-		{
-			return this._No_;
-		}
-		set
-		{
-			if ((this._No_ != value))
-			{
-				this.OnNo_Changing(value);
-				this.SendPropertyChanging();
-				this._No_ = value;
-				this.SendPropertyChanged("No_");
-				this.OnNo_Changed();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[First Name]", Storage="_First_Name", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string First_Name
-	{
-		get
-		{
-			return this._First_Name;
-		}
-		set
-		{
-			if ((this._First_Name != value))
-			{
-				this.OnFirst_NameChanging(value);
-				this.SendPropertyChanging();
-				this._First_Name = value;
-				this.SendPropertyChanged("First_Name");
-				this.OnFirst_NameChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Middle Name]", Storage="_Middle_Name", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Middle_Name
-	{
-		get
-		{
-			return this._Middle_Name;
-		}
-		set
-		{
-			if ((this._Middle_Name != value))
-			{
-				this.OnMiddle_NameChanging(value);
-				this.SendPropertyChanging();
-				this._Middle_Name = value;
-				this.SendPropertyChanged("Middle_Name");
-				this.OnMiddle_NameChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Last Name]", Storage="_Last_Name", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Last_Name
-	{
-		get
-		{
-			return this._Last_Name;
-		}
-		set
-		{
-			if ((this._Last_Name != value))
-			{
-				this.OnLast_NameChanging(value);
-				this.SendPropertyChanging();
-				this._Last_Name = value;
-				this.SendPropertyChanged("Last_Name");
-				this.OnLast_NameChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Initials", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Initials
-	{
-		get
-		{
-			return this._Initials;
-		}
-		set
-		{
-			if ((this._Initials != value))
-			{
-				this.OnInitialsChanging(value);
-				this.SendPropertyChanging();
-				this._Initials = value;
-				this.SendPropertyChanged("Initials");
-				this.OnInitialsChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Job Title]", Storage="_Job_Title", DbType="VarChar(50) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Job_Title
-	{
-		get
-		{
-			return this._Job_Title;
-		}
-		set
-		{
-			if ((this._Job_Title != value))
-			{
-				this.OnJob_TitleChanging(value);
-				this.SendPropertyChanging();
-				this._Job_Title = value;
-				this.SendPropertyChanged("Job_Title");
-				this.OnJob_TitleChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Search Name]", Storage="_Search_Name", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Search_Name
-	{
-		get
-		{
-			return this._Search_Name;
-		}
-		set
-		{
-			if ((this._Search_Name != value))
-			{
-				this.OnSearch_NameChanging(value);
-				this.SendPropertyChanging();
-				this._Search_Name = value;
-				this.SendPropertyChanged("Search_Name");
-				this.OnSearch_NameChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Address", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Address
-	{
-		get
-		{
-			return this._Address;
-		}
-		set
-		{
-			if ((this._Address != value))
-			{
-				this.OnAddressChanging(value);
-				this.SendPropertyChanging();
-				this._Address = value;
-				this.SendPropertyChanged("Address");
-				this.OnAddressChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Address 2]", Storage="_Address_2", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Address_2
-	{
-		get
-		{
-			return this._Address_2;
-		}
-		set
-		{
-			if ((this._Address_2 != value))
-			{
-				this.OnAddress_2Changing(value);
-				this.SendPropertyChanging();
-				this._Address_2 = value;
-				this.SendPropertyChanged("Address_2");
-				this.OnAddress_2Changed();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_City", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string City
-	{
-		get
-		{
-			return this._City;
-		}
-		set
-		{
-			if ((this._City != value))
-			{
-				this.OnCityChanging(value);
-				this.SendPropertyChanging();
-				this._City = value;
-				this.SendPropertyChanged("City");
-				this.OnCityChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Post Code]", Storage="_Post_Code", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Post_Code
-	{
-		get
-		{
-			return this._Post_Code;
-		}
-		set
-		{
-			if ((this._Post_Code != value))
-			{
-				this.OnPost_CodeChanging(value);
-				this.SendPropertyChanging();
-				this._Post_Code = value;
-				this.SendPropertyChanged("Post_Code");
-				this.OnPost_CodeChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_County", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string County
-	{
-		get
-		{
-			return this._County;
-		}
-		set
-		{
-			if ((this._County != value))
-			{
-				this.OnCountyChanging(value);
-				this.SendPropertyChanging();
-				this._County = value;
-				this.SendPropertyChanged("County");
-				this.OnCountyChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Phone No_]", Storage="_Phone_No_", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Phone_No_
-	{
-		get
-		{
-			return this._Phone_No_;
-		}
-		set
-		{
-			if ((this._Phone_No_ != value))
-			{
-				this.OnPhone_No_Changing(value);
-				this.SendPropertyChanging();
-				this._Phone_No_ = value;
-				this.SendPropertyChanged("Phone_No_");
-				this.OnPhone_No_Changed();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Mobile Phone No_]", Storage="_Mobile_Phone_No_", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Mobile_Phone_No_
-	{
-		get
-		{
-			return this._Mobile_Phone_No_;
-		}
-		set
-		{
-			if ((this._Mobile_Phone_No_ != value))
-			{
-				this.OnMobile_Phone_No_Changing(value);
-				this.SendPropertyChanging();
-				this._Mobile_Phone_No_ = value;
-				this.SendPropertyChanged("Mobile_Phone_No_");
-				this.OnMobile_Phone_No_Changed();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[E-Mail]", Storage="_E_Mail", DbType="VarChar(80) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string E_Mail
-	{
-		get
-		{
-			return this._E_Mail;
-		}
-		set
-		{
-			if ((this._E_Mail != value))
-			{
-				this.OnE_MailChanging(value);
-				this.SendPropertyChanging();
-				this._E_Mail = value;
-				this.SendPropertyChanged("E_Mail");
-				this.OnE_MailChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Alt_ Address Code]", Storage="_Alt__Address_Code", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Alt__Address_Code
-	{
-		get
-		{
-			return this._Alt__Address_Code;
-		}
-		set
-		{
-			if ((this._Alt__Address_Code != value))
-			{
-				this.OnAlt__Address_CodeChanging(value);
-				this.SendPropertyChanging();
-				this._Alt__Address_Code = value;
-				this.SendPropertyChanged("Alt__Address_Code");
-				this.OnAlt__Address_CodeChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Alt_ Address Start Date]", Storage="_Alt__Address_Start_Date", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public System.DateTime Alt__Address_Start_Date
-	{
-		get
-		{
-			return this._Alt__Address_Start_Date;
-		}
-		set
-		{
-			if ((this._Alt__Address_Start_Date != value))
-			{
-				this.OnAlt__Address_Start_DateChanging(value);
-				this.SendPropertyChanging();
-				this._Alt__Address_Start_Date = value;
-				this.SendPropertyChanged("Alt__Address_Start_Date");
-				this.OnAlt__Address_Start_DateChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Alt_ Address End Date]", Storage="_Alt__Address_End_Date", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public System.DateTime Alt__Address_End_Date
-	{
-		get
-		{
-			return this._Alt__Address_End_Date;
-		}
-		set
-		{
-			if ((this._Alt__Address_End_Date != value))
-			{
-				this.OnAlt__Address_End_DateChanging(value);
-				this.SendPropertyChanging();
-				this._Alt__Address_End_Date = value;
-				this.SendPropertyChanged("Alt__Address_End_Date");
-				this.OnAlt__Address_End_DateChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Picture", DbType="Image", UpdateCheck=UpdateCheck.Never)]
-	public System.Data.Linq.Binary Picture
-	{
-		get
-		{
-			return this._Picture;
-		}
-		set
-		{
-			if ((this._Picture != value))
-			{
-				this.OnPictureChanging(value);
-				this.SendPropertyChanging();
-				this._Picture = value;
-				this.SendPropertyChanged("Picture");
-				this.OnPictureChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Birth Date]", Storage="_Birth_Date", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public System.DateTime Birth_Date
-	{
-		get
-		{
-			return this._Birth_Date;
-		}
-		set
-		{
-			if ((this._Birth_Date != value))
-			{
-				this.OnBirth_DateChanging(value);
-				this.SendPropertyChanging();
-				this._Birth_Date = value;
-				this.SendPropertyChanged("Birth_Date");
-				this.OnBirth_DateChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Social Security No_]", Storage="_Social_Security_No_", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Social_Security_No_
-	{
-		get
-		{
-			return this._Social_Security_No_;
-		}
-		set
-		{
-			if ((this._Social_Security_No_ != value))
-			{
-				this.OnSocial_Security_No_Changing(value);
-				this.SendPropertyChanging();
-				this._Social_Security_No_ = value;
-				this.SendPropertyChanged("Social_Security_No_");
-				this.OnSocial_Security_No_Changed();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Union Code]", Storage="_Union_Code", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Union_Code
-	{
-		get
-		{
-			return this._Union_Code;
-		}
-		set
-		{
-			if ((this._Union_Code != value))
-			{
-				this.OnUnion_CodeChanging(value);
-				this.SendPropertyChanging();
-				this._Union_Code = value;
-				this.SendPropertyChanged("Union_Code");
-				this.OnUnion_CodeChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Union Membership No_]", Storage="_Union_Membership_No_", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Union_Membership_No_
-	{
-		get
-		{
-			return this._Union_Membership_No_;
-		}
-		set
-		{
-			if ((this._Union_Membership_No_ != value))
-			{
-				this.OnUnion_Membership_No_Changing(value);
-				this.SendPropertyChanging();
-				this._Union_Membership_No_ = value;
-				this.SendPropertyChanged("Union_Membership_No_");
-				this.OnUnion_Membership_No_Changed();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Sex", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public int Sex
-	{
-		get
-		{
-			return this._Sex;
-		}
-		set
-		{
-			if ((this._Sex != value))
-			{
-				this.OnSexChanging(value);
-				this.SendPropertyChanging();
-				this._Sex = value;
-				this.SendPropertyChanged("Sex");
-				this.OnSexChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Country Code]", Storage="_Country_Code", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Country_Code
-	{
-		get
-		{
-			return this._Country_Code;
-		}
-		set
-		{
-			if ((this._Country_Code != value))
-			{
-				this.OnCountry_CodeChanging(value);
-				this.SendPropertyChanging();
-				this._Country_Code = value;
-				this.SendPropertyChanged("Country_Code");
-				this.OnCountry_CodeChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Manager No_]", Storage="_Manager_No_", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Manager_No_
-	{
-		get
-		{
-			return this._Manager_No_;
-		}
-		set
-		{
-			if ((this._Manager_No_ != value))
-			{
-				this.OnManager_No_Changing(value);
-				this.SendPropertyChanging();
-				this._Manager_No_ = value;
-				this.SendPropertyChanged("Manager_No_");
-				this.OnManager_No_Changed();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Emplymt_ Contract Code]", Storage="_Emplymt__Contract_Code", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Emplymt__Contract_Code
-	{
-		get
-		{
-			return this._Emplymt__Contract_Code;
-		}
-		set
-		{
-			if ((this._Emplymt__Contract_Code != value))
-			{
-				this.OnEmplymt__Contract_CodeChanging(value);
-				this.SendPropertyChanging();
-				this._Emplymt__Contract_Code = value;
-				this.SendPropertyChanged("Emplymt__Contract_Code");
-				this.OnEmplymt__Contract_CodeChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Statistics Group Code]", Storage="_Statistics_Group_Code", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Statistics_Group_Code
-	{
-		get
-		{
-			return this._Statistics_Group_Code;
-		}
-		set
-		{
-			if ((this._Statistics_Group_Code != value))
-			{
-				this.OnStatistics_Group_CodeChanging(value);
-				this.SendPropertyChanging();
-				this._Statistics_Group_Code = value;
-				this.SendPropertyChanged("Statistics_Group_Code");
-				this.OnStatistics_Group_CodeChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Employment Date]", Storage="_Employment_Date", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public System.DateTime Employment_Date
-	{
-		get
-		{
-			return this._Employment_Date;
-		}
-		set
-		{
-			if ((this._Employment_Date != value))
-			{
-				this.OnEmployment_DateChanging(value);
-				this.SendPropertyChanging();
-				this._Employment_Date = value;
-				this.SendPropertyChanged("Employment_Date");
-				this.OnEmployment_DateChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Status", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public int Status
-	{
-		get
-		{
-			return this._Status;
-		}
-		set
-		{
-			if ((this._Status != value))
-			{
-				this.OnStatusChanging(value);
-				this.SendPropertyChanging();
-				this._Status = value;
-				this.SendPropertyChanged("Status");
-				this.OnStatusChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Inactive Date]", Storage="_Inactive_Date", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public System.DateTime Inactive_Date
-	{
-		get
-		{
-			return this._Inactive_Date;
-		}
-		set
-		{
-			if ((this._Inactive_Date != value))
-			{
-				this.OnInactive_DateChanging(value);
-				this.SendPropertyChanging();
-				this._Inactive_Date = value;
-				this.SendPropertyChanged("Inactive_Date");
-				this.OnInactive_DateChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Cause of Inactivity Code]", Storage="_Cause_of_Inactivity_Code", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Cause_of_Inactivity_Code
-	{
-		get
-		{
-			return this._Cause_of_Inactivity_Code;
-		}
-		set
-		{
-			if ((this._Cause_of_Inactivity_Code != value))
-			{
-				this.OnCause_of_Inactivity_CodeChanging(value);
-				this.SendPropertyChanging();
-				this._Cause_of_Inactivity_Code = value;
-				this.SendPropertyChanged("Cause_of_Inactivity_Code");
-				this.OnCause_of_Inactivity_CodeChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Termination Date]", Storage="_Termination_Date", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public System.DateTime Termination_Date
-	{
-		get
-		{
-			return this._Termination_Date;
-		}
-		set
-		{
-			if ((this._Termination_Date != value))
-			{
-				this.OnTermination_DateChanging(value);
-				this.SendPropertyChanging();
-				this._Termination_Date = value;
-				this.SendPropertyChanged("Termination_Date");
-				this.OnTermination_DateChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Grounds for Term_ Code]", Storage="_Grounds_for_Term__Code", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Grounds_for_Term__Code
-	{
-		get
-		{
-			return this._Grounds_for_Term__Code;
-		}
-		set
-		{
-			if ((this._Grounds_for_Term__Code != value))
-			{
-				this.OnGrounds_for_Term__CodeChanging(value);
-				this.SendPropertyChanging();
-				this._Grounds_for_Term__Code = value;
-				this.SendPropertyChanged("Grounds_for_Term__Code");
-				this.OnGrounds_for_Term__CodeChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Global Dimension 1 Code]", Storage="_Global_Dimension_1_Code", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Global_Dimension_1_Code
-	{
-		get
-		{
-			return this._Global_Dimension_1_Code;
-		}
-		set
-		{
-			if ((this._Global_Dimension_1_Code != value))
-			{
-				this.OnGlobal_Dimension_1_CodeChanging(value);
-				this.SendPropertyChanging();
-				this._Global_Dimension_1_Code = value;
-				this.SendPropertyChanged("Global_Dimension_1_Code");
-				this.OnGlobal_Dimension_1_CodeChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Global Dimension 2 Code]", Storage="_Global_Dimension_2_Code", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Global_Dimension_2_Code
-	{
-		get
-		{
-			return this._Global_Dimension_2_Code;
-		}
-		set
-		{
-			if ((this._Global_Dimension_2_Code != value))
-			{
-				this.OnGlobal_Dimension_2_CodeChanging(value);
-				this.SendPropertyChanging();
-				this._Global_Dimension_2_Code = value;
-				this.SendPropertyChanged("Global_Dimension_2_Code");
-				this.OnGlobal_Dimension_2_CodeChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Resource No_]", Storage="_Resource_No_", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Resource_No_
-	{
-		get
-		{
-			return this._Resource_No_;
-		}
-		set
-		{
-			if ((this._Resource_No_ != value))
-			{
-				this.OnResource_No_Changing(value);
-				this.SendPropertyChanging();
-				this._Resource_No_ = value;
-				this.SendPropertyChanged("Resource_No_");
-				this.OnResource_No_Changed();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Last Date Modified]", Storage="_Last_Date_Modified", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public System.DateTime Last_Date_Modified
-	{
-		get
-		{
-			return this._Last_Date_Modified;
-		}
-		set
-		{
-			if ((this._Last_Date_Modified != value))
-			{
-				this.OnLast_Date_ModifiedChanging(value);
-				this.SendPropertyChanging();
-				this._Last_Date_Modified = value;
-				this.SendPropertyChanged("Last_Date_Modified");
-				this.OnLast_Date_ModifiedChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Extension", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Extension
-	{
-		get
-		{
-			return this._Extension;
-		}
-		set
-		{
-			if ((this._Extension != value))
-			{
-				this.OnExtensionChanging(value);
-				this.SendPropertyChanging();
-				this._Extension = value;
-				this.SendPropertyChanged("Extension");
-				this.OnExtensionChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Pager", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Pager
-	{
-		get
-		{
-			return this._Pager;
-		}
-		set
-		{
-			if ((this._Pager != value))
-			{
-				this.OnPagerChanging(value);
-				this.SendPropertyChanging();
-				this._Pager = value;
-				this.SendPropertyChanged("Pager");
-				this.OnPagerChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Fax No_]", Storage="_Fax_No_", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Fax_No_
-	{
-		get
-		{
-			return this._Fax_No_;
-		}
-		set
-		{
-			if ((this._Fax_No_ != value))
-			{
-				this.OnFax_No_Changing(value);
-				this.SendPropertyChanging();
-				this._Fax_No_ = value;
-				this.SendPropertyChanged("Fax_No_");
-				this.OnFax_No_Changed();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Company E-Mail]", Storage="_Company_E_Mail", DbType="VarChar(80) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Company_E_Mail
-	{
-		get
-		{
-			return this._Company_E_Mail;
-		}
-		set
-		{
-			if ((this._Company_E_Mail != value))
-			{
-				this.OnCompany_E_MailChanging(value);
-				this.SendPropertyChanging();
-				this._Company_E_Mail = value;
-				this.SendPropertyChanged("Company_E_Mail");
-				this.OnCompany_E_MailChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Title", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Title
-	{
-		get
-		{
-			return this._Title;
-		}
-		set
-		{
-			if ((this._Title != value))
-			{
-				this.OnTitleChanging(value);
-				this.SendPropertyChanging();
-				this._Title = value;
-				this.SendPropertyChanged("Title");
-				this.OnTitleChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Salespers__Purch_ Code]", Storage="_Salespers__Purch__Code", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Salespers__Purch__Code
-	{
-		get
-		{
-			return this._Salespers__Purch__Code;
-		}
-		set
-		{
-			if ((this._Salespers__Purch__Code != value))
-			{
-				this.OnSalespers__Purch__CodeChanging(value);
-				this.SendPropertyChanging();
-				this._Salespers__Purch__Code = value;
-				this.SendPropertyChanged("Salespers__Purch__Code");
-				this.OnSalespers__Purch__CodeChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[No_ Series]", Storage="_No__Series", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string No__Series
-	{
-		get
-		{
-			return this._No__Series;
-		}
-		set
-		{
-			if ((this._No__Series != value))
-			{
-				this.OnNo__SeriesChanging(value);
-				this.SendPropertyChanging();
-				this._No__Series = value;
-				this.SendPropertyChanged("No__Series");
-				this.OnNo__SeriesChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Extra", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Extra
-	{
-		get
-		{
-			return this._Extra;
-		}
-		set
-		{
-			if ((this._Extra != value))
-			{
-				this.OnExtraChanging(value);
-				this.SendPropertyChanging();
-				this._Extra = value;
-				this.SendPropertyChanged("Extra");
-				this.OnExtraChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Employee Password]", Storage="_Employee_Password", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Employee_Password
-	{
-		get
-		{
-			return this._Employee_Password;
-		}
-		set
-		{
-			if ((this._Employee_Password != value))
-			{
-				this.OnEmployee_PasswordChanging(value);
-				this.SendPropertyChanging();
-				this._Employee_Password = value;
-				this.SendPropertyChanged("Employee_Password");
-				this.OnEmployee_PasswordChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Manager Group Code]", Storage="_Manager_Group_Code", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Manager_Group_Code
-	{
-		get
-		{
-			return this._Manager_Group_Code;
-		}
-		set
-		{
-			if ((this._Manager_Group_Code != value))
-			{
-				this.OnManager_Group_CodeChanging(value);
-				this.SendPropertyChanging();
-				this._Manager_Group_Code = value;
-				this.SendPropertyChanged("Manager_Group_Code");
-				this.OnManager_Group_CodeChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Accounting Employee]", Storage="_Accounting_Employee", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte Accounting_Employee
-	{
-		get
-		{
-			return this._Accounting_Employee;
-		}
-		set
-		{
-			if ((this._Accounting_Employee != value))
-			{
-				this.OnAccounting_EmployeeChanging(value);
-				this.SendPropertyChanging();
-				this._Accounting_Employee = value;
-				this.SendPropertyChanged("Accounting_Employee");
-				this.OnAccounting_EmployeeChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Time Entry Approval Code]", Storage="_Time_Entry_Approval_Code", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Time_Entry_Approval_Code
-	{
-		get
-		{
-			return this._Time_Entry_Approval_Code;
-		}
-		set
-		{
-			if ((this._Time_Entry_Approval_Code != value))
-			{
-				this.OnTime_Entry_Approval_CodeChanging(value);
-				this.SendPropertyChanging();
-				this._Time_Entry_Approval_Code = value;
-				this.SendPropertyChanged("Time_Entry_Approval_Code");
-				this.OnTime_Entry_Approval_CodeChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Approval level]", Storage="_Approval_level", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public int Approval_level
-	{
-		get
-		{
-			return this._Approval_level;
-		}
-		set
-		{
-			if ((this._Approval_level != value))
-			{
-				this.OnApproval_levelChanging(value);
-				this.SendPropertyChanging();
-				this._Approval_level = value;
-				this.SendPropertyChanged("Approval_level");
-				this.OnApproval_levelChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Over 8 Hrs ST]", Storage="_Over_8_Hrs_ST", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte Over_8_Hrs_ST
-	{
-		get
-		{
-			return this._Over_8_Hrs_ST;
-		}
-		set
-		{
-			if ((this._Over_8_Hrs_ST != value))
-			{
-				this.OnOver_8_Hrs_STChanging(value);
-				this.SendPropertyChanging();
-				this._Over_8_Hrs_ST = value;
-				this.SendPropertyChanged("Over_8_Hrs_ST");
-				this.OnOver_8_Hrs_STChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Original Employment Date]", Storage="_Original_Employment_Date", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public System.DateTime Original_Employment_Date
-	{
-		get
-		{
-			return this._Original_Employment_Date;
-		}
-		set
-		{
-			if ((this._Original_Employment_Date != value))
-			{
-				this.OnOriginal_Employment_DateChanging(value);
-				this.SendPropertyChanging();
-				this._Original_Employment_Date = value;
-				this.SendPropertyChanged("Original_Employment_Date");
-				this.OnOriginal_Employment_DateChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Original Separation Date]", Storage="_Original_Separation_Date", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public System.DateTime Original_Separation_Date
-	{
-		get
-		{
-			return this._Original_Separation_Date;
-		}
-		set
-		{
-			if ((this._Original_Separation_Date != value))
-			{
-				this.OnOriginal_Separation_DateChanging(value);
-				this.SendPropertyChanging();
-				this._Original_Separation_Date = value;
-				this.SendPropertyChanged("Original_Separation_Date");
-				this.OnOriginal_Separation_DateChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Temporary Employee]", Storage="_Temporary_Employee", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte Temporary_Employee
-	{
-		get
-		{
-			return this._Temporary_Employee;
-		}
-		set
-		{
-			if ((this._Temporary_Employee != value))
-			{
-				this.OnTemporary_EmployeeChanging(value);
-				this.SendPropertyChanging();
-				this._Temporary_Employee = value;
-				this.SendPropertyChanged("Temporary_Employee");
-				this.OnTemporary_EmployeeChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Able to Post Time]", Storage="_Able_to_Post_Time", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte Able_to_Post_Time
-	{
-		get
-		{
-			return this._Able_to_Post_Time;
-		}
-		set
-		{
-			if ((this._Able_to_Post_Time != value))
-			{
-				this.OnAble_to_Post_TimeChanging(value);
-				this.SendPropertyChanging();
-				this._Able_to_Post_Time = value;
-				this.SendPropertyChanged("Able_to_Post_Time");
-				this.OnAble_to_Post_TimeChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Reports To]", Storage="_Reports_To", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Reports_To
-	{
-		get
-		{
-			return this._Reports_To;
-		}
-		set
-		{
-			if ((this._Reports_To != value))
-			{
-				this.OnReports_ToChanging(value);
-				this.SendPropertyChanging();
-				this._Reports_To = value;
-				this.SendPropertyChanged("Reports_To");
-				this.OnReports_ToChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Contractor", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte Contractor
-	{
-		get
-		{
-			return this._Contractor;
-		}
-		set
-		{
-			if ((this._Contractor != value))
-			{
-				this.OnContractorChanging(value);
-				this.SendPropertyChanging();
-				this._Contractor = value;
-				this.SendPropertyChanged("Contractor");
-				this.OnContractorChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Achievement TEC Results Date]", Storage="_Achievement_TEC_Results_Date", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public System.DateTime Achievement_TEC_Results_Date
-	{
-		get
-		{
-			return this._Achievement_TEC_Results_Date;
-		}
-		set
-		{
-			if ((this._Achievement_TEC_Results_Date != value))
-			{
-				this.OnAchievement_TEC_Results_DateChanging(value);
-				this.SendPropertyChanging();
-				this._Achievement_TEC_Results_Date = value;
-				this.SendPropertyChanged("Achievement_TEC_Results_Date");
-				this.OnAchievement_TEC_Results_DateChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[TI Background Check Date]", Storage="_TI_Background_Check_Date", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public System.DateTime TI_Background_Check_Date
-	{
-		get
-		{
-			return this._TI_Background_Check_Date;
-		}
-		set
-		{
-			if ((this._TI_Background_Check_Date != value))
-			{
-				this.OnTI_Background_Check_DateChanging(value);
-				this.SendPropertyChanging();
-				this._TI_Background_Check_Date = value;
-				this.SendPropertyChanged("TI_Background_Check_Date");
-				this.OnTI_Background_Check_DateChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Maiden Name]", Storage="_Maiden_Name", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Maiden_Name
-	{
-		get
-		{
-			return this._Maiden_Name;
-		}
-		set
-		{
-			if ((this._Maiden_Name != value))
-			{
-				this.OnMaiden_NameChanging(value);
-				this.SendPropertyChanging();
-				this._Maiden_Name = value;
-				this.SendPropertyChanged("Maiden_Name");
-				this.OnMaiden_NameChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Alias", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Alias
-	{
-		get
-		{
-			return this._Alias;
-		}
-		set
-		{
-			if ((this._Alias != value))
-			{
-				this.OnAliasChanging(value);
-				this.SendPropertyChanging();
-				this._Alias = value;
-				this.SendPropertyChanged("Alias");
-				this.OnAliasChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Previously Used Name]", Storage="_Previously_Used_Name", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Previously_Used_Name
-	{
-		get
-		{
-			return this._Previously_Used_Name;
-		}
-		set
-		{
-			if ((this._Previously_Used_Name != value))
-			{
-				this.OnPreviously_Used_NameChanging(value);
-				this.SendPropertyChanging();
-				this._Previously_Used_Name = value;
-				this.SendPropertyChanged("Previously_Used_Name");
-				this.OnPreviously_Used_NameChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Emergency Contact Name]", Storage="_Emergency_Contact_Name", DbType="VarChar(40) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Emergency_Contact_Name
-	{
-		get
-		{
-			return this._Emergency_Contact_Name;
-		}
-		set
-		{
-			if ((this._Emergency_Contact_Name != value))
-			{
-				this.OnEmergency_Contact_NameChanging(value);
-				this.SendPropertyChanging();
-				this._Emergency_Contact_Name = value;
-				this.SendPropertyChanged("Emergency_Contact_Name");
-				this.OnEmergency_Contact_NameChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Emergency Contact Street Addr_]", Storage="_Emergency_Contact_Street_Addr_", DbType="VarChar(50) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Emergency_Contact_Street_Addr_
-	{
-		get
-		{
-			return this._Emergency_Contact_Street_Addr_;
-		}
-		set
-		{
-			if ((this._Emergency_Contact_Street_Addr_ != value))
-			{
-				this.OnEmergency_Contact_Street_Addr_Changing(value);
-				this.SendPropertyChanging();
-				this._Emergency_Contact_Street_Addr_ = value;
-				this.SendPropertyChanged("Emergency_Contact_Street_Addr_");
-				this.OnEmergency_Contact_Street_Addr_Changed();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Emergency Contact City]", Storage="_Emergency_Contact_City", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Emergency_Contact_City
-	{
-		get
-		{
-			return this._Emergency_Contact_City;
-		}
-		set
-		{
-			if ((this._Emergency_Contact_City != value))
-			{
-				this.OnEmergency_Contact_CityChanging(value);
-				this.SendPropertyChanging();
-				this._Emergency_Contact_City = value;
-				this.SendPropertyChanged("Emergency_Contact_City");
-				this.OnEmergency_Contact_CityChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Emergency Contact State]", Storage="_Emergency_Contact_State", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Emergency_Contact_State
-	{
-		get
-		{
-			return this._Emergency_Contact_State;
-		}
-		set
-		{
-			if ((this._Emergency_Contact_State != value))
-			{
-				this.OnEmergency_Contact_StateChanging(value);
-				this.SendPropertyChanging();
-				this._Emergency_Contact_State = value;
-				this.SendPropertyChanged("Emergency_Contact_State");
-				this.OnEmergency_Contact_StateChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Emergency Contact Zip Code]", Storage="_Emergency_Contact_Zip_Code", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Emergency_Contact_Zip_Code
-	{
-		get
-		{
-			return this._Emergency_Contact_Zip_Code;
-		}
-		set
-		{
-			if ((this._Emergency_Contact_Zip_Code != value))
-			{
-				this.OnEmergency_Contact_Zip_CodeChanging(value);
-				this.SendPropertyChanging();
-				this._Emergency_Contact_Zip_Code = value;
-				this.SendPropertyChanged("Emergency_Contact_Zip_Code");
-				this.OnEmergency_Contact_Zip_CodeChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Emergency Contact Phone No_]", Storage="_Emergency_Contact_Phone_No_", DbType="VarChar(15) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Emergency_Contact_Phone_No_
-	{
-		get
-		{
-			return this._Emergency_Contact_Phone_No_;
-		}
-		set
-		{
-			if ((this._Emergency_Contact_Phone_No_ != value))
-			{
-				this.OnEmergency_Contact_Phone_No_Changing(value);
-				this.SendPropertyChanging();
-				this._Emergency_Contact_Phone_No_ = value;
-				this.SendPropertyChanged("Emergency_Contact_Phone_No_");
-				this.OnEmergency_Contact_Phone_No_Changed();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Emergency Contact Cell No_]", Storage="_Emergency_Contact_Cell_No_", DbType="VarChar(15) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Emergency_Contact_Cell_No_
-	{
-		get
-		{
-			return this._Emergency_Contact_Cell_No_;
-		}
-		set
-		{
-			if ((this._Emergency_Contact_Cell_No_ != value))
-			{
-				this.OnEmergency_Contact_Cell_No_Changing(value);
-				this.SendPropertyChanging();
-				this._Emergency_Contact_Cell_No_ = value;
-				this.SendPropertyChanged("Emergency_Contact_Cell_No_");
-				this.OnEmergency_Contact_Cell_No_Changed();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Emergency Contact Rel_ to Empl]", Storage="_Emergency_Contact_Rel__to_Empl", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Emergency_Contact_Rel__to_Empl
-	{
-		get
-		{
-			return this._Emergency_Contact_Rel__to_Empl;
-		}
-		set
-		{
-			if ((this._Emergency_Contact_Rel__to_Empl != value))
-			{
-				this.OnEmergency_Contact_Rel__to_EmplChanging(value);
-				this.SendPropertyChanging();
-				this._Emergency_Contact_Rel__to_Empl = value;
-				this.SendPropertyChanged("Emergency_Contact_Rel__to_Empl");
-				this.OnEmergency_Contact_Rel__to_EmplChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Drivers License State]", Storage="_Drivers_License_State", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Drivers_License_State
-	{
-		get
-		{
-			return this._Drivers_License_State;
-		}
-		set
-		{
-			if ((this._Drivers_License_State != value))
-			{
-				this.OnDrivers_License_StateChanging(value);
-				this.SendPropertyChanging();
-				this._Drivers_License_State = value;
-				this.SendPropertyChanged("Drivers_License_State");
-				this.OnDrivers_License_StateChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Drivers License No_]", Storage="_Drivers_License_No_", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Drivers_License_No_
-	{
-		get
-		{
-			return this._Drivers_License_No_;
-		}
-		set
-		{
-			if ((this._Drivers_License_No_ != value))
-			{
-				this.OnDrivers_License_No_Changing(value);
-				this.SendPropertyChanging();
-				this._Drivers_License_No_ = value;
-				this.SendPropertyChanged("Drivers_License_No_");
-				this.OnDrivers_License_No_Changed();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[US County]", Storage="_US_County", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string US_County
-	{
-		get
-		{
-			return this._US_County;
-		}
-		set
-		{
-			if ((this._US_County != value))
-			{
-				this.OnUS_CountyChanging(value);
-				this.SendPropertyChanging();
-				this._US_County = value;
-				this.SendPropertyChanged("US_County");
-				this.OnUS_CountyChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Address Start Date]", Storage="_Address_Start_Date", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public System.DateTime Address_Start_Date
-	{
-		get
-		{
-			return this._Address_Start_Date;
-		}
-		set
-		{
-			if ((this._Address_Start_Date != value))
-			{
-				this.OnAddress_Start_DateChanging(value);
-				this.SendPropertyChanging();
-				this._Address_Start_Date = value;
-				this.SendPropertyChanged("Address_Start_Date");
-				this.OnAddress_Start_DateChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Birth Place]", Storage="_Birth_Place", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Birth_Place
-	{
-		get
-		{
-			return this._Birth_Place;
-		}
-		set
-		{
-			if ((this._Birth_Place != value))
-			{
-				this.OnBirth_PlaceChanging(value);
-				this.SendPropertyChanging();
-				this._Birth_Place = value;
-				this.SendPropertyChanged("Birth_Place");
-				this.OnBirth_PlaceChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Preferred Name]", Storage="_Preferred_Name", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Preferred_Name
-	{
-		get
-		{
-			return this._Preferred_Name;
-		}
-		set
-		{
-			if ((this._Preferred_Name != value))
-			{
-				this.OnPreferred_NameChanging(value);
-				this.SendPropertyChanging();
-				this._Preferred_Name = value;
-				this.SendPropertyChanged("Preferred_Name");
-				this.OnPreferred_NameChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Shermco Cell Phone No_]", Storage="_Shermco_Cell_Phone_No_", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Shermco_Cell_Phone_No_
-	{
-		get
-		{
-			return this._Shermco_Cell_Phone_No_;
-		}
-		set
-		{
-			if ((this._Shermco_Cell_Phone_No_ != value))
-			{
-				this.OnShermco_Cell_Phone_No_Changing(value);
-				this.SendPropertyChanging();
-				this._Shermco_Cell_Phone_No_ = value;
-				this.SendPropertyChanged("Shermco_Cell_Phone_No_");
-				this.OnShermco_Cell_Phone_No_Changed();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Prior TI Access]", Storage="_Prior_TI_Access", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte Prior_TI_Access
-	{
-		get
-		{
-			return this._Prior_TI_Access;
-		}
-		set
-		{
-			if ((this._Prior_TI_Access != value))
-			{
-				this.OnPrior_TI_AccessChanging(value);
-				this.SendPropertyChanging();
-				this._Prior_TI_Access = value;
-				this.SendPropertyChanged("Prior_TI_Access");
-				this.OnPrior_TI_AccessChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Prior TI Access Beginning Date]", Storage="_Prior_TI_Access_Beginning_Date", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public System.DateTime Prior_TI_Access_Beginning_Date
-	{
-		get
-		{
-			return this._Prior_TI_Access_Beginning_Date;
-		}
-		set
-		{
-			if ((this._Prior_TI_Access_Beginning_Date != value))
-			{
-				this.OnPrior_TI_Access_Beginning_DateChanging(value);
-				this.SendPropertyChanging();
-				this._Prior_TI_Access_Beginning_Date = value;
-				this.SendPropertyChanged("Prior_TI_Access_Beginning_Date");
-				this.OnPrior_TI_Access_Beginning_DateChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Prior TI Access Ending Date]", Storage="_Prior_TI_Access_Ending_Date", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public System.DateTime Prior_TI_Access_Ending_Date
-	{
-		get
-		{
-			return this._Prior_TI_Access_Ending_Date;
-		}
-		set
-		{
-			if ((this._Prior_TI_Access_Ending_Date != value))
-			{
-				this.OnPrior_TI_Access_Ending_DateChanging(value);
-				this.SendPropertyChanging();
-				this._Prior_TI_Access_Ending_Date = value;
-				this.SendPropertyChanged("Prior_TI_Access_Ending_Date");
-				this.OnPrior_TI_Access_Ending_DateChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Denied Access to TI]", Storage="_Denied_Access_to_TI", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte Denied_Access_to_TI
-	{
-		get
-		{
-			return this._Denied_Access_to_TI;
-		}
-		set
-		{
-			if ((this._Denied_Access_to_TI != value))
-			{
-				this.OnDenied_Access_to_TIChanging(value);
-				this.SendPropertyChanging();
-				this._Denied_Access_to_TI = value;
-				this.SendPropertyChanged("Denied_Access_to_TI");
-				this.OnDenied_Access_to_TIChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Citizen of United States]", Storage="_Citizen_of_United_States", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte Citizen_of_United_States
-	{
-		get
-		{
-			return this._Citizen_of_United_States;
-		}
-		set
-		{
-			if ((this._Citizen_of_United_States != value))
-			{
-				this.OnCitizen_of_United_StatesChanging(value);
-				this.SendPropertyChanging();
-				this._Citizen_of_United_States = value;
-				this.SendPropertyChanged("Citizen_of_United_States");
-				this.OnCitizen_of_United_StatesChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Visa Category]", Storage="_Visa_Category", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Visa_Category
-	{
-		get
-		{
-			return this._Visa_Category;
-		}
-		set
-		{
-			if ((this._Visa_Category != value))
-			{
-				this.OnVisa_CategoryChanging(value);
-				this.SendPropertyChanging();
-				this._Visa_Category = value;
-				this.SendPropertyChanged("Visa_Category");
-				this.OnVisa_CategoryChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Admission #]", Storage="_Admission__", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Admission__
-	{
-		get
-		{
-			return this._Admission__;
-		}
-		set
-		{
-			if ((this._Admission__ != value))
-			{
-				this.OnAdmission__Changing(value);
-				this.SendPropertyChanging();
-				this._Admission__ = value;
-				this.SendPropertyChanged("Admission__");
-				this.OnAdmission__Changed();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Visa Expiration Date]", Storage="_Visa_Expiration_Date", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public System.DateTime Visa_Expiration_Date
-	{
-		get
-		{
-			return this._Visa_Expiration_Date;
-		}
-		set
-		{
-			if ((this._Visa_Expiration_Date != value))
-			{
-				this.OnVisa_Expiration_DateChanging(value);
-				this.SendPropertyChanging();
-				this._Visa_Expiration_Date = value;
-				this.SendPropertyChanged("Visa_Expiration_Date");
-				this.OnVisa_Expiration_DateChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Country of Birth]", Storage="_Country_of_Birth", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Country_of_Birth
-	{
-		get
-		{
-			return this._Country_of_Birth;
-		}
-		set
-		{
-			if ((this._Country_of_Birth != value))
-			{
-				this.OnCountry_of_BirthChanging(value);
-				this.SendPropertyChanging();
-				this._Country_of_Birth = value;
-				this.SendPropertyChanged("Country_of_Birth");
-				this.OnCountry_of_BirthChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Country of Citizenship]", Storage="_Country_of_Citizenship", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Country_of_Citizenship
-	{
-		get
-		{
-			return this._Country_of_Citizenship;
-		}
-		set
-		{
-			if ((this._Country_of_Citizenship != value))
-			{
-				this.OnCountry_of_CitizenshipChanging(value);
-				this.SendPropertyChanging();
-				this._Country_of_Citizenship = value;
-				this.SendPropertyChanged("Country_of_Citizenship");
-				this.OnCountry_of_CitizenshipChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Work Phone]", Storage="_Work_Phone", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Work_Phone
-	{
-		get
-		{
-			return this._Work_Phone;
-		}
-		set
-		{
-			if ((this._Work_Phone != value))
-			{
-				this.OnWork_PhoneChanging(value);
-				this.SendPropertyChanging();
-				this._Work_Phone = value;
-				this.SendPropertyChanged("Work_Phone");
-				this.OnWork_PhoneChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Drug_Alcohol Test Date]", Storage="_Drug_Alcohol_Test_Date", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public System.DateTime Drug_Alcohol_Test_Date
-	{
-		get
-		{
-			return this._Drug_Alcohol_Test_Date;
-		}
-		set
-		{
-			if ((this._Drug_Alcohol_Test_Date != value))
-			{
-				this.OnDrug_Alcohol_Test_DateChanging(value);
-				this.SendPropertyChanging();
-				this._Drug_Alcohol_Test_Date = value;
-				this.SendPropertyChanged("Drug_Alcohol_Test_Date");
-				this.OnDrug_Alcohol_Test_DateChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Referral Source]", Storage="_Referral_Source", DbType="VarChar(80) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Referral_Source
-	{
-		get
-		{
-			return this._Referral_Source;
-		}
-		set
-		{
-			if ((this._Referral_Source != value))
-			{
-				this.OnReferral_SourceChanging(value);
-				this.SendPropertyChanging();
-				this._Referral_Source = value;
-				this.SendPropertyChanged("Referral_Source");
-				this.OnReferral_SourceChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Referral Employee No_]", Storage="_Referral_Employee_No_", DbType="VarChar(80) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Referral_Employee_No_
-	{
-		get
-		{
-			return this._Referral_Employee_No_;
-		}
-		set
-		{
-			if ((this._Referral_Employee_No_ != value))
-			{
-				this.OnReferral_Employee_No_Changing(value);
-				this.SendPropertyChanging();
-				this._Referral_Employee_No_ = value;
-				this.SendPropertyChanged("Referral_Employee_No_");
-				this.OnReferral_Employee_No_Changed();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[EOC Race]", Storage="_EOC_Race", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public int EOC_Race
-	{
-		get
-		{
-			return this._EOC_Race;
-		}
-		set
-		{
-			if ((this._EOC_Race != value))
-			{
-				this.OnEOC_RaceChanging(value);
-				this.SendPropertyChanging();
-				this._EOC_Race = value;
-				this.SendPropertyChanged("EOC_Race");
-				this.OnEOC_RaceChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Veteran", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public int Veteran
-	{
-		get
-		{
-			return this._Veteran;
-		}
-		set
-		{
-			if ((this._Veteran != value))
-			{
-				this.OnVeteranChanging(value);
-				this.SendPropertyChanging();
-				this._Veteran = value;
-				this.SendPropertyChanged("Veteran");
-				this.OnVeteranChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Disabled", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte Disabled
-	{
-		get
-		{
-			return this._Disabled;
-		}
-		set
-		{
-			if ((this._Disabled != value))
-			{
-				this.OnDisabledChanging(value);
-				this.SendPropertyChanging();
-				this._Disabled = value;
-				this.SendPropertyChanged("Disabled");
-				this.OnDisabledChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Temp Block]", Storage="_Temp_Block", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte Temp_Block
-	{
-		get
-		{
-			return this._Temp_Block;
-		}
-		set
-		{
-			if ((this._Temp_Block != value))
-			{
-				this.OnTemp_BlockChanging(value);
-				this.SendPropertyChanging();
-				this._Temp_Block = value;
-				this.SendPropertyChanged("Temp_Block");
-				this.OnTemp_BlockChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Pay type]", Storage="_Pay_type", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public int Pay_type
-	{
-		get
-		{
-			return this._Pay_type;
-		}
-		set
-		{
-			if ((this._Pay_type != value))
-			{
-				this.OnPay_typeChanging(value);
-				this.SendPropertyChanging();
-				this._Pay_type = value;
-				this.SendPropertyChanged("Pay_type");
-				this.OnPay_typeChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Display Name]", Storage="_Display_Name", DbType="VarChar(50) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Display_Name
-	{
-		get
-		{
-			return this._Display_Name;
-		}
-		set
-		{
-			if ((this._Display_Name != value))
-			{
-				this.OnDisplay_NameChanging(value);
-				this.SendPropertyChanging();
-				this._Display_Name = value;
-				this.SendPropertyChanged("Display_Name");
-				this.OnDisplay_NameChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Class Code]", Storage="_Class_Code", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Class_Code
-	{
-		get
-		{
-			return this._Class_Code;
-		}
-		set
-		{
-			if ((this._Class_Code != value))
-			{
-				this.OnClass_CodeChanging(value);
-				this.SendPropertyChanging();
-				this._Class_Code = value;
-				this.SendPropertyChanged("Class_Code");
-				this.OnClass_CodeChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Home Phone No_]", Storage="_Home_Phone_No_", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Home_Phone_No_
-	{
-		get
-		{
-			return this._Home_Phone_No_;
-		}
-		set
-		{
-			if ((this._Home_Phone_No_ != value))
-			{
-				this.OnHome_Phone_No_Changing(value);
-				this.SendPropertyChanging();
-				this._Home_Phone_No_ = value;
-				this.SendPropertyChanged("Home_Phone_No_");
-				this.OnHome_Phone_No_Changed();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Suffix", DbType="VarChar(5) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Suffix
-	{
-		get
-		{
-			return this._Suffix;
-		}
-		set
-		{
-			if ((this._Suffix != value))
-			{
-				this.OnSuffixChanging(value);
-				this.SendPropertyChanging();
-				this._Suffix = value;
-				this.SendPropertyChanged("Suffix");
-				this.OnSuffixChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Race", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Race
-	{
-		get
-		{
-			return this._Race;
-		}
-		set
-		{
-			if ((this._Race != value))
-			{
-				this.OnRaceChanging(value);
-				this.SendPropertyChanging();
-				this._Race = value;
-				this.SendPropertyChanged("Race");
-				this.OnRaceChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Position Code]", Storage="_Position_Code", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Position_Code
-	{
-		get
-		{
-			return this._Position_Code;
-		}
-		set
-		{
-			if ((this._Position_Code != value))
-			{
-				this.OnPosition_CodeChanging(value);
-				this.SendPropertyChanging();
-				this._Position_Code = value;
-				this.SendPropertyChanged("Position_Code");
-				this.OnPosition_CodeChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Blocked", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte Blocked
-	{
-		get
-		{
-			return this._Blocked;
-		}
-		set
-		{
-			if ((this._Blocked != value))
-			{
-				this.OnBlockedChanging(value);
-				this.SendPropertyChanging();
-				this._Blocked = value;
-				this.SendPropertyChanged("Blocked");
-				this.OnBlockedChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Middle Initial]", Storage="_Middle_Initial", DbType="VarChar(5) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Middle_Initial
-	{
-		get
-		{
-			return this._Middle_Initial;
-		}
-		set
-		{
-			if ((this._Middle_Initial != value))
-			{
-				this.OnMiddle_InitialChanging(value);
-				this.SendPropertyChanging();
-				this._Middle_Initial = value;
-				this.SendPropertyChanged("Middle_Initial");
-				this.OnMiddle_InitialChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Default Work Type Code]", Storage="_Default_Work_Type_Code", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Default_Work_Type_Code
-	{
-		get
-		{
-			return this._Default_Work_Type_Code;
-		}
-		set
-		{
-			if ((this._Default_Work_Type_Code != value))
-			{
-				this.OnDefault_Work_Type_CodeChanging(value);
-				this.SendPropertyChanging();
-				this._Default_Work_Type_Code = value;
-				this.SendPropertyChanged("Default_Work_Type_Code");
-				this.OnDefault_Work_Type_CodeChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Deceased", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte Deceased
-	{
-		get
-		{
-			return this._Deceased;
-		}
-		set
-		{
-			if ((this._Deceased != value))
-			{
-				this.OnDeceasedChanging(value);
-				this.SendPropertyChanging();
-				this._Deceased = value;
-				this.SendPropertyChanged("Deceased");
-				this.OnDeceasedChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[SSN Is Verified]", Storage="_SSN_Is_Verified", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte SSN_Is_Verified
-	{
-		get
-		{
-			return this._SSN_Is_Verified;
-		}
-		set
-		{
-			if ((this._SSN_Is_Verified != value))
-			{
-				this.OnSSN_Is_VerifiedChanging(value);
-				this.SendPropertyChanging();
-				this._SSN_Is_Verified = value;
-				this.SendPropertyChanged("SSN_Is_Verified");
-				this.OnSSN_Is_VerifiedChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Pay Cycle Code]", Storage="_Pay_Cycle_Code", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Pay_Cycle_Code
-	{
-		get
-		{
-			return this._Pay_Cycle_Code;
-		}
-		set
-		{
-			if ((this._Pay_Cycle_Code != value))
-			{
-				this.OnPay_Cycle_CodeChanging(value);
-				this.SendPropertyChanging();
-				this._Pay_Cycle_Code = value;
-				this.SendPropertyChanged("Pay_Cycle_Code");
-				this.OnPay_Cycle_CodeChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Employer No_]", Storage="_Employer_No_", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Employer_No_
-	{
-		get
-		{
-			return this._Employer_No_;
-		}
-		set
-		{
-			if ((this._Employer_No_ != value))
-			{
-				this.OnEmployer_No_Changing(value);
-				this.SendPropertyChanging();
-				this._Employer_No_ = value;
-				this.SendPropertyChanged("Employer_No_");
-				this.OnEmployer_No_Changed();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Statutory Employee]", Storage="_Statutory_Employee", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte Statutory_Employee
-	{
-		get
-		{
-			return this._Statutory_Employee;
-		}
-		set
-		{
-			if ((this._Statutory_Employee != value))
-			{
-				this.OnStatutory_EmployeeChanging(value);
-				this.SendPropertyChanging();
-				this._Statutory_Employee = value;
-				this.SendPropertyChanged("Statutory_Employee");
-				this.OnStatutory_EmployeeChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Retirement Plan]", Storage="_Retirement_Plan", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte Retirement_Plan
-	{
-		get
-		{
-			return this._Retirement_Plan;
-		}
-		set
-		{
-			if ((this._Retirement_Plan != value))
-			{
-				this.OnRetirement_PlanChanging(value);
-				this.SendPropertyChanging();
-				this._Retirement_Plan = value;
-				this.SendPropertyChanged("Retirement_Plan");
-				this.OnRetirement_PlanChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Legal Representative]", Storage="_Legal_Representative", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte Legal_Representative
-	{
-		get
-		{
-			return this._Legal_Representative;
-		}
-		set
-		{
-			if ((this._Legal_Representative != value))
-			{
-				this.OnLegal_RepresentativeChanging(value);
-				this.SendPropertyChanging();
-				this._Legal_Representative = value;
-				this.SendPropertyChanged("Legal_Representative");
-				this.OnLegal_RepresentativeChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Household Employee]", Storage="_Household_Employee", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte Household_Employee
-	{
-		get
-		{
-			return this._Household_Employee;
-		}
-		set
-		{
-			if ((this._Household_Employee != value))
-			{
-				this.OnHousehold_EmployeeChanging(value);
-				this.SendPropertyChanging();
-				this._Household_Employee = value;
-				this.SendPropertyChanged("Household_Employee");
-				this.OnHousehold_EmployeeChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Deferred Compensation]", Storage="_Deferred_Compensation", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte Deferred_Compensation
-	{
-		get
-		{
-			return this._Deferred_Compensation;
-		}
-		set
-		{
-			if ((this._Deferred_Compensation != value))
-			{
-				this.OnDeferred_CompensationChanging(value);
-				this.SendPropertyChanging();
-				this._Deferred_Compensation = value;
-				this.SendPropertyChanged("Deferred_Compensation");
-				this.OnDeferred_CompensationChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Third-Party Sick Pay]", Storage="_Third_Party_Sick_Pay", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte Third_Party_Sick_Pay
-	{
-		get
-		{
-			return this._Third_Party_Sick_Pay;
-		}
-		set
-		{
-			if ((this._Third_Party_Sick_Pay != value))
-			{
-				this.OnThird_Party_Sick_PayChanging(value);
-				this.SendPropertyChanging();
-				this._Third_Party_Sick_Pay = value;
-				this.SendPropertyChanged("Third_Party_Sick_Pay");
-				this.OnThird_Party_Sick_PayChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Default Rep_ Auth_ Code]", Storage="_Default_Rep__Auth__Code", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Default_Rep__Auth__Code
-	{
-		get
-		{
-			return this._Default_Rep__Auth__Code;
-		}
-		set
-		{
-			if ((this._Default_Rep__Auth__Code != value))
-			{
-				this.OnDefault_Rep__Auth__CodeChanging(value);
-				this.SendPropertyChanging();
-				this._Default_Rep__Auth__Code = value;
-				this.SendPropertyChanged("Default_Rep__Auth__Code");
-				this.OnDefault_Rep__Auth__CodeChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Social Insurance No_]", Storage="_Social_Insurance_No_", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Social_Insurance_No_
-	{
-		get
-		{
-			return this._Social_Insurance_No_;
-		}
-		set
-		{
-			if ((this._Social_Insurance_No_ != value))
-			{
-				this.OnSocial_Insurance_No_Changing(value);
-				this.SendPropertyChanging();
-				this._Social_Insurance_No_ = value;
-				this.SendPropertyChanged("Social_Insurance_No_");
-				this.OnSocial_Insurance_No_Changed();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[CPP Exempt]", Storage="_CPP_Exempt", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte CPP_Exempt
-	{
-		get
-		{
-			return this._CPP_Exempt;
-		}
-		set
-		{
-			if ((this._CPP_Exempt != value))
-			{
-				this.OnCPP_ExemptChanging(value);
-				this.SendPropertyChanging();
-				this._CPP_Exempt = value;
-				this.SendPropertyChanged("CPP_Exempt");
-				this.OnCPP_ExemptChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[EI Exempt]", Storage="_EI_Exempt", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte EI_Exempt
-	{
-		get
-		{
-			return this._EI_Exempt;
-		}
-		set
-		{
-			if ((this._EI_Exempt != value))
-			{
-				this.OnEI_ExemptChanging(value);
-				this.SendPropertyChanging();
-				this._EI_Exempt = value;
-				this.SendPropertyChanged("EI_Exempt");
-				this.OnEI_ExemptChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[RPP or DPSP]", Storage="_RPP_or_DPSP", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string RPP_or_DPSP
-	{
-		get
-		{
-			return this._RPP_or_DPSP;
-		}
-		set
-		{
-			if ((this._RPP_or_DPSP != value))
-			{
-				this.OnRPP_or_DPSPChanging(value);
-				this.SendPropertyChanging();
-				this._RPP_or_DPSP = value;
-				this.SendPropertyChanged("RPP_or_DPSP");
-				this.OnRPP_or_DPSPChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Override Insurable Hours]", Storage="_Override_Insurable_Hours", DbType="Decimal(38,20) NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public decimal Override_Insurable_Hours
-	{
-		get
-		{
-			return this._Override_Insurable_Hours;
-		}
-		set
-		{
-			if ((this._Override_Insurable_Hours != value))
-			{
-				this.OnOverride_Insurable_HoursChanging(value);
-				this.SendPropertyChanging();
-				this._Override_Insurable_Hours = value;
-				this.SendPropertyChanged("Override_Insurable_Hours");
-				this.OnOverride_Insurable_HoursChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Salaried", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte Salaried
-	{
-		get
-		{
-			return this._Salaried;
-		}
-		set
-		{
-			if ((this._Salaried != value))
-			{
-				this.OnSalariedChanging(value);
-				this.SendPropertyChanging();
-				this._Salaried = value;
-				this.SendPropertyChanged("Salaried");
-				this.OnSalariedChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Language Code]", Storage="_Language_Code", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Language_Code
-	{
-		get
-		{
-			return this._Language_Code;
-		}
-		set
-		{
-			if ((this._Language_Code != value))
-			{
-				this.OnLanguage_CodeChanging(value);
-				this.SendPropertyChanging();
-				this._Language_Code = value;
-				this.SendPropertyChanged("Language_Code");
-				this.OnLanguage_CodeChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[HR Rep_ No_]", Storage="_HR_Rep__No_", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string HR_Rep__No_
-	{
-		get
-		{
-			return this._HR_Rep__No_;
-		}
-		set
-		{
-			if ((this._HR_Rep__No_ != value))
-			{
-				this.OnHR_Rep__No_Changing(value);
-				this.SendPropertyChanging();
-				this._HR_Rep__No_ = value;
-				this.SendPropertyChanged("HR_Rep__No_");
-				this.OnHR_Rep__No_Changed();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[HR Rep_ Contact]", Storage="_HR_Rep__Contact", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string HR_Rep__Contact
-	{
-		get
-		{
-			return this._HR_Rep__Contact;
-		}
-		set
-		{
-			if ((this._HR_Rep__Contact != value))
-			{
-				this.OnHR_Rep__ContactChanging(value);
-				this.SendPropertyChanging();
-				this._HR_Rep__Contact = value;
-				this.SendPropertyChanged("HR_Rep__Contact");
-				this.OnHR_Rep__ContactChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Salutation Code]", Storage="_Salutation_Code", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Salutation_Code
-	{
-		get
-		{
-			return this._Salutation_Code;
-		}
-		set
-		{
-			if ((this._Salutation_Code != value))
-			{
-				this.OnSalutation_CodeChanging(value);
-				this.SendPropertyChanging();
-				this._Salutation_Code = value;
-				this.SendPropertyChanged("Salutation_Code");
-				this.OnSalutation_CodeChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[F_T_ Equivalent]", Storage="_F_T__Equivalent", DbType="Decimal(38,20) NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public decimal F_T__Equivalent
-	{
-		get
-		{
-			return this._F_T__Equivalent;
-		}
-		set
-		{
-			if ((this._F_T__Equivalent != value))
-			{
-				this.OnF_T__EquivalentChanging(value);
-				this.SendPropertyChanging();
-				this._F_T__Equivalent = value;
-				this.SendPropertyChanged("F_T__Equivalent");
-				this.OnF_T__EquivalentChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Score", DbType="Decimal(38,20) NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public decimal Score
-	{
-		get
-		{
-			return this._Score;
-		}
-		set
-		{
-			if ((this._Score != value))
-			{
-				this.OnScoreChanging(value);
-				this.SendPropertyChanging();
-				this._Score = value;
-				this.SendPropertyChanged("Score");
-				this.OnScoreChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[MVR Record Retrieved]", Storage="_MVR_Record_Retrieved", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public System.DateTime MVR_Record_Retrieved
-	{
-		get
-		{
-			return this._MVR_Record_Retrieved;
-		}
-		set
-		{
-			if ((this._MVR_Record_Retrieved != value))
-			{
-				this.OnMVR_Record_RetrievedChanging(value);
-				this.SendPropertyChanging();
-				this._MVR_Record_Retrieved = value;
-				this.SendPropertyChanged("MVR_Record_Retrieved");
-				this.OnMVR_Record_RetrievedChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Veteran Separation Date]", Storage="_Veteran_Separation_Date", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public System.DateTime Veteran_Separation_Date
-	{
-		get
-		{
-			return this._Veteran_Separation_Date;
-		}
-		set
-		{
-			if ((this._Veteran_Separation_Date != value))
-			{
-				this.OnVeteran_Separation_DateChanging(value);
-				this.SendPropertyChanging();
-				this._Veteran_Separation_Date = value;
-				this.SendPropertyChanged("Veteran_Separation_Date");
-				this.OnVeteran_Separation_DateChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Block Time Entry]", Storage="_Block_Time_Entry", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte Block_Time_Entry
-	{
-		get
-		{
-			return this._Block_Time_Entry;
-		}
-		set
-		{
-			if ((this._Block_Time_Entry != value))
-			{
-				this.OnBlock_Time_EntryChanging(value);
-				this.SendPropertyChanging();
-				this._Block_Time_Entry = value;
-				this.SendPropertyChanged("Block_Time_Entry");
-				this.OnBlock_Time_EntryChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Block Time Entry Reason]", Storage="_Block_Time_Entry_Reason", DbType="VarChar(100) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Block_Time_Entry_Reason
-	{
-		get
-		{
-			return this._Block_Time_Entry_Reason;
-		}
-		set
-		{
-			if ((this._Block_Time_Entry_Reason != value))
-			{
-				this.OnBlock_Time_Entry_ReasonChanging(value);
-				this.SendPropertyChanging();
-				this._Block_Time_Entry_Reason = value;
-				this.SendPropertyChanged("Block_Time_Entry_Reason");
-				this.OnBlock_Time_Entry_ReasonChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Block Time Entry Req By]", Storage="_Block_Time_Entry_Req_By", DbType="VarChar(100) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Block_Time_Entry_Req_By
-	{
-		get
-		{
-			return this._Block_Time_Entry_Req_By;
-		}
-		set
-		{
-			if ((this._Block_Time_Entry_Req_By != value))
-			{
-				this.OnBlock_Time_Entry_Req_ByChanging(value);
-				this.SendPropertyChanging();
-				this._Block_Time_Entry_Req_By = value;
-				this.SendPropertyChanged("Block_Time_Entry_Req_By");
-				this.OnBlock_Time_Entry_Req_ByChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Block Phone List]", Storage="_Block_Phone_List", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte Block_Phone_List
-	{
-		get
-		{
-			return this._Block_Phone_List;
-		}
-		set
-		{
-			if ((this._Block_Phone_List != value))
-			{
-				this.OnBlock_Phone_ListChanging(value);
-				this.SendPropertyChanging();
-				this._Block_Phone_List = value;
-				this.SendPropertyChanged("Block_Phone_List");
-				this.OnBlock_Phone_ListChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Block Birthday List]", Storage="_Block_Birthday_List", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte Block_Birthday_List
-	{
-		get
-		{
-			return this._Block_Birthday_List;
-		}
-		set
-		{
-			if ((this._Block_Birthday_List != value))
-			{
-				this.OnBlock_Birthday_ListChanging(value);
-				this.SendPropertyChanging();
-				this._Block_Birthday_List = value;
-				this.SendPropertyChanged("Block_Birthday_List");
-				this.OnBlock_Birthday_ListChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[OT to Overhead]", Storage="_OT_to_Overhead", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte OT_to_Overhead
-	{
-		get
-		{
-			return this._OT_to_Overhead;
-		}
-		set
-		{
-			if ((this._OT_to_Overhead != value))
-			{
-				this.OnOT_to_OverheadChanging(value);
-				this.SendPropertyChanging();
-				this._OT_to_Overhead = value;
-				this.SendPropertyChanged("OT_to_Overhead");
-				this.OnOT_to_OverheadChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[IT New Emp Alert]", Storage="_IT_New_Emp_Alert", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte IT_New_Emp_Alert
-	{
-		get
-		{
-			return this._IT_New_Emp_Alert;
-		}
-		set
-		{
-			if ((this._IT_New_Emp_Alert != value))
-			{
-				this.OnIT_New_Emp_AlertChanging(value);
-				this.SendPropertyChanging();
-				this._IT_New_Emp_Alert = value;
-				this.SendPropertyChanged("IT_New_Emp_Alert");
-				this.OnIT_New_Emp_AlertChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Amex Name]", Storage="_Amex_Name", DbType="VarChar(100) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Amex_Name
-	{
-		get
-		{
-			return this._Amex_Name;
-		}
-		set
-		{
-			if ((this._Amex_Name != value))
-			{
-				this.OnAmex_NameChanging(value);
-				this.SendPropertyChanging();
-				this._Amex_Name = value;
-				this.SendPropertyChanged("Amex_Name");
-				this.OnAmex_NameChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[DOT Compliant]", Storage="_DOT_Compliant", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte DOT_Compliant
-	{
-		get
-		{
-			return this._DOT_Compliant;
-		}
-		set
-		{
-			if ((this._DOT_Compliant != value))
-			{
-				this.OnDOT_CompliantChanging(value);
-				this.SendPropertyChanging();
-				this._DOT_Compliant = value;
-				this.SendPropertyChanged("DOT_Compliant");
-				this.OnDOT_CompliantChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Driver Application Form]", Storage="_Driver_Application_Form", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte Driver_Application_Form
-	{
-		get
-		{
-			return this._Driver_Application_Form;
-		}
-		set
-		{
-			if ((this._Driver_Application_Form != value))
-			{
-				this.OnDriver_Application_FormChanging(value);
-				this.SendPropertyChanging();
-				this._Driver_Application_Form = value;
-				this.SendPropertyChanged("Driver_Application_Form");
-				this.OnDriver_Application_FormChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Driver Med_ Exam_ Report]", Storage="_Driver_Med__Exam__Report", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public System.DateTime Driver_Med__Exam__Report
-	{
-		get
-		{
-			return this._Driver_Med__Exam__Report;
-		}
-		set
-		{
-			if ((this._Driver_Med__Exam__Report != value))
-			{
-				this.OnDriver_Med__Exam__ReportChanging(value);
-				this.SendPropertyChanging();
-				this._Driver_Med__Exam__Report = value;
-				this.SendPropertyChanged("Driver_Med__Exam__Report");
-				this.OnDriver_Med__Exam__ReportChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Driver Med_ Exam_ Cert_]", Storage="_Driver_Med__Exam__Cert_", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public System.DateTime Driver_Med__Exam__Cert_
-	{
-		get
-		{
-			return this._Driver_Med__Exam__Cert_;
-		}
-		set
-		{
-			if ((this._Driver_Med__Exam__Cert_ != value))
-			{
-				this.OnDriver_Med__Exam__Cert_Changing(value);
-				this.SendPropertyChanging();
-				this._Driver_Med__Exam__Cert_ = value;
-				this.SendPropertyChanged("Driver_Med__Exam__Cert_");
-				this.OnDriver_Med__Exam__Cert_Changed();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Driver Record of Road Test]", Storage="_Driver_Record_of_Road_Test", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public System.DateTime Driver_Record_of_Road_Test
-	{
-		get
-		{
-			return this._Driver_Record_of_Road_Test;
-		}
-		set
-		{
-			if ((this._Driver_Record_of_Road_Test != value))
-			{
-				this.OnDriver_Record_of_Road_TestChanging(value);
-				this.SendPropertyChanging();
-				this._Driver_Record_of_Road_Test = value;
-				this.SendPropertyChanged("Driver_Record_of_Road_Test");
-				this.OnDriver_Record_of_Road_TestChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Driver Cert_ of Road Test]", Storage="_Driver_Cert__of_Road_Test", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public System.DateTime Driver_Cert__of_Road_Test
-	{
-		get
-		{
-			return this._Driver_Cert__of_Road_Test;
-		}
-		set
-		{
-			if ((this._Driver_Cert__of_Road_Test != value))
-			{
-				this.OnDriver_Cert__of_Road_TestChanging(value);
-				this.SendPropertyChanging();
-				this._Driver_Cert__of_Road_Test = value;
-				this.SendPropertyChanged("Driver_Cert__of_Road_Test");
-				this.OnDriver_Cert__of_Road_TestChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Driver Safety Perf_ History]", Storage="_Driver_Safety_Perf__History", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public System.DateTime Driver_Safety_Perf__History
-	{
-		get
-		{
-			return this._Driver_Safety_Perf__History;
-		}
-		set
-		{
-			if ((this._Driver_Safety_Perf__History != value))
-			{
-				this.OnDriver_Safety_Perf__HistoryChanging(value);
-				this.SendPropertyChanging();
-				this._Driver_Safety_Perf__History = value;
-				this.SendPropertyChanged("Driver_Safety_Perf__History");
-				this.OnDriver_Safety_Perf__HistoryChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Driver M_ V_ Cert_ Review]", Storage="_Driver_M__V__Cert__Review", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public System.DateTime Driver_M__V__Cert__Review
-	{
-		get
-		{
-			return this._Driver_M__V__Cert__Review;
-		}
-		set
-		{
-			if ((this._Driver_M__V__Cert__Review != value))
-			{
-				this.OnDriver_M__V__Cert__ReviewChanging(value);
-				this.SendPropertyChanging();
-				this._Driver_M__V__Cert__Review = value;
-				this.SendPropertyChanged("Driver_M__V__Cert__Review");
-				this.OnDriver_M__V__Cert__ReviewChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Date Driving for Company]", Storage="_Date_Driving_for_Company", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public System.DateTime Date_Driving_for_Company
-	{
-		get
-		{
-			return this._Date_Driving_for_Company;
-		}
-		set
-		{
-			if ((this._Date_Driving_for_Company != value))
-			{
-				this.OnDate_Driving_for_CompanyChanging(value);
-				this.SendPropertyChanging();
-				this._Date_Driving_for_Company = value;
-				this.SendPropertyChanged("Date_Driving_for_Company");
-				this.OnDate_Driving_for_CompanyChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Driver License Class]", Storage="_Driver_License_Class", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public int Driver_License_Class
-	{
-		get
-		{
-			return this._Driver_License_Class;
-		}
-		set
-		{
-			if ((this._Driver_License_Class != value))
-			{
-				this.OnDriver_License_ClassChanging(value);
-				this.SendPropertyChanging();
-				this._Driver_License_Class = value;
-				this.SendPropertyChanged("Driver_License_Class");
-				this.OnDriver_License_ClassChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Driver Licnese Class Other]", Storage="_Driver_Licnese_Class_Other", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Driver_Licnese_Class_Other
-	{
-		get
-		{
-			return this._Driver_Licnese_Class_Other;
-		}
-		set
-		{
-			if ((this._Driver_Licnese_Class_Other != value))
-			{
-				this.OnDriver_Licnese_Class_OtherChanging(value);
-				this.SendPropertyChanging();
-				this._Driver_Licnese_Class_Other = value;
-				this.SendPropertyChanged("Driver_Licnese_Class_Other");
-				this.OnDriver_Licnese_Class_OtherChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Safety Meeting]", Storage="_Safety_Meeting", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public int Safety_Meeting
-	{
-		get
-		{
-			return this._Safety_Meeting;
-		}
-		set
-		{
-			if ((this._Safety_Meeting != value))
-			{
-				this.OnSafety_MeetingChanging(value);
-				this.SendPropertyChanging();
-				this._Safety_Meeting = value;
-				this.SendPropertyChanged("Safety_Meeting");
-				this.OnSafety_MeetingChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Show on Phone List]", Storage="_Show_on_Phone_List", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte Show_on_Phone_List
-	{
-		get
-		{
-			return this._Show_on_Phone_List;
-		}
-		set
-		{
-			if ((this._Show_on_Phone_List != value))
-			{
-				this.OnShow_on_Phone_ListChanging(value);
-				this.SendPropertyChanging();
-				this._Show_on_Phone_List = value;
-				this.SendPropertyChanged("Show_on_Phone_List");
-				this.OnShow_on_Phone_ListChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Gerdau No_]", Storage="_Gerdau_No_", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Gerdau_No_
-	{
-		get
-		{
-			return this._Gerdau_No_;
-		}
-		set
-		{
-			if ((this._Gerdau_No_ != value))
-			{
-				this.OnGerdau_No_Changing(value);
-				this.SendPropertyChanging();
-				this._Gerdau_No_ = value;
-				this.SendPropertyChanged("Gerdau_No_");
-				this.OnGerdau_No_Changed();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Not Billable]", Storage="_Not_Billable", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte Not_Billable
-	{
-		get
-		{
-			return this._Not_Billable;
-		}
-		set
-		{
-			if ((this._Not_Billable != value))
-			{
-				this.OnNot_BillableChanging(value);
-				this.SendPropertyChanging();
-				this._Not_Billable = value;
-				this.SendPropertyChanged("Not_Billable");
-				this.OnNot_BillableChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[ISN ID]", Storage="_ISN_ID", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string ISN_ID
-	{
-		get
-		{
-			return this._ISN_ID;
-		}
-		set
-		{
-			if ((this._ISN_ID != value))
-			{
-				this.OnISN_IDChanging(value);
-				this.SendPropertyChanging();
-				this._ISN_ID = value;
-				this.SendPropertyChanged("ISN_ID");
-				this.OnISN_IDChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[I9 Completed]", Storage="_I9_Completed", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte I9_Completed
-	{
-		get
-		{
-			return this._I9_Completed;
-		}
-		set
-		{
-			if ((this._I9_Completed != value))
-			{
-				this.OnI9_CompletedChanging(value);
-				this.SendPropertyChanging();
-				this._I9_Completed = value;
-				this.SendPropertyChanged("I9_Completed");
-				this.OnI9_CompletedChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Employee Handbook Receipt]", Storage="_Employee_Handbook_Receipt", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte Employee_Handbook_Receipt
-	{
-		get
-		{
-			return this._Employee_Handbook_Receipt;
-		}
-		set
-		{
-			if ((this._Employee_Handbook_Receipt != value))
-			{
-				this.OnEmployee_Handbook_ReceiptChanging(value);
-				this.SendPropertyChanging();
-				this._Employee_Handbook_Receipt = value;
-				this.SendPropertyChanged("Employee_Handbook_Receipt");
-				this.OnEmployee_Handbook_ReceiptChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[HR Pay Type]", Storage="_HR_Pay_Type", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public int HR_Pay_Type
-	{
-		get
-		{
-			return this._HR_Pay_Type;
-		}
-		set
-		{
-			if ((this._HR_Pay_Type != value))
-			{
-				this.OnHR_Pay_TypeChanging(value);
-				this.SendPropertyChanging();
-				this._HR_Pay_Type = value;
-				this.SendPropertyChanged("HR_Pay_Type");
-				this.OnHR_Pay_TypeChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Credit Card Approval Code]", Storage="_Credit_Card_Approval_Code", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Credit_Card_Approval_Code
-	{
-		get
-		{
-			return this._Credit_Card_Approval_Code;
-		}
-		set
-		{
-			if ((this._Credit_Card_Approval_Code != value))
-			{
-				this.OnCredit_Card_Approval_CodeChanging(value);
-				this.SendPropertyChanging();
-				this._Credit_Card_Approval_Code = value;
-				this.SendPropertyChanged("Credit_Card_Approval_Code");
-				this.OnCredit_Card_Approval_CodeChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Credit Card Approval Level]", Storage="_Credit_Card_Approval_Level", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public int Credit_Card_Approval_Level
-	{
-		get
-		{
-			return this._Credit_Card_Approval_Level;
-		}
-		set
-		{
-			if ((this._Credit_Card_Approval_Level != value))
-			{
-				this.OnCredit_Card_Approval_LevelChanging(value);
-				this.SendPropertyChanging();
-				this._Credit_Card_Approval_Level = value;
-				this.SendPropertyChanged("Credit_Card_Approval_Level");
-				this.OnCredit_Card_Approval_LevelChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Jean Allowance]", Storage="_Jean_Allowance", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte Jean_Allowance
-	{
-		get
-		{
-			return this._Jean_Allowance;
-		}
-		set
-		{
-			if ((this._Jean_Allowance != value))
-			{
-				this.OnJean_AllowanceChanging(value);
-				this.SendPropertyChanging();
-				this._Jean_Allowance = value;
-				this.SendPropertyChanged("Jean_Allowance");
-				this.OnJean_AllowanceChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Jean Gift Card No_]", Storage="_Jean_Gift_Card_No_", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Jean_Gift_Card_No_
-	{
-		get
-		{
-			return this._Jean_Gift_Card_No_;
-		}
-		set
-		{
-			if ((this._Jean_Gift_Card_No_ != value))
-			{
-				this.OnJean_Gift_Card_No_Changing(value);
-				this.SendPropertyChanging();
-				this._Jean_Gift_Card_No_ = value;
-				this.SendPropertyChanged("Jean_Gift_Card_No_");
-				this.OnJean_Gift_Card_No_Changed();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExportPending", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte ExportPending
-	{
-		get
-		{
-			return this._ExportPending;
-		}
-		set
-		{
-			if ((this._ExportPending != value))
-			{
-				this.OnExportPendingChanging(value);
-				this.SendPropertyChanging();
-				this._ExportPending = value;
-				this.SendPropertyChanged("ExportPending");
-				this.OnExportPendingChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Shift Difference]", Storage="_Shift_Difference", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte Shift_Difference
-	{
-		get
-		{
-			return this._Shift_Difference;
-		}
-		set
-		{
-			if ((this._Shift_Difference != value))
-			{
-				this.OnShift_DifferenceChanging(value);
-				this.SendPropertyChanging();
-				this._Shift_Difference = value;
-				this.SendPropertyChanged("Shift_Difference");
-				this.OnShift_DifferenceChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Eligible Rehire]", Storage="_Eligible_Rehire", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public int Eligible_Rehire
-	{
-		get
-		{
-			return this._Eligible_Rehire;
-		}
-		set
-		{
-			if ((this._Eligible_Rehire != value))
-			{
-				this.OnEligible_RehireChanging(value);
-				this.SendPropertyChanging();
-				this._Eligible_Rehire = value;
-				this.SendPropertyChanged("Eligible_Rehire");
-				this.OnEligible_RehireChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Eligible to Drive SI Vehicle]", Storage="_Eligible_to_Drive_SI_Vehicle", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public int Eligible_to_Drive_SI_Vehicle
-	{
-		get
-		{
-			return this._Eligible_to_Drive_SI_Vehicle;
-		}
-		set
-		{
-			if ((this._Eligible_to_Drive_SI_Vehicle != value))
-			{
-				this.OnEligible_to_Drive_SI_VehicleChanging(value);
-				this.SendPropertyChanging();
-				this._Eligible_to_Drive_SI_Vehicle = value;
-				this.SendPropertyChanged("Eligible_to_Drive_SI_Vehicle");
-				this.OnEligible_to_Drive_SI_VehicleChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Temp to Perm]", Storage="_Temp_to_Perm", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte Temp_to_Perm
-	{
-		get
-		{
-			return this._Temp_to_Perm;
-		}
-		set
-		{
-			if ((this._Temp_to_Perm != value))
-			{
-				this.OnTemp_to_PermChanging(value);
-				this.SendPropertyChanging();
-				this._Temp_to_Perm = value;
-				this.SendPropertyChanged("Temp_to_Perm");
-				this.OnTemp_to_PermChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Part Time]", Storage="_Part_Time", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte Part_Time
-	{
-		get
-		{
-			return this._Part_Time;
-		}
-		set
-		{
-			if ((this._Part_Time != value))
-			{
-				this.OnPart_TimeChanging(value);
-				this.SendPropertyChanging();
-				this._Part_Time = value;
-				this.SendPropertyChanged("Part_Time");
-				this.OnPart_TimeChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Co-Op]", Storage="_Co_Op", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte Co_Op
-	{
-		get
-		{
-			return this._Co_Op;
-		}
-		set
-		{
-			if ((this._Co_Op != value))
-			{
-				this.OnCo_OpChanging(value);
-				this.SendPropertyChanging();
-				this._Co_Op = value;
-				this.SendPropertyChanged("Co_Op");
-				this.OnCo_OpChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Work Location]", Storage="_Work_Location", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public int Work_Location
-	{
-		get
-		{
-			return this._Work_Location;
-		}
-		set
-		{
-			if ((this._Work_Location != value))
-			{
-				this.OnWork_LocationChanging(value);
-				this.SendPropertyChanging();
-				this._Work_Location = value;
-				this.SendPropertyChanged("Work_Location");
-				this.OnWork_LocationChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TShirt", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public int TShirt
-	{
-		get
-		{
-			return this._TShirt;
-		}
-		set
-		{
-			if ((this._TShirt != value))
-			{
-				this.OnTShirtChanging(value);
-				this.SendPropertyChanging();
-				this._TShirt = value;
-				this.SendPropertyChanged("TShirt");
-				this.OnTShirtChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ButtonUp", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public int ButtonUp
-	{
-		get
-		{
-			return this._ButtonUp;
-		}
-		set
-		{
-			if ((this._ButtonUp != value))
-			{
-				this.OnButtonUpChanging(value);
-				this.SendPropertyChanging();
-				this._ButtonUp = value;
-				this.SendPropertyChanged("ButtonUp");
-				this.OnButtonUpChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Polo", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public int Polo
-	{
-		get
-		{
-			return this._Polo;
-		}
-		set
-		{
-			if ((this._Polo != value))
-			{
-				this.OnPoloChanging(value);
-				this.SendPropertyChanging();
-				this._Polo = value;
-				this.SendPropertyChanged("Polo");
-				this.OnPoloChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Coverall", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public int Coverall
-	{
-		get
-		{
-			return this._Coverall;
-		}
-		set
-		{
-			if ((this._Coverall != value))
-			{
-				this.OnCoverallChanging(value);
-				this.SendPropertyChanging();
-				this._Coverall = value;
-				this.SendPropertyChanged("Coverall");
-				this.OnCoverallChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GetCell", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public int GetCell
-	{
-		get
-		{
-			return this._GetCell;
-		}
-		set
-		{
-			if ((this._GetCell != value))
-			{
-				this.OnGetCellChanging(value);
-				this.SendPropertyChanging();
-				this._GetCell = value;
-				this.SendPropertyChanged("GetCell");
-				this.OnGetCellChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GetComp", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public int GetComp
-	{
-		get
-		{
-			return this._GetComp;
-		}
-		set
-		{
-			if ((this._GetComp != value))
-			{
-				this.OnGetCompChanging(value);
-				this.SendPropertyChanging();
-				this._GetComp = value;
-				this.SendPropertyChanged("GetComp");
-				this.OnGetCompChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GetLaptop", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public int GetLaptop
-	{
-		get
-		{
-			return this._GetLaptop;
-		}
-		set
-		{
-			if ((this._GetLaptop != value))
-			{
-				this.OnGetLaptopChanging(value);
-				this.SendPropertyChanging();
-				this._GetLaptop = value;
-				this.SendPropertyChanged("GetLaptop");
-				this.OnGetLaptopChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EmpNo", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public int EmpNo
-	{
-		get
-		{
-			return this._EmpNo;
-		}
-		set
-		{
-			if ((this._EmpNo != value))
-			{
-				this.OnEmpNoChanging(value);
-				this.SendPropertyChanging();
-				this._EmpNo = value;
-				this.SendPropertyChanged("EmpNo");
-				this.OnEmpNoChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Eligible to Drive Date]", Storage="_Eligible_to_Drive_Date", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public System.DateTime Eligible_to_Drive_Date
-	{
-		get
-		{
-			return this._Eligible_to_Drive_Date;
-		}
-		set
-		{
-			if ((this._Eligible_to_Drive_Date != value))
-			{
-				this.OnEligible_to_Drive_DateChanging(value);
-				this.SendPropertyChanging();
-				this._Eligible_to_Drive_Date = value;
-				this.SendPropertyChanged("Eligible_to_Drive_Date");
-				this.OnEligible_to_Drive_DateChanged();
 			}
 		}
 	}
@@ -34003,500 +29652,6 @@ public partial class SIU_Incident_Accident : INotifyPropertyChanging, INotifyPro
 	}
 }
 
-[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SIU_ReportingChain")]
-public partial class SIU_ReportingChain : INotifyPropertyChanging, INotifyPropertyChanged
-{
-	
-	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-	
-	private int _UID;
-	
-	private string _CompanyName;
-	
-	private string _Dept;
-	
-	private string _DeptMgrEmpId;
-	
-	private string _DeptMgrName;
-	
-	private string _DivMgrEmpId;
-	
-	private string _DivMgrName;
-	
-	private string _VpEmpId;
-	
-	private string _VpName;
-	
-	private string _GmEmpId;
-	
-	private string _GmName;
-	
-	private string _PresEmpId;
-	
-	private string _PresName;
-	
-	private string _SafetyMgrEmpId;
-	
-	private string _SafetyMgrName;
-	
-	private string _RiskMgrEmpId;
-	
-	private string _RiskMgrName;
-	
-	private string _LegalMgrEmpId;
-	
-	private string _LegalMgrName;
-	
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnUIDChanging(int value);
-    partial void OnUIDChanged();
-    partial void OnCompanyNameChanging(string value);
-    partial void OnCompanyNameChanged();
-    partial void OnDeptChanging(string value);
-    partial void OnDeptChanged();
-    partial void OnDeptMgrEmpIdChanging(string value);
-    partial void OnDeptMgrEmpIdChanged();
-    partial void OnDeptMgrNameChanging(string value);
-    partial void OnDeptMgrNameChanged();
-    partial void OnDivMgrEmpIdChanging(string value);
-    partial void OnDivMgrEmpIdChanged();
-    partial void OnDivMgrNameChanging(string value);
-    partial void OnDivMgrNameChanged();
-    partial void OnVpEmpIdChanging(string value);
-    partial void OnVpEmpIdChanged();
-    partial void OnVpNameChanging(string value);
-    partial void OnVpNameChanged();
-    partial void OnGmEmpIdChanging(string value);
-    partial void OnGmEmpIdChanged();
-    partial void OnGmNameChanging(string value);
-    partial void OnGmNameChanged();
-    partial void OnPresEmpIdChanging(string value);
-    partial void OnPresEmpIdChanged();
-    partial void OnPresNameChanging(string value);
-    partial void OnPresNameChanged();
-    partial void OnSafetyMgrEmpIdChanging(string value);
-    partial void OnSafetyMgrEmpIdChanged();
-    partial void OnSafetyMgrNameChanging(string value);
-    partial void OnSafetyMgrNameChanged();
-    partial void OnRiskMgrEmpIdChanging(string value);
-    partial void OnRiskMgrEmpIdChanged();
-    partial void OnRiskMgrNameChanging(string value);
-    partial void OnRiskMgrNameChanged();
-    partial void OnLegalMgrEmpIdChanging(string value);
-    partial void OnLegalMgrEmpIdChanged();
-    partial void OnLegalMgrNameChanging(string value);
-    partial void OnLegalMgrNameChanged();
-    #endregion
-	
-	public SIU_ReportingChain()
-	{
-		OnCreated();
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-	public int UID
-	{
-		get
-		{
-			return this._UID;
-		}
-		set
-		{
-			if ((this._UID != value))
-			{
-				this.OnUIDChanging(value);
-				this.SendPropertyChanging();
-				this._UID = value;
-				this.SendPropertyChanged("UID");
-				this.OnUIDChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompanyName", DbType="VarChar(50)")]
-	public string CompanyName
-	{
-		get
-		{
-			return this._CompanyName;
-		}
-		set
-		{
-			if ((this._CompanyName != value))
-			{
-				this.OnCompanyNameChanging(value);
-				this.SendPropertyChanging();
-				this._CompanyName = value;
-				this.SendPropertyChanged("CompanyName");
-				this.OnCompanyNameChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Dept", DbType="VarChar(10) NOT NULL", CanBeNull=false)]
-	public string Dept
-	{
-		get
-		{
-			return this._Dept;
-		}
-		set
-		{
-			if ((this._Dept != value))
-			{
-				this.OnDeptChanging(value);
-				this.SendPropertyChanging();
-				this._Dept = value;
-				this.SendPropertyChanged("Dept");
-				this.OnDeptChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DeptMgrEmpId", DbType="VarChar(10)")]
-	public string DeptMgrEmpId
-	{
-		get
-		{
-			return this._DeptMgrEmpId;
-		}
-		set
-		{
-			if ((this._DeptMgrEmpId != value))
-			{
-				this.OnDeptMgrEmpIdChanging(value);
-				this.SendPropertyChanging();
-				this._DeptMgrEmpId = value;
-				this.SendPropertyChanged("DeptMgrEmpId");
-				this.OnDeptMgrEmpIdChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DeptMgrName", DbType="VarChar(50)")]
-	public string DeptMgrName
-	{
-		get
-		{
-			return this._DeptMgrName;
-		}
-		set
-		{
-			if ((this._DeptMgrName != value))
-			{
-				this.OnDeptMgrNameChanging(value);
-				this.SendPropertyChanging();
-				this._DeptMgrName = value;
-				this.SendPropertyChanged("DeptMgrName");
-				this.OnDeptMgrNameChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DivMgrEmpId", DbType="VarChar(10)")]
-	public string DivMgrEmpId
-	{
-		get
-		{
-			return this._DivMgrEmpId;
-		}
-		set
-		{
-			if ((this._DivMgrEmpId != value))
-			{
-				this.OnDivMgrEmpIdChanging(value);
-				this.SendPropertyChanging();
-				this._DivMgrEmpId = value;
-				this.SendPropertyChanged("DivMgrEmpId");
-				this.OnDivMgrEmpIdChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DivMgrName", DbType="VarChar(50)")]
-	public string DivMgrName
-	{
-		get
-		{
-			return this._DivMgrName;
-		}
-		set
-		{
-			if ((this._DivMgrName != value))
-			{
-				this.OnDivMgrNameChanging(value);
-				this.SendPropertyChanging();
-				this._DivMgrName = value;
-				this.SendPropertyChanged("DivMgrName");
-				this.OnDivMgrNameChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VpEmpId", DbType="VarChar(10)")]
-	public string VpEmpId
-	{
-		get
-		{
-			return this._VpEmpId;
-		}
-		set
-		{
-			if ((this._VpEmpId != value))
-			{
-				this.OnVpEmpIdChanging(value);
-				this.SendPropertyChanging();
-				this._VpEmpId = value;
-				this.SendPropertyChanged("VpEmpId");
-				this.OnVpEmpIdChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VpName", DbType="VarChar(50)")]
-	public string VpName
-	{
-		get
-		{
-			return this._VpName;
-		}
-		set
-		{
-			if ((this._VpName != value))
-			{
-				this.OnVpNameChanging(value);
-				this.SendPropertyChanging();
-				this._VpName = value;
-				this.SendPropertyChanged("VpName");
-				this.OnVpNameChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GmEmpId", DbType="VarChar(10)")]
-	public string GmEmpId
-	{
-		get
-		{
-			return this._GmEmpId;
-		}
-		set
-		{
-			if ((this._GmEmpId != value))
-			{
-				this.OnGmEmpIdChanging(value);
-				this.SendPropertyChanging();
-				this._GmEmpId = value;
-				this.SendPropertyChanged("GmEmpId");
-				this.OnGmEmpIdChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GmName", DbType="VarChar(50)")]
-	public string GmName
-	{
-		get
-		{
-			return this._GmName;
-		}
-		set
-		{
-			if ((this._GmName != value))
-			{
-				this.OnGmNameChanging(value);
-				this.SendPropertyChanging();
-				this._GmName = value;
-				this.SendPropertyChanged("GmName");
-				this.OnGmNameChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PresEmpId", DbType="VarChar(10)")]
-	public string PresEmpId
-	{
-		get
-		{
-			return this._PresEmpId;
-		}
-		set
-		{
-			if ((this._PresEmpId != value))
-			{
-				this.OnPresEmpIdChanging(value);
-				this.SendPropertyChanging();
-				this._PresEmpId = value;
-				this.SendPropertyChanged("PresEmpId");
-				this.OnPresEmpIdChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PresName", DbType="VarChar(50)")]
-	public string PresName
-	{
-		get
-		{
-			return this._PresName;
-		}
-		set
-		{
-			if ((this._PresName != value))
-			{
-				this.OnPresNameChanging(value);
-				this.SendPropertyChanging();
-				this._PresName = value;
-				this.SendPropertyChanged("PresName");
-				this.OnPresNameChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SafetyMgrEmpId", DbType="VarChar(10)")]
-	public string SafetyMgrEmpId
-	{
-		get
-		{
-			return this._SafetyMgrEmpId;
-		}
-		set
-		{
-			if ((this._SafetyMgrEmpId != value))
-			{
-				this.OnSafetyMgrEmpIdChanging(value);
-				this.SendPropertyChanging();
-				this._SafetyMgrEmpId = value;
-				this.SendPropertyChanged("SafetyMgrEmpId");
-				this.OnSafetyMgrEmpIdChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SafetyMgrName", DbType="VarChar(50)")]
-	public string SafetyMgrName
-	{
-		get
-		{
-			return this._SafetyMgrName;
-		}
-		set
-		{
-			if ((this._SafetyMgrName != value))
-			{
-				this.OnSafetyMgrNameChanging(value);
-				this.SendPropertyChanging();
-				this._SafetyMgrName = value;
-				this.SendPropertyChanged("SafetyMgrName");
-				this.OnSafetyMgrNameChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RiskMgrEmpId", DbType="VarChar(10)")]
-	public string RiskMgrEmpId
-	{
-		get
-		{
-			return this._RiskMgrEmpId;
-		}
-		set
-		{
-			if ((this._RiskMgrEmpId != value))
-			{
-				this.OnRiskMgrEmpIdChanging(value);
-				this.SendPropertyChanging();
-				this._RiskMgrEmpId = value;
-				this.SendPropertyChanged("RiskMgrEmpId");
-				this.OnRiskMgrEmpIdChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RiskMgrName", DbType="VarChar(50)")]
-	public string RiskMgrName
-	{
-		get
-		{
-			return this._RiskMgrName;
-		}
-		set
-		{
-			if ((this._RiskMgrName != value))
-			{
-				this.OnRiskMgrNameChanging(value);
-				this.SendPropertyChanging();
-				this._RiskMgrName = value;
-				this.SendPropertyChanged("RiskMgrName");
-				this.OnRiskMgrNameChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LegalMgrEmpId", DbType="VarChar(10)")]
-	public string LegalMgrEmpId
-	{
-		get
-		{
-			return this._LegalMgrEmpId;
-		}
-		set
-		{
-			if ((this._LegalMgrEmpId != value))
-			{
-				this.OnLegalMgrEmpIdChanging(value);
-				this.SendPropertyChanging();
-				this._LegalMgrEmpId = value;
-				this.SendPropertyChanged("LegalMgrEmpId");
-				this.OnLegalMgrEmpIdChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LegalMgrName", DbType="VarChar(50)")]
-	public string LegalMgrName
-	{
-		get
-		{
-			return this._LegalMgrName;
-		}
-		set
-		{
-			if ((this._LegalMgrName != value))
-			{
-				this.OnLegalMgrNameChanging(value);
-				this.SendPropertyChanging();
-				this._LegalMgrName = value;
-				this.SendPropertyChanged("LegalMgrName");
-				this.OnLegalMgrNameChanged();
-			}
-		}
-	}
-	
-	public event PropertyChangingEventHandler PropertyChanging;
-	
-	public event PropertyChangedEventHandler PropertyChanged;
-	
-	protected virtual void SendPropertyChanging()
-	{
-		if ((this.PropertyChanging != null))
-		{
-			this.PropertyChanging(this, emptyChangingEventArgs);
-		}
-	}
-	
-	protected virtual void SendPropertyChanged(String propertyName)
-	{
-		if ((this.PropertyChanged != null))
-		{
-			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-		}
-	}
-}
-
 [global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SIU_Incident_Accident_Appoval")]
 public partial class SIU_Incident_Accident_Appoval : INotifyPropertyChanging, INotifyPropertyChanged
 {
@@ -34764,6 +29919,6034 @@ public partial class SIU_Incident_Accident_AppovalNote : INotifyPropertyChanging
 				this._TimeStamp = value;
 				this.SendPropertyChanged("TimeStamp");
 				this.OnTimeStampChanged();
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+}
+
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Shermco$Employee")]
+public partial class Shermco_Employee : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private System.Data.Linq.Binary _timestamp;
+	
+	private string _No_;
+	
+	private string _First_Name;
+	
+	private string _Middle_Name;
+	
+	private string _Last_Name;
+	
+	private string _Initials;
+	
+	private string _Job_Title;
+	
+	private string _Search_Name;
+	
+	private string _Address;
+	
+	private string _Address_2;
+	
+	private string _City;
+	
+	private string _Post_Code;
+	
+	private string _County;
+	
+	private string _Phone_No_;
+	
+	private string _Mobile_Phone_No_;
+	
+	private string _E_Mail;
+	
+	private string _Alt__Address_Code;
+	
+	private System.DateTime _Alt__Address_Start_Date;
+	
+	private System.DateTime _Alt__Address_End_Date;
+	
+	private System.Data.Linq.Binary _Picture;
+	
+	private System.DateTime _Birth_Date;
+	
+	private string _Social_Security_No_;
+	
+	private string _Union_Code;
+	
+	private string _Union_Membership_No_;
+	
+	private int _Sex;
+	
+	private string _Country_Code;
+	
+	private string _Manager_No_;
+	
+	private string _Emplymt__Contract_Code;
+	
+	private string _Statistics_Group_Code;
+	
+	private System.DateTime _Employment_Date;
+	
+	private int _Status;
+	
+	private System.DateTime _Inactive_Date;
+	
+	private string _Cause_of_Inactivity_Code;
+	
+	private System.DateTime _Termination_Date;
+	
+	private string _Grounds_for_Term__Code;
+	
+	private string _Global_Dimension_1_Code;
+	
+	private string _Global_Dimension_2_Code;
+	
+	private string _Resource_No_;
+	
+	private System.DateTime _Last_Date_Modified;
+	
+	private string _Extension;
+	
+	private string _Pager;
+	
+	private string _Fax_No_;
+	
+	private string _Company_E_Mail;
+	
+	private string _Title;
+	
+	private string _Salespers__Purch__Code;
+	
+	private string _No__Series;
+	
+	private string _Extra;
+	
+	private string _Employee_Password;
+	
+	private string _Manager_Group_Code;
+	
+	private byte _Accounting_Employee;
+	
+	private string _Time_Entry_Approval_Code;
+	
+	private int _Approval_level;
+	
+	private byte _Over_8_Hrs_ST;
+	
+	private System.DateTime _Original_Employment_Date;
+	
+	private System.DateTime _Original_Separation_Date;
+	
+	private byte _Temporary_Employee;
+	
+	private byte _Able_to_Post_Time;
+	
+	private string _Reports_To;
+	
+	private byte _Contractor;
+	
+	private System.DateTime _Achievement_TEC_Results_Date;
+	
+	private System.DateTime _TI_Background_Check_Date;
+	
+	private string _Maiden_Name;
+	
+	private string _Alias;
+	
+	private string _Previously_Used_Name;
+	
+	private string _Emergency_Contact_Name;
+	
+	private string _Emergency_Contact_Street_Addr_;
+	
+	private string _Emergency_Contact_City;
+	
+	private string _Emergency_Contact_State;
+	
+	private string _Emergency_Contact_Zip_Code;
+	
+	private string _Emergency_Contact_Phone_No_;
+	
+	private string _Emergency_Contact_Cell_No_;
+	
+	private string _Emergency_Contact_Rel__to_Empl;
+	
+	private string _Drivers_License_State;
+	
+	private string _Drivers_License_No_;
+	
+	private string _US_County;
+	
+	private System.DateTime _Address_Start_Date;
+	
+	private string _Birth_Place;
+	
+	private string _Preferred_Name;
+	
+	private string _Shermco_Cell_Phone_No_;
+	
+	private byte _Prior_TI_Access;
+	
+	private System.DateTime _Prior_TI_Access_Beginning_Date;
+	
+	private System.DateTime _Prior_TI_Access_Ending_Date;
+	
+	private byte _Denied_Access_to_TI;
+	
+	private byte _Citizen_of_United_States;
+	
+	private string _Visa_Category;
+	
+	private string _Admission__;
+	
+	private System.DateTime _Visa_Expiration_Date;
+	
+	private string _Country_of_Birth;
+	
+	private string _Country_of_Citizenship;
+	
+	private string _Work_Phone;
+	
+	private System.DateTime _Drug_Alcohol_Test_Date;
+	
+	private string _Referral_Source;
+	
+	private string _Referral_Employee_No_;
+	
+	private int _EOC_Race;
+	
+	private int _Veteran;
+	
+	private byte _Disabled;
+	
+	private byte _Temp_Block;
+	
+	private int _Pay_type;
+	
+	private string _Display_Name;
+	
+	private string _Class_Code;
+	
+	private string _Home_Phone_No_;
+	
+	private string _Suffix;
+	
+	private string _Race;
+	
+	private string _Position_Code;
+	
+	private byte _Blocked;
+	
+	private string _Middle_Initial;
+	
+	private string _Default_Work_Type_Code;
+	
+	private byte _Deceased;
+	
+	private byte _SSN_Is_Verified;
+	
+	private string _Pay_Cycle_Code;
+	
+	private string _Employer_No_;
+	
+	private byte _Statutory_Employee;
+	
+	private byte _Retirement_Plan;
+	
+	private byte _Legal_Representative;
+	
+	private byte _Household_Employee;
+	
+	private byte _Deferred_Compensation;
+	
+	private byte _Third_Party_Sick_Pay;
+	
+	private string _Default_Rep__Auth__Code;
+	
+	private string _Social_Insurance_No_;
+	
+	private byte _CPP_Exempt;
+	
+	private byte _EI_Exempt;
+	
+	private string _RPP_or_DPSP;
+	
+	private decimal _Override_Insurable_Hours;
+	
+	private byte _Salaried;
+	
+	private string _Language_Code;
+	
+	private string _HR_Rep__No_;
+	
+	private string _HR_Rep__Contact;
+	
+	private string _Salutation_Code;
+	
+	private decimal _F_T__Equivalent;
+	
+	private decimal _Score;
+	
+	private System.DateTime _MVR_Record_Retrieved;
+	
+	private System.DateTime _Veteran_Separation_Date;
+	
+	private byte _Block_Time_Entry;
+	
+	private string _Block_Time_Entry_Reason;
+	
+	private string _Block_Time_Entry_Req_By;
+	
+	private byte _Block_Phone_List;
+	
+	private byte _Block_Birthday_List;
+	
+	private byte _OT_to_Overhead;
+	
+	private byte _IT_New_Emp_Alert;
+	
+	private string _Amex_Name;
+	
+	private byte _Driver_Application_Form;
+	
+	private System.DateTime _Driver_Med__Exam__Report;
+	
+	private System.DateTime _Driver_Med__Exam__Cert_;
+	
+	private System.DateTime _Driver_Record_of_Road_Test;
+	
+	private System.DateTime _Driver_Cert__of_Road_Test;
+	
+	private System.DateTime _Driver_Safety_Perf__History;
+	
+	private System.DateTime _Driver_M__V__Cert__Review;
+	
+	private System.DateTime _Date_Driving_for_Company;
+	
+	private int _Driver_License_Class;
+	
+	private string _Driver_Licnese_Class_Other;
+	
+	private int _Safety_Meeting;
+	
+	private byte _Show_on_Phone_List;
+	
+	private string _Gerdau_No_;
+	
+	private byte _Not_Billable;
+	
+	private string _ISN_ID;
+	
+	private byte _I9_Completed;
+	
+	private byte _Employee_Handbook_Receipt;
+	
+	private int _HR_Pay_Type;
+	
+	private string _Credit_Card_Approval_Code;
+	
+	private int _Credit_Card_Approval_Level;
+	
+	private byte _Jean_Allowance;
+	
+	private string _Jean_Gift_Card_No_;
+	
+	private byte _ExportPending;
+	
+	private byte _Shift_Difference;
+	
+	private int _Eligible_Rehire;
+	
+	private int _Eligible_to_Drive_SI_Vehicle;
+	
+	private byte _Temp_to_Perm;
+	
+	private byte _Part_Time;
+	
+	private byte _Co_Op;
+	
+	private int _Work_Location;
+	
+	private int _TShirt;
+	
+	private int _ButtonUp;
+	
+	private int _Polo;
+	
+	private int _Coverall;
+	
+	private int _GetCell;
+	
+	private int _GetComp;
+	
+	private int _GetLaptop;
+	
+	private int _EmpNo;
+	
+	private System.DateTime _Eligible_to_Drive_Date;
+	
+	private int _EOC_Job_Category;
+	
+	private System.DateTime _Seniority_Date;
+	
+	private int _DISA;
+	
+	private byte _Employee_Signature_Received;
+	
+	private string _Personal_License_Plate;
+	
+	private string _Shermco_License_Plate;
+	
+	private int _Job_Grade;
+	
+	private string _Alt__Personal_License_Plate;
+	
+	private string _Emergency_Contact_Name_2;
+	
+	private string _Emergency_Contact_Address_2;
+	
+	private string _Emergency_Contact_City_2;
+	
+	private string _Emergency_Contact_State_2;
+	
+	private string _Emergency_Contact_Zip_2;
+	
+	private string _Emergency_Contact_Phone_2;
+	
+	private string _Emergency_Contact_Mobile_2;
+	
+	private string _Emergency_Contact_Work_2;
+	
+	private string _Emergency_Contact_Relation_2;
+	
+	private string _LMS_Cost_Center;
+	
+	private string _LMS_Grade;
+	
+	private string _LMS_Division;
+	
+	private string _LMS_Position;
+	
+	private string _LMS_Location;
+	
+	private string _Credit_Card_Approval_Code_2;
+	
+	private byte _Job_Description;
+	
+	private System.DateTime _Medical_Exam_Certificate;
+	
+	private System.DateTime _Next_Annual_Review_of_Driver;
+	
+	private string _License_No_;
+	
+	private string _Issuing_State;
+	
+	private System.DateTime _License_Exp__Date;
+	
+	private int _DOT_Compliant;
+	
+	private int _Subject_to_DOT_testing;
+	
+	private int _Does_driver_have_exception;
+	
+	private System.DateTime _Pull_MVR_before;
+	
+	private int _Has_Driver_Received_training;
+	
+	private int _Is_Driver_LCV_certified;
+	
+	private int _CDL;
+	
+	private int _License_Class_Type;
+	
+	private System.DateTime _Driver_Start_Date;
+	
+	private int _Qualified;
+	
+	private string _Why_Disqualified;
+	
+	private System.DateTime _Date_Disqualified;
+	
+	private int _Multiple_Employer_Driver;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OntimestampChanging(System.Data.Linq.Binary value);
+    partial void OntimestampChanged();
+    partial void OnNo_Changing(string value);
+    partial void OnNo_Changed();
+    partial void OnFirst_NameChanging(string value);
+    partial void OnFirst_NameChanged();
+    partial void OnMiddle_NameChanging(string value);
+    partial void OnMiddle_NameChanged();
+    partial void OnLast_NameChanging(string value);
+    partial void OnLast_NameChanged();
+    partial void OnInitialsChanging(string value);
+    partial void OnInitialsChanged();
+    partial void OnJob_TitleChanging(string value);
+    partial void OnJob_TitleChanged();
+    partial void OnSearch_NameChanging(string value);
+    partial void OnSearch_NameChanged();
+    partial void OnAddressChanging(string value);
+    partial void OnAddressChanged();
+    partial void OnAddress_2Changing(string value);
+    partial void OnAddress_2Changed();
+    partial void OnCityChanging(string value);
+    partial void OnCityChanged();
+    partial void OnPost_CodeChanging(string value);
+    partial void OnPost_CodeChanged();
+    partial void OnCountyChanging(string value);
+    partial void OnCountyChanged();
+    partial void OnPhone_No_Changing(string value);
+    partial void OnPhone_No_Changed();
+    partial void OnMobile_Phone_No_Changing(string value);
+    partial void OnMobile_Phone_No_Changed();
+    partial void OnE_MailChanging(string value);
+    partial void OnE_MailChanged();
+    partial void OnAlt__Address_CodeChanging(string value);
+    partial void OnAlt__Address_CodeChanged();
+    partial void OnAlt__Address_Start_DateChanging(System.DateTime value);
+    partial void OnAlt__Address_Start_DateChanged();
+    partial void OnAlt__Address_End_DateChanging(System.DateTime value);
+    partial void OnAlt__Address_End_DateChanged();
+    partial void OnPictureChanging(System.Data.Linq.Binary value);
+    partial void OnPictureChanged();
+    partial void OnBirth_DateChanging(System.DateTime value);
+    partial void OnBirth_DateChanged();
+    partial void OnSocial_Security_No_Changing(string value);
+    partial void OnSocial_Security_No_Changed();
+    partial void OnUnion_CodeChanging(string value);
+    partial void OnUnion_CodeChanged();
+    partial void OnUnion_Membership_No_Changing(string value);
+    partial void OnUnion_Membership_No_Changed();
+    partial void OnSexChanging(int value);
+    partial void OnSexChanged();
+    partial void OnCountry_CodeChanging(string value);
+    partial void OnCountry_CodeChanged();
+    partial void OnManager_No_Changing(string value);
+    partial void OnManager_No_Changed();
+    partial void OnEmplymt__Contract_CodeChanging(string value);
+    partial void OnEmplymt__Contract_CodeChanged();
+    partial void OnStatistics_Group_CodeChanging(string value);
+    partial void OnStatistics_Group_CodeChanged();
+    partial void OnEmployment_DateChanging(System.DateTime value);
+    partial void OnEmployment_DateChanged();
+    partial void OnStatusChanging(int value);
+    partial void OnStatusChanged();
+    partial void OnInactive_DateChanging(System.DateTime value);
+    partial void OnInactive_DateChanged();
+    partial void OnCause_of_Inactivity_CodeChanging(string value);
+    partial void OnCause_of_Inactivity_CodeChanged();
+    partial void OnTermination_DateChanging(System.DateTime value);
+    partial void OnTermination_DateChanged();
+    partial void OnGrounds_for_Term__CodeChanging(string value);
+    partial void OnGrounds_for_Term__CodeChanged();
+    partial void OnGlobal_Dimension_1_CodeChanging(string value);
+    partial void OnGlobal_Dimension_1_CodeChanged();
+    partial void OnGlobal_Dimension_2_CodeChanging(string value);
+    partial void OnGlobal_Dimension_2_CodeChanged();
+    partial void OnResource_No_Changing(string value);
+    partial void OnResource_No_Changed();
+    partial void OnLast_Date_ModifiedChanging(System.DateTime value);
+    partial void OnLast_Date_ModifiedChanged();
+    partial void OnExtensionChanging(string value);
+    partial void OnExtensionChanged();
+    partial void OnPagerChanging(string value);
+    partial void OnPagerChanged();
+    partial void OnFax_No_Changing(string value);
+    partial void OnFax_No_Changed();
+    partial void OnCompany_E_MailChanging(string value);
+    partial void OnCompany_E_MailChanged();
+    partial void OnTitleChanging(string value);
+    partial void OnTitleChanged();
+    partial void OnSalespers__Purch__CodeChanging(string value);
+    partial void OnSalespers__Purch__CodeChanged();
+    partial void OnNo__SeriesChanging(string value);
+    partial void OnNo__SeriesChanged();
+    partial void OnExtraChanging(string value);
+    partial void OnExtraChanged();
+    partial void OnEmployee_PasswordChanging(string value);
+    partial void OnEmployee_PasswordChanged();
+    partial void OnManager_Group_CodeChanging(string value);
+    partial void OnManager_Group_CodeChanged();
+    partial void OnAccounting_EmployeeChanging(byte value);
+    partial void OnAccounting_EmployeeChanged();
+    partial void OnTime_Entry_Approval_CodeChanging(string value);
+    partial void OnTime_Entry_Approval_CodeChanged();
+    partial void OnApproval_levelChanging(int value);
+    partial void OnApproval_levelChanged();
+    partial void OnOver_8_Hrs_STChanging(byte value);
+    partial void OnOver_8_Hrs_STChanged();
+    partial void OnOriginal_Employment_DateChanging(System.DateTime value);
+    partial void OnOriginal_Employment_DateChanged();
+    partial void OnOriginal_Separation_DateChanging(System.DateTime value);
+    partial void OnOriginal_Separation_DateChanged();
+    partial void OnTemporary_EmployeeChanging(byte value);
+    partial void OnTemporary_EmployeeChanged();
+    partial void OnAble_to_Post_TimeChanging(byte value);
+    partial void OnAble_to_Post_TimeChanged();
+    partial void OnReports_ToChanging(string value);
+    partial void OnReports_ToChanged();
+    partial void OnContractorChanging(byte value);
+    partial void OnContractorChanged();
+    partial void OnAchievement_TEC_Results_DateChanging(System.DateTime value);
+    partial void OnAchievement_TEC_Results_DateChanged();
+    partial void OnTI_Background_Check_DateChanging(System.DateTime value);
+    partial void OnTI_Background_Check_DateChanged();
+    partial void OnMaiden_NameChanging(string value);
+    partial void OnMaiden_NameChanged();
+    partial void OnAliasChanging(string value);
+    partial void OnAliasChanged();
+    partial void OnPreviously_Used_NameChanging(string value);
+    partial void OnPreviously_Used_NameChanged();
+    partial void OnEmergency_Contact_NameChanging(string value);
+    partial void OnEmergency_Contact_NameChanged();
+    partial void OnEmergency_Contact_Street_Addr_Changing(string value);
+    partial void OnEmergency_Contact_Street_Addr_Changed();
+    partial void OnEmergency_Contact_CityChanging(string value);
+    partial void OnEmergency_Contact_CityChanged();
+    partial void OnEmergency_Contact_StateChanging(string value);
+    partial void OnEmergency_Contact_StateChanged();
+    partial void OnEmergency_Contact_Zip_CodeChanging(string value);
+    partial void OnEmergency_Contact_Zip_CodeChanged();
+    partial void OnEmergency_Contact_Phone_No_Changing(string value);
+    partial void OnEmergency_Contact_Phone_No_Changed();
+    partial void OnEmergency_Contact_Cell_No_Changing(string value);
+    partial void OnEmergency_Contact_Cell_No_Changed();
+    partial void OnEmergency_Contact_Rel__to_EmplChanging(string value);
+    partial void OnEmergency_Contact_Rel__to_EmplChanged();
+    partial void OnDrivers_License_StateChanging(string value);
+    partial void OnDrivers_License_StateChanged();
+    partial void OnDrivers_License_No_Changing(string value);
+    partial void OnDrivers_License_No_Changed();
+    partial void OnUS_CountyChanging(string value);
+    partial void OnUS_CountyChanged();
+    partial void OnAddress_Start_DateChanging(System.DateTime value);
+    partial void OnAddress_Start_DateChanged();
+    partial void OnBirth_PlaceChanging(string value);
+    partial void OnBirth_PlaceChanged();
+    partial void OnPreferred_NameChanging(string value);
+    partial void OnPreferred_NameChanged();
+    partial void OnShermco_Cell_Phone_No_Changing(string value);
+    partial void OnShermco_Cell_Phone_No_Changed();
+    partial void OnPrior_TI_AccessChanging(byte value);
+    partial void OnPrior_TI_AccessChanged();
+    partial void OnPrior_TI_Access_Beginning_DateChanging(System.DateTime value);
+    partial void OnPrior_TI_Access_Beginning_DateChanged();
+    partial void OnPrior_TI_Access_Ending_DateChanging(System.DateTime value);
+    partial void OnPrior_TI_Access_Ending_DateChanged();
+    partial void OnDenied_Access_to_TIChanging(byte value);
+    partial void OnDenied_Access_to_TIChanged();
+    partial void OnCitizen_of_United_StatesChanging(byte value);
+    partial void OnCitizen_of_United_StatesChanged();
+    partial void OnVisa_CategoryChanging(string value);
+    partial void OnVisa_CategoryChanged();
+    partial void OnAdmission__Changing(string value);
+    partial void OnAdmission__Changed();
+    partial void OnVisa_Expiration_DateChanging(System.DateTime value);
+    partial void OnVisa_Expiration_DateChanged();
+    partial void OnCountry_of_BirthChanging(string value);
+    partial void OnCountry_of_BirthChanged();
+    partial void OnCountry_of_CitizenshipChanging(string value);
+    partial void OnCountry_of_CitizenshipChanged();
+    partial void OnWork_PhoneChanging(string value);
+    partial void OnWork_PhoneChanged();
+    partial void OnDrug_Alcohol_Test_DateChanging(System.DateTime value);
+    partial void OnDrug_Alcohol_Test_DateChanged();
+    partial void OnReferral_SourceChanging(string value);
+    partial void OnReferral_SourceChanged();
+    partial void OnReferral_Employee_No_Changing(string value);
+    partial void OnReferral_Employee_No_Changed();
+    partial void OnEOC_RaceChanging(int value);
+    partial void OnEOC_RaceChanged();
+    partial void OnVeteranChanging(int value);
+    partial void OnVeteranChanged();
+    partial void OnDisabledChanging(byte value);
+    partial void OnDisabledChanged();
+    partial void OnTemp_BlockChanging(byte value);
+    partial void OnTemp_BlockChanged();
+    partial void OnPay_typeChanging(int value);
+    partial void OnPay_typeChanged();
+    partial void OnDisplay_NameChanging(string value);
+    partial void OnDisplay_NameChanged();
+    partial void OnClass_CodeChanging(string value);
+    partial void OnClass_CodeChanged();
+    partial void OnHome_Phone_No_Changing(string value);
+    partial void OnHome_Phone_No_Changed();
+    partial void OnSuffixChanging(string value);
+    partial void OnSuffixChanged();
+    partial void OnRaceChanging(string value);
+    partial void OnRaceChanged();
+    partial void OnPosition_CodeChanging(string value);
+    partial void OnPosition_CodeChanged();
+    partial void OnBlockedChanging(byte value);
+    partial void OnBlockedChanged();
+    partial void OnMiddle_InitialChanging(string value);
+    partial void OnMiddle_InitialChanged();
+    partial void OnDefault_Work_Type_CodeChanging(string value);
+    partial void OnDefault_Work_Type_CodeChanged();
+    partial void OnDeceasedChanging(byte value);
+    partial void OnDeceasedChanged();
+    partial void OnSSN_Is_VerifiedChanging(byte value);
+    partial void OnSSN_Is_VerifiedChanged();
+    partial void OnPay_Cycle_CodeChanging(string value);
+    partial void OnPay_Cycle_CodeChanged();
+    partial void OnEmployer_No_Changing(string value);
+    partial void OnEmployer_No_Changed();
+    partial void OnStatutory_EmployeeChanging(byte value);
+    partial void OnStatutory_EmployeeChanged();
+    partial void OnRetirement_PlanChanging(byte value);
+    partial void OnRetirement_PlanChanged();
+    partial void OnLegal_RepresentativeChanging(byte value);
+    partial void OnLegal_RepresentativeChanged();
+    partial void OnHousehold_EmployeeChanging(byte value);
+    partial void OnHousehold_EmployeeChanged();
+    partial void OnDeferred_CompensationChanging(byte value);
+    partial void OnDeferred_CompensationChanged();
+    partial void OnThird_Party_Sick_PayChanging(byte value);
+    partial void OnThird_Party_Sick_PayChanged();
+    partial void OnDefault_Rep__Auth__CodeChanging(string value);
+    partial void OnDefault_Rep__Auth__CodeChanged();
+    partial void OnSocial_Insurance_No_Changing(string value);
+    partial void OnSocial_Insurance_No_Changed();
+    partial void OnCPP_ExemptChanging(byte value);
+    partial void OnCPP_ExemptChanged();
+    partial void OnEI_ExemptChanging(byte value);
+    partial void OnEI_ExemptChanged();
+    partial void OnRPP_or_DPSPChanging(string value);
+    partial void OnRPP_or_DPSPChanged();
+    partial void OnOverride_Insurable_HoursChanging(decimal value);
+    partial void OnOverride_Insurable_HoursChanged();
+    partial void OnSalariedChanging(byte value);
+    partial void OnSalariedChanged();
+    partial void OnLanguage_CodeChanging(string value);
+    partial void OnLanguage_CodeChanged();
+    partial void OnHR_Rep__No_Changing(string value);
+    partial void OnHR_Rep__No_Changed();
+    partial void OnHR_Rep__ContactChanging(string value);
+    partial void OnHR_Rep__ContactChanged();
+    partial void OnSalutation_CodeChanging(string value);
+    partial void OnSalutation_CodeChanged();
+    partial void OnF_T__EquivalentChanging(decimal value);
+    partial void OnF_T__EquivalentChanged();
+    partial void OnScoreChanging(decimal value);
+    partial void OnScoreChanged();
+    partial void OnMVR_Record_RetrievedChanging(System.DateTime value);
+    partial void OnMVR_Record_RetrievedChanged();
+    partial void OnVeteran_Separation_DateChanging(System.DateTime value);
+    partial void OnVeteran_Separation_DateChanged();
+    partial void OnBlock_Time_EntryChanging(byte value);
+    partial void OnBlock_Time_EntryChanged();
+    partial void OnBlock_Time_Entry_ReasonChanging(string value);
+    partial void OnBlock_Time_Entry_ReasonChanged();
+    partial void OnBlock_Time_Entry_Req_ByChanging(string value);
+    partial void OnBlock_Time_Entry_Req_ByChanged();
+    partial void OnBlock_Phone_ListChanging(byte value);
+    partial void OnBlock_Phone_ListChanged();
+    partial void OnBlock_Birthday_ListChanging(byte value);
+    partial void OnBlock_Birthday_ListChanged();
+    partial void OnOT_to_OverheadChanging(byte value);
+    partial void OnOT_to_OverheadChanged();
+    partial void OnIT_New_Emp_AlertChanging(byte value);
+    partial void OnIT_New_Emp_AlertChanged();
+    partial void OnAmex_NameChanging(string value);
+    partial void OnAmex_NameChanged();
+    partial void OnDriver_Application_FormChanging(byte value);
+    partial void OnDriver_Application_FormChanged();
+    partial void OnDriver_Med__Exam__ReportChanging(System.DateTime value);
+    partial void OnDriver_Med__Exam__ReportChanged();
+    partial void OnDriver_Med__Exam__Cert_Changing(System.DateTime value);
+    partial void OnDriver_Med__Exam__Cert_Changed();
+    partial void OnDriver_Record_of_Road_TestChanging(System.DateTime value);
+    partial void OnDriver_Record_of_Road_TestChanged();
+    partial void OnDriver_Cert__of_Road_TestChanging(System.DateTime value);
+    partial void OnDriver_Cert__of_Road_TestChanged();
+    partial void OnDriver_Safety_Perf__HistoryChanging(System.DateTime value);
+    partial void OnDriver_Safety_Perf__HistoryChanged();
+    partial void OnDriver_M__V__Cert__ReviewChanging(System.DateTime value);
+    partial void OnDriver_M__V__Cert__ReviewChanged();
+    partial void OnDate_Driving_for_CompanyChanging(System.DateTime value);
+    partial void OnDate_Driving_for_CompanyChanged();
+    partial void OnDriver_License_ClassChanging(int value);
+    partial void OnDriver_License_ClassChanged();
+    partial void OnDriver_Licnese_Class_OtherChanging(string value);
+    partial void OnDriver_Licnese_Class_OtherChanged();
+    partial void OnSafety_MeetingChanging(int value);
+    partial void OnSafety_MeetingChanged();
+    partial void OnShow_on_Phone_ListChanging(byte value);
+    partial void OnShow_on_Phone_ListChanged();
+    partial void OnGerdau_No_Changing(string value);
+    partial void OnGerdau_No_Changed();
+    partial void OnNot_BillableChanging(byte value);
+    partial void OnNot_BillableChanged();
+    partial void OnISN_IDChanging(string value);
+    partial void OnISN_IDChanged();
+    partial void OnI9_CompletedChanging(byte value);
+    partial void OnI9_CompletedChanged();
+    partial void OnEmployee_Handbook_ReceiptChanging(byte value);
+    partial void OnEmployee_Handbook_ReceiptChanged();
+    partial void OnHR_Pay_TypeChanging(int value);
+    partial void OnHR_Pay_TypeChanged();
+    partial void OnCredit_Card_Approval_CodeChanging(string value);
+    partial void OnCredit_Card_Approval_CodeChanged();
+    partial void OnCredit_Card_Approval_LevelChanging(int value);
+    partial void OnCredit_Card_Approval_LevelChanged();
+    partial void OnJean_AllowanceChanging(byte value);
+    partial void OnJean_AllowanceChanged();
+    partial void OnJean_Gift_Card_No_Changing(string value);
+    partial void OnJean_Gift_Card_No_Changed();
+    partial void OnExportPendingChanging(byte value);
+    partial void OnExportPendingChanged();
+    partial void OnShift_DifferenceChanging(byte value);
+    partial void OnShift_DifferenceChanged();
+    partial void OnEligible_RehireChanging(int value);
+    partial void OnEligible_RehireChanged();
+    partial void OnEligible_to_Drive_SI_VehicleChanging(int value);
+    partial void OnEligible_to_Drive_SI_VehicleChanged();
+    partial void OnTemp_to_PermChanging(byte value);
+    partial void OnTemp_to_PermChanged();
+    partial void OnPart_TimeChanging(byte value);
+    partial void OnPart_TimeChanged();
+    partial void OnCo_OpChanging(byte value);
+    partial void OnCo_OpChanged();
+    partial void OnWork_LocationChanging(int value);
+    partial void OnWork_LocationChanged();
+    partial void OnTShirtChanging(int value);
+    partial void OnTShirtChanged();
+    partial void OnButtonUpChanging(int value);
+    partial void OnButtonUpChanged();
+    partial void OnPoloChanging(int value);
+    partial void OnPoloChanged();
+    partial void OnCoverallChanging(int value);
+    partial void OnCoverallChanged();
+    partial void OnGetCellChanging(int value);
+    partial void OnGetCellChanged();
+    partial void OnGetCompChanging(int value);
+    partial void OnGetCompChanged();
+    partial void OnGetLaptopChanging(int value);
+    partial void OnGetLaptopChanged();
+    partial void OnEmpNoChanging(int value);
+    partial void OnEmpNoChanged();
+    partial void OnEligible_to_Drive_DateChanging(System.DateTime value);
+    partial void OnEligible_to_Drive_DateChanged();
+    partial void OnEOC_Job_CategoryChanging(int value);
+    partial void OnEOC_Job_CategoryChanged();
+    partial void OnSeniority_DateChanging(System.DateTime value);
+    partial void OnSeniority_DateChanged();
+    partial void OnDISAChanging(int value);
+    partial void OnDISAChanged();
+    partial void OnEmployee_Signature_ReceivedChanging(byte value);
+    partial void OnEmployee_Signature_ReceivedChanged();
+    partial void OnPersonal_License_PlateChanging(string value);
+    partial void OnPersonal_License_PlateChanged();
+    partial void OnShermco_License_PlateChanging(string value);
+    partial void OnShermco_License_PlateChanged();
+    partial void OnJob_GradeChanging(int value);
+    partial void OnJob_GradeChanged();
+    partial void OnAlt__Personal_License_PlateChanging(string value);
+    partial void OnAlt__Personal_License_PlateChanged();
+    partial void OnEmergency_Contact_Name_2Changing(string value);
+    partial void OnEmergency_Contact_Name_2Changed();
+    partial void OnEmergency_Contact_Address_2Changing(string value);
+    partial void OnEmergency_Contact_Address_2Changed();
+    partial void OnEmergency_Contact_City_2Changing(string value);
+    partial void OnEmergency_Contact_City_2Changed();
+    partial void OnEmergency_Contact_State_2Changing(string value);
+    partial void OnEmergency_Contact_State_2Changed();
+    partial void OnEmergency_Contact_Zip_2Changing(string value);
+    partial void OnEmergency_Contact_Zip_2Changed();
+    partial void OnEmergency_Contact_Phone_2Changing(string value);
+    partial void OnEmergency_Contact_Phone_2Changed();
+    partial void OnEmergency_Contact_Mobile_2Changing(string value);
+    partial void OnEmergency_Contact_Mobile_2Changed();
+    partial void OnEmergency_Contact_Work_2Changing(string value);
+    partial void OnEmergency_Contact_Work_2Changed();
+    partial void OnEmergency_Contact_Relation_2Changing(string value);
+    partial void OnEmergency_Contact_Relation_2Changed();
+    partial void OnLMS_Cost_CenterChanging(string value);
+    partial void OnLMS_Cost_CenterChanged();
+    partial void OnLMS_GradeChanging(string value);
+    partial void OnLMS_GradeChanged();
+    partial void OnLMS_DivisionChanging(string value);
+    partial void OnLMS_DivisionChanged();
+    partial void OnLMS_PositionChanging(string value);
+    partial void OnLMS_PositionChanged();
+    partial void OnLMS_LocationChanging(string value);
+    partial void OnLMS_LocationChanged();
+    partial void OnCredit_Card_Approval_Code_2Changing(string value);
+    partial void OnCredit_Card_Approval_Code_2Changed();
+    partial void OnJob_DescriptionChanging(byte value);
+    partial void OnJob_DescriptionChanged();
+    partial void OnMedical_Exam_CertificateChanging(System.DateTime value);
+    partial void OnMedical_Exam_CertificateChanged();
+    partial void OnNext_Annual_Review_of_DriverChanging(System.DateTime value);
+    partial void OnNext_Annual_Review_of_DriverChanged();
+    partial void OnLicense_No_Changing(string value);
+    partial void OnLicense_No_Changed();
+    partial void OnIssuing_StateChanging(string value);
+    partial void OnIssuing_StateChanged();
+    partial void OnLicense_Exp__DateChanging(System.DateTime value);
+    partial void OnLicense_Exp__DateChanged();
+    partial void OnDOT_CompliantChanging(int value);
+    partial void OnDOT_CompliantChanged();
+    partial void OnSubject_to_DOT_testingChanging(int value);
+    partial void OnSubject_to_DOT_testingChanged();
+    partial void OnDoes_driver_have_exceptionChanging(int value);
+    partial void OnDoes_driver_have_exceptionChanged();
+    partial void OnPull_MVR_beforeChanging(System.DateTime value);
+    partial void OnPull_MVR_beforeChanged();
+    partial void OnHas_Driver_Received_trainingChanging(int value);
+    partial void OnHas_Driver_Received_trainingChanged();
+    partial void OnIs_Driver_LCV_certifiedChanging(int value);
+    partial void OnIs_Driver_LCV_certifiedChanged();
+    partial void OnCDLChanging(int value);
+    partial void OnCDLChanged();
+    partial void OnLicense_Class_TypeChanging(int value);
+    partial void OnLicense_Class_TypeChanged();
+    partial void OnDriver_Start_DateChanging(System.DateTime value);
+    partial void OnDriver_Start_DateChanged();
+    partial void OnQualifiedChanging(int value);
+    partial void OnQualifiedChanged();
+    partial void OnWhy_DisqualifiedChanging(string value);
+    partial void OnWhy_DisqualifiedChanged();
+    partial void OnDate_DisqualifiedChanging(System.DateTime value);
+    partial void OnDate_DisqualifiedChanged();
+    partial void OnMultiple_Employer_DriverChanging(int value);
+    partial void OnMultiple_Employer_DriverChanged();
+    #endregion
+	
+	public Shermco_Employee()
+	{
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_timestamp", AutoSync=AutoSync.Always, DbType="rowversion NOT NULL", CanBeNull=false, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
+	public System.Data.Linq.Binary timestamp
+	{
+		get
+		{
+			return this._timestamp;
+		}
+		set
+		{
+			if ((this._timestamp != value))
+			{
+				this.OntimestampChanging(value);
+				this.SendPropertyChanging();
+				this._timestamp = value;
+				this.SendPropertyChanged("timestamp");
+				this.OntimestampChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_No_", DbType="VarChar(20) NOT NULL", CanBeNull=false, IsPrimaryKey=true, UpdateCheck=UpdateCheck.Never)]
+	public string No_
+	{
+		get
+		{
+			return this._No_;
+		}
+		set
+		{
+			if ((this._No_ != value))
+			{
+				this.OnNo_Changing(value);
+				this.SendPropertyChanging();
+				this._No_ = value;
+				this.SendPropertyChanged("No_");
+				this.OnNo_Changed();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[First Name]", Storage="_First_Name", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string First_Name
+	{
+		get
+		{
+			return this._First_Name;
+		}
+		set
+		{
+			if ((this._First_Name != value))
+			{
+				this.OnFirst_NameChanging(value);
+				this.SendPropertyChanging();
+				this._First_Name = value;
+				this.SendPropertyChanged("First_Name");
+				this.OnFirst_NameChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Middle Name]", Storage="_Middle_Name", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Middle_Name
+	{
+		get
+		{
+			return this._Middle_Name;
+		}
+		set
+		{
+			if ((this._Middle_Name != value))
+			{
+				this.OnMiddle_NameChanging(value);
+				this.SendPropertyChanging();
+				this._Middle_Name = value;
+				this.SendPropertyChanged("Middle_Name");
+				this.OnMiddle_NameChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Last Name]", Storage="_Last_Name", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Last_Name
+	{
+		get
+		{
+			return this._Last_Name;
+		}
+		set
+		{
+			if ((this._Last_Name != value))
+			{
+				this.OnLast_NameChanging(value);
+				this.SendPropertyChanging();
+				this._Last_Name = value;
+				this.SendPropertyChanged("Last_Name");
+				this.OnLast_NameChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Initials", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Initials
+	{
+		get
+		{
+			return this._Initials;
+		}
+		set
+		{
+			if ((this._Initials != value))
+			{
+				this.OnInitialsChanging(value);
+				this.SendPropertyChanging();
+				this._Initials = value;
+				this.SendPropertyChanged("Initials");
+				this.OnInitialsChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Job Title]", Storage="_Job_Title", DbType="VarChar(50) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Job_Title
+	{
+		get
+		{
+			return this._Job_Title;
+		}
+		set
+		{
+			if ((this._Job_Title != value))
+			{
+				this.OnJob_TitleChanging(value);
+				this.SendPropertyChanging();
+				this._Job_Title = value;
+				this.SendPropertyChanged("Job_Title");
+				this.OnJob_TitleChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Search Name]", Storage="_Search_Name", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Search_Name
+	{
+		get
+		{
+			return this._Search_Name;
+		}
+		set
+		{
+			if ((this._Search_Name != value))
+			{
+				this.OnSearch_NameChanging(value);
+				this.SendPropertyChanging();
+				this._Search_Name = value;
+				this.SendPropertyChanged("Search_Name");
+				this.OnSearch_NameChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Address", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Address
+	{
+		get
+		{
+			return this._Address;
+		}
+		set
+		{
+			if ((this._Address != value))
+			{
+				this.OnAddressChanging(value);
+				this.SendPropertyChanging();
+				this._Address = value;
+				this.SendPropertyChanged("Address");
+				this.OnAddressChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Address 2]", Storage="_Address_2", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Address_2
+	{
+		get
+		{
+			return this._Address_2;
+		}
+		set
+		{
+			if ((this._Address_2 != value))
+			{
+				this.OnAddress_2Changing(value);
+				this.SendPropertyChanging();
+				this._Address_2 = value;
+				this.SendPropertyChanged("Address_2");
+				this.OnAddress_2Changed();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_City", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string City
+	{
+		get
+		{
+			return this._City;
+		}
+		set
+		{
+			if ((this._City != value))
+			{
+				this.OnCityChanging(value);
+				this.SendPropertyChanging();
+				this._City = value;
+				this.SendPropertyChanged("City");
+				this.OnCityChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Post Code]", Storage="_Post_Code", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Post_Code
+	{
+		get
+		{
+			return this._Post_Code;
+		}
+		set
+		{
+			if ((this._Post_Code != value))
+			{
+				this.OnPost_CodeChanging(value);
+				this.SendPropertyChanging();
+				this._Post_Code = value;
+				this.SendPropertyChanged("Post_Code");
+				this.OnPost_CodeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_County", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string County
+	{
+		get
+		{
+			return this._County;
+		}
+		set
+		{
+			if ((this._County != value))
+			{
+				this.OnCountyChanging(value);
+				this.SendPropertyChanging();
+				this._County = value;
+				this.SendPropertyChanged("County");
+				this.OnCountyChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Phone No_]", Storage="_Phone_No_", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Phone_No_
+	{
+		get
+		{
+			return this._Phone_No_;
+		}
+		set
+		{
+			if ((this._Phone_No_ != value))
+			{
+				this.OnPhone_No_Changing(value);
+				this.SendPropertyChanging();
+				this._Phone_No_ = value;
+				this.SendPropertyChanged("Phone_No_");
+				this.OnPhone_No_Changed();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Mobile Phone No_]", Storage="_Mobile_Phone_No_", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Mobile_Phone_No_
+	{
+		get
+		{
+			return this._Mobile_Phone_No_;
+		}
+		set
+		{
+			if ((this._Mobile_Phone_No_ != value))
+			{
+				this.OnMobile_Phone_No_Changing(value);
+				this.SendPropertyChanging();
+				this._Mobile_Phone_No_ = value;
+				this.SendPropertyChanged("Mobile_Phone_No_");
+				this.OnMobile_Phone_No_Changed();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[E-Mail]", Storage="_E_Mail", DbType="VarChar(80) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string E_Mail
+	{
+		get
+		{
+			return this._E_Mail;
+		}
+		set
+		{
+			if ((this._E_Mail != value))
+			{
+				this.OnE_MailChanging(value);
+				this.SendPropertyChanging();
+				this._E_Mail = value;
+				this.SendPropertyChanged("E_Mail");
+				this.OnE_MailChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Alt_ Address Code]", Storage="_Alt__Address_Code", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Alt__Address_Code
+	{
+		get
+		{
+			return this._Alt__Address_Code;
+		}
+		set
+		{
+			if ((this._Alt__Address_Code != value))
+			{
+				this.OnAlt__Address_CodeChanging(value);
+				this.SendPropertyChanging();
+				this._Alt__Address_Code = value;
+				this.SendPropertyChanged("Alt__Address_Code");
+				this.OnAlt__Address_CodeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Alt_ Address Start Date]", Storage="_Alt__Address_Start_Date", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public System.DateTime Alt__Address_Start_Date
+	{
+		get
+		{
+			return this._Alt__Address_Start_Date;
+		}
+		set
+		{
+			if ((this._Alt__Address_Start_Date != value))
+			{
+				this.OnAlt__Address_Start_DateChanging(value);
+				this.SendPropertyChanging();
+				this._Alt__Address_Start_Date = value;
+				this.SendPropertyChanged("Alt__Address_Start_Date");
+				this.OnAlt__Address_Start_DateChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Alt_ Address End Date]", Storage="_Alt__Address_End_Date", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public System.DateTime Alt__Address_End_Date
+	{
+		get
+		{
+			return this._Alt__Address_End_Date;
+		}
+		set
+		{
+			if ((this._Alt__Address_End_Date != value))
+			{
+				this.OnAlt__Address_End_DateChanging(value);
+				this.SendPropertyChanging();
+				this._Alt__Address_End_Date = value;
+				this.SendPropertyChanged("Alt__Address_End_Date");
+				this.OnAlt__Address_End_DateChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Picture", DbType="Image", UpdateCheck=UpdateCheck.Never)]
+	public System.Data.Linq.Binary Picture
+	{
+		get
+		{
+			return this._Picture;
+		}
+		set
+		{
+			if ((this._Picture != value))
+			{
+				this.OnPictureChanging(value);
+				this.SendPropertyChanging();
+				this._Picture = value;
+				this.SendPropertyChanged("Picture");
+				this.OnPictureChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Birth Date]", Storage="_Birth_Date", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public System.DateTime Birth_Date
+	{
+		get
+		{
+			return this._Birth_Date;
+		}
+		set
+		{
+			if ((this._Birth_Date != value))
+			{
+				this.OnBirth_DateChanging(value);
+				this.SendPropertyChanging();
+				this._Birth_Date = value;
+				this.SendPropertyChanged("Birth_Date");
+				this.OnBirth_DateChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Social Security No_]", Storage="_Social_Security_No_", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Social_Security_No_
+	{
+		get
+		{
+			return this._Social_Security_No_;
+		}
+		set
+		{
+			if ((this._Social_Security_No_ != value))
+			{
+				this.OnSocial_Security_No_Changing(value);
+				this.SendPropertyChanging();
+				this._Social_Security_No_ = value;
+				this.SendPropertyChanged("Social_Security_No_");
+				this.OnSocial_Security_No_Changed();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Union Code]", Storage="_Union_Code", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Union_Code
+	{
+		get
+		{
+			return this._Union_Code;
+		}
+		set
+		{
+			if ((this._Union_Code != value))
+			{
+				this.OnUnion_CodeChanging(value);
+				this.SendPropertyChanging();
+				this._Union_Code = value;
+				this.SendPropertyChanged("Union_Code");
+				this.OnUnion_CodeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Union Membership No_]", Storage="_Union_Membership_No_", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Union_Membership_No_
+	{
+		get
+		{
+			return this._Union_Membership_No_;
+		}
+		set
+		{
+			if ((this._Union_Membership_No_ != value))
+			{
+				this.OnUnion_Membership_No_Changing(value);
+				this.SendPropertyChanging();
+				this._Union_Membership_No_ = value;
+				this.SendPropertyChanged("Union_Membership_No_");
+				this.OnUnion_Membership_No_Changed();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Sex", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public int Sex
+	{
+		get
+		{
+			return this._Sex;
+		}
+		set
+		{
+			if ((this._Sex != value))
+			{
+				this.OnSexChanging(value);
+				this.SendPropertyChanging();
+				this._Sex = value;
+				this.SendPropertyChanged("Sex");
+				this.OnSexChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Country Code]", Storage="_Country_Code", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Country_Code
+	{
+		get
+		{
+			return this._Country_Code;
+		}
+		set
+		{
+			if ((this._Country_Code != value))
+			{
+				this.OnCountry_CodeChanging(value);
+				this.SendPropertyChanging();
+				this._Country_Code = value;
+				this.SendPropertyChanged("Country_Code");
+				this.OnCountry_CodeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Manager No_]", Storage="_Manager_No_", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Manager_No_
+	{
+		get
+		{
+			return this._Manager_No_;
+		}
+		set
+		{
+			if ((this._Manager_No_ != value))
+			{
+				this.OnManager_No_Changing(value);
+				this.SendPropertyChanging();
+				this._Manager_No_ = value;
+				this.SendPropertyChanged("Manager_No_");
+				this.OnManager_No_Changed();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Emplymt_ Contract Code]", Storage="_Emplymt__Contract_Code", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Emplymt__Contract_Code
+	{
+		get
+		{
+			return this._Emplymt__Contract_Code;
+		}
+		set
+		{
+			if ((this._Emplymt__Contract_Code != value))
+			{
+				this.OnEmplymt__Contract_CodeChanging(value);
+				this.SendPropertyChanging();
+				this._Emplymt__Contract_Code = value;
+				this.SendPropertyChanged("Emplymt__Contract_Code");
+				this.OnEmplymt__Contract_CodeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Statistics Group Code]", Storage="_Statistics_Group_Code", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Statistics_Group_Code
+	{
+		get
+		{
+			return this._Statistics_Group_Code;
+		}
+		set
+		{
+			if ((this._Statistics_Group_Code != value))
+			{
+				this.OnStatistics_Group_CodeChanging(value);
+				this.SendPropertyChanging();
+				this._Statistics_Group_Code = value;
+				this.SendPropertyChanged("Statistics_Group_Code");
+				this.OnStatistics_Group_CodeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Employment Date]", Storage="_Employment_Date", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public System.DateTime Employment_Date
+	{
+		get
+		{
+			return this._Employment_Date;
+		}
+		set
+		{
+			if ((this._Employment_Date != value))
+			{
+				this.OnEmployment_DateChanging(value);
+				this.SendPropertyChanging();
+				this._Employment_Date = value;
+				this.SendPropertyChanged("Employment_Date");
+				this.OnEmployment_DateChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Status", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public int Status
+	{
+		get
+		{
+			return this._Status;
+		}
+		set
+		{
+			if ((this._Status != value))
+			{
+				this.OnStatusChanging(value);
+				this.SendPropertyChanging();
+				this._Status = value;
+				this.SendPropertyChanged("Status");
+				this.OnStatusChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Inactive Date]", Storage="_Inactive_Date", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public System.DateTime Inactive_Date
+	{
+		get
+		{
+			return this._Inactive_Date;
+		}
+		set
+		{
+			if ((this._Inactive_Date != value))
+			{
+				this.OnInactive_DateChanging(value);
+				this.SendPropertyChanging();
+				this._Inactive_Date = value;
+				this.SendPropertyChanged("Inactive_Date");
+				this.OnInactive_DateChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Cause of Inactivity Code]", Storage="_Cause_of_Inactivity_Code", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Cause_of_Inactivity_Code
+	{
+		get
+		{
+			return this._Cause_of_Inactivity_Code;
+		}
+		set
+		{
+			if ((this._Cause_of_Inactivity_Code != value))
+			{
+				this.OnCause_of_Inactivity_CodeChanging(value);
+				this.SendPropertyChanging();
+				this._Cause_of_Inactivity_Code = value;
+				this.SendPropertyChanged("Cause_of_Inactivity_Code");
+				this.OnCause_of_Inactivity_CodeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Termination Date]", Storage="_Termination_Date", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public System.DateTime Termination_Date
+	{
+		get
+		{
+			return this._Termination_Date;
+		}
+		set
+		{
+			if ((this._Termination_Date != value))
+			{
+				this.OnTermination_DateChanging(value);
+				this.SendPropertyChanging();
+				this._Termination_Date = value;
+				this.SendPropertyChanged("Termination_Date");
+				this.OnTermination_DateChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Grounds for Term_ Code]", Storage="_Grounds_for_Term__Code", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Grounds_for_Term__Code
+	{
+		get
+		{
+			return this._Grounds_for_Term__Code;
+		}
+		set
+		{
+			if ((this._Grounds_for_Term__Code != value))
+			{
+				this.OnGrounds_for_Term__CodeChanging(value);
+				this.SendPropertyChanging();
+				this._Grounds_for_Term__Code = value;
+				this.SendPropertyChanged("Grounds_for_Term__Code");
+				this.OnGrounds_for_Term__CodeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Global Dimension 1 Code]", Storage="_Global_Dimension_1_Code", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Global_Dimension_1_Code
+	{
+		get
+		{
+			return this._Global_Dimension_1_Code;
+		}
+		set
+		{
+			if ((this._Global_Dimension_1_Code != value))
+			{
+				this.OnGlobal_Dimension_1_CodeChanging(value);
+				this.SendPropertyChanging();
+				this._Global_Dimension_1_Code = value;
+				this.SendPropertyChanged("Global_Dimension_1_Code");
+				this.OnGlobal_Dimension_1_CodeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Global Dimension 2 Code]", Storage="_Global_Dimension_2_Code", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Global_Dimension_2_Code
+	{
+		get
+		{
+			return this._Global_Dimension_2_Code;
+		}
+		set
+		{
+			if ((this._Global_Dimension_2_Code != value))
+			{
+				this.OnGlobal_Dimension_2_CodeChanging(value);
+				this.SendPropertyChanging();
+				this._Global_Dimension_2_Code = value;
+				this.SendPropertyChanged("Global_Dimension_2_Code");
+				this.OnGlobal_Dimension_2_CodeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Resource No_]", Storage="_Resource_No_", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Resource_No_
+	{
+		get
+		{
+			return this._Resource_No_;
+		}
+		set
+		{
+			if ((this._Resource_No_ != value))
+			{
+				this.OnResource_No_Changing(value);
+				this.SendPropertyChanging();
+				this._Resource_No_ = value;
+				this.SendPropertyChanged("Resource_No_");
+				this.OnResource_No_Changed();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Last Date Modified]", Storage="_Last_Date_Modified", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public System.DateTime Last_Date_Modified
+	{
+		get
+		{
+			return this._Last_Date_Modified;
+		}
+		set
+		{
+			if ((this._Last_Date_Modified != value))
+			{
+				this.OnLast_Date_ModifiedChanging(value);
+				this.SendPropertyChanging();
+				this._Last_Date_Modified = value;
+				this.SendPropertyChanged("Last_Date_Modified");
+				this.OnLast_Date_ModifiedChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Extension", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Extension
+	{
+		get
+		{
+			return this._Extension;
+		}
+		set
+		{
+			if ((this._Extension != value))
+			{
+				this.OnExtensionChanging(value);
+				this.SendPropertyChanging();
+				this._Extension = value;
+				this.SendPropertyChanged("Extension");
+				this.OnExtensionChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Pager", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Pager
+	{
+		get
+		{
+			return this._Pager;
+		}
+		set
+		{
+			if ((this._Pager != value))
+			{
+				this.OnPagerChanging(value);
+				this.SendPropertyChanging();
+				this._Pager = value;
+				this.SendPropertyChanged("Pager");
+				this.OnPagerChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Fax No_]", Storage="_Fax_No_", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Fax_No_
+	{
+		get
+		{
+			return this._Fax_No_;
+		}
+		set
+		{
+			if ((this._Fax_No_ != value))
+			{
+				this.OnFax_No_Changing(value);
+				this.SendPropertyChanging();
+				this._Fax_No_ = value;
+				this.SendPropertyChanged("Fax_No_");
+				this.OnFax_No_Changed();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Company E-Mail]", Storage="_Company_E_Mail", DbType="VarChar(80) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Company_E_Mail
+	{
+		get
+		{
+			return this._Company_E_Mail;
+		}
+		set
+		{
+			if ((this._Company_E_Mail != value))
+			{
+				this.OnCompany_E_MailChanging(value);
+				this.SendPropertyChanging();
+				this._Company_E_Mail = value;
+				this.SendPropertyChanged("Company_E_Mail");
+				this.OnCompany_E_MailChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Title", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Title
+	{
+		get
+		{
+			return this._Title;
+		}
+		set
+		{
+			if ((this._Title != value))
+			{
+				this.OnTitleChanging(value);
+				this.SendPropertyChanging();
+				this._Title = value;
+				this.SendPropertyChanged("Title");
+				this.OnTitleChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Salespers__Purch_ Code]", Storage="_Salespers__Purch__Code", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Salespers__Purch__Code
+	{
+		get
+		{
+			return this._Salespers__Purch__Code;
+		}
+		set
+		{
+			if ((this._Salespers__Purch__Code != value))
+			{
+				this.OnSalespers__Purch__CodeChanging(value);
+				this.SendPropertyChanging();
+				this._Salespers__Purch__Code = value;
+				this.SendPropertyChanged("Salespers__Purch__Code");
+				this.OnSalespers__Purch__CodeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[No_ Series]", Storage="_No__Series", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string No__Series
+	{
+		get
+		{
+			return this._No__Series;
+		}
+		set
+		{
+			if ((this._No__Series != value))
+			{
+				this.OnNo__SeriesChanging(value);
+				this.SendPropertyChanging();
+				this._No__Series = value;
+				this.SendPropertyChanged("No__Series");
+				this.OnNo__SeriesChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Extra", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Extra
+	{
+		get
+		{
+			return this._Extra;
+		}
+		set
+		{
+			if ((this._Extra != value))
+			{
+				this.OnExtraChanging(value);
+				this.SendPropertyChanging();
+				this._Extra = value;
+				this.SendPropertyChanged("Extra");
+				this.OnExtraChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Employee Password]", Storage="_Employee_Password", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Employee_Password
+	{
+		get
+		{
+			return this._Employee_Password;
+		}
+		set
+		{
+			if ((this._Employee_Password != value))
+			{
+				this.OnEmployee_PasswordChanging(value);
+				this.SendPropertyChanging();
+				this._Employee_Password = value;
+				this.SendPropertyChanged("Employee_Password");
+				this.OnEmployee_PasswordChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Manager Group Code]", Storage="_Manager_Group_Code", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Manager_Group_Code
+	{
+		get
+		{
+			return this._Manager_Group_Code;
+		}
+		set
+		{
+			if ((this._Manager_Group_Code != value))
+			{
+				this.OnManager_Group_CodeChanging(value);
+				this.SendPropertyChanging();
+				this._Manager_Group_Code = value;
+				this.SendPropertyChanged("Manager_Group_Code");
+				this.OnManager_Group_CodeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Accounting Employee]", Storage="_Accounting_Employee", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Accounting_Employee
+	{
+		get
+		{
+			return this._Accounting_Employee;
+		}
+		set
+		{
+			if ((this._Accounting_Employee != value))
+			{
+				this.OnAccounting_EmployeeChanging(value);
+				this.SendPropertyChanging();
+				this._Accounting_Employee = value;
+				this.SendPropertyChanged("Accounting_Employee");
+				this.OnAccounting_EmployeeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Time Entry Approval Code]", Storage="_Time_Entry_Approval_Code", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Time_Entry_Approval_Code
+	{
+		get
+		{
+			return this._Time_Entry_Approval_Code;
+		}
+		set
+		{
+			if ((this._Time_Entry_Approval_Code != value))
+			{
+				this.OnTime_Entry_Approval_CodeChanging(value);
+				this.SendPropertyChanging();
+				this._Time_Entry_Approval_Code = value;
+				this.SendPropertyChanged("Time_Entry_Approval_Code");
+				this.OnTime_Entry_Approval_CodeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Approval level]", Storage="_Approval_level", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public int Approval_level
+	{
+		get
+		{
+			return this._Approval_level;
+		}
+		set
+		{
+			if ((this._Approval_level != value))
+			{
+				this.OnApproval_levelChanging(value);
+				this.SendPropertyChanging();
+				this._Approval_level = value;
+				this.SendPropertyChanged("Approval_level");
+				this.OnApproval_levelChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Over 8 Hrs ST]", Storage="_Over_8_Hrs_ST", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Over_8_Hrs_ST
+	{
+		get
+		{
+			return this._Over_8_Hrs_ST;
+		}
+		set
+		{
+			if ((this._Over_8_Hrs_ST != value))
+			{
+				this.OnOver_8_Hrs_STChanging(value);
+				this.SendPropertyChanging();
+				this._Over_8_Hrs_ST = value;
+				this.SendPropertyChanged("Over_8_Hrs_ST");
+				this.OnOver_8_Hrs_STChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Original Employment Date]", Storage="_Original_Employment_Date", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public System.DateTime Original_Employment_Date
+	{
+		get
+		{
+			return this._Original_Employment_Date;
+		}
+		set
+		{
+			if ((this._Original_Employment_Date != value))
+			{
+				this.OnOriginal_Employment_DateChanging(value);
+				this.SendPropertyChanging();
+				this._Original_Employment_Date = value;
+				this.SendPropertyChanged("Original_Employment_Date");
+				this.OnOriginal_Employment_DateChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Original Separation Date]", Storage="_Original_Separation_Date", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public System.DateTime Original_Separation_Date
+	{
+		get
+		{
+			return this._Original_Separation_Date;
+		}
+		set
+		{
+			if ((this._Original_Separation_Date != value))
+			{
+				this.OnOriginal_Separation_DateChanging(value);
+				this.SendPropertyChanging();
+				this._Original_Separation_Date = value;
+				this.SendPropertyChanged("Original_Separation_Date");
+				this.OnOriginal_Separation_DateChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Temporary Employee]", Storage="_Temporary_Employee", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Temporary_Employee
+	{
+		get
+		{
+			return this._Temporary_Employee;
+		}
+		set
+		{
+			if ((this._Temporary_Employee != value))
+			{
+				this.OnTemporary_EmployeeChanging(value);
+				this.SendPropertyChanging();
+				this._Temporary_Employee = value;
+				this.SendPropertyChanged("Temporary_Employee");
+				this.OnTemporary_EmployeeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Able to Post Time]", Storage="_Able_to_Post_Time", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Able_to_Post_Time
+	{
+		get
+		{
+			return this._Able_to_Post_Time;
+		}
+		set
+		{
+			if ((this._Able_to_Post_Time != value))
+			{
+				this.OnAble_to_Post_TimeChanging(value);
+				this.SendPropertyChanging();
+				this._Able_to_Post_Time = value;
+				this.SendPropertyChanged("Able_to_Post_Time");
+				this.OnAble_to_Post_TimeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Reports To]", Storage="_Reports_To", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Reports_To
+	{
+		get
+		{
+			return this._Reports_To;
+		}
+		set
+		{
+			if ((this._Reports_To != value))
+			{
+				this.OnReports_ToChanging(value);
+				this.SendPropertyChanging();
+				this._Reports_To = value;
+				this.SendPropertyChanged("Reports_To");
+				this.OnReports_ToChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Contractor", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Contractor
+	{
+		get
+		{
+			return this._Contractor;
+		}
+		set
+		{
+			if ((this._Contractor != value))
+			{
+				this.OnContractorChanging(value);
+				this.SendPropertyChanging();
+				this._Contractor = value;
+				this.SendPropertyChanged("Contractor");
+				this.OnContractorChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Achievement TEC Results Date]", Storage="_Achievement_TEC_Results_Date", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public System.DateTime Achievement_TEC_Results_Date
+	{
+		get
+		{
+			return this._Achievement_TEC_Results_Date;
+		}
+		set
+		{
+			if ((this._Achievement_TEC_Results_Date != value))
+			{
+				this.OnAchievement_TEC_Results_DateChanging(value);
+				this.SendPropertyChanging();
+				this._Achievement_TEC_Results_Date = value;
+				this.SendPropertyChanged("Achievement_TEC_Results_Date");
+				this.OnAchievement_TEC_Results_DateChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[TI Background Check Date]", Storage="_TI_Background_Check_Date", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public System.DateTime TI_Background_Check_Date
+	{
+		get
+		{
+			return this._TI_Background_Check_Date;
+		}
+		set
+		{
+			if ((this._TI_Background_Check_Date != value))
+			{
+				this.OnTI_Background_Check_DateChanging(value);
+				this.SendPropertyChanging();
+				this._TI_Background_Check_Date = value;
+				this.SendPropertyChanged("TI_Background_Check_Date");
+				this.OnTI_Background_Check_DateChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Maiden Name]", Storage="_Maiden_Name", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Maiden_Name
+	{
+		get
+		{
+			return this._Maiden_Name;
+		}
+		set
+		{
+			if ((this._Maiden_Name != value))
+			{
+				this.OnMaiden_NameChanging(value);
+				this.SendPropertyChanging();
+				this._Maiden_Name = value;
+				this.SendPropertyChanged("Maiden_Name");
+				this.OnMaiden_NameChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Alias", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Alias
+	{
+		get
+		{
+			return this._Alias;
+		}
+		set
+		{
+			if ((this._Alias != value))
+			{
+				this.OnAliasChanging(value);
+				this.SendPropertyChanging();
+				this._Alias = value;
+				this.SendPropertyChanged("Alias");
+				this.OnAliasChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Previously Used Name]", Storage="_Previously_Used_Name", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Previously_Used_Name
+	{
+		get
+		{
+			return this._Previously_Used_Name;
+		}
+		set
+		{
+			if ((this._Previously_Used_Name != value))
+			{
+				this.OnPreviously_Used_NameChanging(value);
+				this.SendPropertyChanging();
+				this._Previously_Used_Name = value;
+				this.SendPropertyChanged("Previously_Used_Name");
+				this.OnPreviously_Used_NameChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Emergency Contact Name]", Storage="_Emergency_Contact_Name", DbType="VarChar(40) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Emergency_Contact_Name
+	{
+		get
+		{
+			return this._Emergency_Contact_Name;
+		}
+		set
+		{
+			if ((this._Emergency_Contact_Name != value))
+			{
+				this.OnEmergency_Contact_NameChanging(value);
+				this.SendPropertyChanging();
+				this._Emergency_Contact_Name = value;
+				this.SendPropertyChanged("Emergency_Contact_Name");
+				this.OnEmergency_Contact_NameChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Emergency Contact Street Addr_]", Storage="_Emergency_Contact_Street_Addr_", DbType="VarChar(50) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Emergency_Contact_Street_Addr_
+	{
+		get
+		{
+			return this._Emergency_Contact_Street_Addr_;
+		}
+		set
+		{
+			if ((this._Emergency_Contact_Street_Addr_ != value))
+			{
+				this.OnEmergency_Contact_Street_Addr_Changing(value);
+				this.SendPropertyChanging();
+				this._Emergency_Contact_Street_Addr_ = value;
+				this.SendPropertyChanged("Emergency_Contact_Street_Addr_");
+				this.OnEmergency_Contact_Street_Addr_Changed();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Emergency Contact City]", Storage="_Emergency_Contact_City", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Emergency_Contact_City
+	{
+		get
+		{
+			return this._Emergency_Contact_City;
+		}
+		set
+		{
+			if ((this._Emergency_Contact_City != value))
+			{
+				this.OnEmergency_Contact_CityChanging(value);
+				this.SendPropertyChanging();
+				this._Emergency_Contact_City = value;
+				this.SendPropertyChanged("Emergency_Contact_City");
+				this.OnEmergency_Contact_CityChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Emergency Contact State]", Storage="_Emergency_Contact_State", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Emergency_Contact_State
+	{
+		get
+		{
+			return this._Emergency_Contact_State;
+		}
+		set
+		{
+			if ((this._Emergency_Contact_State != value))
+			{
+				this.OnEmergency_Contact_StateChanging(value);
+				this.SendPropertyChanging();
+				this._Emergency_Contact_State = value;
+				this.SendPropertyChanged("Emergency_Contact_State");
+				this.OnEmergency_Contact_StateChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Emergency Contact Zip Code]", Storage="_Emergency_Contact_Zip_Code", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Emergency_Contact_Zip_Code
+	{
+		get
+		{
+			return this._Emergency_Contact_Zip_Code;
+		}
+		set
+		{
+			if ((this._Emergency_Contact_Zip_Code != value))
+			{
+				this.OnEmergency_Contact_Zip_CodeChanging(value);
+				this.SendPropertyChanging();
+				this._Emergency_Contact_Zip_Code = value;
+				this.SendPropertyChanged("Emergency_Contact_Zip_Code");
+				this.OnEmergency_Contact_Zip_CodeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Emergency Contact Phone No_]", Storage="_Emergency_Contact_Phone_No_", DbType="VarChar(15) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Emergency_Contact_Phone_No_
+	{
+		get
+		{
+			return this._Emergency_Contact_Phone_No_;
+		}
+		set
+		{
+			if ((this._Emergency_Contact_Phone_No_ != value))
+			{
+				this.OnEmergency_Contact_Phone_No_Changing(value);
+				this.SendPropertyChanging();
+				this._Emergency_Contact_Phone_No_ = value;
+				this.SendPropertyChanged("Emergency_Contact_Phone_No_");
+				this.OnEmergency_Contact_Phone_No_Changed();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Emergency Contact Cell No_]", Storage="_Emergency_Contact_Cell_No_", DbType="VarChar(15) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Emergency_Contact_Cell_No_
+	{
+		get
+		{
+			return this._Emergency_Contact_Cell_No_;
+		}
+		set
+		{
+			if ((this._Emergency_Contact_Cell_No_ != value))
+			{
+				this.OnEmergency_Contact_Cell_No_Changing(value);
+				this.SendPropertyChanging();
+				this._Emergency_Contact_Cell_No_ = value;
+				this.SendPropertyChanged("Emergency_Contact_Cell_No_");
+				this.OnEmergency_Contact_Cell_No_Changed();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Emergency Contact Rel_ to Empl]", Storage="_Emergency_Contact_Rel__to_Empl", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Emergency_Contact_Rel__to_Empl
+	{
+		get
+		{
+			return this._Emergency_Contact_Rel__to_Empl;
+		}
+		set
+		{
+			if ((this._Emergency_Contact_Rel__to_Empl != value))
+			{
+				this.OnEmergency_Contact_Rel__to_EmplChanging(value);
+				this.SendPropertyChanging();
+				this._Emergency_Contact_Rel__to_Empl = value;
+				this.SendPropertyChanged("Emergency_Contact_Rel__to_Empl");
+				this.OnEmergency_Contact_Rel__to_EmplChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Drivers License State]", Storage="_Drivers_License_State", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Drivers_License_State
+	{
+		get
+		{
+			return this._Drivers_License_State;
+		}
+		set
+		{
+			if ((this._Drivers_License_State != value))
+			{
+				this.OnDrivers_License_StateChanging(value);
+				this.SendPropertyChanging();
+				this._Drivers_License_State = value;
+				this.SendPropertyChanged("Drivers_License_State");
+				this.OnDrivers_License_StateChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Drivers License No_]", Storage="_Drivers_License_No_", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Drivers_License_No_
+	{
+		get
+		{
+			return this._Drivers_License_No_;
+		}
+		set
+		{
+			if ((this._Drivers_License_No_ != value))
+			{
+				this.OnDrivers_License_No_Changing(value);
+				this.SendPropertyChanging();
+				this._Drivers_License_No_ = value;
+				this.SendPropertyChanged("Drivers_License_No_");
+				this.OnDrivers_License_No_Changed();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[US County]", Storage="_US_County", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string US_County
+	{
+		get
+		{
+			return this._US_County;
+		}
+		set
+		{
+			if ((this._US_County != value))
+			{
+				this.OnUS_CountyChanging(value);
+				this.SendPropertyChanging();
+				this._US_County = value;
+				this.SendPropertyChanged("US_County");
+				this.OnUS_CountyChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Address Start Date]", Storage="_Address_Start_Date", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public System.DateTime Address_Start_Date
+	{
+		get
+		{
+			return this._Address_Start_Date;
+		}
+		set
+		{
+			if ((this._Address_Start_Date != value))
+			{
+				this.OnAddress_Start_DateChanging(value);
+				this.SendPropertyChanging();
+				this._Address_Start_Date = value;
+				this.SendPropertyChanged("Address_Start_Date");
+				this.OnAddress_Start_DateChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Birth Place]", Storage="_Birth_Place", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Birth_Place
+	{
+		get
+		{
+			return this._Birth_Place;
+		}
+		set
+		{
+			if ((this._Birth_Place != value))
+			{
+				this.OnBirth_PlaceChanging(value);
+				this.SendPropertyChanging();
+				this._Birth_Place = value;
+				this.SendPropertyChanged("Birth_Place");
+				this.OnBirth_PlaceChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Preferred Name]", Storage="_Preferred_Name", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Preferred_Name
+	{
+		get
+		{
+			return this._Preferred_Name;
+		}
+		set
+		{
+			if ((this._Preferred_Name != value))
+			{
+				this.OnPreferred_NameChanging(value);
+				this.SendPropertyChanging();
+				this._Preferred_Name = value;
+				this.SendPropertyChanged("Preferred_Name");
+				this.OnPreferred_NameChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Shermco Cell Phone No_]", Storage="_Shermco_Cell_Phone_No_", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Shermco_Cell_Phone_No_
+	{
+		get
+		{
+			return this._Shermco_Cell_Phone_No_;
+		}
+		set
+		{
+			if ((this._Shermco_Cell_Phone_No_ != value))
+			{
+				this.OnShermco_Cell_Phone_No_Changing(value);
+				this.SendPropertyChanging();
+				this._Shermco_Cell_Phone_No_ = value;
+				this.SendPropertyChanged("Shermco_Cell_Phone_No_");
+				this.OnShermco_Cell_Phone_No_Changed();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Prior TI Access]", Storage="_Prior_TI_Access", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Prior_TI_Access
+	{
+		get
+		{
+			return this._Prior_TI_Access;
+		}
+		set
+		{
+			if ((this._Prior_TI_Access != value))
+			{
+				this.OnPrior_TI_AccessChanging(value);
+				this.SendPropertyChanging();
+				this._Prior_TI_Access = value;
+				this.SendPropertyChanged("Prior_TI_Access");
+				this.OnPrior_TI_AccessChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Prior TI Access Beginning Date]", Storage="_Prior_TI_Access_Beginning_Date", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public System.DateTime Prior_TI_Access_Beginning_Date
+	{
+		get
+		{
+			return this._Prior_TI_Access_Beginning_Date;
+		}
+		set
+		{
+			if ((this._Prior_TI_Access_Beginning_Date != value))
+			{
+				this.OnPrior_TI_Access_Beginning_DateChanging(value);
+				this.SendPropertyChanging();
+				this._Prior_TI_Access_Beginning_Date = value;
+				this.SendPropertyChanged("Prior_TI_Access_Beginning_Date");
+				this.OnPrior_TI_Access_Beginning_DateChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Prior TI Access Ending Date]", Storage="_Prior_TI_Access_Ending_Date", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public System.DateTime Prior_TI_Access_Ending_Date
+	{
+		get
+		{
+			return this._Prior_TI_Access_Ending_Date;
+		}
+		set
+		{
+			if ((this._Prior_TI_Access_Ending_Date != value))
+			{
+				this.OnPrior_TI_Access_Ending_DateChanging(value);
+				this.SendPropertyChanging();
+				this._Prior_TI_Access_Ending_Date = value;
+				this.SendPropertyChanged("Prior_TI_Access_Ending_Date");
+				this.OnPrior_TI_Access_Ending_DateChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Denied Access to TI]", Storage="_Denied_Access_to_TI", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Denied_Access_to_TI
+	{
+		get
+		{
+			return this._Denied_Access_to_TI;
+		}
+		set
+		{
+			if ((this._Denied_Access_to_TI != value))
+			{
+				this.OnDenied_Access_to_TIChanging(value);
+				this.SendPropertyChanging();
+				this._Denied_Access_to_TI = value;
+				this.SendPropertyChanged("Denied_Access_to_TI");
+				this.OnDenied_Access_to_TIChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Citizen of United States]", Storage="_Citizen_of_United_States", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Citizen_of_United_States
+	{
+		get
+		{
+			return this._Citizen_of_United_States;
+		}
+		set
+		{
+			if ((this._Citizen_of_United_States != value))
+			{
+				this.OnCitizen_of_United_StatesChanging(value);
+				this.SendPropertyChanging();
+				this._Citizen_of_United_States = value;
+				this.SendPropertyChanged("Citizen_of_United_States");
+				this.OnCitizen_of_United_StatesChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Visa Category]", Storage="_Visa_Category", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Visa_Category
+	{
+		get
+		{
+			return this._Visa_Category;
+		}
+		set
+		{
+			if ((this._Visa_Category != value))
+			{
+				this.OnVisa_CategoryChanging(value);
+				this.SendPropertyChanging();
+				this._Visa_Category = value;
+				this.SendPropertyChanged("Visa_Category");
+				this.OnVisa_CategoryChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Admission #]", Storage="_Admission__", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Admission__
+	{
+		get
+		{
+			return this._Admission__;
+		}
+		set
+		{
+			if ((this._Admission__ != value))
+			{
+				this.OnAdmission__Changing(value);
+				this.SendPropertyChanging();
+				this._Admission__ = value;
+				this.SendPropertyChanged("Admission__");
+				this.OnAdmission__Changed();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Visa Expiration Date]", Storage="_Visa_Expiration_Date", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public System.DateTime Visa_Expiration_Date
+	{
+		get
+		{
+			return this._Visa_Expiration_Date;
+		}
+		set
+		{
+			if ((this._Visa_Expiration_Date != value))
+			{
+				this.OnVisa_Expiration_DateChanging(value);
+				this.SendPropertyChanging();
+				this._Visa_Expiration_Date = value;
+				this.SendPropertyChanged("Visa_Expiration_Date");
+				this.OnVisa_Expiration_DateChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Country of Birth]", Storage="_Country_of_Birth", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Country_of_Birth
+	{
+		get
+		{
+			return this._Country_of_Birth;
+		}
+		set
+		{
+			if ((this._Country_of_Birth != value))
+			{
+				this.OnCountry_of_BirthChanging(value);
+				this.SendPropertyChanging();
+				this._Country_of_Birth = value;
+				this.SendPropertyChanged("Country_of_Birth");
+				this.OnCountry_of_BirthChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Country of Citizenship]", Storage="_Country_of_Citizenship", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Country_of_Citizenship
+	{
+		get
+		{
+			return this._Country_of_Citizenship;
+		}
+		set
+		{
+			if ((this._Country_of_Citizenship != value))
+			{
+				this.OnCountry_of_CitizenshipChanging(value);
+				this.SendPropertyChanging();
+				this._Country_of_Citizenship = value;
+				this.SendPropertyChanged("Country_of_Citizenship");
+				this.OnCountry_of_CitizenshipChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Work Phone]", Storage="_Work_Phone", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Work_Phone
+	{
+		get
+		{
+			return this._Work_Phone;
+		}
+		set
+		{
+			if ((this._Work_Phone != value))
+			{
+				this.OnWork_PhoneChanging(value);
+				this.SendPropertyChanging();
+				this._Work_Phone = value;
+				this.SendPropertyChanged("Work_Phone");
+				this.OnWork_PhoneChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Drug_Alcohol Test Date]", Storage="_Drug_Alcohol_Test_Date", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public System.DateTime Drug_Alcohol_Test_Date
+	{
+		get
+		{
+			return this._Drug_Alcohol_Test_Date;
+		}
+		set
+		{
+			if ((this._Drug_Alcohol_Test_Date != value))
+			{
+				this.OnDrug_Alcohol_Test_DateChanging(value);
+				this.SendPropertyChanging();
+				this._Drug_Alcohol_Test_Date = value;
+				this.SendPropertyChanged("Drug_Alcohol_Test_Date");
+				this.OnDrug_Alcohol_Test_DateChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Referral Source]", Storage="_Referral_Source", DbType="VarChar(80) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Referral_Source
+	{
+		get
+		{
+			return this._Referral_Source;
+		}
+		set
+		{
+			if ((this._Referral_Source != value))
+			{
+				this.OnReferral_SourceChanging(value);
+				this.SendPropertyChanging();
+				this._Referral_Source = value;
+				this.SendPropertyChanged("Referral_Source");
+				this.OnReferral_SourceChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Referral Employee No_]", Storage="_Referral_Employee_No_", DbType="VarChar(80) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Referral_Employee_No_
+	{
+		get
+		{
+			return this._Referral_Employee_No_;
+		}
+		set
+		{
+			if ((this._Referral_Employee_No_ != value))
+			{
+				this.OnReferral_Employee_No_Changing(value);
+				this.SendPropertyChanging();
+				this._Referral_Employee_No_ = value;
+				this.SendPropertyChanged("Referral_Employee_No_");
+				this.OnReferral_Employee_No_Changed();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[EOC Race]", Storage="_EOC_Race", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public int EOC_Race
+	{
+		get
+		{
+			return this._EOC_Race;
+		}
+		set
+		{
+			if ((this._EOC_Race != value))
+			{
+				this.OnEOC_RaceChanging(value);
+				this.SendPropertyChanging();
+				this._EOC_Race = value;
+				this.SendPropertyChanged("EOC_Race");
+				this.OnEOC_RaceChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Veteran", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public int Veteran
+	{
+		get
+		{
+			return this._Veteran;
+		}
+		set
+		{
+			if ((this._Veteran != value))
+			{
+				this.OnVeteranChanging(value);
+				this.SendPropertyChanging();
+				this._Veteran = value;
+				this.SendPropertyChanged("Veteran");
+				this.OnVeteranChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Disabled", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Disabled
+	{
+		get
+		{
+			return this._Disabled;
+		}
+		set
+		{
+			if ((this._Disabled != value))
+			{
+				this.OnDisabledChanging(value);
+				this.SendPropertyChanging();
+				this._Disabled = value;
+				this.SendPropertyChanged("Disabled");
+				this.OnDisabledChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Temp Block]", Storage="_Temp_Block", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Temp_Block
+	{
+		get
+		{
+			return this._Temp_Block;
+		}
+		set
+		{
+			if ((this._Temp_Block != value))
+			{
+				this.OnTemp_BlockChanging(value);
+				this.SendPropertyChanging();
+				this._Temp_Block = value;
+				this.SendPropertyChanged("Temp_Block");
+				this.OnTemp_BlockChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Pay type]", Storage="_Pay_type", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public int Pay_type
+	{
+		get
+		{
+			return this._Pay_type;
+		}
+		set
+		{
+			if ((this._Pay_type != value))
+			{
+				this.OnPay_typeChanging(value);
+				this.SendPropertyChanging();
+				this._Pay_type = value;
+				this.SendPropertyChanged("Pay_type");
+				this.OnPay_typeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Display Name]", Storage="_Display_Name", DbType="VarChar(50) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Display_Name
+	{
+		get
+		{
+			return this._Display_Name;
+		}
+		set
+		{
+			if ((this._Display_Name != value))
+			{
+				this.OnDisplay_NameChanging(value);
+				this.SendPropertyChanging();
+				this._Display_Name = value;
+				this.SendPropertyChanged("Display_Name");
+				this.OnDisplay_NameChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Class Code]", Storage="_Class_Code", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Class_Code
+	{
+		get
+		{
+			return this._Class_Code;
+		}
+		set
+		{
+			if ((this._Class_Code != value))
+			{
+				this.OnClass_CodeChanging(value);
+				this.SendPropertyChanging();
+				this._Class_Code = value;
+				this.SendPropertyChanged("Class_Code");
+				this.OnClass_CodeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Home Phone No_]", Storage="_Home_Phone_No_", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Home_Phone_No_
+	{
+		get
+		{
+			return this._Home_Phone_No_;
+		}
+		set
+		{
+			if ((this._Home_Phone_No_ != value))
+			{
+				this.OnHome_Phone_No_Changing(value);
+				this.SendPropertyChanging();
+				this._Home_Phone_No_ = value;
+				this.SendPropertyChanged("Home_Phone_No_");
+				this.OnHome_Phone_No_Changed();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Suffix", DbType="VarChar(5) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Suffix
+	{
+		get
+		{
+			return this._Suffix;
+		}
+		set
+		{
+			if ((this._Suffix != value))
+			{
+				this.OnSuffixChanging(value);
+				this.SendPropertyChanging();
+				this._Suffix = value;
+				this.SendPropertyChanged("Suffix");
+				this.OnSuffixChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Race", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Race
+	{
+		get
+		{
+			return this._Race;
+		}
+		set
+		{
+			if ((this._Race != value))
+			{
+				this.OnRaceChanging(value);
+				this.SendPropertyChanging();
+				this._Race = value;
+				this.SendPropertyChanged("Race");
+				this.OnRaceChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Position Code]", Storage="_Position_Code", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Position_Code
+	{
+		get
+		{
+			return this._Position_Code;
+		}
+		set
+		{
+			if ((this._Position_Code != value))
+			{
+				this.OnPosition_CodeChanging(value);
+				this.SendPropertyChanging();
+				this._Position_Code = value;
+				this.SendPropertyChanged("Position_Code");
+				this.OnPosition_CodeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Blocked", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Blocked
+	{
+		get
+		{
+			return this._Blocked;
+		}
+		set
+		{
+			if ((this._Blocked != value))
+			{
+				this.OnBlockedChanging(value);
+				this.SendPropertyChanging();
+				this._Blocked = value;
+				this.SendPropertyChanged("Blocked");
+				this.OnBlockedChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Middle Initial]", Storage="_Middle_Initial", DbType="VarChar(5) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Middle_Initial
+	{
+		get
+		{
+			return this._Middle_Initial;
+		}
+		set
+		{
+			if ((this._Middle_Initial != value))
+			{
+				this.OnMiddle_InitialChanging(value);
+				this.SendPropertyChanging();
+				this._Middle_Initial = value;
+				this.SendPropertyChanged("Middle_Initial");
+				this.OnMiddle_InitialChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Default Work Type Code]", Storage="_Default_Work_Type_Code", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Default_Work_Type_Code
+	{
+		get
+		{
+			return this._Default_Work_Type_Code;
+		}
+		set
+		{
+			if ((this._Default_Work_Type_Code != value))
+			{
+				this.OnDefault_Work_Type_CodeChanging(value);
+				this.SendPropertyChanging();
+				this._Default_Work_Type_Code = value;
+				this.SendPropertyChanged("Default_Work_Type_Code");
+				this.OnDefault_Work_Type_CodeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Deceased", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Deceased
+	{
+		get
+		{
+			return this._Deceased;
+		}
+		set
+		{
+			if ((this._Deceased != value))
+			{
+				this.OnDeceasedChanging(value);
+				this.SendPropertyChanging();
+				this._Deceased = value;
+				this.SendPropertyChanged("Deceased");
+				this.OnDeceasedChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[SSN Is Verified]", Storage="_SSN_Is_Verified", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte SSN_Is_Verified
+	{
+		get
+		{
+			return this._SSN_Is_Verified;
+		}
+		set
+		{
+			if ((this._SSN_Is_Verified != value))
+			{
+				this.OnSSN_Is_VerifiedChanging(value);
+				this.SendPropertyChanging();
+				this._SSN_Is_Verified = value;
+				this.SendPropertyChanged("SSN_Is_Verified");
+				this.OnSSN_Is_VerifiedChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Pay Cycle Code]", Storage="_Pay_Cycle_Code", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Pay_Cycle_Code
+	{
+		get
+		{
+			return this._Pay_Cycle_Code;
+		}
+		set
+		{
+			if ((this._Pay_Cycle_Code != value))
+			{
+				this.OnPay_Cycle_CodeChanging(value);
+				this.SendPropertyChanging();
+				this._Pay_Cycle_Code = value;
+				this.SendPropertyChanged("Pay_Cycle_Code");
+				this.OnPay_Cycle_CodeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Employer No_]", Storage="_Employer_No_", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Employer_No_
+	{
+		get
+		{
+			return this._Employer_No_;
+		}
+		set
+		{
+			if ((this._Employer_No_ != value))
+			{
+				this.OnEmployer_No_Changing(value);
+				this.SendPropertyChanging();
+				this._Employer_No_ = value;
+				this.SendPropertyChanged("Employer_No_");
+				this.OnEmployer_No_Changed();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Statutory Employee]", Storage="_Statutory_Employee", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Statutory_Employee
+	{
+		get
+		{
+			return this._Statutory_Employee;
+		}
+		set
+		{
+			if ((this._Statutory_Employee != value))
+			{
+				this.OnStatutory_EmployeeChanging(value);
+				this.SendPropertyChanging();
+				this._Statutory_Employee = value;
+				this.SendPropertyChanged("Statutory_Employee");
+				this.OnStatutory_EmployeeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Retirement Plan]", Storage="_Retirement_Plan", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Retirement_Plan
+	{
+		get
+		{
+			return this._Retirement_Plan;
+		}
+		set
+		{
+			if ((this._Retirement_Plan != value))
+			{
+				this.OnRetirement_PlanChanging(value);
+				this.SendPropertyChanging();
+				this._Retirement_Plan = value;
+				this.SendPropertyChanged("Retirement_Plan");
+				this.OnRetirement_PlanChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Legal Representative]", Storage="_Legal_Representative", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Legal_Representative
+	{
+		get
+		{
+			return this._Legal_Representative;
+		}
+		set
+		{
+			if ((this._Legal_Representative != value))
+			{
+				this.OnLegal_RepresentativeChanging(value);
+				this.SendPropertyChanging();
+				this._Legal_Representative = value;
+				this.SendPropertyChanged("Legal_Representative");
+				this.OnLegal_RepresentativeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Household Employee]", Storage="_Household_Employee", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Household_Employee
+	{
+		get
+		{
+			return this._Household_Employee;
+		}
+		set
+		{
+			if ((this._Household_Employee != value))
+			{
+				this.OnHousehold_EmployeeChanging(value);
+				this.SendPropertyChanging();
+				this._Household_Employee = value;
+				this.SendPropertyChanged("Household_Employee");
+				this.OnHousehold_EmployeeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Deferred Compensation]", Storage="_Deferred_Compensation", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Deferred_Compensation
+	{
+		get
+		{
+			return this._Deferred_Compensation;
+		}
+		set
+		{
+			if ((this._Deferred_Compensation != value))
+			{
+				this.OnDeferred_CompensationChanging(value);
+				this.SendPropertyChanging();
+				this._Deferred_Compensation = value;
+				this.SendPropertyChanged("Deferred_Compensation");
+				this.OnDeferred_CompensationChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Third-Party Sick Pay]", Storage="_Third_Party_Sick_Pay", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Third_Party_Sick_Pay
+	{
+		get
+		{
+			return this._Third_Party_Sick_Pay;
+		}
+		set
+		{
+			if ((this._Third_Party_Sick_Pay != value))
+			{
+				this.OnThird_Party_Sick_PayChanging(value);
+				this.SendPropertyChanging();
+				this._Third_Party_Sick_Pay = value;
+				this.SendPropertyChanged("Third_Party_Sick_Pay");
+				this.OnThird_Party_Sick_PayChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Default Rep_ Auth_ Code]", Storage="_Default_Rep__Auth__Code", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Default_Rep__Auth__Code
+	{
+		get
+		{
+			return this._Default_Rep__Auth__Code;
+		}
+		set
+		{
+			if ((this._Default_Rep__Auth__Code != value))
+			{
+				this.OnDefault_Rep__Auth__CodeChanging(value);
+				this.SendPropertyChanging();
+				this._Default_Rep__Auth__Code = value;
+				this.SendPropertyChanged("Default_Rep__Auth__Code");
+				this.OnDefault_Rep__Auth__CodeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Social Insurance No_]", Storage="_Social_Insurance_No_", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Social_Insurance_No_
+	{
+		get
+		{
+			return this._Social_Insurance_No_;
+		}
+		set
+		{
+			if ((this._Social_Insurance_No_ != value))
+			{
+				this.OnSocial_Insurance_No_Changing(value);
+				this.SendPropertyChanging();
+				this._Social_Insurance_No_ = value;
+				this.SendPropertyChanged("Social_Insurance_No_");
+				this.OnSocial_Insurance_No_Changed();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[CPP Exempt]", Storage="_CPP_Exempt", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte CPP_Exempt
+	{
+		get
+		{
+			return this._CPP_Exempt;
+		}
+		set
+		{
+			if ((this._CPP_Exempt != value))
+			{
+				this.OnCPP_ExemptChanging(value);
+				this.SendPropertyChanging();
+				this._CPP_Exempt = value;
+				this.SendPropertyChanged("CPP_Exempt");
+				this.OnCPP_ExemptChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[EI Exempt]", Storage="_EI_Exempt", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte EI_Exempt
+	{
+		get
+		{
+			return this._EI_Exempt;
+		}
+		set
+		{
+			if ((this._EI_Exempt != value))
+			{
+				this.OnEI_ExemptChanging(value);
+				this.SendPropertyChanging();
+				this._EI_Exempt = value;
+				this.SendPropertyChanged("EI_Exempt");
+				this.OnEI_ExemptChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[RPP or DPSP]", Storage="_RPP_or_DPSP", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string RPP_or_DPSP
+	{
+		get
+		{
+			return this._RPP_or_DPSP;
+		}
+		set
+		{
+			if ((this._RPP_or_DPSP != value))
+			{
+				this.OnRPP_or_DPSPChanging(value);
+				this.SendPropertyChanging();
+				this._RPP_or_DPSP = value;
+				this.SendPropertyChanged("RPP_or_DPSP");
+				this.OnRPP_or_DPSPChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Override Insurable Hours]", Storage="_Override_Insurable_Hours", DbType="Decimal(38,20) NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public decimal Override_Insurable_Hours
+	{
+		get
+		{
+			return this._Override_Insurable_Hours;
+		}
+		set
+		{
+			if ((this._Override_Insurable_Hours != value))
+			{
+				this.OnOverride_Insurable_HoursChanging(value);
+				this.SendPropertyChanging();
+				this._Override_Insurable_Hours = value;
+				this.SendPropertyChanged("Override_Insurable_Hours");
+				this.OnOverride_Insurable_HoursChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Salaried", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Salaried
+	{
+		get
+		{
+			return this._Salaried;
+		}
+		set
+		{
+			if ((this._Salaried != value))
+			{
+				this.OnSalariedChanging(value);
+				this.SendPropertyChanging();
+				this._Salaried = value;
+				this.SendPropertyChanged("Salaried");
+				this.OnSalariedChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Language Code]", Storage="_Language_Code", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Language_Code
+	{
+		get
+		{
+			return this._Language_Code;
+		}
+		set
+		{
+			if ((this._Language_Code != value))
+			{
+				this.OnLanguage_CodeChanging(value);
+				this.SendPropertyChanging();
+				this._Language_Code = value;
+				this.SendPropertyChanged("Language_Code");
+				this.OnLanguage_CodeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[HR Rep_ No_]", Storage="_HR_Rep__No_", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string HR_Rep__No_
+	{
+		get
+		{
+			return this._HR_Rep__No_;
+		}
+		set
+		{
+			if ((this._HR_Rep__No_ != value))
+			{
+				this.OnHR_Rep__No_Changing(value);
+				this.SendPropertyChanging();
+				this._HR_Rep__No_ = value;
+				this.SendPropertyChanged("HR_Rep__No_");
+				this.OnHR_Rep__No_Changed();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[HR Rep_ Contact]", Storage="_HR_Rep__Contact", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string HR_Rep__Contact
+	{
+		get
+		{
+			return this._HR_Rep__Contact;
+		}
+		set
+		{
+			if ((this._HR_Rep__Contact != value))
+			{
+				this.OnHR_Rep__ContactChanging(value);
+				this.SendPropertyChanging();
+				this._HR_Rep__Contact = value;
+				this.SendPropertyChanged("HR_Rep__Contact");
+				this.OnHR_Rep__ContactChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Salutation Code]", Storage="_Salutation_Code", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Salutation_Code
+	{
+		get
+		{
+			return this._Salutation_Code;
+		}
+		set
+		{
+			if ((this._Salutation_Code != value))
+			{
+				this.OnSalutation_CodeChanging(value);
+				this.SendPropertyChanging();
+				this._Salutation_Code = value;
+				this.SendPropertyChanged("Salutation_Code");
+				this.OnSalutation_CodeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[F_T_ Equivalent]", Storage="_F_T__Equivalent", DbType="Decimal(38,20) NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public decimal F_T__Equivalent
+	{
+		get
+		{
+			return this._F_T__Equivalent;
+		}
+		set
+		{
+			if ((this._F_T__Equivalent != value))
+			{
+				this.OnF_T__EquivalentChanging(value);
+				this.SendPropertyChanging();
+				this._F_T__Equivalent = value;
+				this.SendPropertyChanged("F_T__Equivalent");
+				this.OnF_T__EquivalentChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Score", DbType="Decimal(38,20) NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public decimal Score
+	{
+		get
+		{
+			return this._Score;
+		}
+		set
+		{
+			if ((this._Score != value))
+			{
+				this.OnScoreChanging(value);
+				this.SendPropertyChanging();
+				this._Score = value;
+				this.SendPropertyChanged("Score");
+				this.OnScoreChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[MVR Record Retrieved]", Storage="_MVR_Record_Retrieved", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public System.DateTime MVR_Record_Retrieved
+	{
+		get
+		{
+			return this._MVR_Record_Retrieved;
+		}
+		set
+		{
+			if ((this._MVR_Record_Retrieved != value))
+			{
+				this.OnMVR_Record_RetrievedChanging(value);
+				this.SendPropertyChanging();
+				this._MVR_Record_Retrieved = value;
+				this.SendPropertyChanged("MVR_Record_Retrieved");
+				this.OnMVR_Record_RetrievedChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Veteran Separation Date]", Storage="_Veteran_Separation_Date", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public System.DateTime Veteran_Separation_Date
+	{
+		get
+		{
+			return this._Veteran_Separation_Date;
+		}
+		set
+		{
+			if ((this._Veteran_Separation_Date != value))
+			{
+				this.OnVeteran_Separation_DateChanging(value);
+				this.SendPropertyChanging();
+				this._Veteran_Separation_Date = value;
+				this.SendPropertyChanged("Veteran_Separation_Date");
+				this.OnVeteran_Separation_DateChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Block Time Entry]", Storage="_Block_Time_Entry", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Block_Time_Entry
+	{
+		get
+		{
+			return this._Block_Time_Entry;
+		}
+		set
+		{
+			if ((this._Block_Time_Entry != value))
+			{
+				this.OnBlock_Time_EntryChanging(value);
+				this.SendPropertyChanging();
+				this._Block_Time_Entry = value;
+				this.SendPropertyChanged("Block_Time_Entry");
+				this.OnBlock_Time_EntryChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Block Time Entry Reason]", Storage="_Block_Time_Entry_Reason", DbType="VarChar(100) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Block_Time_Entry_Reason
+	{
+		get
+		{
+			return this._Block_Time_Entry_Reason;
+		}
+		set
+		{
+			if ((this._Block_Time_Entry_Reason != value))
+			{
+				this.OnBlock_Time_Entry_ReasonChanging(value);
+				this.SendPropertyChanging();
+				this._Block_Time_Entry_Reason = value;
+				this.SendPropertyChanged("Block_Time_Entry_Reason");
+				this.OnBlock_Time_Entry_ReasonChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Block Time Entry Req By]", Storage="_Block_Time_Entry_Req_By", DbType="VarChar(100) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Block_Time_Entry_Req_By
+	{
+		get
+		{
+			return this._Block_Time_Entry_Req_By;
+		}
+		set
+		{
+			if ((this._Block_Time_Entry_Req_By != value))
+			{
+				this.OnBlock_Time_Entry_Req_ByChanging(value);
+				this.SendPropertyChanging();
+				this._Block_Time_Entry_Req_By = value;
+				this.SendPropertyChanged("Block_Time_Entry_Req_By");
+				this.OnBlock_Time_Entry_Req_ByChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Block Phone List]", Storage="_Block_Phone_List", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Block_Phone_List
+	{
+		get
+		{
+			return this._Block_Phone_List;
+		}
+		set
+		{
+			if ((this._Block_Phone_List != value))
+			{
+				this.OnBlock_Phone_ListChanging(value);
+				this.SendPropertyChanging();
+				this._Block_Phone_List = value;
+				this.SendPropertyChanged("Block_Phone_List");
+				this.OnBlock_Phone_ListChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Block Birthday List]", Storage="_Block_Birthday_List", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Block_Birthday_List
+	{
+		get
+		{
+			return this._Block_Birthday_List;
+		}
+		set
+		{
+			if ((this._Block_Birthday_List != value))
+			{
+				this.OnBlock_Birthday_ListChanging(value);
+				this.SendPropertyChanging();
+				this._Block_Birthday_List = value;
+				this.SendPropertyChanged("Block_Birthday_List");
+				this.OnBlock_Birthday_ListChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[OT to Overhead]", Storage="_OT_to_Overhead", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte OT_to_Overhead
+	{
+		get
+		{
+			return this._OT_to_Overhead;
+		}
+		set
+		{
+			if ((this._OT_to_Overhead != value))
+			{
+				this.OnOT_to_OverheadChanging(value);
+				this.SendPropertyChanging();
+				this._OT_to_Overhead = value;
+				this.SendPropertyChanged("OT_to_Overhead");
+				this.OnOT_to_OverheadChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[IT New Emp Alert]", Storage="_IT_New_Emp_Alert", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte IT_New_Emp_Alert
+	{
+		get
+		{
+			return this._IT_New_Emp_Alert;
+		}
+		set
+		{
+			if ((this._IT_New_Emp_Alert != value))
+			{
+				this.OnIT_New_Emp_AlertChanging(value);
+				this.SendPropertyChanging();
+				this._IT_New_Emp_Alert = value;
+				this.SendPropertyChanged("IT_New_Emp_Alert");
+				this.OnIT_New_Emp_AlertChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Amex Name]", Storage="_Amex_Name", DbType="VarChar(100) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Amex_Name
+	{
+		get
+		{
+			return this._Amex_Name;
+		}
+		set
+		{
+			if ((this._Amex_Name != value))
+			{
+				this.OnAmex_NameChanging(value);
+				this.SendPropertyChanging();
+				this._Amex_Name = value;
+				this.SendPropertyChanged("Amex_Name");
+				this.OnAmex_NameChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Driver Application Form]", Storage="_Driver_Application_Form", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Driver_Application_Form
+	{
+		get
+		{
+			return this._Driver_Application_Form;
+		}
+		set
+		{
+			if ((this._Driver_Application_Form != value))
+			{
+				this.OnDriver_Application_FormChanging(value);
+				this.SendPropertyChanging();
+				this._Driver_Application_Form = value;
+				this.SendPropertyChanged("Driver_Application_Form");
+				this.OnDriver_Application_FormChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Driver Med_ Exam_ Report]", Storage="_Driver_Med__Exam__Report", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public System.DateTime Driver_Med__Exam__Report
+	{
+		get
+		{
+			return this._Driver_Med__Exam__Report;
+		}
+		set
+		{
+			if ((this._Driver_Med__Exam__Report != value))
+			{
+				this.OnDriver_Med__Exam__ReportChanging(value);
+				this.SendPropertyChanging();
+				this._Driver_Med__Exam__Report = value;
+				this.SendPropertyChanged("Driver_Med__Exam__Report");
+				this.OnDriver_Med__Exam__ReportChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Driver Med_ Exam_ Cert_]", Storage="_Driver_Med__Exam__Cert_", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public System.DateTime Driver_Med__Exam__Cert_
+	{
+		get
+		{
+			return this._Driver_Med__Exam__Cert_;
+		}
+		set
+		{
+			if ((this._Driver_Med__Exam__Cert_ != value))
+			{
+				this.OnDriver_Med__Exam__Cert_Changing(value);
+				this.SendPropertyChanging();
+				this._Driver_Med__Exam__Cert_ = value;
+				this.SendPropertyChanged("Driver_Med__Exam__Cert_");
+				this.OnDriver_Med__Exam__Cert_Changed();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Driver Record of Road Test]", Storage="_Driver_Record_of_Road_Test", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public System.DateTime Driver_Record_of_Road_Test
+	{
+		get
+		{
+			return this._Driver_Record_of_Road_Test;
+		}
+		set
+		{
+			if ((this._Driver_Record_of_Road_Test != value))
+			{
+				this.OnDriver_Record_of_Road_TestChanging(value);
+				this.SendPropertyChanging();
+				this._Driver_Record_of_Road_Test = value;
+				this.SendPropertyChanged("Driver_Record_of_Road_Test");
+				this.OnDriver_Record_of_Road_TestChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Driver Cert_ of Road Test]", Storage="_Driver_Cert__of_Road_Test", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public System.DateTime Driver_Cert__of_Road_Test
+	{
+		get
+		{
+			return this._Driver_Cert__of_Road_Test;
+		}
+		set
+		{
+			if ((this._Driver_Cert__of_Road_Test != value))
+			{
+				this.OnDriver_Cert__of_Road_TestChanging(value);
+				this.SendPropertyChanging();
+				this._Driver_Cert__of_Road_Test = value;
+				this.SendPropertyChanged("Driver_Cert__of_Road_Test");
+				this.OnDriver_Cert__of_Road_TestChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Driver Safety Perf_ History]", Storage="_Driver_Safety_Perf__History", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public System.DateTime Driver_Safety_Perf__History
+	{
+		get
+		{
+			return this._Driver_Safety_Perf__History;
+		}
+		set
+		{
+			if ((this._Driver_Safety_Perf__History != value))
+			{
+				this.OnDriver_Safety_Perf__HistoryChanging(value);
+				this.SendPropertyChanging();
+				this._Driver_Safety_Perf__History = value;
+				this.SendPropertyChanged("Driver_Safety_Perf__History");
+				this.OnDriver_Safety_Perf__HistoryChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Driver M_ V_ Cert_ Review]", Storage="_Driver_M__V__Cert__Review", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public System.DateTime Driver_M__V__Cert__Review
+	{
+		get
+		{
+			return this._Driver_M__V__Cert__Review;
+		}
+		set
+		{
+			if ((this._Driver_M__V__Cert__Review != value))
+			{
+				this.OnDriver_M__V__Cert__ReviewChanging(value);
+				this.SendPropertyChanging();
+				this._Driver_M__V__Cert__Review = value;
+				this.SendPropertyChanged("Driver_M__V__Cert__Review");
+				this.OnDriver_M__V__Cert__ReviewChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Date Driving for Company]", Storage="_Date_Driving_for_Company", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public System.DateTime Date_Driving_for_Company
+	{
+		get
+		{
+			return this._Date_Driving_for_Company;
+		}
+		set
+		{
+			if ((this._Date_Driving_for_Company != value))
+			{
+				this.OnDate_Driving_for_CompanyChanging(value);
+				this.SendPropertyChanging();
+				this._Date_Driving_for_Company = value;
+				this.SendPropertyChanged("Date_Driving_for_Company");
+				this.OnDate_Driving_for_CompanyChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Driver License Class]", Storage="_Driver_License_Class", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public int Driver_License_Class
+	{
+		get
+		{
+			return this._Driver_License_Class;
+		}
+		set
+		{
+			if ((this._Driver_License_Class != value))
+			{
+				this.OnDriver_License_ClassChanging(value);
+				this.SendPropertyChanging();
+				this._Driver_License_Class = value;
+				this.SendPropertyChanged("Driver_License_Class");
+				this.OnDriver_License_ClassChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Driver Licnese Class Other]", Storage="_Driver_Licnese_Class_Other", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Driver_Licnese_Class_Other
+	{
+		get
+		{
+			return this._Driver_Licnese_Class_Other;
+		}
+		set
+		{
+			if ((this._Driver_Licnese_Class_Other != value))
+			{
+				this.OnDriver_Licnese_Class_OtherChanging(value);
+				this.SendPropertyChanging();
+				this._Driver_Licnese_Class_Other = value;
+				this.SendPropertyChanged("Driver_Licnese_Class_Other");
+				this.OnDriver_Licnese_Class_OtherChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Safety Meeting]", Storage="_Safety_Meeting", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public int Safety_Meeting
+	{
+		get
+		{
+			return this._Safety_Meeting;
+		}
+		set
+		{
+			if ((this._Safety_Meeting != value))
+			{
+				this.OnSafety_MeetingChanging(value);
+				this.SendPropertyChanging();
+				this._Safety_Meeting = value;
+				this.SendPropertyChanged("Safety_Meeting");
+				this.OnSafety_MeetingChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Show on Phone List]", Storage="_Show_on_Phone_List", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Show_on_Phone_List
+	{
+		get
+		{
+			return this._Show_on_Phone_List;
+		}
+		set
+		{
+			if ((this._Show_on_Phone_List != value))
+			{
+				this.OnShow_on_Phone_ListChanging(value);
+				this.SendPropertyChanging();
+				this._Show_on_Phone_List = value;
+				this.SendPropertyChanged("Show_on_Phone_List");
+				this.OnShow_on_Phone_ListChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Gerdau No_]", Storage="_Gerdau_No_", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Gerdau_No_
+	{
+		get
+		{
+			return this._Gerdau_No_;
+		}
+		set
+		{
+			if ((this._Gerdau_No_ != value))
+			{
+				this.OnGerdau_No_Changing(value);
+				this.SendPropertyChanging();
+				this._Gerdau_No_ = value;
+				this.SendPropertyChanged("Gerdau_No_");
+				this.OnGerdau_No_Changed();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Not Billable]", Storage="_Not_Billable", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Not_Billable
+	{
+		get
+		{
+			return this._Not_Billable;
+		}
+		set
+		{
+			if ((this._Not_Billable != value))
+			{
+				this.OnNot_BillableChanging(value);
+				this.SendPropertyChanging();
+				this._Not_Billable = value;
+				this.SendPropertyChanged("Not_Billable");
+				this.OnNot_BillableChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[ISN ID]", Storage="_ISN_ID", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string ISN_ID
+	{
+		get
+		{
+			return this._ISN_ID;
+		}
+		set
+		{
+			if ((this._ISN_ID != value))
+			{
+				this.OnISN_IDChanging(value);
+				this.SendPropertyChanging();
+				this._ISN_ID = value;
+				this.SendPropertyChanged("ISN_ID");
+				this.OnISN_IDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[I9 Completed]", Storage="_I9_Completed", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte I9_Completed
+	{
+		get
+		{
+			return this._I9_Completed;
+		}
+		set
+		{
+			if ((this._I9_Completed != value))
+			{
+				this.OnI9_CompletedChanging(value);
+				this.SendPropertyChanging();
+				this._I9_Completed = value;
+				this.SendPropertyChanged("I9_Completed");
+				this.OnI9_CompletedChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Employee Handbook Receipt]", Storage="_Employee_Handbook_Receipt", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Employee_Handbook_Receipt
+	{
+		get
+		{
+			return this._Employee_Handbook_Receipt;
+		}
+		set
+		{
+			if ((this._Employee_Handbook_Receipt != value))
+			{
+				this.OnEmployee_Handbook_ReceiptChanging(value);
+				this.SendPropertyChanging();
+				this._Employee_Handbook_Receipt = value;
+				this.SendPropertyChanged("Employee_Handbook_Receipt");
+				this.OnEmployee_Handbook_ReceiptChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[HR Pay Type]", Storage="_HR_Pay_Type", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public int HR_Pay_Type
+	{
+		get
+		{
+			return this._HR_Pay_Type;
+		}
+		set
+		{
+			if ((this._HR_Pay_Type != value))
+			{
+				this.OnHR_Pay_TypeChanging(value);
+				this.SendPropertyChanging();
+				this._HR_Pay_Type = value;
+				this.SendPropertyChanged("HR_Pay_Type");
+				this.OnHR_Pay_TypeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Credit Card Approval Code]", Storage="_Credit_Card_Approval_Code", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Credit_Card_Approval_Code
+	{
+		get
+		{
+			return this._Credit_Card_Approval_Code;
+		}
+		set
+		{
+			if ((this._Credit_Card_Approval_Code != value))
+			{
+				this.OnCredit_Card_Approval_CodeChanging(value);
+				this.SendPropertyChanging();
+				this._Credit_Card_Approval_Code = value;
+				this.SendPropertyChanged("Credit_Card_Approval_Code");
+				this.OnCredit_Card_Approval_CodeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Credit Card Approval Level]", Storage="_Credit_Card_Approval_Level", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public int Credit_Card_Approval_Level
+	{
+		get
+		{
+			return this._Credit_Card_Approval_Level;
+		}
+		set
+		{
+			if ((this._Credit_Card_Approval_Level != value))
+			{
+				this.OnCredit_Card_Approval_LevelChanging(value);
+				this.SendPropertyChanging();
+				this._Credit_Card_Approval_Level = value;
+				this.SendPropertyChanged("Credit_Card_Approval_Level");
+				this.OnCredit_Card_Approval_LevelChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Jean Allowance]", Storage="_Jean_Allowance", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Jean_Allowance
+	{
+		get
+		{
+			return this._Jean_Allowance;
+		}
+		set
+		{
+			if ((this._Jean_Allowance != value))
+			{
+				this.OnJean_AllowanceChanging(value);
+				this.SendPropertyChanging();
+				this._Jean_Allowance = value;
+				this.SendPropertyChanged("Jean_Allowance");
+				this.OnJean_AllowanceChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Jean Gift Card No_]", Storage="_Jean_Gift_Card_No_", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Jean_Gift_Card_No_
+	{
+		get
+		{
+			return this._Jean_Gift_Card_No_;
+		}
+		set
+		{
+			if ((this._Jean_Gift_Card_No_ != value))
+			{
+				this.OnJean_Gift_Card_No_Changing(value);
+				this.SendPropertyChanging();
+				this._Jean_Gift_Card_No_ = value;
+				this.SendPropertyChanged("Jean_Gift_Card_No_");
+				this.OnJean_Gift_Card_No_Changed();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExportPending", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte ExportPending
+	{
+		get
+		{
+			return this._ExportPending;
+		}
+		set
+		{
+			if ((this._ExportPending != value))
+			{
+				this.OnExportPendingChanging(value);
+				this.SendPropertyChanging();
+				this._ExportPending = value;
+				this.SendPropertyChanged("ExportPending");
+				this.OnExportPendingChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Shift Difference]", Storage="_Shift_Difference", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Shift_Difference
+	{
+		get
+		{
+			return this._Shift_Difference;
+		}
+		set
+		{
+			if ((this._Shift_Difference != value))
+			{
+				this.OnShift_DifferenceChanging(value);
+				this.SendPropertyChanging();
+				this._Shift_Difference = value;
+				this.SendPropertyChanged("Shift_Difference");
+				this.OnShift_DifferenceChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Eligible Rehire]", Storage="_Eligible_Rehire", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public int Eligible_Rehire
+	{
+		get
+		{
+			return this._Eligible_Rehire;
+		}
+		set
+		{
+			if ((this._Eligible_Rehire != value))
+			{
+				this.OnEligible_RehireChanging(value);
+				this.SendPropertyChanging();
+				this._Eligible_Rehire = value;
+				this.SendPropertyChanged("Eligible_Rehire");
+				this.OnEligible_RehireChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Eligible to Drive SI Vehicle]", Storage="_Eligible_to_Drive_SI_Vehicle", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public int Eligible_to_Drive_SI_Vehicle
+	{
+		get
+		{
+			return this._Eligible_to_Drive_SI_Vehicle;
+		}
+		set
+		{
+			if ((this._Eligible_to_Drive_SI_Vehicle != value))
+			{
+				this.OnEligible_to_Drive_SI_VehicleChanging(value);
+				this.SendPropertyChanging();
+				this._Eligible_to_Drive_SI_Vehicle = value;
+				this.SendPropertyChanged("Eligible_to_Drive_SI_Vehicle");
+				this.OnEligible_to_Drive_SI_VehicleChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Temp to Perm]", Storage="_Temp_to_Perm", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Temp_to_Perm
+	{
+		get
+		{
+			return this._Temp_to_Perm;
+		}
+		set
+		{
+			if ((this._Temp_to_Perm != value))
+			{
+				this.OnTemp_to_PermChanging(value);
+				this.SendPropertyChanging();
+				this._Temp_to_Perm = value;
+				this.SendPropertyChanged("Temp_to_Perm");
+				this.OnTemp_to_PermChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Part Time]", Storage="_Part_Time", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Part_Time
+	{
+		get
+		{
+			return this._Part_Time;
+		}
+		set
+		{
+			if ((this._Part_Time != value))
+			{
+				this.OnPart_TimeChanging(value);
+				this.SendPropertyChanging();
+				this._Part_Time = value;
+				this.SendPropertyChanged("Part_Time");
+				this.OnPart_TimeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Co-Op]", Storage="_Co_Op", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Co_Op
+	{
+		get
+		{
+			return this._Co_Op;
+		}
+		set
+		{
+			if ((this._Co_Op != value))
+			{
+				this.OnCo_OpChanging(value);
+				this.SendPropertyChanging();
+				this._Co_Op = value;
+				this.SendPropertyChanged("Co_Op");
+				this.OnCo_OpChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Work Location]", Storage="_Work_Location", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public int Work_Location
+	{
+		get
+		{
+			return this._Work_Location;
+		}
+		set
+		{
+			if ((this._Work_Location != value))
+			{
+				this.OnWork_LocationChanging(value);
+				this.SendPropertyChanging();
+				this._Work_Location = value;
+				this.SendPropertyChanged("Work_Location");
+				this.OnWork_LocationChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TShirt", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public int TShirt
+	{
+		get
+		{
+			return this._TShirt;
+		}
+		set
+		{
+			if ((this._TShirt != value))
+			{
+				this.OnTShirtChanging(value);
+				this.SendPropertyChanging();
+				this._TShirt = value;
+				this.SendPropertyChanged("TShirt");
+				this.OnTShirtChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ButtonUp", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public int ButtonUp
+	{
+		get
+		{
+			return this._ButtonUp;
+		}
+		set
+		{
+			if ((this._ButtonUp != value))
+			{
+				this.OnButtonUpChanging(value);
+				this.SendPropertyChanging();
+				this._ButtonUp = value;
+				this.SendPropertyChanged("ButtonUp");
+				this.OnButtonUpChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Polo", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public int Polo
+	{
+		get
+		{
+			return this._Polo;
+		}
+		set
+		{
+			if ((this._Polo != value))
+			{
+				this.OnPoloChanging(value);
+				this.SendPropertyChanging();
+				this._Polo = value;
+				this.SendPropertyChanged("Polo");
+				this.OnPoloChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Coverall", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public int Coverall
+	{
+		get
+		{
+			return this._Coverall;
+		}
+		set
+		{
+			if ((this._Coverall != value))
+			{
+				this.OnCoverallChanging(value);
+				this.SendPropertyChanging();
+				this._Coverall = value;
+				this.SendPropertyChanged("Coverall");
+				this.OnCoverallChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GetCell", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public int GetCell
+	{
+		get
+		{
+			return this._GetCell;
+		}
+		set
+		{
+			if ((this._GetCell != value))
+			{
+				this.OnGetCellChanging(value);
+				this.SendPropertyChanging();
+				this._GetCell = value;
+				this.SendPropertyChanged("GetCell");
+				this.OnGetCellChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GetComp", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public int GetComp
+	{
+		get
+		{
+			return this._GetComp;
+		}
+		set
+		{
+			if ((this._GetComp != value))
+			{
+				this.OnGetCompChanging(value);
+				this.SendPropertyChanging();
+				this._GetComp = value;
+				this.SendPropertyChanged("GetComp");
+				this.OnGetCompChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GetLaptop", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public int GetLaptop
+	{
+		get
+		{
+			return this._GetLaptop;
+		}
+		set
+		{
+			if ((this._GetLaptop != value))
+			{
+				this.OnGetLaptopChanging(value);
+				this.SendPropertyChanging();
+				this._GetLaptop = value;
+				this.SendPropertyChanged("GetLaptop");
+				this.OnGetLaptopChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EmpNo", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public int EmpNo
+	{
+		get
+		{
+			return this._EmpNo;
+		}
+		set
+		{
+			if ((this._EmpNo != value))
+			{
+				this.OnEmpNoChanging(value);
+				this.SendPropertyChanging();
+				this._EmpNo = value;
+				this.SendPropertyChanged("EmpNo");
+				this.OnEmpNoChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Eligible to Drive Date]", Storage="_Eligible_to_Drive_Date", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public System.DateTime Eligible_to_Drive_Date
+	{
+		get
+		{
+			return this._Eligible_to_Drive_Date;
+		}
+		set
+		{
+			if ((this._Eligible_to_Drive_Date != value))
+			{
+				this.OnEligible_to_Drive_DateChanging(value);
+				this.SendPropertyChanging();
+				this._Eligible_to_Drive_Date = value;
+				this.SendPropertyChanged("Eligible_to_Drive_Date");
+				this.OnEligible_to_Drive_DateChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[EOC Job Category]", Storage="_EOC_Job_Category", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public int EOC_Job_Category
+	{
+		get
+		{
+			return this._EOC_Job_Category;
+		}
+		set
+		{
+			if ((this._EOC_Job_Category != value))
+			{
+				this.OnEOC_Job_CategoryChanging(value);
+				this.SendPropertyChanging();
+				this._EOC_Job_Category = value;
+				this.SendPropertyChanged("EOC_Job_Category");
+				this.OnEOC_Job_CategoryChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Seniority Date]", Storage="_Seniority_Date", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public System.DateTime Seniority_Date
+	{
+		get
+		{
+			return this._Seniority_Date;
+		}
+		set
+		{
+			if ((this._Seniority_Date != value))
+			{
+				this.OnSeniority_DateChanging(value);
+				this.SendPropertyChanging();
+				this._Seniority_Date = value;
+				this.SendPropertyChanged("Seniority_Date");
+				this.OnSeniority_DateChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DISA", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public int DISA
+	{
+		get
+		{
+			return this._DISA;
+		}
+		set
+		{
+			if ((this._DISA != value))
+			{
+				this.OnDISAChanging(value);
+				this.SendPropertyChanging();
+				this._DISA = value;
+				this.SendPropertyChanged("DISA");
+				this.OnDISAChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Employee Signature Received]", Storage="_Employee_Signature_Received", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Employee_Signature_Received
+	{
+		get
+		{
+			return this._Employee_Signature_Received;
+		}
+		set
+		{
+			if ((this._Employee_Signature_Received != value))
+			{
+				this.OnEmployee_Signature_ReceivedChanging(value);
+				this.SendPropertyChanging();
+				this._Employee_Signature_Received = value;
+				this.SendPropertyChanged("Employee_Signature_Received");
+				this.OnEmployee_Signature_ReceivedChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Personal License Plate]", Storage="_Personal_License_Plate", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Personal_License_Plate
+	{
+		get
+		{
+			return this._Personal_License_Plate;
+		}
+		set
+		{
+			if ((this._Personal_License_Plate != value))
+			{
+				this.OnPersonal_License_PlateChanging(value);
+				this.SendPropertyChanging();
+				this._Personal_License_Plate = value;
+				this.SendPropertyChanged("Personal_License_Plate");
+				this.OnPersonal_License_PlateChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Shermco License Plate]", Storage="_Shermco_License_Plate", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Shermco_License_Plate
+	{
+		get
+		{
+			return this._Shermco_License_Plate;
+		}
+		set
+		{
+			if ((this._Shermco_License_Plate != value))
+			{
+				this.OnShermco_License_PlateChanging(value);
+				this.SendPropertyChanging();
+				this._Shermco_License_Plate = value;
+				this.SendPropertyChanged("Shermco_License_Plate");
+				this.OnShermco_License_PlateChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Job Grade]", Storage="_Job_Grade", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public int Job_Grade
+	{
+		get
+		{
+			return this._Job_Grade;
+		}
+		set
+		{
+			if ((this._Job_Grade != value))
+			{
+				this.OnJob_GradeChanging(value);
+				this.SendPropertyChanging();
+				this._Job_Grade = value;
+				this.SendPropertyChanged("Job_Grade");
+				this.OnJob_GradeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Alt_ Personal License Plate]", Storage="_Alt__Personal_License_Plate", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Alt__Personal_License_Plate
+	{
+		get
+		{
+			return this._Alt__Personal_License_Plate;
+		}
+		set
+		{
+			if ((this._Alt__Personal_License_Plate != value))
+			{
+				this.OnAlt__Personal_License_PlateChanging(value);
+				this.SendPropertyChanging();
+				this._Alt__Personal_License_Plate = value;
+				this.SendPropertyChanged("Alt__Personal_License_Plate");
+				this.OnAlt__Personal_License_PlateChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Emergency Contact Name 2]", Storage="_Emergency_Contact_Name_2", DbType="VarChar(50) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Emergency_Contact_Name_2
+	{
+		get
+		{
+			return this._Emergency_Contact_Name_2;
+		}
+		set
+		{
+			if ((this._Emergency_Contact_Name_2 != value))
+			{
+				this.OnEmergency_Contact_Name_2Changing(value);
+				this.SendPropertyChanging();
+				this._Emergency_Contact_Name_2 = value;
+				this.SendPropertyChanged("Emergency_Contact_Name_2");
+				this.OnEmergency_Contact_Name_2Changed();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Emergency Contact Address 2]", Storage="_Emergency_Contact_Address_2", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Emergency_Contact_Address_2
+	{
+		get
+		{
+			return this._Emergency_Contact_Address_2;
+		}
+		set
+		{
+			if ((this._Emergency_Contact_Address_2 != value))
+			{
+				this.OnEmergency_Contact_Address_2Changing(value);
+				this.SendPropertyChanging();
+				this._Emergency_Contact_Address_2 = value;
+				this.SendPropertyChanged("Emergency_Contact_Address_2");
+				this.OnEmergency_Contact_Address_2Changed();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Emergency Contact City 2]", Storage="_Emergency_Contact_City_2", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Emergency_Contact_City_2
+	{
+		get
+		{
+			return this._Emergency_Contact_City_2;
+		}
+		set
+		{
+			if ((this._Emergency_Contact_City_2 != value))
+			{
+				this.OnEmergency_Contact_City_2Changing(value);
+				this.SendPropertyChanging();
+				this._Emergency_Contact_City_2 = value;
+				this.SendPropertyChanged("Emergency_Contact_City_2");
+				this.OnEmergency_Contact_City_2Changed();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Emergency Contact State 2]", Storage="_Emergency_Contact_State_2", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Emergency_Contact_State_2
+	{
+		get
+		{
+			return this._Emergency_Contact_State_2;
+		}
+		set
+		{
+			if ((this._Emergency_Contact_State_2 != value))
+			{
+				this.OnEmergency_Contact_State_2Changing(value);
+				this.SendPropertyChanging();
+				this._Emergency_Contact_State_2 = value;
+				this.SendPropertyChanged("Emergency_Contact_State_2");
+				this.OnEmergency_Contact_State_2Changed();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Emergency Contact Zip 2]", Storage="_Emergency_Contact_Zip_2", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Emergency_Contact_Zip_2
+	{
+		get
+		{
+			return this._Emergency_Contact_Zip_2;
+		}
+		set
+		{
+			if ((this._Emergency_Contact_Zip_2 != value))
+			{
+				this.OnEmergency_Contact_Zip_2Changing(value);
+				this.SendPropertyChanging();
+				this._Emergency_Contact_Zip_2 = value;
+				this.SendPropertyChanged("Emergency_Contact_Zip_2");
+				this.OnEmergency_Contact_Zip_2Changed();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Emergency Contact Phone 2]", Storage="_Emergency_Contact_Phone_2", DbType="VarChar(15) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Emergency_Contact_Phone_2
+	{
+		get
+		{
+			return this._Emergency_Contact_Phone_2;
+		}
+		set
+		{
+			if ((this._Emergency_Contact_Phone_2 != value))
+			{
+				this.OnEmergency_Contact_Phone_2Changing(value);
+				this.SendPropertyChanging();
+				this._Emergency_Contact_Phone_2 = value;
+				this.SendPropertyChanged("Emergency_Contact_Phone_2");
+				this.OnEmergency_Contact_Phone_2Changed();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Emergency Contact Mobile 2]", Storage="_Emergency_Contact_Mobile_2", DbType="VarChar(15) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Emergency_Contact_Mobile_2
+	{
+		get
+		{
+			return this._Emergency_Contact_Mobile_2;
+		}
+		set
+		{
+			if ((this._Emergency_Contact_Mobile_2 != value))
+			{
+				this.OnEmergency_Contact_Mobile_2Changing(value);
+				this.SendPropertyChanging();
+				this._Emergency_Contact_Mobile_2 = value;
+				this.SendPropertyChanged("Emergency_Contact_Mobile_2");
+				this.OnEmergency_Contact_Mobile_2Changed();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Emergency Contact Work 2]", Storage="_Emergency_Contact_Work_2", DbType="VarChar(15) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Emergency_Contact_Work_2
+	{
+		get
+		{
+			return this._Emergency_Contact_Work_2;
+		}
+		set
+		{
+			if ((this._Emergency_Contact_Work_2 != value))
+			{
+				this.OnEmergency_Contact_Work_2Changing(value);
+				this.SendPropertyChanging();
+				this._Emergency_Contact_Work_2 = value;
+				this.SendPropertyChanged("Emergency_Contact_Work_2");
+				this.OnEmergency_Contact_Work_2Changed();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Emergency Contact Relation 2]", Storage="_Emergency_Contact_Relation_2", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Emergency_Contact_Relation_2
+	{
+		get
+		{
+			return this._Emergency_Contact_Relation_2;
+		}
+		set
+		{
+			if ((this._Emergency_Contact_Relation_2 != value))
+			{
+				this.OnEmergency_Contact_Relation_2Changing(value);
+				this.SendPropertyChanging();
+				this._Emergency_Contact_Relation_2 = value;
+				this.SendPropertyChanged("Emergency_Contact_Relation_2");
+				this.OnEmergency_Contact_Relation_2Changed();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[LMS Cost Center]", Storage="_LMS_Cost_Center", DbType="VarChar(15) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string LMS_Cost_Center
+	{
+		get
+		{
+			return this._LMS_Cost_Center;
+		}
+		set
+		{
+			if ((this._LMS_Cost_Center != value))
+			{
+				this.OnLMS_Cost_CenterChanging(value);
+				this.SendPropertyChanging();
+				this._LMS_Cost_Center = value;
+				this.SendPropertyChanged("LMS_Cost_Center");
+				this.OnLMS_Cost_CenterChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[LMS Grade]", Storage="_LMS_Grade", DbType="VarChar(15) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string LMS_Grade
+	{
+		get
+		{
+			return this._LMS_Grade;
+		}
+		set
+		{
+			if ((this._LMS_Grade != value))
+			{
+				this.OnLMS_GradeChanging(value);
+				this.SendPropertyChanging();
+				this._LMS_Grade = value;
+				this.SendPropertyChanged("LMS_Grade");
+				this.OnLMS_GradeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[LMS Division]", Storage="_LMS_Division", DbType="VarChar(15) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string LMS_Division
+	{
+		get
+		{
+			return this._LMS_Division;
+		}
+		set
+		{
+			if ((this._LMS_Division != value))
+			{
+				this.OnLMS_DivisionChanging(value);
+				this.SendPropertyChanging();
+				this._LMS_Division = value;
+				this.SendPropertyChanged("LMS_Division");
+				this.OnLMS_DivisionChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[LMS Position]", Storage="_LMS_Position", DbType="VarChar(15) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string LMS_Position
+	{
+		get
+		{
+			return this._LMS_Position;
+		}
+		set
+		{
+			if ((this._LMS_Position != value))
+			{
+				this.OnLMS_PositionChanging(value);
+				this.SendPropertyChanging();
+				this._LMS_Position = value;
+				this.SendPropertyChanged("LMS_Position");
+				this.OnLMS_PositionChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[LMS Location]", Storage="_LMS_Location", DbType="VarChar(15) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string LMS_Location
+	{
+		get
+		{
+			return this._LMS_Location;
+		}
+		set
+		{
+			if ((this._LMS_Location != value))
+			{
+				this.OnLMS_LocationChanging(value);
+				this.SendPropertyChanging();
+				this._LMS_Location = value;
+				this.SendPropertyChanged("LMS_Location");
+				this.OnLMS_LocationChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Credit Card Approval Code 2]", Storage="_Credit_Card_Approval_Code_2", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Credit_Card_Approval_Code_2
+	{
+		get
+		{
+			return this._Credit_Card_Approval_Code_2;
+		}
+		set
+		{
+			if ((this._Credit_Card_Approval_Code_2 != value))
+			{
+				this.OnCredit_Card_Approval_Code_2Changing(value);
+				this.SendPropertyChanging();
+				this._Credit_Card_Approval_Code_2 = value;
+				this.SendPropertyChanged("Credit_Card_Approval_Code_2");
+				this.OnCredit_Card_Approval_Code_2Changed();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Job Description]", Storage="_Job_Description", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Job_Description
+	{
+		get
+		{
+			return this._Job_Description;
+		}
+		set
+		{
+			if ((this._Job_Description != value))
+			{
+				this.OnJob_DescriptionChanging(value);
+				this.SendPropertyChanging();
+				this._Job_Description = value;
+				this.SendPropertyChanged("Job_Description");
+				this.OnJob_DescriptionChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Medical Exam Certificate]", Storage="_Medical_Exam_Certificate", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public System.DateTime Medical_Exam_Certificate
+	{
+		get
+		{
+			return this._Medical_Exam_Certificate;
+		}
+		set
+		{
+			if ((this._Medical_Exam_Certificate != value))
+			{
+				this.OnMedical_Exam_CertificateChanging(value);
+				this.SendPropertyChanging();
+				this._Medical_Exam_Certificate = value;
+				this.SendPropertyChanged("Medical_Exam_Certificate");
+				this.OnMedical_Exam_CertificateChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Next Annual Review of Driver]", Storage="_Next_Annual_Review_of_Driver", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public System.DateTime Next_Annual_Review_of_Driver
+	{
+		get
+		{
+			return this._Next_Annual_Review_of_Driver;
+		}
+		set
+		{
+			if ((this._Next_Annual_Review_of_Driver != value))
+			{
+				this.OnNext_Annual_Review_of_DriverChanging(value);
+				this.SendPropertyChanging();
+				this._Next_Annual_Review_of_Driver = value;
+				this.SendPropertyChanged("Next_Annual_Review_of_Driver");
+				this.OnNext_Annual_Review_of_DriverChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[License No_]", Storage="_License_No_", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string License_No_
+	{
+		get
+		{
+			return this._License_No_;
+		}
+		set
+		{
+			if ((this._License_No_ != value))
+			{
+				this.OnLicense_No_Changing(value);
+				this.SendPropertyChanging();
+				this._License_No_ = value;
+				this.SendPropertyChanged("License_No_");
+				this.OnLicense_No_Changed();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Issuing State]", Storage="_Issuing_State", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Issuing_State
+	{
+		get
+		{
+			return this._Issuing_State;
+		}
+		set
+		{
+			if ((this._Issuing_State != value))
+			{
+				this.OnIssuing_StateChanging(value);
+				this.SendPropertyChanging();
+				this._Issuing_State = value;
+				this.SendPropertyChanged("Issuing_State");
+				this.OnIssuing_StateChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[License Exp_ Date]", Storage="_License_Exp__Date", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public System.DateTime License_Exp__Date
+	{
+		get
+		{
+			return this._License_Exp__Date;
+		}
+		set
+		{
+			if ((this._License_Exp__Date != value))
+			{
+				this.OnLicense_Exp__DateChanging(value);
+				this.SendPropertyChanging();
+				this._License_Exp__Date = value;
+				this.SendPropertyChanged("License_Exp__Date");
+				this.OnLicense_Exp__DateChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[DOT Compliant]", Storage="_DOT_Compliant", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public int DOT_Compliant
+	{
+		get
+		{
+			return this._DOT_Compliant;
+		}
+		set
+		{
+			if ((this._DOT_Compliant != value))
+			{
+				this.OnDOT_CompliantChanging(value);
+				this.SendPropertyChanging();
+				this._DOT_Compliant = value;
+				this.SendPropertyChanged("DOT_Compliant");
+				this.OnDOT_CompliantChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Subject to DOT testing]", Storage="_Subject_to_DOT_testing", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public int Subject_to_DOT_testing
+	{
+		get
+		{
+			return this._Subject_to_DOT_testing;
+		}
+		set
+		{
+			if ((this._Subject_to_DOT_testing != value))
+			{
+				this.OnSubject_to_DOT_testingChanging(value);
+				this.SendPropertyChanging();
+				this._Subject_to_DOT_testing = value;
+				this.SendPropertyChanged("Subject_to_DOT_testing");
+				this.OnSubject_to_DOT_testingChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Does driver have exception]", Storage="_Does_driver_have_exception", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public int Does_driver_have_exception
+	{
+		get
+		{
+			return this._Does_driver_have_exception;
+		}
+		set
+		{
+			if ((this._Does_driver_have_exception != value))
+			{
+				this.OnDoes_driver_have_exceptionChanging(value);
+				this.SendPropertyChanging();
+				this._Does_driver_have_exception = value;
+				this.SendPropertyChanged("Does_driver_have_exception");
+				this.OnDoes_driver_have_exceptionChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Pull MVR before]", Storage="_Pull_MVR_before", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public System.DateTime Pull_MVR_before
+	{
+		get
+		{
+			return this._Pull_MVR_before;
+		}
+		set
+		{
+			if ((this._Pull_MVR_before != value))
+			{
+				this.OnPull_MVR_beforeChanging(value);
+				this.SendPropertyChanging();
+				this._Pull_MVR_before = value;
+				this.SendPropertyChanged("Pull_MVR_before");
+				this.OnPull_MVR_beforeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Has Driver Received training]", Storage="_Has_Driver_Received_training", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public int Has_Driver_Received_training
+	{
+		get
+		{
+			return this._Has_Driver_Received_training;
+		}
+		set
+		{
+			if ((this._Has_Driver_Received_training != value))
+			{
+				this.OnHas_Driver_Received_trainingChanging(value);
+				this.SendPropertyChanging();
+				this._Has_Driver_Received_training = value;
+				this.SendPropertyChanged("Has_Driver_Received_training");
+				this.OnHas_Driver_Received_trainingChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Is Driver LCV certified]", Storage="_Is_Driver_LCV_certified", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public int Is_Driver_LCV_certified
+	{
+		get
+		{
+			return this._Is_Driver_LCV_certified;
+		}
+		set
+		{
+			if ((this._Is_Driver_LCV_certified != value))
+			{
+				this.OnIs_Driver_LCV_certifiedChanging(value);
+				this.SendPropertyChanging();
+				this._Is_Driver_LCV_certified = value;
+				this.SendPropertyChanged("Is_Driver_LCV_certified");
+				this.OnIs_Driver_LCV_certifiedChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CDL", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public int CDL
+	{
+		get
+		{
+			return this._CDL;
+		}
+		set
+		{
+			if ((this._CDL != value))
+			{
+				this.OnCDLChanging(value);
+				this.SendPropertyChanging();
+				this._CDL = value;
+				this.SendPropertyChanged("CDL");
+				this.OnCDLChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[License Class Type]", Storage="_License_Class_Type", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public int License_Class_Type
+	{
+		get
+		{
+			return this._License_Class_Type;
+		}
+		set
+		{
+			if ((this._License_Class_Type != value))
+			{
+				this.OnLicense_Class_TypeChanging(value);
+				this.SendPropertyChanging();
+				this._License_Class_Type = value;
+				this.SendPropertyChanged("License_Class_Type");
+				this.OnLicense_Class_TypeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Driver Start Date]", Storage="_Driver_Start_Date", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public System.DateTime Driver_Start_Date
+	{
+		get
+		{
+			return this._Driver_Start_Date;
+		}
+		set
+		{
+			if ((this._Driver_Start_Date != value))
+			{
+				this.OnDriver_Start_DateChanging(value);
+				this.SendPropertyChanging();
+				this._Driver_Start_Date = value;
+				this.SendPropertyChanged("Driver_Start_Date");
+				this.OnDriver_Start_DateChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Qualified", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public int Qualified
+	{
+		get
+		{
+			return this._Qualified;
+		}
+		set
+		{
+			if ((this._Qualified != value))
+			{
+				this.OnQualifiedChanging(value);
+				this.SendPropertyChanging();
+				this._Qualified = value;
+				this.SendPropertyChanged("Qualified");
+				this.OnQualifiedChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Why Disqualified]", Storage="_Why_Disqualified", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Why_Disqualified
+	{
+		get
+		{
+			return this._Why_Disqualified;
+		}
+		set
+		{
+			if ((this._Why_Disqualified != value))
+			{
+				this.OnWhy_DisqualifiedChanging(value);
+				this.SendPropertyChanging();
+				this._Why_Disqualified = value;
+				this.SendPropertyChanged("Why_Disqualified");
+				this.OnWhy_DisqualifiedChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Date Disqualified]", Storage="_Date_Disqualified", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public System.DateTime Date_Disqualified
+	{
+		get
+		{
+			return this._Date_Disqualified;
+		}
+		set
+		{
+			if ((this._Date_Disqualified != value))
+			{
+				this.OnDate_DisqualifiedChanging(value);
+				this.SendPropertyChanging();
+				this._Date_Disqualified = value;
+				this.SendPropertyChanged("Date_Disqualified");
+				this.OnDate_DisqualifiedChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Multiple Employer Driver]", Storage="_Multiple_Employer_Driver", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public int Multiple_Employer_Driver
+	{
+		get
+		{
+			return this._Multiple_Employer_Driver;
+		}
+		set
+		{
+			if ((this._Multiple_Employer_Driver != value))
+			{
+				this.OnMultiple_Employer_DriverChanging(value);
+				this.SendPropertyChanging();
+				this._Multiple_Employer_Driver = value;
+				this.SendPropertyChanged("Multiple_Employer_Driver");
+				this.OnMultiple_Employer_DriverChanged();
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+}
+
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SIU_ReportingChain")]
+public partial class SIU_ReportingChain : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _UID;
+	
+	private string _CompanyName;
+	
+	private string _Dept;
+	
+	private string _DeptDesc;
+	
+	private string _DeptMgrEmpId;
+	
+	private string _DeptMgrName;
+	
+	private string _DivMgrEmpId;
+	
+	private string _DivMgrName;
+	
+	private string _DirEmpID;
+	
+	private string _DirEmpName;
+	
+	private string _VpEmpId;
+	
+	private string _VpName;
+	
+	private string _GmEmpId;
+	
+	private string _GmName;
+	
+	private string _PresEmpId;
+	
+	private string _PresName;
+	
+	private string _SafetyMgrEmpId;
+	
+	private string _SafetyMgrName;
+	
+	private string _RiskMgrEmpId;
+	
+	private string _RiskMgrName;
+	
+	private string _LegalMgrEmpId;
+	
+	private string _LegalMgrName;
+	
+	private string _OSHA_NAICS_Code;
+	
+	private System.Nullable<double> _OSHA_TRIR_NAT_AVG;
+	
+	private System.Nullable<double> _OSHA_RIR_NAT_AVG;
+	
+	private System.Nullable<double> _OSHA_LRIR_NAT_AVG;
+	
+	private System.Nullable<double> _OSHA_DART_NAT_AVG;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnUIDChanging(int value);
+    partial void OnUIDChanged();
+    partial void OnCompanyNameChanging(string value);
+    partial void OnCompanyNameChanged();
+    partial void OnDeptChanging(string value);
+    partial void OnDeptChanged();
+    partial void OnDeptDescChanging(string value);
+    partial void OnDeptDescChanged();
+    partial void OnDeptMgrEmpIdChanging(string value);
+    partial void OnDeptMgrEmpIdChanged();
+    partial void OnDeptMgrNameChanging(string value);
+    partial void OnDeptMgrNameChanged();
+    partial void OnDivMgrEmpIdChanging(string value);
+    partial void OnDivMgrEmpIdChanged();
+    partial void OnDivMgrNameChanging(string value);
+    partial void OnDivMgrNameChanged();
+    partial void OnDirEmpIDChanging(string value);
+    partial void OnDirEmpIDChanged();
+    partial void OnDirEmpNameChanging(string value);
+    partial void OnDirEmpNameChanged();
+    partial void OnVpEmpIdChanging(string value);
+    partial void OnVpEmpIdChanged();
+    partial void OnVpNameChanging(string value);
+    partial void OnVpNameChanged();
+    partial void OnGmEmpIdChanging(string value);
+    partial void OnGmEmpIdChanged();
+    partial void OnGmNameChanging(string value);
+    partial void OnGmNameChanged();
+    partial void OnPresEmpIdChanging(string value);
+    partial void OnPresEmpIdChanged();
+    partial void OnPresNameChanging(string value);
+    partial void OnPresNameChanged();
+    partial void OnSafetyMgrEmpIdChanging(string value);
+    partial void OnSafetyMgrEmpIdChanged();
+    partial void OnSafetyMgrNameChanging(string value);
+    partial void OnSafetyMgrNameChanged();
+    partial void OnRiskMgrEmpIdChanging(string value);
+    partial void OnRiskMgrEmpIdChanged();
+    partial void OnRiskMgrNameChanging(string value);
+    partial void OnRiskMgrNameChanged();
+    partial void OnLegalMgrEmpIdChanging(string value);
+    partial void OnLegalMgrEmpIdChanged();
+    partial void OnLegalMgrNameChanging(string value);
+    partial void OnLegalMgrNameChanged();
+    partial void OnOSHA_NAICS_CodeChanging(string value);
+    partial void OnOSHA_NAICS_CodeChanged();
+    partial void OnOSHA_TRIR_NAT_AVGChanging(System.Nullable<double> value);
+    partial void OnOSHA_TRIR_NAT_AVGChanged();
+    partial void OnOSHA_RIR_NAT_AVGChanging(System.Nullable<double> value);
+    partial void OnOSHA_RIR_NAT_AVGChanged();
+    partial void OnOSHA_LRIR_NAT_AVGChanging(System.Nullable<double> value);
+    partial void OnOSHA_LRIR_NAT_AVGChanged();
+    partial void OnOSHA_DART_NAT_AVGChanging(System.Nullable<double> value);
+    partial void OnOSHA_DART_NAT_AVGChanged();
+    #endregion
+	
+	public SIU_ReportingChain()
+	{
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int UID
+	{
+		get
+		{
+			return this._UID;
+		}
+		set
+		{
+			if ((this._UID != value))
+			{
+				this.OnUIDChanging(value);
+				this.SendPropertyChanging();
+				this._UID = value;
+				this.SendPropertyChanged("UID");
+				this.OnUIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompanyName", DbType="VarChar(50)")]
+	public string CompanyName
+	{
+		get
+		{
+			return this._CompanyName;
+		}
+		set
+		{
+			if ((this._CompanyName != value))
+			{
+				this.OnCompanyNameChanging(value);
+				this.SendPropertyChanging();
+				this._CompanyName = value;
+				this.SendPropertyChanged("CompanyName");
+				this.OnCompanyNameChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Dept", DbType="VarChar(10) NOT NULL", CanBeNull=false)]
+	public string Dept
+	{
+		get
+		{
+			return this._Dept;
+		}
+		set
+		{
+			if ((this._Dept != value))
+			{
+				this.OnDeptChanging(value);
+				this.SendPropertyChanging();
+				this._Dept = value;
+				this.SendPropertyChanged("Dept");
+				this.OnDeptChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DeptDesc", DbType="VarChar(200)")]
+	public string DeptDesc
+	{
+		get
+		{
+			return this._DeptDesc;
+		}
+		set
+		{
+			if ((this._DeptDesc != value))
+			{
+				this.OnDeptDescChanging(value);
+				this.SendPropertyChanging();
+				this._DeptDesc = value;
+				this.SendPropertyChanged("DeptDesc");
+				this.OnDeptDescChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DeptMgrEmpId", DbType="VarChar(10)")]
+	public string DeptMgrEmpId
+	{
+		get
+		{
+			return this._DeptMgrEmpId;
+		}
+		set
+		{
+			if ((this._DeptMgrEmpId != value))
+			{
+				this.OnDeptMgrEmpIdChanging(value);
+				this.SendPropertyChanging();
+				this._DeptMgrEmpId = value;
+				this.SendPropertyChanged("DeptMgrEmpId");
+				this.OnDeptMgrEmpIdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DeptMgrName", DbType="VarChar(50)")]
+	public string DeptMgrName
+	{
+		get
+		{
+			return this._DeptMgrName;
+		}
+		set
+		{
+			if ((this._DeptMgrName != value))
+			{
+				this.OnDeptMgrNameChanging(value);
+				this.SendPropertyChanging();
+				this._DeptMgrName = value;
+				this.SendPropertyChanged("DeptMgrName");
+				this.OnDeptMgrNameChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DivMgrEmpId", DbType="VarChar(10)")]
+	public string DivMgrEmpId
+	{
+		get
+		{
+			return this._DivMgrEmpId;
+		}
+		set
+		{
+			if ((this._DivMgrEmpId != value))
+			{
+				this.OnDivMgrEmpIdChanging(value);
+				this.SendPropertyChanging();
+				this._DivMgrEmpId = value;
+				this.SendPropertyChanged("DivMgrEmpId");
+				this.OnDivMgrEmpIdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DivMgrName", DbType="VarChar(50)")]
+	public string DivMgrName
+	{
+		get
+		{
+			return this._DivMgrName;
+		}
+		set
+		{
+			if ((this._DivMgrName != value))
+			{
+				this.OnDivMgrNameChanging(value);
+				this.SendPropertyChanging();
+				this._DivMgrName = value;
+				this.SendPropertyChanged("DivMgrName");
+				this.OnDivMgrNameChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DirEmpID", DbType="VarChar(10)")]
+	public string DirEmpID
+	{
+		get
+		{
+			return this._DirEmpID;
+		}
+		set
+		{
+			if ((this._DirEmpID != value))
+			{
+				this.OnDirEmpIDChanging(value);
+				this.SendPropertyChanging();
+				this._DirEmpID = value;
+				this.SendPropertyChanged("DirEmpID");
+				this.OnDirEmpIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DirEmpName", DbType="VarChar(50)")]
+	public string DirEmpName
+	{
+		get
+		{
+			return this._DirEmpName;
+		}
+		set
+		{
+			if ((this._DirEmpName != value))
+			{
+				this.OnDirEmpNameChanging(value);
+				this.SendPropertyChanging();
+				this._DirEmpName = value;
+				this.SendPropertyChanged("DirEmpName");
+				this.OnDirEmpNameChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VpEmpId", DbType="VarChar(10)")]
+	public string VpEmpId
+	{
+		get
+		{
+			return this._VpEmpId;
+		}
+		set
+		{
+			if ((this._VpEmpId != value))
+			{
+				this.OnVpEmpIdChanging(value);
+				this.SendPropertyChanging();
+				this._VpEmpId = value;
+				this.SendPropertyChanged("VpEmpId");
+				this.OnVpEmpIdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VpName", DbType="VarChar(50)")]
+	public string VpName
+	{
+		get
+		{
+			return this._VpName;
+		}
+		set
+		{
+			if ((this._VpName != value))
+			{
+				this.OnVpNameChanging(value);
+				this.SendPropertyChanging();
+				this._VpName = value;
+				this.SendPropertyChanged("VpName");
+				this.OnVpNameChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GmEmpId", DbType="VarChar(10)")]
+	public string GmEmpId
+	{
+		get
+		{
+			return this._GmEmpId;
+		}
+		set
+		{
+			if ((this._GmEmpId != value))
+			{
+				this.OnGmEmpIdChanging(value);
+				this.SendPropertyChanging();
+				this._GmEmpId = value;
+				this.SendPropertyChanged("GmEmpId");
+				this.OnGmEmpIdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GmName", DbType="VarChar(50)")]
+	public string GmName
+	{
+		get
+		{
+			return this._GmName;
+		}
+		set
+		{
+			if ((this._GmName != value))
+			{
+				this.OnGmNameChanging(value);
+				this.SendPropertyChanging();
+				this._GmName = value;
+				this.SendPropertyChanged("GmName");
+				this.OnGmNameChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PresEmpId", DbType="VarChar(10)")]
+	public string PresEmpId
+	{
+		get
+		{
+			return this._PresEmpId;
+		}
+		set
+		{
+			if ((this._PresEmpId != value))
+			{
+				this.OnPresEmpIdChanging(value);
+				this.SendPropertyChanging();
+				this._PresEmpId = value;
+				this.SendPropertyChanged("PresEmpId");
+				this.OnPresEmpIdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PresName", DbType="VarChar(50)")]
+	public string PresName
+	{
+		get
+		{
+			return this._PresName;
+		}
+		set
+		{
+			if ((this._PresName != value))
+			{
+				this.OnPresNameChanging(value);
+				this.SendPropertyChanging();
+				this._PresName = value;
+				this.SendPropertyChanged("PresName");
+				this.OnPresNameChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SafetyMgrEmpId", DbType="VarChar(10)")]
+	public string SafetyMgrEmpId
+	{
+		get
+		{
+			return this._SafetyMgrEmpId;
+		}
+		set
+		{
+			if ((this._SafetyMgrEmpId != value))
+			{
+				this.OnSafetyMgrEmpIdChanging(value);
+				this.SendPropertyChanging();
+				this._SafetyMgrEmpId = value;
+				this.SendPropertyChanged("SafetyMgrEmpId");
+				this.OnSafetyMgrEmpIdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SafetyMgrName", DbType="VarChar(50)")]
+	public string SafetyMgrName
+	{
+		get
+		{
+			return this._SafetyMgrName;
+		}
+		set
+		{
+			if ((this._SafetyMgrName != value))
+			{
+				this.OnSafetyMgrNameChanging(value);
+				this.SendPropertyChanging();
+				this._SafetyMgrName = value;
+				this.SendPropertyChanged("SafetyMgrName");
+				this.OnSafetyMgrNameChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RiskMgrEmpId", DbType="VarChar(10)")]
+	public string RiskMgrEmpId
+	{
+		get
+		{
+			return this._RiskMgrEmpId;
+		}
+		set
+		{
+			if ((this._RiskMgrEmpId != value))
+			{
+				this.OnRiskMgrEmpIdChanging(value);
+				this.SendPropertyChanging();
+				this._RiskMgrEmpId = value;
+				this.SendPropertyChanged("RiskMgrEmpId");
+				this.OnRiskMgrEmpIdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RiskMgrName", DbType="VarChar(50)")]
+	public string RiskMgrName
+	{
+		get
+		{
+			return this._RiskMgrName;
+		}
+		set
+		{
+			if ((this._RiskMgrName != value))
+			{
+				this.OnRiskMgrNameChanging(value);
+				this.SendPropertyChanging();
+				this._RiskMgrName = value;
+				this.SendPropertyChanged("RiskMgrName");
+				this.OnRiskMgrNameChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LegalMgrEmpId", DbType="VarChar(10)")]
+	public string LegalMgrEmpId
+	{
+		get
+		{
+			return this._LegalMgrEmpId;
+		}
+		set
+		{
+			if ((this._LegalMgrEmpId != value))
+			{
+				this.OnLegalMgrEmpIdChanging(value);
+				this.SendPropertyChanging();
+				this._LegalMgrEmpId = value;
+				this.SendPropertyChanged("LegalMgrEmpId");
+				this.OnLegalMgrEmpIdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LegalMgrName", DbType="VarChar(50)")]
+	public string LegalMgrName
+	{
+		get
+		{
+			return this._LegalMgrName;
+		}
+		set
+		{
+			if ((this._LegalMgrName != value))
+			{
+				this.OnLegalMgrNameChanging(value);
+				this.SendPropertyChanging();
+				this._LegalMgrName = value;
+				this.SendPropertyChanged("LegalMgrName");
+				this.OnLegalMgrNameChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OSHA_NAICS_Code", DbType="VarChar(10)")]
+	public string OSHA_NAICS_Code
+	{
+		get
+		{
+			return this._OSHA_NAICS_Code;
+		}
+		set
+		{
+			if ((this._OSHA_NAICS_Code != value))
+			{
+				this.OnOSHA_NAICS_CodeChanging(value);
+				this.SendPropertyChanging();
+				this._OSHA_NAICS_Code = value;
+				this.SendPropertyChanged("OSHA_NAICS_Code");
+				this.OnOSHA_NAICS_CodeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OSHA_TRIR_NAT_AVG", DbType="Float")]
+	public System.Nullable<double> OSHA_TRIR_NAT_AVG
+	{
+		get
+		{
+			return this._OSHA_TRIR_NAT_AVG;
+		}
+		set
+		{
+			if ((this._OSHA_TRIR_NAT_AVG != value))
+			{
+				this.OnOSHA_TRIR_NAT_AVGChanging(value);
+				this.SendPropertyChanging();
+				this._OSHA_TRIR_NAT_AVG = value;
+				this.SendPropertyChanged("OSHA_TRIR_NAT_AVG");
+				this.OnOSHA_TRIR_NAT_AVGChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OSHA_RIR_NAT_AVG", DbType="Float")]
+	public System.Nullable<double> OSHA_RIR_NAT_AVG
+	{
+		get
+		{
+			return this._OSHA_RIR_NAT_AVG;
+		}
+		set
+		{
+			if ((this._OSHA_RIR_NAT_AVG != value))
+			{
+				this.OnOSHA_RIR_NAT_AVGChanging(value);
+				this.SendPropertyChanging();
+				this._OSHA_RIR_NAT_AVG = value;
+				this.SendPropertyChanged("OSHA_RIR_NAT_AVG");
+				this.OnOSHA_RIR_NAT_AVGChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OSHA_LRIR_NAT_AVG", DbType="Float")]
+	public System.Nullable<double> OSHA_LRIR_NAT_AVG
+	{
+		get
+		{
+			return this._OSHA_LRIR_NAT_AVG;
+		}
+		set
+		{
+			if ((this._OSHA_LRIR_NAT_AVG != value))
+			{
+				this.OnOSHA_LRIR_NAT_AVGChanging(value);
+				this.SendPropertyChanging();
+				this._OSHA_LRIR_NAT_AVG = value;
+				this.SendPropertyChanged("OSHA_LRIR_NAT_AVG");
+				this.OnOSHA_LRIR_NAT_AVGChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OSHA_DART_NAT_AVG", DbType="Float")]
+	public System.Nullable<double> OSHA_DART_NAT_AVG
+	{
+		get
+		{
+			return this._OSHA_DART_NAT_AVG;
+		}
+		set
+		{
+			if ((this._OSHA_DART_NAT_AVG != value))
+			{
+				this.OnOSHA_DART_NAT_AVGChanging(value);
+				this.SendPropertyChanging();
+				this._OSHA_DART_NAT_AVG = value;
+				this.SendPropertyChanged("OSHA_DART_NAT_AVG");
+				this.OnOSHA_DART_NAT_AVGChanged();
 			}
 		}
 	}
@@ -35510,6 +36693,122 @@ public partial class SIU_MySi_SummaryCountsResult
 			if ((this._QomAccept != value))
 			{
 				this._QomAccept = value;
+			}
+		}
+	}
+}
+
+public partial class SIU_SafetyPays_AcceptReject_Rpt_SPResult
+{
+	
+	private System.Nullable<int> _cnt;
+	
+	private string _Global_Dimension_1_Code;
+	
+	private string _Name;
+	
+	private string _IncTypeTxt;
+	
+	private string _IncStatus;
+	
+	private System.Nullable<int> _PointsAssigned;
+	
+	public SIU_SafetyPays_AcceptReject_Rpt_SPResult()
+	{
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_cnt", DbType="Int")]
+	public System.Nullable<int> cnt
+	{
+		get
+		{
+			return this._cnt;
+		}
+		set
+		{
+			if ((this._cnt != value))
+			{
+				this._cnt = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Global Dimension 1 Code]", Storage="_Global_Dimension_1_Code", DbType="VarChar(20) NOT NULL", CanBeNull=false)]
+	public string Global_Dimension_1_Code
+	{
+		get
+		{
+			return this._Global_Dimension_1_Code;
+		}
+		set
+		{
+			if ((this._Global_Dimension_1_Code != value))
+			{
+				this._Global_Dimension_1_Code = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(62) NOT NULL", CanBeNull=false)]
+	public string Name
+	{
+		get
+		{
+			return this._Name;
+		}
+		set
+		{
+			if ((this._Name != value))
+			{
+				this._Name = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IncTypeTxt", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+	public string IncTypeTxt
+	{
+		get
+		{
+			return this._IncTypeTxt;
+		}
+		set
+		{
+			if ((this._IncTypeTxt != value))
+			{
+				this._IncTypeTxt = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IncStatus", DbType="VarChar(15) NOT NULL", CanBeNull=false)]
+	public string IncStatus
+	{
+		get
+		{
+			return this._IncStatus;
+		}
+		set
+		{
+			if ((this._IncStatus != value))
+			{
+				this._IncStatus = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PointsAssigned", DbType="Int")]
+	public System.Nullable<int> PointsAssigned
+	{
+		get
+		{
+			return this._PointsAssigned;
+		}
+		set
+		{
+			if ((this._PointsAssigned != value))
+			{
+				this._PointsAssigned = value;
 			}
 		}
 	}

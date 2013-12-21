@@ -28,6 +28,11 @@
     <Day>25</Day>
   </Holiday>
 
+  <Holiday name="Christmas Eve">
+    <Month>12</Month>
+    <Day>24</Day>
+  </Holiday>  
+
   <Holiday name="Thanksgiving Day">
     <Month>11</Month>
     <DayOfWeek>5</DayOfWeek>

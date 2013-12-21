@@ -8,12 +8,6 @@
         <elementListCompartment Id="6e151005-f5cf-46ac-b13b-010b563f8af9" absoluteBounds="0.64000000000000012, 1.71, 1.9700000000000002, 38.9019775390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="a441b243-12f8-415e-8461-b71a2a327e0e" isExpanded="false" absoluteBounds="0.625, 3.375, 2, 0.45">
-      <DataClassMoniker Name="/SIU_ORM_LINQDataContext/Shermco_Employee" />
-      <nestedChildShapes>
-        <elementListCompartment Id="4b687b91-5a4b-4b94-83ba-a84f722e1a6a" absoluteBounds="0.63999999999999968, 3.835, 1.9700000000000002, 34.8636474609375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
     <classShape Id="74fbb96d-831f-4cee-a468-cab46a2fb9a3" isExpanded="false" absoluteBounds="2.625, 1.25, 2, 0.45">
       <DataClassMoniker Name="/SIU_ORM_LINQDataContext/SIU_Complete_Job" />
       <nestedChildShapes>
@@ -284,12 +278,6 @@
         <elementListCompartment Id="0c60c522-18bd-48d7-8af9-48be7b4f21c7" absoluteBounds="9.015, 5.335, 1.9700000000000002, 5.6338297526041661" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="e96ad2eb-c549-4248-b1d9-42cdb0bc43e4" isExpanded="false" absoluteBounds="6.75, 5.375, 2, 0.45">
-      <DataClassMoniker Name="/SIU_ORM_LINQDataContext/SIU_ReportingChain" />
-      <nestedChildShapes>
-        <elementListCompartment Id="c5033bd6-55f2-4290-bca6-f22f074e3e08" absoluteBounds="6.7650000000000006, 5.835, 1.9700000000000002, 3.903116861979167" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
     <classShape Id="d81514be-a326-4d1c-b500-afad149fafb0" isExpanded="false" absoluteBounds="9, 5.375, 2, 0.45">
       <DataClassMoniker Name="/SIU_ORM_LINQDataContext/SIU_Incident_Accident_Appoval" />
       <nestedChildShapes>
@@ -300,6 +288,18 @@
       <DataClassMoniker Name="/SIU_ORM_LINQDataContext/SIU_Incident_Accident_AppovalNote" />
       <nestedChildShapes>
         <elementListCompartment Id="87590831-3c5e-4b85-bc42-0f4de71dd8df" absoluteBounds="9.015, 6.335, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="250b9866-ae46-444b-81f3-2125727e625b" isExpanded="false" absoluteBounds="0.625, 3.375, 2, 0.45">
+      <DataClassMoniker Name="/SIU_ORM_LINQDataContext/Shermco_Employee" />
+      <nestedChildShapes>
+        <elementListCompartment Id="8ad7fdfd-2866-41b8-ba74-2d1233c099c5" absoluteBounds="0.64000000000000012, 3.835, 1.9700000000000002, 42.748006184895829" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="b87d2314-ab52-492e-b96e-8fef74f52cd9" isExpanded="false" absoluteBounds="6.75, 5.375, 2, 0.45">
+      <DataClassMoniker Name="/SIU_ORM_LINQDataContext/SIU_ReportingChain" />
+      <nestedChildShapes>
+        <elementListCompartment Id="74089ff1-8bd3-40ca-8455-540e2471b530" absoluteBounds="6.765, 5.835, 1.9700000000000002, 5.4415283203125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

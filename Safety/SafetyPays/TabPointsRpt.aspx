@@ -32,10 +32,15 @@
 
         <!----------------->
         <!-- Form Header -->
-        <!----------------->                   
-        <section class="ui-widget-header ui-corner-all" style="height: 45px; margin-top: 15px; margin-bottom: 5px;" >
-            <span  style="text-align: center; font-size: 2em; width: 100%;  position:absolute; left: 0px; margin-left: auto; margin-right: auto;">Points Tabular Reporting</span>
-        </section>  
+        <!----------------->                     
+        <section class="ui-widget-header ui-corner-all" style="height: 45px; width: 99%; margin-top: 10px; margin-bottom: 30px;" >
+            <a href="/Safety/SafetyHome.aspx" style="text-decoration: none;">
+                <span style="position: relative; left: 3px; vertical-align: top; font-size: .8em; line-height: 10px;">Safety home</span>
+                <div  style="text-align: center; font-size: 2em; width: 100%;  position:relative; margin-left: auto; margin-right: auto;margin-top: -10px;">Safety Pays Tabulated Points Reporting</div>
+            </a>
+        </section> 
+    
+
 
         <section style="visibility: hidden; height: 0px; width: 0px;">
             <span id="hlblEID"           runat="server"/> 
@@ -105,11 +110,6 @@
         <p></p>
     
         <asp:Button runat="server" ID="ConsidateToExcelButton"          Text="Consolidated Spreadsheet"         OnClick="Consolidated_Click" />
-        <asp:Button runat="server" ID="ByDeptExportToExcelButton"       Text="Dept By Month to Excel"           OnClick="ByDeptExportToExcelButton_Click" />
-        <asp:Button runat="server" ID="EmpDtlExportToExcelButton"       Text="By Employee to Excel"             OnClick="EmpDtlExportToExcelButton_Click" />
-        <asp:Button runat="server" ID="PrjPtsExportToExcelButton"       Text="Projections to Excel"             OnClick="PrjPtsExportToExcelButton_Click" />
-        <asp:Button runat="server" ID="StdPrjPtsExportToExcelButton"    Text="STD Projections to Excel"         OnClick="StdPrjPtsExportToExcelButton_Click" />
-        <asp:Button runat="server" ID="AssignPtsExportToExcelButton"    Text="Assign Points Default to Excel"   OnClick="AssignPtsExportToExcelButton_Click" />
         <br />
 
         <div id="jqwrapper" style="width: 100%; height: 100%; margin-top: 5px; text-align: center;">

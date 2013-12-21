@@ -21,10 +21,10 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
     
-    <div id="SuprArea" style="margin-top: 5px;" runat="server" >
+<%--    <div id="SuprArea" style="margin-top: 5px;" runat="server" >
         <span style="float:left; margin-right: 20px; width: auto;  font-weight: bold; display:inline">Change Employee:</span>
         <input ID="ddEmpIds" class="DataInputCss" runat="server"  style="width: 400px;" />         
-    </div>
+    </div>--%>
         
 
     <div >

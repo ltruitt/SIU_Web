@@ -1,4 +1,16 @@
-﻿
+﻿.noScriptMsg {
+    border: black solid 10px;
+    text-align: center;
+    height: 250px;
+    width: 50%;
+    margin-top: 13%;
+    margin-left: 25%;
+    background-color: gray;
+    color: blue;
+    font-weight: bold;
+    font-size: 30px;
+    display: none;
+}
 
 	
 	

@@ -468,8 +468,8 @@
 
 
     // Load Emps AutoComplete List
-    if ($("#SuprArea").length > 0) {
-        var getEmpsCall = new AsyncServerMethod();
-        getEmpsCall.exec("/SIU_DAO.asmx/GetAutoCompleteActiveEmployees", getEmpsSuccess);
-    }
+    //if ($("#SuprArea").length > 0) {
+    //    var getEmpsCall = new AsyncServerMethod();
+    //    getEmpsCall.exec("/SIU_DAO.asmx/GetAutoCompleteActiveEmployees", getEmpsSuccess);
+    //}
 });

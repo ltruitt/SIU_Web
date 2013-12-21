@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Dynamic;
+using System.Globalization;
+using System.Linq;
 using System.Reflection;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Spreadsheet;
@@ -37,48 +39,67 @@ public partial class Safety_Incident_Spreadsheet : System.Web.UI.Page
         // Setup The Sheets //
         //////////////////////
         sl.RenameWorksheet(SLDocument.DefaultFirstSheetName, "Incident Log");
-        sl.AddWorksheet("Consolidated Summary");
         sl.AddWorksheet("Master Summary");
         sl.AddWorksheet("January");
+        sl.AddWorksheet("February");
+        sl.AddWorksheet("March");
+        sl.AddWorksheet("April");
+        sl.AddWorksheet("May");
+        sl.AddWorksheet("June");
+        sl.AddWorksheet("July");
+        sl.AddWorksheet("August");
+        sl.AddWorksheet("September");
+        sl.AddWorksheet("October");
+        sl.AddWorksheet("November");
+        sl.AddWorksheet("December");
+
+        IEnumerable<object> incAccRcds = SqlServer_Impl.GetIncidentAccident();
+        List<SIU_ReportingChain> oshaData = SqlServer_Impl.GetOshaDeptData();
 
         ///////////////////////////////////////////
         // Build The Incident Accident Worksheet //
         ///////////////////////////////////////////
         sl.SelectWorksheet("Incident Log");
-        rowCount = BuildIAData(ref sl);
+        rowCount = BuildIAData(ref sl, ref incAccRcds);
         BuildIAHeader(ref sl, rowCount);
         
-
         ///////////////////////////////////////////
         // Build The Incident Accident Worksheet //
         ///////////////////////////////////////////
-        sl.SelectWorksheet("Consolidated Summary");
-        BuildSumHeader(ref sl, rowCount);
+        int monNo = 1;
+        int startRow = 1;
+        int endRow = 1;
+        foreach (string workSheet in new List<string>() {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"  }  )
+        {
+            sl.SelectWorksheet(workSheet);
+            startRow = 1;
+
+            startRow = BuildSumHeader(ref sl, startRow);
+            endRow = BuildMonSumData(ref sl, monNo++, ref incAccRcds, ref oshaData, startRow);
+            BuildSumSum(ref sl, startRow, endRow);            
+        }
 
         ///////////////////////////////////////////
         // Build The Incident Accident Worksheet //
         ///////////////////////////////////////////
         sl.SelectWorksheet("Master Summary");
-        BuildSumHeader(ref sl, rowCount);
+        startRow = 1;
 
-        ///////////////////////////////////////////
-        // Build The Incident Accident Worksheet //
-        ///////////////////////////////////////////
-        sl.SelectWorksheet("January");
-        BuildSumHeader(ref sl, rowCount);
+        startRow = BuildSumHeader(ref sl, startRow);
+        endRow = BuildMasterSumData(ref sl, ref oshaData, startRow);
+        BuildSumSum(ref sl, startRow, endRow);
 
-
-
-        //SLComment comm;
-        //comm = sl.CreateComment();
-        //comm.SetText("first!!111!1!!1!!");
-        //sl.InsertComment(1, 1, comm);
-
+        ////////////////////////////
+        // Select FIrst Worksheet //
+        ////////////////////////////
         sl.SelectWorksheet("Incident Log");
 
+        /////////////////////////////////
+        // And Send Back A Spreadsheet //
+        /////////////////////////////////
         Response.Clear();
         Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-        Response.AddHeader("Content-Disposition", "attachment; filename=WebStreamDownload.xlsx");
+        Response.AddHeader("Content-Disposition", "attachment; filename=IncidentAccident.xlsx");
         sl.SaveAs(Response.OutputStream);
         Response.End();
 
@@ -202,27 +223,12 @@ public partial class Safety_Incident_Spreadsheet : System.Web.UI.Page
         sl.SetCellStyle("Y1", "Z" + rowCount, styleColumnGroup1);
         sl.SetCellStyle("AC1", "AC" + rowCount, styleColumnGroup1);
 
-        //SLStyle styleColumnGroup2 = sl.CreateStyle();
-        //styleColumnGroup2.Fill.SetPatternType(PatternValues.Solid);
-        //styleColumnGroup2.Fill.SetPatternForegroundColor(System.Drawing.Color.LightGray);
-        //sl.SetCellStyle("E1", "G99", styleColumnGroup2);
-        //sl.SetCellStyle("M1", "M99", styleColumnGroup2);
-        //sl.SetCellStyle("R1", "R99", styleColumnGroup2);
-        //sl.SetCellStyle("V1", "V99", styleColumnGroup2);
-        //sl.SetCellStyle("X1", "X99", styleColumnGroup2);
-        //sl.SetCellStyle("AA1", "AB99", styleColumnGroup2);
-        //sl.SetCellStyle("AD1", "AG99", styleColumnGroup2);
-
-
-
         SLStyle borderAllCell = sl.CreateStyle();
         borderAllCell.Border.RightBorder.BorderStyle = BorderStyleValues.Thin;
         borderAllCell.Border.BottomBorder.BorderStyle = BorderStyleValues.Thin;
         borderAllCell.Border.RightBorder.Color = System.Drawing.Color.FromArgb(100, 192, 192, 192);
         borderAllCell.Border.BottomBorder.Color = System.Drawing.Color.FromArgb(100, 192, 192, 192);
         sl.SetCellStyle("A1", "AG" + rowCount, borderAllCell);
-
-
 
         SLStyle borderBottomBlack = sl.CreateStyle();
         borderBottomBlack.Border.BottomBorder.BorderStyle = BorderStyleValues.Thin;
@@ -231,7 +237,6 @@ public partial class Safety_Incident_Spreadsheet : System.Web.UI.Page
 
         borderBottomBlack.Border.BottomBorder.BorderStyle = BorderStyleValues.Medium;
         sl.SetCellStyle("A2", "AG2", borderBottomBlack);
-
 
         SLStyle borderRightBlack = sl.CreateStyle();
         borderRightBlack.Border.RightBorder.BorderStyle = BorderStyleValues.Medium;
@@ -256,7 +261,7 @@ public partial class Safety_Incident_Spreadsheet : System.Web.UI.Page
         ///////////////////////////
         sl.FreezePanes(2, 0);
     }
-    private int BuildIAData(ref SLDocument sl)
+    private int BuildIAData(ref SLDocument sl, ref IEnumerable<object> IncRcds)
     {
         //////////////////////////////////////////////////////////////////
         // Lind Of Messy But Also A Little Cool                         //
@@ -271,7 +276,7 @@ public partial class Safety_Incident_Spreadsheet : System.Web.UI.Page
         ////////////////////
         int row = 3;
 
-        foreach (var incidentAccidentRcd in SqlServer_Impl.GetIncidentAccident())
+        foreach (var incidentAccidentRcd in IncRcds)
         {
             foreach (PropertyInfo propertyInfo in incidentAccidentRcd.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public))
                 dict[propertyInfo.Name] = propertyInfo.GetValue(incidentAccidentRcd, null);
@@ -333,8 +338,8 @@ public partial class Safety_Incident_Spreadsheet : System.Web.UI.Page
             //////////////
             if (incidentAccidentRcdDict.EmpNo != null)
             {
-                sl.SetCellValue(row, 14, incidentAccidentRcdDict.EmpDept);
-                sl.SetCellValue(row, 15, incidentAccidentRcdDict.EmpNo);
+                sl.SetCellValueNumeric(row, 14, incidentAccidentRcdDict.EmpDept);
+                sl.SetCellValueNumeric(row, 15, incidentAccidentRcdDict.EmpNo);
                 sl.SetCellValue(row, 16, incidentAccidentRcdDict.EmpLast);
                 sl.SetCellValue(row, 17, incidentAccidentRcdDict.EmpFirst);
             }
@@ -350,7 +355,7 @@ public partial class Safety_Incident_Spreadsheet : System.Web.UI.Page
             //////////
             if (incidentAccidentRcdDict.SuprNo != null)
             {
-                sl.SetCellValue(row, 19, incidentAccidentRcdDict.SuprNo);
+                sl.SetCellValueNumeric(row, 19, incidentAccidentRcdDict.SuprNo);
                 sl.SetCellValue(row, 20, incidentAccidentRcdDict.SuprLast);
                 sl.SetCellValue(row, 21, incidentAccidentRcdDict.SuprFirst);
             }
@@ -424,25 +429,34 @@ public partial class Safety_Incident_Spreadsheet : System.Web.UI.Page
         return row - 3;
     }
 
-    private void BuildSumHeader(ref SLDocument sl, int rowCount)
+    private class sumRcd
+    {
+        public string Dept;
+        public string DeptName;
+        public decimal TotHours = 2000;
+        public int TotFirAidClasses;
+        public int TotMedRecordable;
+        public int TotRestrictDays;
+        public int TotLostDays;
+        public int TotVehIncidents;
+
+        public float TotInjInHouseCost;
+        public float TotInjIncurredCost;
+        public float TotInjReservedCost;
+
+        public float TotVehInHouseCost;
+        public float TotVehIncurredCost;
+        public float TotVehReservedCost;
+
+        public string OSHA_NAICS;
+        public float OSHA_TRIR_NAT_AVG;
+        public float OSHA_RIR_NAT_AVG;
+        public float OSHA_LTIR_NAT_AVG;
+        public float OSHA_DART_NAT_AVG;
+    }
+    private int BuildSumHeader(ref SLDocument sl, int rowCount)
     {
         rowCount += 2;
-
-        /////////////////////////
-        // Setup Header Styles //
-        /////////////////////////
-        SLStyle styleHeaderNormal = sl.CreateStyle();
-        styleHeaderNormal.SetWrapText(true);
-        styleHeaderNormal.Font.FontName = "Arial";
-        styleHeaderNormal.Font.FontSize = 10;
-        styleHeaderNormal.Font.FontColor = System.Drawing.Color.Blue;
-        styleHeaderNormal.Alignment.Horizontal = HorizontalAlignmentValues.Center;
-        styleHeaderNormal.Alignment.Vertical = VerticalAlignmentValues.Bottom;
-        sl.SetCellStyle("A1", "Y2", styleHeaderNormal);
-
-        SLStyle styleHeaderBold = styleHeaderNormal;
-        styleHeaderBold.Font.Bold = true;
-        sl.SetCellStyle("F1", "P2", styleHeaderNormal);
 
         //////////////////////////////
         // Setup Header Row Heights //
@@ -455,7 +469,7 @@ public partial class Safety_Incident_Spreadsheet : System.Web.UI.Page
         ////////////////////////
         sl.SetWorksheetDefaultColumnWidth(13);
         sl.SetColumnWidth("A", 13);
-        sl.SetColumnWidth("B", 17);
+        sl.SetColumnWidth("B", 18);
         sl.SetColumnWidth("C", 13);
         sl.SetColumnWidth("D", 9.43);
         sl.SetColumnWidth("E", 9.43);
@@ -486,18 +500,15 @@ public partial class Safety_Incident_Spreadsheet : System.Web.UI.Page
         ////////////////////////////
         // Add Header Text Values //
         ////////////////////////////
-        sl.SetCellValue("A1", "Department Numbers");
-        sl.SetCellValue("B1", "Department Name");
-        sl.SetCellValue("C1", "NAICS Cdoe");
-        sl.SetCellValue("D1", "Total Hours Worked");
-        sl.SetCellValue("E1", "First Aid Cases");
         sl.SetCellValue("F1", "OSHA REQUIRED INFORMATION");
-        sl.SetCellValue("Q1", "Vehicle Incidents");
-        sl.SetCellValue("R1", "Vehicle Incident Rate");
         sl.SetCellValue("S1", "Injury Cost");
         sl.SetCellValue("V1", "Vehicle Cost");
-        sl.SetCellValue("Y1", "Cost / Man Hour");
 
+        sl.SetCellValue("A1", "Department Number");
+        sl.SetCellValue("B1", "Department Name");
+        sl.SetCellValue("C1", "NAICS Code");
+        sl.SetCellValue("D1", "Total Hours Worked");
+        sl.SetCellValue("E1", "First Aid Cases");
         sl.SetCellValue("F2", "Other Recordable Incidents");
         sl.SetCellValue("G2", "Total Recordable Incident Rate (TRIR)");
         sl.SetCellValue("H2", "BLS 2011 National Average");
@@ -515,6 +526,10 @@ public partial class Safety_Incident_Spreadsheet : System.Web.UI.Page
         sl.SetCellValue("T2", "In-House");
         sl.SetCellValue("S2", "Incurred");
         sl.SetCellValue("U2", "Reserved");
+        sl.SetCellValue("Q1", "Vehicle Incidents");
+        sl.SetCellValue("R1", "Vehicle Incident Rate");
+        sl.SetCellValue("Y1", "Cost / Man Hour");
+
 
         //////////////////////////////
         // Create Soft Cell Borders //
@@ -551,14 +566,498 @@ public partial class Safety_Incident_Spreadsheet : System.Web.UI.Page
         sl.SetCellStyle("P1", "P" + rowCount, borderRightBlack);
         sl.SetCellStyle("R1", "R" + rowCount, borderRightBlack);
         sl.SetCellStyle("U1", "U" + rowCount, borderRightBlack);
-        sl.SetCellStyle("W1", "W" + rowCount, borderRightBlack);
+        sl.SetCellStyle("X1", "X" + rowCount, borderRightBlack);
         sl.SetCellStyle("Y1", "Y" + rowCount, borderRightBlack);
-
-
 
         ///////////////////////////
         // Freeze the top 2 rows //
         ///////////////////////////
         sl.FreezePanes(2, 0);
+
+
+        /////////////////////////
+        // Setup Header Styles //
+        /////////////////////////
+        SLStyle styleHeaderNormal = sl.CreateStyle();
+        styleHeaderNormal.SetWrapText(true);
+        styleHeaderNormal.Font.FontName = "Arial";
+        styleHeaderNormal.Font.FontSize = 10;
+        styleHeaderNormal.Font.FontColor = System.Drawing.Color.Blue;
+        styleHeaderNormal.Alignment.Horizontal = HorizontalAlignmentValues.Center;
+        styleHeaderNormal.Alignment.Vertical = VerticalAlignmentValues.Bottom;
+        sl.SetCellStyle("A1", "Y2", styleHeaderNormal);
+
+        SLStyle styleHeaderBold = styleHeaderNormal;
+        styleHeaderBold.Font.Bold = true;
+        sl.SetCellStyle("F1", "P2", styleHeaderBold);
+
+
+
+        return rowCount;
+    }
+    private static int BuildMonSumData(ref SLDocument sl, int rptMon, ref IEnumerable<object> IncRcds, ref List<SIU_ReportingChain> oshaData, int rowCount )
+    {
+        //////////////////////////
+        // Setup Data Row Style //
+        //////////////////////////
+        SLStyle styleDataCenter = sl.CreateStyle();
+        styleDataCenter.Font.FontName = "Arial";
+        styleDataCenter.Font.FontSize = 11;
+        styleDataCenter.Font.FontColor = System.Drawing.Color.Black;
+        styleDataCenter.Alignment.Horizontal = HorizontalAlignmentValues.Center;
+        styleDataCenter.Alignment.Vertical = VerticalAlignmentValues.Center;
+        styleDataCenter.SetWrapText(true);
+
+        ////////////////////////////////
+        // Create Hard Column Borders //
+        ////////////////////////////////
+        SLStyle borderRightBlack = sl.CreateStyle();
+        borderRightBlack.Border.RightBorder.BorderStyle = BorderStyleValues.Medium;
+        borderRightBlack.Border.LeftBorder.Color = System.Drawing.Color.Black;
+
+        //////////////////////////////////////////////////////////////////
+        // kind Of Messy But Also A Little Cool                         //
+        // Linq Returning an Anonymous Object Array                     //
+        // So Using An Expando Object To Break It Out Into A Dictionary //
+        //////////////////////////////////////////////////////////////////
+        dynamic incidentAccidentRcdDict = new ExpandoObject();
+        var dict = (IDictionary<string, object>)incidentAccidentRcdDict;
+
+        /////////////////////////////////////////////////////////////////////////
+        // Working Record Pulled From Dictionary Or Built To Add To Dictionary //
+        /////////////////////////////////////////////////////////////////////////
+        sumRcd ThisSumRcd;
+
+        ///////////////////////////////////////////////
+        // Dictionary Of ThisSumRcds indexed by Dept //
+        ///////////////////////////////////////////////
+        var sumRcds = new Dictionary<string, sumRcd>();
+
+        /////////////////////////////////////////////////////
+        // Build Dictionary Of Departments With Basic Osha //
+        // Nat Stats Pulled From Reporting Chain Table     //
+        /////////////////////////////////////////////////////
+        foreach (SIU_ReportingChain rcr in oshaData)
+        {
+            ThisSumRcd = new sumRcd
+            {
+                Dept = rcr.Dept,
+                OSHA_NAICS = rcr.OSHA_NAICS_Code ?? "0",
+                DeptName = rcr.DeptDesc ?? "",
+                OSHA_TRIR_NAT_AVG = (rcr.OSHA_TRIR_NAT_AVG != null) ? (float)rcr.OSHA_TRIR_NAT_AVG : 0,
+                OSHA_RIR_NAT_AVG = (rcr.OSHA_RIR_NAT_AVG != null) ? (float)rcr.OSHA_RIR_NAT_AVG : 0,
+                OSHA_LTIR_NAT_AVG = (rcr.OSHA_LRIR_NAT_AVG != null) ? (float)rcr.OSHA_LRIR_NAT_AVG : 0,
+                OSHA_DART_NAT_AVG = (rcr.OSHA_DART_NAT_AVG != null) ? (float)rcr.OSHA_DART_NAT_AVG : 0,
+            };
+
+            //////////////////////////////////
+            // Add New Record To Dictionary //
+            //////////////////////////////////
+            sumRcds.Add(rcr.Dept, ThisSumRcd);
+        }
+
+
+        ////////////////////////////////////////////////////////////////////////////
+        // Now Walk Through Each Incident Record And Accumulate Reporting Numbers //
+        ////////////////////////////////////////////////////////////////////////////
+        foreach (var incidentAccidentRcd in IncRcds)
+        {
+            ///////////////////////////////////////////////////////////////////////
+            // I Pulled LInq Data From Multiple Tables And Returned As An Object //
+            // So I Use Reflection To Break Eqach Data Field Into A Dictionary   //
+            ///////////////////////////////////////////////////////////////////////
+            foreach (PropertyInfo propertyInfo in incidentAccidentRcd.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public))
+                dict[propertyInfo.Name] = propertyInfo.GetValue(incidentAccidentRcd, null);
+
+            ////////////////////////////////////////////////////////////////////////////////////////////
+            // Get The Month Of This Incident Date So We Know If We Should Include Data On This Sheet //
+            ////////////////////////////////////////////////////////////////////////////////////////////
+            int incDate = -1;
+            if (incidentAccidentRcdDict.iaList.Inc_Occur_Date != null)
+                incDate = incidentAccidentRcdDict.iaList.Inc_Occur_Date.Month;
+
+            ///////////////////////////////////////////////////////////////////////////
+            // Update Counters / Totals If this Event Occured In The Reporting Month //
+            ///////////////////////////////////////////////////////////////////////////
+            if (incDate == rptMon)
+            {
+                /////////////////////////////////////////////////////////
+                // Can't process Records With No Associated Department //
+                // Department Comes From Employee                      //
+                /////////////////////////////////////////////////////////
+                if (incidentAccidentRcdDict.EmpNo != null)
+                {
+                    ThisSumRcd = sumRcds[incidentAccidentRcdDict.EmpDept];
+
+                    if (((string)incidentAccidentRcdDict.iaList.Inc_Type).ToLower() == "first aid")
+                        ThisSumRcd.TotFirAidClasses++;
+
+                    if ( incidentAccidentRcdDict.iaList.Osha_Lost_Days != null )
+                        ThisSumRcd.TotLostDays += incidentAccidentRcdDict.iaList.Osha_Lost_Days;
+
+                    if (incidentAccidentRcdDict.iaList.Emp_Veh_Involved != null)
+                        ThisSumRcd.TotVehIncidents++;
+
+
+                    if (incidentAccidentRcdDict.iaList.Cost_inHouse != null)
+                        ThisSumRcd.TotInjInHouseCost +=  incidentAccidentRcdDict.iaList.Cost_inHouse;
+
+                    if (incidentAccidentRcdDict.iaList.Cost_Incurred != null)
+                        ThisSumRcd.TotInjIncurredCost +=  incidentAccidentRcdDict.iaList.Cost_Incurred;
+
+                    if (incidentAccidentRcdDict.iaList.Cost_Reserve != null)
+                        ThisSumRcd.TotInjReservedCost +=  incidentAccidentRcdDict.iaList.Cost_Reserve;
+
+
+                    if (incidentAccidentRcdDict.iaList.Osha_Restrict_Days != null)
+                        ThisSumRcd.TotRestrictDays += incidentAccidentRcdDict.iaList.Osha_Restrict_Days;
+
+                    if (incidentAccidentRcdDict.iaList.Osha_Lost_Days != null)
+                        ThisSumRcd.TotRestrictDays += incidentAccidentRcdDict.iaList.Osha_Lost_Days;
+
+                    if ( incidentAccidentRcdDict.iaList.Osha_Record_Med != null && incidentAccidentRcdDict.iaList.Osha_Record_Med)
+                        ThisSumRcd.TotMedRecordable++;
+
+                    //////////////////////////////
+                    // Update Dictionary Record //
+                    //////////////////////////////
+                    if (!sumRcds.ContainsKey(incidentAccidentRcdDict.EmpDept))
+                        sumRcds.Add(incidentAccidentRcdDict.EmpDept, ThisSumRcd);
+                }
+
+
+
+            }
+
+            dict.Clear();
+
+        }
+
+        /////////////////////////////////
+        // Put Result Into Spreadsheet //
+        /////////////////////////////////
+        foreach ( sumRcd rcd in sumRcds.Values )
+        {
+            sl.SetCellValueNumeric(rowCount, 1, rcd.Dept);
+            sl.SetCellValue(rowCount, 2, rcd.DeptName);
+            sl.SetCellValueNumeric(rowCount, 4, rcd.TotHours.ToString(CultureInfo.InvariantCulture));
+
+            sl.SetCellValueNumeric(rowCount, 5, rcd.TotFirAidClasses.ToString(CultureInfo.InvariantCulture));
+            sl.SetCellValueNumeric(rowCount, 6, rcd.TotMedRecordable.ToString(CultureInfo.InvariantCulture));
+            sl.SetCellValueNumeric(rowCount, 9, rcd.TotRestrictDays.ToString(CultureInfo.InvariantCulture));
+            sl.SetCellValueNumeric(rowCount, 12, rcd.TotLostDays.ToString(CultureInfo.InvariantCulture));
+
+            if (rcd.OSHA_NAICS != null )
+                sl.SetCellValueNumeric(rowCount, 3, rcd.OSHA_NAICS.ToString(CultureInfo.InvariantCulture));
+            sl.SetCellValueNumeric(rowCount, 8, rcd.OSHA_TRIR_NAT_AVG.ToString(CultureInfo.InvariantCulture));
+            sl.SetCellValueNumeric(rowCount, 11, rcd.OSHA_RIR_NAT_AVG.ToString(CultureInfo.InvariantCulture));
+            sl.SetCellValueNumeric(rowCount, 14, rcd.OSHA_LTIR_NAT_AVG.ToString(CultureInfo.InvariantCulture));
+            sl.SetCellValueNumeric(rowCount, 16, rcd.OSHA_DART_NAT_AVG.ToString(CultureInfo.InvariantCulture));
+
+            string trir = string.Format("=SUM({0})",    "(" +
+                                                        SLConvert.ToCellReference(rowCount, 6) + "+" +
+                                                        SLConvert.ToCellReference(rowCount, 9) + "+" +
+                                                        SLConvert.ToCellReference(rowCount, 12) + ") * 200000/" +
+                                                        SLConvert.ToCellReference(rowCount, 4));
+            sl.SetCellValue(rowCount, 7, trir);
+
+
+            
+            string rir = string.Format("=SUM({0})", SLConvert.ToCellReference(rowCount, 9) + " * 200000 / " +
+                                                        SLConvert.ToCellReference(rowCount, 4));
+            sl.SetCellValue(rowCount, 10, rir);
+
+
+
+            
+            string ltir = string.Format("=SUM({0})", SLConvert.ToCellReference(rowCount, 12) + " * 200000 / " +
+                                                        SLConvert.ToCellReference(rowCount, 4));
+            sl.SetCellValue(rowCount, 13, ltir);
+
+
+            string dart = string.Format("=SUM({0})", "(" +
+                                                        SLConvert.ToCellReference(rowCount, 9) + "+" +
+                                                        SLConvert.ToCellReference(rowCount, 12) + ") * 200000/" +
+                                                        SLConvert.ToCellReference(rowCount, 4));
+
+            sl.SetCellValue(rowCount, 15, dart);
+
+
+            sl.SetCellValueNumeric(rowCount, 17, rcd.TotVehIncidents.ToString(CultureInfo.InvariantCulture));
+            string vr = string.Format("=SUM({0})",  SLConvert.ToCellReference(rowCount, 17) + " * 100000 / " +
+                                                    SLConvert.ToCellReference(rowCount, 4));
+            sl.SetCellValue(rowCount, 18, vr);
+
+
+
+            sl.SetCellValueNumeric(rowCount, 19, rcd.TotInjInHouseCost.ToString(CultureInfo.InvariantCulture));
+            sl.SetCellValueNumeric(rowCount, 20, rcd.TotInjIncurredCost.ToString(CultureInfo.InvariantCulture));
+            sl.SetCellValueNumeric(rowCount, 21, rcd.TotInjReservedCost.ToString(CultureInfo.InvariantCulture));
+
+            string cmh = string.Format("=SUM({0})", "(" +
+                                                    SLConvert.ToCellReference(rowCount, 19) + "+" +
+                                                    SLConvert.ToCellReference(rowCount, 20) + "+" +
+                                                    SLConvert.ToCellReference(rowCount, 21) + "+" +
+                                                    SLConvert.ToCellReference(rowCount, 22) + "+" +
+                                                    SLConvert.ToCellReference(rowCount, 23) + "+" +
+                                                    SLConvert.ToCellReference(rowCount, 24) + ") / " +
+                                                    SLConvert.ToCellReference(rowCount, 4));
+            sl.SetCellValue(rowCount, 25, cmh);
+
+            sl.SetCellStyle(rowCount, 1, rowCount, 25, styleDataCenter);
+            sl.SetCellStyle(rowCount, 1, rowCount, 5, borderRightBlack);
+            sl.SetCellStyle(rowCount, 8, rowCount, 8, borderRightBlack);
+            sl.SetCellStyle(rowCount, 11, rowCount, 11, borderRightBlack);
+            sl.SetCellStyle(rowCount, 14, rowCount, 14, borderRightBlack);
+            sl.SetCellStyle(rowCount, 16, rowCount, 16, borderRightBlack);
+            sl.SetCellStyle(rowCount, 18, rowCount, 18, borderRightBlack);
+            sl.SetCellStyle(rowCount, 21, rowCount, 21, borderRightBlack);
+            sl.SetCellStyle(rowCount, 24, rowCount, 24, borderRightBlack);
+            sl.SetCellStyle(rowCount, 25, rowCount, 25, borderRightBlack);
+            rowCount++;
+        }
+
+        return rowCount;
+    }
+    private void BuildSumSum(ref SLDocument sl, int firstDataRow,  int lastDataRow)
+    {
+        SLStyle styleHeaderBold = new SLStyle();
+        styleHeaderBold.Alignment.Horizontal = HorizontalAlignmentValues.Center;
+        styleHeaderBold.Alignment.Vertical = VerticalAlignmentValues.Center;
+        styleHeaderBold.Font.Bold = true;
+        styleHeaderBold.Border.TopBorder.BorderStyle = BorderStyleValues.Double;
+        styleHeaderBold.Border.BottomBorder.BorderStyle = BorderStyleValues.Thick;
+        sl.SetCellStyle(lastDataRow, 1, lastDataRow, 25, styleHeaderBold);
+
+        ////////////////////////////////
+        // Create Hard Column Borders //
+        ////////////////////////////////
+        SLStyle borderRightBlack = sl.CreateStyle();
+        borderRightBlack.Border.RightBorder.BorderStyle = BorderStyleValues.Medium;
+        borderRightBlack.Border.LeftBorder.Color = System.Drawing.Color.Black;
+        sl.SetCellStyle(lastDataRow, 1, lastDataRow, 5, borderRightBlack);
+        sl.SetCellStyle(lastDataRow, 8, lastDataRow, 8, borderRightBlack);
+        sl.SetCellStyle(lastDataRow, 11, lastDataRow, 11, borderRightBlack);
+        sl.SetCellStyle(lastDataRow, 14, lastDataRow, 14, borderRightBlack);
+        sl.SetCellStyle(lastDataRow, 16, lastDataRow, 16, borderRightBlack);
+        sl.SetCellStyle(lastDataRow, 18, lastDataRow, 18, borderRightBlack);
+        sl.SetCellStyle(lastDataRow, 21, lastDataRow, 21, borderRightBlack);
+        sl.SetCellStyle(lastDataRow, 24, lastDataRow, 24, borderRightBlack);
+        sl.SetCellStyle(lastDataRow, 25, lastDataRow, 25, borderRightBlack);
+
+        SLStyle greyBackground= sl.CreateStyle();
+        greyBackground.Fill.SetPatternType(PatternValues.Solid);
+        greyBackground.Fill.SetPatternForegroundColor(System.Drawing.Color.Black);
+
+        sl.MergeWorksheetCells(lastDataRow, 1, lastDataRow, 3);
+        sl.SetCellValue(lastDataRow, 1, "Grand Totals");
+
+
+        for (int col = 4; col <= 25; col++)
+        {
+            string sum = string.Format("=SUM({0})", SLConvert.ToCellReference(firstDataRow, col) + " : " + SLConvert.ToCellReference(lastDataRow - 1, col));
+            sl.SetCellValue(lastDataRow, col, sum);
+        }
+        sl.SetCellValue(lastDataRow, 8, "");
+        sl.SetCellStyle(lastDataRow, 8, lastDataRow, 8, greyBackground);
+
+        sl.SetCellValue(lastDataRow, 11, "");
+        sl.SetCellStyle(lastDataRow, 11, lastDataRow, 11, greyBackground);
+
+        sl.SetCellValue(lastDataRow, 14, "");
+        sl.SetCellStyle(lastDataRow, 14, lastDataRow, 14, greyBackground);
+
+        sl.SetCellValue(lastDataRow, 16, "");
+        sl.SetCellStyle(lastDataRow, 16, lastDataRow, 16, greyBackground);
+
+    }
+
+
+    private static int BuildMasterSumData(ref SLDocument sl, ref List<SIU_ReportingChain> oshaData, int rowCount)
+    {
+        //////////////////////////
+        // Setup Data Row Style //
+        //////////////////////////
+        SLStyle styleDataCenter = sl.CreateStyle();
+        styleDataCenter.Font.FontName = "Arial";
+        styleDataCenter.Font.FontSize = 11;
+        styleDataCenter.Font.FontColor = System.Drawing.Color.Black;
+        styleDataCenter.Alignment.Horizontal = HorizontalAlignmentValues.Center;
+        styleDataCenter.Alignment.Vertical = VerticalAlignmentValues.Center;
+        styleDataCenter.SetWrapText(true);
+
+        ////////////////////////////////
+        // Create Hard Column Borders //
+        ////////////////////////////////
+        SLStyle borderRightBlack = sl.CreateStyle();
+        borderRightBlack.Border.RightBorder.BorderStyle = BorderStyleValues.Medium;
+        borderRightBlack.Border.LeftBorder.Color = System.Drawing.Color.Black;
+
+        //////////////////////////////////////////////////////////////////
+        // kind Of Messy But Also A Little Cool                         //
+        // Linq Returning an Anonymous Object Array                     //
+        // So Using An Expando Object To Break It Out Into A Dictionary //
+        //////////////////////////////////////////////////////////////////
+        dynamic incidentAccidentRcdDict = new ExpandoObject();
+        var dict = (IDictionary<string, object>)incidentAccidentRcdDict;
+
+        /////////////////////////////////////////////////////////////////////////
+        // Working Record Pulled From Dictionary Or Built To Add To Dictionary //
+        /////////////////////////////////////////////////////////////////////////
+        sumRcd ThisSumRcd;
+
+        ///////////////////////////////////////////////
+        // Dictionary Of ThisSumRcds indexed by Dept //
+        ///////////////////////////////////////////////
+        var sumRcds = new Dictionary<string, sumRcd>();
+
+        /////////////////////////////////////////////////////
+        // Build Dictionary Of Departments With Basic Osha //
+        // Nat Stats Pulled From Reporting Chain Table     //
+        /////////////////////////////////////////////////////
+        foreach (SIU_ReportingChain rcr in oshaData)
+        {
+            ThisSumRcd = new sumRcd
+            {
+                Dept = rcr.Dept,
+                OSHA_NAICS = rcr.OSHA_NAICS_Code ?? "0",
+                DeptName = rcr.DeptDesc ?? "",
+                OSHA_TRIR_NAT_AVG = (rcr.OSHA_TRIR_NAT_AVG != null) ? (float)rcr.OSHA_TRIR_NAT_AVG : 0,
+                OSHA_RIR_NAT_AVG = (rcr.OSHA_RIR_NAT_AVG != null) ? (float)rcr.OSHA_RIR_NAT_AVG : 0,
+                OSHA_LTIR_NAT_AVG = (rcr.OSHA_LRIR_NAT_AVG != null) ? (float)rcr.OSHA_LRIR_NAT_AVG : 0,
+                OSHA_DART_NAT_AVG = (rcr.OSHA_DART_NAT_AVG != null) ? (float)rcr.OSHA_DART_NAT_AVG : 0,
+            };
+
+            //////////////////////////////////
+            // Add New Record To Dictionary //
+            //////////////////////////////////
+            sumRcds.Add(rcr.Dept, ThisSumRcd);
+        }
+
+
+
+
+        /////////////////////////////////
+        // Put Result Into Spreadsheet //
+        /////////////////////////////////
+        foreach (sumRcd rcd in sumRcds.Values)
+        {
+            sl.SetCellValueNumeric(rowCount, 1, rcd.Dept);
+
+            sl.SetCellValue(rowCount, 2, rcd.DeptName);
+
+            if (rcd.OSHA_NAICS != null)
+                sl.SetCellValueNumeric(rowCount, 3, rcd.OSHA_NAICS.ToString(CultureInfo.InvariantCulture));
+
+            sl.SetCellValueNumeric(rowCount, 4, rcd.TotHours.ToString(CultureInfo.InvariantCulture));
+
+            string WorksheetSum = string.Format("=SUM(January!{0}+February!{0}+March!{0}+April!{0}+May!{0}+June!{0}+July!{0}+August!{0}+September!{0}+October!{0}+November!{0}+December!{0})", 
+                                            SLConvert.ToCellReference(rowCount, 4));
+            sl.SetCellValue(rowCount, 4, WorksheetSum);
+
+            WorksheetSum = string.Format("=SUM(January!{0}+February!{0}+March!{0}+April!{0}+May!{0}+June!{0}+July!{0}+August!{0}+September!{0}+October!{0}+November!{0}+December!{0})",
+                                            SLConvert.ToCellReference(rowCount, 5));
+            sl.SetCellValue(rowCount, 5, WorksheetSum);
+
+            WorksheetSum = string.Format("=SUM(January!{0}+February!{0}+March!{0}+April!{0}+May!{0}+June!{0}+July!{0}+August!{0}+September!{0}+October!{0}+November!{0}+December!{0})",
+                                            SLConvert.ToCellReference(rowCount, 6));
+            sl.SetCellValue(rowCount, 6, WorksheetSum);
+
+            string trir = string.Format("=SUM({0})", "(" +
+                                                        SLConvert.ToCellReference(rowCount, 6) + "+" +
+                                                        SLConvert.ToCellReference(rowCount, 9) + "+" +
+                                                        SLConvert.ToCellReference(rowCount, 12) + ") * 200000/" +
+                                                        SLConvert.ToCellReference(rowCount, 4));
+            sl.SetCellValue(rowCount, 7, trir);
+
+            sl.SetCellValueNumeric(rowCount, 8, rcd.OSHA_TRIR_NAT_AVG.ToString(CultureInfo.InvariantCulture));
+
+            WorksheetSum = string.Format("=SUM(January!{0}+February!{0}+March!{0}+April!{0}+May!{0}+June!{0}+July!{0}+August!{0}+September!{0}+October!{0}+November!{0}+December!{0})",
+                                            SLConvert.ToCellReference(rowCount, 9));
+            sl.SetCellValue(rowCount, 9, WorksheetSum);
+
+            string rir = string.Format("=SUM({0})", SLConvert.ToCellReference(rowCount, 9) + " * 200000 / " +
+                                                        SLConvert.ToCellReference(rowCount, 4));
+            sl.SetCellValue(rowCount, 10, rir);
+
+            sl.SetCellValueNumeric(rowCount, 11, rcd.OSHA_RIR_NAT_AVG.ToString(CultureInfo.InvariantCulture));
+
+            WorksheetSum = string.Format("=SUM(January!{0}+February!{0}+March!{0}+April!{0}+May!{0}+June!{0}+July!{0}+August!{0}+September!{0}+October!{0}+November!{0}+December!{0})",
+                                            SLConvert.ToCellReference(rowCount, 12));
+            sl.SetCellValue(rowCount, 12, WorksheetSum);
+
+            string ltir = string.Format("=SUM({0})", SLConvert.ToCellReference(rowCount, 12) + " * 200000 / " +
+                                                        SLConvert.ToCellReference(rowCount, 4));
+            sl.SetCellValue(rowCount, 13, ltir);
+
+            sl.SetCellValueNumeric(rowCount, 14, rcd.OSHA_LTIR_NAT_AVG.ToString(CultureInfo.InvariantCulture));
+
+            string dart = string.Format("=SUM({0})", "(" +
+                                                        SLConvert.ToCellReference(rowCount, 9) + "+" +
+                                                        SLConvert.ToCellReference(rowCount, 12) + ") * 200000/" +
+                                                        SLConvert.ToCellReference(rowCount, 4));
+
+            sl.SetCellValue(rowCount, 15, dart);
+
+            sl.SetCellValueNumeric(rowCount, 16, rcd.OSHA_DART_NAT_AVG.ToString(CultureInfo.InvariantCulture));
+
+            WorksheetSum = string.Format("=SUM(January!{0}+February!{0}+March!{0}+April!{0}+May!{0}+June!{0}+July!{0}+August!{0}+September!{0}+October!{0}+November!{0}+December!{0})",
+                                            SLConvert.ToCellReference(rowCount, 17));
+            sl.SetCellValue(rowCount, 17, WorksheetSum);
+
+            //string vr = string.Format("=SUM({0})", SLConvert.ToCellReference(rowCount, 17) + " * 100000 / " +
+            //                                        SLConvert.ToCellReference(rowCount, 4));
+            string vr = string.Format("=SUM({0})", SLConvert.ToCellReference(rowCount, 17) + " * " + SLConvert.ToCellReference(rowCount, 4) + " / 100000");
+            sl.SetCellValue(rowCount, 18, vr);
+
+            WorksheetSum = string.Format("=SUM(January!{0}+February!{0}+March!{0}+April!{0}+May!{0}+June!{0}+July!{0}+August!{0}+September!{0}+October!{0}+November!{0}+December!{0})",
+                                            SLConvert.ToCellReference(rowCount, 19));
+            sl.SetCellValue(rowCount, 19, WorksheetSum);
+
+            WorksheetSum = string.Format("=SUM(January!{0}+February!{0}+March!{0}+April!{0}+May!{0}+June!{0}+July!{0}+August!{0}+September!{0}+October!{0}+November!{0}+December!{0})",
+                                            SLConvert.ToCellReference(rowCount, 20));
+            sl.SetCellValue(rowCount, 20, WorksheetSum);
+
+            WorksheetSum = string.Format("=SUM(January!{0}+February!{0}+March!{0}+April!{0}+May!{0}+June!{0}+July!{0}+August!{0}+September!{0}+October!{0}+November!{0}+December!{0})",
+                                            SLConvert.ToCellReference(rowCount, 21));
+            sl.SetCellValue(rowCount, 21, WorksheetSum);
+
+            WorksheetSum = string.Format("=SUM(January!{0}+February!{0}+March!{0}+April!{0}+May!{0}+June!{0}+July!{0}+August!{0}+September!{0}+October!{0}+November!{0}+December!{0})",
+                                            SLConvert.ToCellReference(rowCount, 21));
+            sl.SetCellValue(rowCount, 22, WorksheetSum);
+
+            WorksheetSum = string.Format("=SUM(January!{0}+February!{0}+March!{0}+April!{0}+May!{0}+June!{0}+July!{0}+August!{0}+September!{0}+October!{0}+November!{0}+December!{0})",
+                                            SLConvert.ToCellReference(rowCount, 21));
+            sl.SetCellValue(rowCount, 23, WorksheetSum);
+
+            WorksheetSum = string.Format("=SUM(January!{0}+February!{0}+March!{0}+April!{0}+May!{0}+June!{0}+July!{0}+August!{0}+September!{0}+October!{0}+November!{0}+December!{0})",
+                                            SLConvert.ToCellReference(rowCount, 21));
+            sl.SetCellValue(rowCount, 24, WorksheetSum);
+
+
+            string cmh = string.Format("=SUM({0})", "(" +
+                                                    SLConvert.ToCellReference(rowCount, 19) + "+" +
+                                                    SLConvert.ToCellReference(rowCount, 20) + "+" +
+                                                    SLConvert.ToCellReference(rowCount, 21) + "+" +
+                                                    SLConvert.ToCellReference(rowCount, 22) + "+" +
+                                                    SLConvert.ToCellReference(rowCount, 23) + "+" +
+                                                    SLConvert.ToCellReference(rowCount, 24) + ") / " +
+                                                    SLConvert.ToCellReference(rowCount, 4));
+            sl.SetCellValue(rowCount, 25, cmh);
+
+            sl.SetCellStyle(rowCount, 1, rowCount, 25, styleDataCenter);
+            sl.SetCellStyle(rowCount, 1, rowCount, 5, borderRightBlack);
+            sl.SetCellStyle(rowCount, 8, rowCount, 8, borderRightBlack);
+            sl.SetCellStyle(rowCount, 11, rowCount, 11, borderRightBlack);
+            sl.SetCellStyle(rowCount, 14, rowCount, 14, borderRightBlack);
+            sl.SetCellStyle(rowCount, 16, rowCount, 16, borderRightBlack);
+            sl.SetCellStyle(rowCount, 18, rowCount, 18, borderRightBlack);
+            sl.SetCellStyle(rowCount, 21, rowCount, 21, borderRightBlack);
+            sl.SetCellStyle(rowCount, 24, rowCount, 24, borderRightBlack);
+            sl.SetCellStyle(rowCount, 25, rowCount, 25, borderRightBlack);
+            rowCount++;
+        }
+
+        return rowCount;
     }
 }

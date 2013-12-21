@@ -18,6 +18,9 @@ if (!window.location.href.match(/force/i)) {
 ////////////////////////////
 $(document).ready(function () {
 
+    //$('#NoJS').hide();
+    $('#HomeWrapper').show('slow');
+    
     var NoSlides = 3;
 
 
