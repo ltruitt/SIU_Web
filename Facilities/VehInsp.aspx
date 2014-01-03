@@ -55,7 +55,10 @@
         </section>
         <section id="HomeMain" >
             <section class="ui-widget-header ui-corner-all" style="height: 45px; width: 99%; margin-top: 10px; margin-bottom: 30px;" >
-                    <div  style="text-align: center; font-size: 2em; width: 100%;  position:relative; margin-left: auto; margin-right: auto;">Unresolved Vehicle Inspections</div>
+                <a href="/Facilities/FacilitiesHome.aspx" style="text-decoration: none;">
+                    <span style="text-decoration: underline; font-style: italic;   position: relative; left: 3px; vertical-align: top; font-size: .8em; line-height: 10px;">Facilities menu</span>
+                    <div  style="text-align: center; font-size: 2em; width: 100%;  position:relative; margin-left: auto; margin-right: auto; margin-top: -10px;">Unresolved Vehicle Inspections</div>   
+                </a>
             </section>        
             <div style="width: 100%; text-align: center;">
                 <img id="PlsWait" src="/Images/Please_wait1.gif"/>

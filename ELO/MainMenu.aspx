@@ -24,9 +24,15 @@
 <!----------------->
 <!-- Form Header -->
 <!----------------->           
-            <div class="ui-widget-header ui-corner-all" >
-                <div  style="text-align: center; font-size: 2em; height: 60px;">ELO Menu</div>
-            </div>
+           
+            <section class="ui-widget-header ui-corner-all" style="height: 55px;" >
+                <a href="/" style="text-decoration: none; font-weight: bold;">
+                    <span style="text-decoration: underline; font-style: italic; position: relative; left: 3px; vertical-align: top; font-size: .8em; line-height: 10px;">home</span>
+                    <span  style="text-align: center; font-size: 2em; width: 100%;  position:absolute; left: 0; margin-left: auto; margin-right: auto;">ELO Menu</span>
+                </a>
+            </section>  
+            
+
             
 
             <div class="ui-widget-content ui-corner-top AdminMenu" >

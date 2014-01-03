@@ -129,6 +129,21 @@
 
                 </li>          
             </ul> --%> 
+            
+            <ul class="DeptGallery2">
+                <li>
+                        
+                        <ul class="DeptGallery2Links" >
+                            <li style="text-align: center;">
+                                <a href="/Facilities/VehInsp.aspx?d=80">
+                                    <img  alt="Vehicle Inspection Report" src="/Images/VehInsp.png" style="width: 175px; padding: 0; margin-left: 25px;"/>
+                                    <div style="margin-top: -20px;">ESD Vehicle Inspection Report</div>
+                                </a>
+                            </li>
+                        </ul>                    
+                </li>                
+
+            </ul> 
         </div>          
 
     </div>

@@ -48,18 +48,25 @@
 
         <section id="HomeMain" >
             <section class="ui-widget-header ui-corner-all" style="height: 45px; width: 99%; margin-top: 10px; margin-bottom: 30px;" >
-                    <div  style="text-align: center; font-size: 2em; width: 100%;  position:relative; margin-left: auto; margin-right: auto;">Facilities</div>
+                <a href="/" style="text-decoration: none; font-weight: bold; width: 100%;">
+                    <span style="text-decoration: underline; font-style: italic; position: relative; left: 3px; vertical-align: top; font-size: .8em; line-height: 10px;">home</span>
+                    <div  style="width: 70%; text-align: center; font-size: 2em;  position:absolute;  margin-left: auto; margin-right: auto; margin-top: -10px">Facilities</div>
+                </a>
             </section>        
             
+
             <ul class="DeptGallery2">
                 <li>
                         
                         <ul class="DeptGallery2Links" >
-                            <li>
+                            <li style="text-align: center;">
                                 <a href="/Facilities/VehInsp.aspx">
                                     <img  alt="Vehicle Inspection Report" src="/Images/VehInsp.png" style="width: 175px; padding: 0; margin-left: 25px;"/>
-                                    <div style="margin-top: -20px;">Facilities Vehicle Inspection Report</div>
+                                    <div style="margin-top: -20px;">Full Vehicle Inspection Report</div>
                                 </a>
+                                <a href="/Facilities/VehInsp.aspx?d=60">Corp. Vehicle Inspection Report</a><br/>
+                                <a href="/Facilities/VehInsp.aspx?d=70">MSD Vehicle Inspection Report</a><br/>
+                                <a href="/Facilities/VehInsp.aspx?d=80">ESD Vehicle Inspection Report</a>
                             </li>
                         </ul>                    
                 </li>                
