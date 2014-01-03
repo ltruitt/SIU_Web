@@ -56,13 +56,20 @@
         var getWeekSumHoursAjax = new AsyncServerMethod();
         getWeekSumHoursAjax.add('EmpID', $('#hlblEID')[0].innerHTML);
         getWeekSumHoursAjax.add('StartDate', $('#hlblSD')[0].innerHTML);
-        getWeekSumHoursAjax.exec("/SIU_DAO.asmx/GetTimeSheet_Sum", getWeekSumHoursSuccess);
+        getWeekSumHoursAjax.exec("/SIU_DAO.asmx/GetTimeSheet_Sum", getWeekSumHoursSuccess, getWeekSumHoursFail);
+        $('#WeekSumDiv').hide();
     }
     function getWeekSumHoursSuccess(data) {
+        $('#WeekSumDiv').show();
         weeklyHours = data.d;
         var idx = parseInt($('#hlblWeekIdx')[0].innerHTML);
         showWeekSum(idx);
+        
     }
+    function getWeekSumHoursFail() {
+        $('#WeekSumDiv').hide();
+    }
+    
     function showWeekSum(idx) {
         $('#lblHoursThisWeek')[0].innerHTML = '<b>' + weeklyHours[idx + 1] + '</b>';
     }
@@ -96,12 +103,16 @@
         dailyHoursDetails = $.parseJSON(data.d);
         showHoursForDate();
     }
+    function getSumHoursByDayFail() {
+        dailyHoursDetails = null;
+        showHoursForDate();
+    }
     function getSumHoursByDay() {
         var getSumHoursByDayCall = new AsyncServerMethod();
         getSumHoursByDayCall.add('EmpID', $('#hlblEID')[0].innerHTML);
         getSumHoursByDayCall.add('StartDate', $('#hlblSD')[0].innerHTML);
         getSumHoursByDayCall.add('EndDate', $('#hlblEndD')[0].innerHTML);
-        getSumHoursByDayCall.exec("/SIU_DAO.asmx/GetTimeTotHoursByDay", getSumHoursByDaySuccess);
+        getSumHoursByDayCall.exec("/SIU_DAO.asmx/GetTimeTotHoursByDay", getSumHoursByDaySuccess, getSumHoursByDayFail);
     }
     getSumHoursByDay();
 
@@ -149,13 +160,20 @@
         $('#lblSick')[0].innerHTML = availHours.SICK;
         $('#lblVac')[0].innerHTML = availHours.VACATION;
         $('#lblHol')[0].innerHTML = availHours.PHOLIDAY;
+        $('#AccruDiv').show();
     }
+    
+    function getTimeOpenBalanceFail() {
+        $('#AccruDiv').hide();
+    }
+    
     function getTimeOpenBalance() {
+        $('#AccruDiv').hide();
         availHours = "";
 
         var getTimeOpenBalanceCall = new AsyncServerMethod();
         getTimeOpenBalanceCall.add('EmpID', $('#hlblEID')[0].innerHTML);
-        getTimeOpenBalanceCall.exec("/SIU_DAO.asmx/GetTimeOpenBalance", getTimeOpenBalanceSuccess);
+        getTimeOpenBalanceCall.exec("/SIU_DAO.asmx/GetTimeOpenBalance", getTimeOpenBalanceSuccess, getTimeOpenBalanceFail);
     }
     getTimeOpenBalance();
 
@@ -351,9 +369,17 @@
     // Submit Button Handler //
     ///////////////////////////
     function timeSubmitSuccess(data) {
+        
         var errorMsg = data.d;
 
         if (errorMsg.length > 7 && errorMsg.substring(0, 7) == "Success") {
+
+            var hoursType = $('input:checkbox:checked')[0].value;
+            var hours = parseInt($('#txtTime').val());
+            var day = new Date($('#txtEntryDate').val()).getDate();
+            
+            $('#TimeAck').show();
+            $('#TimeAck').html(hours + ' Hours Submitted');
 
             ///////////////////////////////////////////////////////////////////////////
             // If This Is The Desktop Version, Then a HighCharts Object Should Exist //
@@ -361,13 +387,9 @@
             // Script                                                                //
             ///////////////////////////////////////////////////////////////////////////
             if (typeof Highcharts != "undefined") {
-                var hoursType = $('input:checkbox:checked')[0].value;
-                var hours = parseInt($('#txtTime').val());
-                var day = new Date($('#txtEntryDate').val()).getDate();
-
-                Highcharts.AppendHours(day, hoursType, hours);
+                if (typeof MonthDaily != "undefined")
+                    Highcharts.AppendHours(day, hoursType, hours);
             }
-
 
             ////////////////////
             // Reset The Form //
@@ -402,7 +424,8 @@
     };
     $("#btnSubmit").click(function () {
         $('#btnSubmit').hide();
-
+        $('#TimeAck').html('');
+        $('#TimeAck').hide();
         var hoursType = $('input:checkbox:checked')[0].value;
 
         var timeSubmitCall = new AsyncServerMethod();
@@ -832,7 +855,7 @@
     // Clear / Reset Form //
     ////////////////////////
     $("#btnClear").click(function () {
-
+        
         ////////////////////////////////////////
         // Clear Data Confirmation Containers //
         ////////////////////////////////////////        
@@ -926,4 +949,5 @@
 
 
     $('#chkST').prop('checked', true);
+    $('#TimeAck').hide();
 });

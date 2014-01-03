@@ -237,6 +237,18 @@ function AsyncServerMethod() {
 }
 
 
+function isAlpha(t) {
+    var output = t
+    .replace(/[\r]/g, '')
+    .replace(/[\b]/g, '')
+    .replace(/[\f]/g, '')
+    .replace(/[\n]/g, '')
+    .replace(/\\/g, '');
+    
+    if (output.length > 0) return true;
+    return false;
+}
+
 function isNumber(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
 }

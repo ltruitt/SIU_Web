@@ -109,9 +109,9 @@
 
 
 
-        $('#MissedMeetings')[0].innerHTML = summaryCounts.MissedMeetings;
-        if (summaryCounts.SummaryCounts > 0)
-            $('#liMissedMeetings').show('slow');
+        //$('#MissedMeetings')[0].innerHTML = summaryCounts.MissedMeetings;
+        //if (summaryCounts.SummaryCounts > 0)
+        //    $('#liMissedMeetings').show('slow');
 
 
 
@@ -174,7 +174,7 @@
         $('#liOpenHwReq').hide();
         $('#liOpenBugReq').hide();
         $('#liExpCnt_ExpAmt').hide();
-        $('#liMissedMeetings').hide();
+        //$('#liMissedMeetings').hide();
         $('#liVehIssues').hide();
         
         $('#liTimeStudy').hide();
@@ -193,7 +193,7 @@
         $('#liOpenHwReq').show('slow');
         //$('#liOpenBugReq').show('slow');
         $('#liExpCnt_ExpAmt').show('slow');
-        $('#liMissedMeetings').show('slow');
+        //$('#liMissedMeetings').show('slow');
         $('#liExpCntExpAmt').show('slow');
         $('#liVehIssues').show('slow');
 

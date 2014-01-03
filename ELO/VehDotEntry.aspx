@@ -12,7 +12,7 @@
 
     <link href="/Styles/ELO.css" rel="stylesheet"  type="text/css" />    
     <link href="/Styles/VehDotEntry.css" rel="stylesheet"  type="text/css" />    
-    <script type="text/javascript" src="/Scripts/VehDotEntry.js"></script> 
+    <script type="text/javascript" src="/Scripts/VehDotEntry.js?0001"></script> 
     
     <link rel="stylesheet" type="text/css" media="screen" href="/Styles/DeskTop-Forms.css" />
 </asp:Content>
@@ -67,6 +67,7 @@
                     <div style="padding: 0; width: 100%;  margin-left: 0;">
                         
                         <div style="display: inline-block; width: 100%; text-align: center; ">
+                            Submitted On: 
                             <span runat="server" id="txtEntryDate"  class="ThisWeekCss"  ></span>
                         </div>
                     </div>
@@ -77,7 +78,7 @@
                 <!--------------------------->
                 <!-- Date Shortcut Buttons -->
                 <!--------------------------->
-                <div style="margin-bottom: 3px; margin-top: -6px; margin-left: auto; margin-right: auto; width: 400px;">
+                <div id="dateBtnsDiv" style="margin-bottom: 3px; margin-top: -6px; margin-left: auto; margin-right: auto; width: 400px;">
                 
                      <div style="float: left;">
                          <span class="prevarrow"><a href="#" ></a></span>
@@ -118,6 +119,10 @@
                         <div class="TimeRow" id="ClassTimeDiv"  style="margin-top: 0;">    
                             <span style="float:left;   width: 110px;  font-weight: bold; display:inline">Vehicle No:</span>
                             <input id="txtVehicleNo"  class="DataInputCss" style="width: 80px; display:inline; margin-top: -3px;" runat="server" />
+                            
+                            <span style="float:left; margin-left: 30px;  width: 110px;  font-weight: bold; display:inline">Reported By:</span>
+                            <span id="reportedBy" style="float:left; font-weight: bold; display:inline"></span>
+                            <br/>
                         </div>  
                         
                         <!------------------------------------->
@@ -137,10 +142,11 @@
                         <!------------->
                         <!--  Hazard -->
                         <!------------->
-                        <span style="width: 100%; font-weight: bold; margin-top: 10px; display:inline-block; width: 400px;">Hazard:</span>
-                        <input type="button" ID="btnNoHaz" value="No Hazards" Class="SearchBtnCSS"  autofocus="false" style="width: 200px; display: inline-block; float: none;" />
-                        
-
+                         <div style="width: 605px;">
+                            <span style="font-weight: bold; margin-top: 10px; display:inline-block;">Hazard:</span>
+                            <input type="button" ID="btnNoUse" value="Vehicle Not Used" Class="SearchBtnCSS"   style="width: 200px; margin-left: 10px; display: inline-block; float: right;" />
+                            <input type="button" ID="btnNoHaz" value="No Hazards"       Class="SearchBtnCSS"   style="width: 200px; display: inline-block; float: right;" />
+                        </div>
 
                         <div class="TimeRow" id="txtHazardDiv" style=" height: 80px;">
                             <textarea  id="txtHazard"  Class="DataInputCss" title="Corrective Action" style="width: 600px;" rows="3" cols="20" runat="server" ></textarea>

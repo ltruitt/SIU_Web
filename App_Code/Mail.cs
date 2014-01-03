@@ -113,6 +113,53 @@ public static class WebMail
     }
 
 
+    public static void HtmlMail(string txtTo, string Subject, string MailMessage)
+    {
+        ////////////////////////////////////
+        // Use Web Config For Config Info //
+        ////////////////////////////////////
+        SmtpClient client = new SmtpClient { UseDefaultCredentials = false };
+        MailMessage msgMail = new MailMessage();
+
+
+        if (!SqlServer_Impl.isProdDB)
+        {
+            string prefixMessage = "<div style='border: 2 solid black; font-size: 1.3em; font-weight: bold; margin: 10px;'>The Following Email was generated on the SiYOU! Development Web Site........<br/>";
+            prefixMessage += "The email would have been directed to (" + txtTo + ") if it was processed on the production web site.</div>";
+            prefixMessage += MailMessage;
+
+            MailMessage = prefixMessage;
+            txtTo = BusinessLayer.UserEmail;
+        }
+
+
+        string[] toAddressList = txtTo.Split(';');
+        foreach (string toaddress in toAddressList)
+        {
+            if (toaddress.Length > 0)
+            {
+                msgMail.To.Add(toaddress);
+            }
+        }
+
+
+        msgMail.From = new MailAddress("noreply@shermco.com", "Vehicle Inspection Report");
+        msgMail.Subject = Subject;
+        msgMail.Body = MailMessage;
+        msgMail.IsBodyHtml = true;
+
+        try
+        {
+            client.Send(msgMail);
+        }
+        catch (Exception e)
+        {
+            SqlServer_Impl.LogDebug("HtmlMail", e.Message);
+        }
+    }
+
+
+
     private static string ToShortDate(DateTime dt)
     {
         return dt != null ? dt.ToShortDateString() : "";
@@ -855,10 +902,6 @@ public static class WebMail
 
         NetMail(addressList, eMailSubject, emailBody);
     }
-
-
-
-
 
 
 

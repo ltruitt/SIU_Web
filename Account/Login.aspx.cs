@@ -122,7 +122,7 @@ public partial class Login : System.Web.UI.Page
         }
         protected void LoginButton_Click(object sender, EventArgs e)
         {
-            int PasswordSuccess = 1;
+            int passwordSuccess = 1;
 
             /////////////////////////////////////////
             // Lookup Up User Based On EMployee ID //
@@ -133,33 +133,33 @@ public partial class Login : System.Web.UI.Page
             if (emp == null)
             {
                 FailureText.Text = "Please Try Again";
-                PasswordSuccess = 0;
+                passwordSuccess = 0;
             }
             else
             {
                 if (emp.Employee_Password != Password.Text)
                 {
                     FailureText.Text = "Please Try Again";
-                    PasswordSuccess = 0;
+                    passwordSuccess = 0;
                 }
 
                 if (emp.Blocked == 1)
                 {
                     FailureText.Text = "Please Contact H.R.";
-                    PasswordSuccess = 0;
+                    passwordSuccess = 0;
                 }
 
-                if (emp.Status != (int)ShermcoYou.DataTypes.Employee_Status.Active)
+                if (emp.Status != (int)Employee_Status.Active)
                 {
                     FailureText.Text = "Please Contact H.R.";
-                    PasswordSuccess = 0;
+                    passwordSuccess = 0;
                 }
 
 
                 if (!emp.Company_E_Mail.Contains("@"))
                 {
                     FailureText.Text = "Logon Record Incomplete";
-                    PasswordSuccess = 0;
+                    passwordSuccess = 0;
                 }
             }
 
@@ -168,7 +168,7 @@ public partial class Login : System.Web.UI.Page
             // Log The Attempt And Check For Probing //
             ///////////////////////////////////////////
             string ip = HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"];
-            SIU_LogonProbeRcd logonResp = SqlServer_Impl.LogonProbe(UserName.Text, Password.Text, ip, PasswordSuccess);
+            SIU_LogonProbeRcd logonResp = SqlServer_Impl.LogonProbe(UserName.Text, Password.Text, ip, passwordSuccess);
 
             
             // if Valid = -99 and Mail = 1, email Probe Warning
@@ -180,7 +180,7 @@ public partial class Login : System.Web.UI.Page
             {
                 FailureText.Text = "Device AND ID blocked for 15 minutes.";
                 System.Threading.Thread.Sleep(5000);
-                PasswordSuccess = 0;
+                passwordSuccess = 0;
             }
 
             ////////////////////////////////////////////////////////////
@@ -196,13 +196,12 @@ public partial class Login : System.Web.UI.Page
             //////////////////////////////////////////////////
             // If the signon failed at any point, stop here //
             //////////////////////////////////////////////////
-            if (PasswordSuccess == 0)
+            if (passwordSuccess == 0)
             {
                 FailureText.Visible = true;
                 Password.Text = "";
                 return;
             }
-
 
             //////////////////////////////////////////////////
             // At this point, the signon is considered good //
@@ -236,11 +235,11 @@ public partial class Login : System.Web.UI.Page
             // Lookup AD Group Memberships //
             /////////////////////////////////
             LDAP cred = new LDAP();
-            StringCollection Roles = cred.GetGroups(BusinessLayer.UserName);
-            foreach (string Role in SqlServer_Impl.SIU_GetRoles(UserName.Text))
-                Roles.Add(Role);
+            StringCollection roles = cred.GetGroups(BusinessLayer.UserName);
+            foreach (string role in SqlServer_Impl.SIU_GetRoles(UserName.Text))
+                roles.Add(role);
 
-            Session.Add("UserGroups", Roles);
+            Session.Add("UserGroups", roles);
 
 
 

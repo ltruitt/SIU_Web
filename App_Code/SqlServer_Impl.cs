@@ -11,6 +11,7 @@ using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Security.Permissions;
 using System.Text;
 using System.Transactions;
 using System.Web;
@@ -519,18 +520,22 @@ public class SiuDao : WebService
             {
                 int workDay = DateTime.Parse(rptEntry.workDate).Day;
 
-                while (dailyHoursRpt.xlabel[rptIdx] != workDay.ToString(CultureInfo.InvariantCulture)) rptIdx++;
+                rptIdx = 0;
+                while (rptIdx < dailyHoursRpt.xlabel.Length &&    dailyHoursRpt.xlabel[rptIdx] != workDay.ToString(CultureInfo.InvariantCulture)) rptIdx++;
 
-                dailyHoursRpt.SumHours[rptIdx] += rptEntry.Total;
+                if (rptIdx < dailyHoursRpt.xlabel.Length)
+                {
+                    dailyHoursRpt.SumHours[rptIdx] += rptEntry.Total;
 
-                dailyHoursRpt.SumJobHours[1] += rptEntry.Total;
-                dailyHoursRpt.SumJobHours[2] += (rptEntry.JobNo.Length > 0) ? rptEntry.Total : 0;
+                    dailyHoursRpt.SumJobHours[1] += rptEntry.Total;
+                    dailyHoursRpt.SumJobHours[2] += (rptEntry.JobNo.Length > 0) ? rptEntry.Total : 0;
 
-                dailyHoursRpt.StHours[rptIdx] += rptEntry.ST;
-                dailyHoursRpt.OtHours[rptIdx] += rptEntry.OT;
-                dailyHoursRpt.DtHours[rptIdx] += rptEntry.DT;
-                dailyHoursRpt.AbHours[rptIdx] += rptEntry.AB;
-                dailyHoursRpt.HtHours[rptIdx] += rptEntry.HT;
+                    dailyHoursRpt.StHours[rptIdx] += rptEntry.ST;
+                    dailyHoursRpt.OtHours[rptIdx] += rptEntry.OT;
+                    dailyHoursRpt.DtHours[rptIdx] += rptEntry.DT;
+                    dailyHoursRpt.AbHours[rptIdx] += rptEntry.AB;
+                    dailyHoursRpt.HtHours[rptIdx] += rptEntry.HT;
+                }
             }
         }
 
@@ -1462,6 +1467,17 @@ public class SiuDao : WebService
         return serializer.Serialize(new { Result = "OK", Records = rpt });
     }
 
+    //////////////////////////
+    // Called By DOT Report //
+    //////////////////////////
+    [WebMethod(EnableSession = true)]
+    public string GetVehInspById(string ID)
+    {
+        SIU_DOT_Rpt rpt = SqlServer_Impl.GetVehInspById(ID);
+        JavaScriptSerializer serializer = new JavaScriptSerializer();
+        return serializer.Serialize(rpt);
+    }
+
     ///////////////////////////
     // Record DOT Inspection //
     ///////////////////////////
@@ -1479,6 +1495,33 @@ public class SiuDao : WebService
     {
         SqlServer_Impl.RecordDotCorrection(RefID, EmpID, CorrectiveAction);
     }
+
+    //////////////////////////////////////////
+    // Generate Open Vehicle Issues Reports //
+    //////////////////////////////////////////
+    [WebMethod(EnableSession = true)]
+//    [PrincipalPermission(SecurityAction.Demand, Authenticated = false, Name = "10371")]
+    public void GenVehInspEmails()
+    {
+        const string eMailSubject = "Unresolved Vehicle Inspections.";
+
+        WebMail.HtmlMail("bborowczak@shermco.com", eMailSubject, BusinessLayer.GenFleetInspRpt(""));
+        WebMail.HtmlMail("mpustejovsky@shermco.com", eMailSubject, BusinessLayer.GenFleetInspRpt("80"));
+        WebMail.HtmlMail("cearp@shermco.com", eMailSubject, BusinessLayer.GenFleetInspRpt("70"));
+
+    }
+
+    //////////////////////////////////////////
+    // Generate Open Vehicle Issues Reports //
+    //////////////////////////////////////////
+    [WebMethod(EnableSession = true)]
+    public string GenVehInspRpt(string Dept)
+    {
+        JavaScriptSerializer serializer = new JavaScriptSerializer();
+        return serializer.Serialize(BusinessLayer.GenFleetInspRpt(Dept));
+    }
+
+
 #endregion Vehicle Inspection
 
 #region Safety Pays
@@ -2813,13 +2856,11 @@ public class SiuDao : WebService
     /////////////////////////////////////////////////////////
     // Get A List Of Missed Safety Classes For An Employee //
     /////////////////////////////////////////////////////////
-    [WebMethod(EnableSession = true)]
-    public List<SIU_MySi_MissedSafetyMeeting> GetMyMissedSafetyClasses(string EmpID, bool _search, long nd, int rows, int page, string sidx, string sord)
-    {
-        return SqlServer_Impl.GetMyMissedSafetyClasses(EmpID).ToList();
-        //sord = ((sidx.Length == 0) ? "Date" : sidx) + " " + sord.ToUpper();
-        //return SqlServer_Impl.GetMyMissedSafetyClasses(EmpID).OrderBy(sord).ToList();
-    }
+    //[WebMethod(EnableSession = true)]
+    //public List<SIU_MySi_MissedSafetyMeeting> GetMyMissedSafetyClasses(string EmpID, bool _search, long nd, int rows, int page, string sidx, string sord)
+    //{
+    //    return SqlServer_Impl.GetMyMissedSafetyClasses(EmpID).ToList();
+    //}
 
     /////////////////////////////////////////////////////////////////////////////
     // Get List Of Badges and Certifications Either Expired or About to Expire //
@@ -4050,6 +4091,31 @@ public class SqlServer_Impl : WebService
 #endregion
 
 #region Employee Lookups          Xtn Ex
+    private static List<string> isDeptMgr(string emp_id)
+    {
+        try
+        {
+            SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
+
+            TransactionOptions to = new TransactionOptions
+            {
+                IsolationLevel = IsolationLevel.ReadUncommitted
+            };
+
+            using (new TransactionScope(TransactionScopeOption.RequiresNew, to))
+            {
+                return (from rptData in nvDb.SIU_ReportingChains
+                        where (rptData.DeptMgrEmpId == emp_id)
+                        select rptData.Dept
+                       ).ToList();
+            }
+        }
+        catch (Exception ex)
+        {
+            LogDebug("IsDeptMgr", ex.Message);
+        }
+        return new List<string>();
+    }
     public static List<Shermco_Employee> GetActiveEmployees()
     {
         try
@@ -4065,7 +4131,7 @@ public class SqlServer_Impl : WebService
             {
 
                 return (from emplist in nvDb.Shermco_Employees
-                    where emplist.Status == 0
+                    where emplist.Status == 0 && emplist.Blocked == 0 && emplist.Temp_Block == 0
                     select emplist
                     ).ToList();
             }
@@ -4699,7 +4765,7 @@ public class SqlServer_Impl : WebService
             using (new TransactionScope(TransactionScopeOption.Required, to))
             {
                 return (from taskList in nvDb.Shermco_Job_Specific_Routers
-                    where taskList.Job_No_ == JobNo && taskList.Block == 0 &&  Convert.ToInt32(taskList.Task_Code) > 100
+                    where taskList.Job_No_ == JobNo && taskList.Block == 0 &&  Convert.ToInt32(taskList.Task_Code) >= 100
                     orderby taskList.Step_No_
                     select
                         new SIU_Task_Codes { StepNo = taskList.Step_No_.ToString(CultureInfo.InvariantCulture), Description = taskList.Task_Description }
@@ -5543,6 +5609,34 @@ public class SqlServer_Impl : WebService
         }
         return new Shermco_Vehicle();        
     }
+    public static SIU_DOT_Rpt GetVehInspById(string ID)
+    {
+        try
+        {
+            SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
+
+            TransactionOptions to = new TransactionOptions
+            {
+                IsolationLevel = IsolationLevel.ReadUncommitted
+            };
+
+            using (new TransactionScope(TransactionScopeOption.RequiresNew, to))
+            {
+
+                SIU_DOT_Rpt Rpt = ( from rptData in nvDb.SIU_DOT_Inspections
+                                    where rptData.RefID == int.Parse(ID)
+                                    select new SIU_DOT_Rpt { Hazard = rptData.Hazard, RefID = rptData.RefID, SubmitEmpID = rptData.SubmitEmpID, SubmitTimeStamp = rptData.SubmitTimeStamp.ToShortDateString(), Vehicle = rptData.Vehicle, Correction = rptData.Correction }
+                       ).SingleOrDefault();
+
+                return Rpt;
+            }
+        }
+        catch (Exception ex)
+        {
+            LogDebug("GetVehInspById", ex.Message);
+        }
+        return new SIU_DOT_Rpt();
+    }
     public static List<SIU_DOT_Rpt> GetOpenDOT(string empNo)
     {
         try
@@ -5560,10 +5654,23 @@ public class SqlServer_Impl : WebService
                                                where (veh.Driver == empNo)
                                                select veh.No_).ToList();
 
-                return (from rptData in nvDb.SIU_DOT_Inspections
+                List<SIU_DOT_Rpt> basicList = (from rptData in nvDb.SIU_DOT_Inspections
                         where (rptData.SubmitEmpID == empNo && rptData.CorrectionEmpID == null) || (assignedVehIds.Contains(rptData.Vehicle) && rptData.CorrectionEmpID == null)
                         select new SIU_DOT_Rpt { Hazard = rptData.Hazard, RefID = rptData.RefID, SubmitEmpID = rptData.SubmitEmpID, SubmitTimeStamp = rptData.SubmitTimeStamp.ToShortDateString(), Vehicle = rptData.Vehicle, Correction = rptData.Correction}
                        ).ToList();
+
+                List<String> usersDepts = isDeptMgr(BusinessLayer.UserEmpID);
+                if ( usersDepts.Count > 0 )
+                {
+                    List<SIU_DOT_Rpt> deptRpts = (from veh in nvDb.Shermco_Vehicles
+                                                  join dot in nvDb.SIU_DOT_Inspections on veh.No_ equals dot.Vehicle
+                                                  where veh.Blocked == 0 && veh.Driver == "" && usersDepts.Contains(veh.Global_Dimension_1_Code) && dot.CorrectionTimeStamp == null
+                                                  select new SIU_DOT_Rpt { Hazard = dot.Hazard, RefID = dot.RefID, SubmitEmpID = dot.SubmitEmpID, SubmitTimeStamp = dot.SubmitTimeStamp.ToShortDateString(), Vehicle = dot.Vehicle, Correction = dot.Correction }
+                                                ).ToList();
+                    basicList.AddRange(deptRpts);
+                }
+
+                return basicList;
             }
         }
         catch (Exception ex)
@@ -5591,10 +5698,25 @@ public class SqlServer_Impl : WebService
                                                where (veh.Driver == empNo)
                                                select veh.No_).ToList();
 
-                return (from rptData in nvDb.SIU_DOT_Inspections
-                        where  ( (rptData.SubmitEmpID == empNo) || assignedVehIds.Contains(rptData.Vehicle) ) && rptData.SubmitTimeStamp > dateRangeLimit
-                        select new SIU_DOT_Rpt { Hazard = rptData.Hazard, RefID = rptData.RefID, SubmitEmpID = rptData.SubmitEmpID, SubmitTimeStamp = rptData.SubmitTimeStamp.ToShortDateString(), Vehicle = rptData.Vehicle, Correction = rptData.Correction }
-                       ).ToList();
+                List<SIU_DOT_Rpt> basicList = ( from rptData in nvDb.SIU_DOT_Inspections
+                                                where  ( (rptData.SubmitEmpID == empNo) || assignedVehIds.Contains(rptData.Vehicle) ) && rptData.SubmitTimeStamp > dateRangeLimit
+                                                select new SIU_DOT_Rpt { Hazard = rptData.Hazard, RefID = rptData.RefID, SubmitEmpID = rptData.SubmitEmpID, SubmitTimeStamp = rptData.SubmitTimeStamp.ToShortDateString(), Vehicle = rptData.Vehicle, Correction = rptData.Correction }
+                                            ).ToList();
+
+
+
+                List<String> usersDepts = isDeptMgr(BusinessLayer.UserEmpID);
+                if (usersDepts.Count > 0)
+                {
+                    List<SIU_DOT_Rpt> deptRpts = (from veh in nvDb.Shermco_Vehicles
+                                                  join dot in nvDb.SIU_DOT_Inspections on veh.No_ equals dot.Vehicle
+                                                  where veh.Blocked == 0 && veh.Driver == "" && usersDepts.Contains(veh.Global_Dimension_1_Code) && dot.CorrectionTimeStamp == null
+                                                  select new SIU_DOT_Rpt { Hazard = dot.Hazard, RefID = dot.RefID, SubmitEmpID = dot.SubmitEmpID, SubmitTimeStamp = dot.SubmitTimeStamp.ToShortDateString(), Vehicle = dot.Vehicle, Correction = dot.Correction }
+                                                ).ToList();
+                    basicList.AddRange(deptRpts);
+                }
+
+                return basicList;
             }
         }
         catch (Exception ex)
@@ -5618,7 +5740,6 @@ public class SqlServer_Impl : WebService
             nvDb.SubmitChanges();
 
     }
-
     public static void RecordDot(int RefID, string EmpID, string InspDate, string VehNo, string Hazard, string CorrectiveAction)
     {
         SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
@@ -5649,6 +5770,52 @@ public class SqlServer_Impl : WebService
         nvDb.SubmitChanges();
     }
 
+
+    public static List<SIU_DOT_Inspection> getAllOpenVehInsp()
+    {
+        try
+        {
+            SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
+
+            TransactionOptions to = new TransactionOptions();
+            to.IsolationLevel = IsolationLevel.ReadUncommitted;
+
+            using (new TransactionScope(TransactionScopeOption.RequiresNew, to))
+            {
+                return (from veh in nvDb.SIU_DOT_Inspections
+                        where (veh.CorrectionTimeStamp == null)
+                        select veh).ToList();
+            }
+        }
+        catch (Exception ex)
+        {
+            LogDebug("getAllOpenVehInsp", ex.Message);
+        }
+        return new List<SIU_DOT_Inspection>();        
+    }
+    public static List<SIU_DOT_Inspection> getAllOpenVehInsp(string likeDept)
+    {
+        try
+        {
+            SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
+
+            TransactionOptions to = new TransactionOptions();
+            to.IsolationLevel = IsolationLevel.ReadUncommitted;
+
+            using (new TransactionScope(TransactionScopeOption.RequiresNew, to))
+            {
+                return (    from insp in nvDb.SIU_DOT_Inspections
+                            join veh in nvDb.Shermco_Vehicles on insp.Vehicle equals veh.No_
+                            where ((insp.CorrectionTimeStamp == null) && veh.Global_Dimension_1_Code.StartsWith(likeDept))
+                        select insp).ToList();
+            }
+        }
+        catch (Exception ex)
+        {
+            LogDebug("getAllOpenVehInsp", ex.Message);
+        }
+        return new List<SIU_DOT_Inspection>();
+    }
 #endregion
 
 #region Jobs
@@ -6285,23 +6452,23 @@ public class SqlServer_Impl : WebService
     }
 
 
-    public static List<SIU_MySi_MissedSafetyMeeting> GetMyMissedSafetyClasses(string empNo)
-    {
-        SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
+    //public static List<SIU_MySi_MissedSafetyMeeting> GetMyMissedSafetyClasses(string empNo)
+    //{
+    //    SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
 
-        TransactionOptions to = new TransactionOptions
-        {
-            IsolationLevel = IsolationLevel.ReadUncommitted
-        };
+    //    TransactionOptions to = new TransactionOptions
+    //    {
+    //        IsolationLevel = IsolationLevel.ReadUncommitted
+    //    };
 
-        using (new TransactionScope(TransactionScopeOption.RequiresNew, to))
-        {
-            return (from rptData in nvDb.SIU_MySi_MissedSafetyMeetings
-                    where rptData.EmpNo == empNo
-                    select rptData
-                   ).ToList();
-        }
-    }
+    //    using (new TransactionScope(TransactionScopeOption.RequiresNew, to))
+    //    {
+    //        return (from rptData in nvDb.SIU_MySi_MissedSafetyMeetings
+    //                where rptData.EmpNo == empNo
+    //                select rptData
+    //               ).ToList();
+    //    }
+    //}
 
     
 #endregion
@@ -8556,6 +8723,55 @@ public static class BusinessLayer
         }
 
         return R2;
+    }
+
+    public static string GenFleetInspRpt(string Dept)
+    {
+        List<SIU_DOT_Inspection> uncorrected;
+
+        if (Dept.Length > 0)
+            uncorrected = SqlServer_Impl.getAllOpenVehInsp(Dept);
+        else
+            uncorrected = SqlServer_Impl.getAllOpenVehInsp();
+
+        List<Shermco_Employee> emps = SqlServer_Impl.GetActiveEmployees();
+
+        
+
+        string emailBody;
+        if (Dept.Length > 0)
+            emailBody = "<h1>The following is a list of uncorrected vehicle inspections for departments beginning with \"" + Dept + "\".</h1>";
+        else
+            emailBody = "<h1>The following is a list of ALL uncorrected vehicle Inspections.</h1>";
+
+        string webServer = "http://" + HttpContext.Current.Request.Url.DnsSafeHost;
+
+        emailBody += "<table style='width: 100%'>";
+
+        emailBody += "<tr style='color: white; background-color: blue; font_size: 1.2em; font-weight: bold;'>";
+        emailBody += "<th>ID</td>";
+        emailBody += "<th>Vehicle</td>";
+        emailBody += "<th>Submit Name</td>";
+        emailBody += "<th>Submit Date</td>";
+        emailBody += "<th>Hazard</td>";
+        emailBody += "</tr>";
+
+        foreach (SIU_DOT_Inspection Rpt in uncorrected)
+        {
+            string emp = (from thisEmp in emps where thisEmp.No_ == Rpt.SubmitEmpID.TrimEnd() select thisEmp.Last_Name + ", " + thisEmp.First_Name).SingleOrDefault();
+
+            emailBody += "<tr style='color: black; text-align: center;'>";
+            emailBody += "<td><a href=" + webServer + "/ELO/VehDotEntry.aspx?rpt=" + Rpt.RefID + ">" + Rpt.RefID + "</href></td>";
+            emailBody += "<td>" + Rpt.Vehicle + "</td>";
+            emailBody += "<td>(" + Rpt.SubmitEmpID.TrimEnd() + ") " + emp + "</td>";
+            emailBody += "<td>" + Rpt.SubmitTimeStamp.ToShortDateString() + "</td>";
+            emailBody += "<td style='color: black; text-align: left;'>" + Rpt.Hazard + "</td>";
+            emailBody += "</tr>";
+        }
+
+        emailBody += "</table>";
+
+        return emailBody;
     }
 }
 

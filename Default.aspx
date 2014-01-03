@@ -12,13 +12,20 @@
             <asp:Button ID="Button1" runat="server" Text="Generate Test Email" OnClick="TestEmailClick"  />
             <br/>
             <br/>
+            <asp:Button ID="Button2" runat="server" Text="Generate BB Veh Insp Report Email" OnClick="TestEmailBbClick"  />
+            <br/>
+            <br/>
+            <asp:Button ID="Button3" runat="server" Text="Generate MP Veh Insp Report Email" OnClick="TestEmailMpClick"  />
+            <br/>
+            <br/>
+            <asp:Button ID="Button4" runat="server" Text="Generate CE Veh Insp Report Email" OnClick="TestEmailCeClick"  />
+<%--            <br/>
+            <br/>
             <asp:Button id="btnEncrypt" runat="server" Text="Encrypt" onclick="btnEncrypt_Click" />
             <br/>
             <br/>
-            <asp:Button ID="btnDecrypt" runat="server" Text="Decrypt" onclick="btnDecrypt_Click" />
-            <br/>
-            <br/>        
-            <asp:Button ID="btn_SSL" runat="server" Text="Build Sample SpreadSheet" OnClick="btn_SSL_Click"  />
+            <asp:Button ID="btnDecrypt" runat="server" Text="Decrypt" onclick="btnDecrypt_Click" />--%>
+
 
     </form>
 

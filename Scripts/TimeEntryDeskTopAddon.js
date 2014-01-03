@@ -28,14 +28,20 @@
     var weeklyHours = [];
 
     function getMoHours() {
+        $('#MonthDaily').hide();
         var getMoHoursAjax = new AsyncServerMethod();
         getMoHoursAjax.add('EmpID', $('#hlblEID')[0].innerHTML);
         getMoHoursAjax.add('SD', $('#hlblSD')[0].innerHTML);
-        getMoHoursAjax.exec("/SIU_DAO.asmx/GetEloRptPeriodHours", getMoHoursSuccess);
+        getMoHoursAjax.exec("/SIU_DAO.asmx/GetEloRptPeriodHours", getMoHoursSuccess, getMoHoursFail);
     };
 
+    function getMoHoursFail() {
+        $('#MonthDaily').hide();
+    }
+    
     function getMoHoursSuccess(data) {
-
+        $('#MonthDaily').show();
+        
         ////////////////////////////
         // Clean Up The Data Some //
         ////////////////////////////

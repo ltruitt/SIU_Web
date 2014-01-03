@@ -13,7 +13,7 @@
     
     <!-- Page Layout -->
     <link rel="stylesheet" href="/Styles/HomePage.css" type="text/css" />
-    <script type='text/javascript' src="/Scripts/HomePage.js"></script>
+    <script type='text/javascript' src="/Scripts/HomePage.js?0001"></script>
 
     <!-- AnythingSlider optional extensions -->
     <!-- <script src="js/jquery.anythingslider.fx.js"></script> -->

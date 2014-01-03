@@ -125,7 +125,12 @@
                             <span style="float:left;   width: 110px;  font-weight: bold; display:inline">Vehicle No:</span>
                             <input id="txtVehicleNo"  class="DataInputCss" style="width: 80px; display:inline; margin-top: -3px;" runat="server" />
                         </div>  
+                        <div class="TimeRow" id="Div1"  style="margin-top: 0;">                             
+                            <span style="float:left; font-weight: bold; display:inline">Reported By:</span>
+                            <span id="reportedBy" style="float:left; margin-left: 5px;  font-weight: bold; display:inline"></span>
+                        </div>  
                         
+                             
                         <!------------------------------------->
                         <!-- Assigned Vehicle List Shortcuts -->
                         <!------------------------------------->
@@ -143,8 +148,10 @@
                         <!------------->
                         <!--  Hazard -->
                         <!------------->
-                        <input type="button" ID="btnNoHaz" value="No Hazards" Class="SearchBtnCSS"  autofocus="False" style="width: 40%; display: inline-block; float: right;" />
-                        <span style="width: 100%; font-weight: bold; margin-top: 10px; display:inline-block; width: 40%;">Hazard:</span>
+                         <span style="font-weight: bold; margin-top: 10px; display:inline-block;">Hazard:</span>
+                        <input type="button" ID="btnNoUse" value="Vehicle Not Used" Class="SearchBtnCSS"  style="width: 45%; padding-left: 0; padding-right: 0; margin-left: 5px; display: inline-block; float: right;" />
+                        <input type="button" ID="btnNoHaz" value="No Hazards"       Class="SearchBtnCSS"  style="width: 30%; padding-left: 0; padding-right: 0;                   display: inline-block; float: right;" />
+                        
 
 
                         <div class="TimeRow" id="txtHazardDiv" style=" height: 80px;">

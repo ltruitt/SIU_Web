@@ -7,8 +7,8 @@
     
     <link href="/Styles/ELO.css" rel="stylesheet"  type="text/css" />
     <link href="/Styles/TimeEntry.css" rel="stylesheet"  type="text/css" />
-    <script type="text/javascript" src="/Scripts/TimeEntry.js"></script>     
-    <script type="text/javascript" src="/Scripts/TimeEntryDeskTopAddon.js"></script>     
+    <script type="text/javascript" src="/Scripts/TimeEntry.js?0000"></script>     
+    <script type="text/javascript" src="/Scripts/TimeEntryDeskTopAddon.js?0000"></script>     
     <script src="/Scripts/Highcharts-3.0.2/js/highcharts.js" type="text/javascript"></script> 
     
     <link rel="stylesheet" type="text/css" media="screen" href="/Styles/DeskTop-Forms.css" />
@@ -47,17 +47,17 @@
                             <a href="/ELO/TimeRpt.aspx" style="color:white; font-weight: bold;">Rejected</a>
                         </span>
                         <span ID="imgReport"   style="float: right; margin-right: 21px;" runat="server" >
-                            <a href="/ELO/TimeRpt.aspx" style="color:white; font-weight: bold;">Day Total</a>
+                            <a href="/ELO/TimeRpt.aspx" style="color:aqua; font-style: italic; text-decoration: underline !important; font-weight: bold;">Day Total</a>
                         </span>
                         
                         <span ID="Span1"   style="float: right; margin-right: 31px; "  >
-                            <a href="/My/MyTimeStudy.aspx" style="color:white; font-weight: bold;">Time Study</a>
+                            <a href="/My/MyTimeStudy.aspx" style="color:aqua; font-style: italic; text-decoration: underline !important; font-weight: bold;">Time Study</a>
                         </span>
                     </div>
                     
                     <div style="height: 20px;"></div>
 
-                    <div style="height: 20px; float: right; ">                    
+                    <div id="AccruDiv" style="height: 20px; float: right; ">                    
                         <span class="VHcss" style="margin-left: -5px;"  >Vac:
                             <span style="float: right; margin-left: 7px; "   ID="lblVac" ></span>
                         </span>
@@ -71,6 +71,8 @@
                         </span>
                     </div>
                 </div>
+                
+                <div id="TimeAck" style="height: 10px; float: left; margin-top: -15px; color:red; margin-left: -15px; "></div>   
 
 
                 <p style="height: 5px;"></p> 
@@ -293,7 +295,7 @@
                         <input type="button" ID="btnClear" value="Clear" Class="SearchBtnCSS"   />
                     </div>
                     
-                    <div style="margin-left: auto; margin-right: auto; width: 150px; height: 40px; padding: 0; text-align: center; line-height: 14px; vert-align: bottom;">
+                    <div id="WeekSumDiv" style="margin-left: auto; margin-right: auto; width: 150px; height: 40px; padding: 0; text-align: center; line-height: 14px; vert-align: bottom;">
                         <div style="width: auto; margin-left: auto; margin-right: auto;">
                             <span style="width: 70px; display: inline-block;">Today:</span>
                             <span id="lblHoursThisDay" style="font-size: 1.1em;"></span>

@@ -41,19 +41,19 @@
 
                                     <p id="eidBlk">
                                         <asp:Label ID="UserNameLabel" runat="server" AssociatedControlID="UserName">Employee ID</asp:Label>
-                                        <asp:TextBox type="number" ID="UserName" runat="server" CssClass="DataInputCss DateEntryCss" MaxLength="5"></asp:TextBox>
+                                        <asp:TextBox ID="UserName" type="number" ClientIDMode="Static" runat="server" CssClass="DataInputCss DateEntryCss" MaxLength="5"></asp:TextBox>
                                     </p>
                                 
                                     <p  id="pwdBlk" runat="server">
                                         <asp:Label ID="PasswordLabel" runat="server" AssociatedControlID="Password">Password:</asp:Label>
-                                        <asp:TextBox type="number" ID="Password" runat="server" CssClass="DataInputCss DateEntryCss" TextMode="Password"></asp:TextBox>
+                                        <asp:TextBox ID="Password" type="number" ClientIDMode="Static" runat="server" CssClass="DataInputCss DateEntryCss" TextMode="Password"></asp:TextBox>
                                     </p>
 
                                 </fieldset>
                             
                             
                                 <p class="submitButton">
-                                    <asp:Button ID="LoginButton" runat="server" Text="Log In" OnClick="LoginButton_Click"/>
+                                    <asp:Button ID="LoginButton" ClientIDMode="Static" runat="server" Text="Log In" OnClick="LoginButton_Click"/>
                                 </p>
 
                             

@@ -59,7 +59,14 @@
 
                     $('#txtEntryDate')[0].innerHTML = record.SubmitTimeStamp;
                     $('#hlblRefID')[0].innerHTML = record.RefID;
+                    
                     $('#txtHazard').attr("readonly", true);
+                    $('#txtVehicleNo').attr("readonly", true);
+                    
+                    $('#reportedBy').html(record.SubmitEmpName);
+
+                    $('#dateBtnsDiv').hide();
+                    
                     validate();
                     $('#txtCorrection').focus();
                 });
@@ -68,8 +75,11 @@
                 $('#txtVehicleNo').val('');
                 $('#txtHazard').val('');
                 $('#txtCorrection').val('');
+                $('#reportedBy').html('');
                 $('#hlblRefID')[0].innerHTML = 0;
                 $('#txtHazard').attr("readonly", false);
+                $('#txtVehicleNo').attr("readonly", false);
+                $('#dateBtnsDiv').show();
                 validate();
             }
         }
@@ -279,7 +289,18 @@
 
     function validate() {
         $('#btnSubmit').show();
-        $('#btnNoHaz').show();
+
+        
+        ///////////////////////////////////////////////
+        // Cant Set No Hazard When Already Submitted //
+        ///////////////////////////////////////////////
+        if ($('#hlblRefID').html() > 0) {
+            $('#btnNoHaz').hide();
+            $('#btnNoUse').hide();
+        } else {
+            $('#btnNoHaz').show();
+            $('#btnNoUse').show();
+        }
         
         $('#txtHazard').removeClass('ValidationError');
         $('#txtVehicleNo').removeClass('ValidationError');
@@ -291,6 +312,7 @@
             $('#txtVehicleNo').addClass('ValidationError');
             $('#btnSubmit').hide();
             $('#btnNoHaz').hide();
+            $('#btnNoUse').hide();
         } else {
             $('#txtVehicleNo').addClass('ValidationSuccess');
         }
@@ -309,7 +331,12 @@
         validate();
         //$('#btnSubmit').click();
     });
-
+    $('#btnNoUse').click(function () {
+        $('#txtHazard').val('Vehicle Not Used');
+        $('#txtCorrection').val('No Action Required');
+        validate();
+        //$('#btnSubmit').click();
+    });
 
     ////////////
     // Submit //
@@ -339,13 +366,20 @@
     });
 
     function clear() {
+        $('#txtVehicleNo').val('');
+        getPersonalVehList();
+        
         resetTextBoxSize();
         $('#hlblRefID')[0].innerHTML = '';
         $('#txtCorrection')[0].innerHTML = '';
         $('#txtCorrection').val('');
         $('#txtHazard').val('');
+        $('#reportedBy').html('');
         $('#txtHazard').attr("readonly", false);
+        $('#txtVehicleNo').attr("readonly", false);
+        $('#dateBtnsDiv').show();
 
+        $('#jTableContainer').jtable('selectRows', $('xxx'));
         $('#jTableContainer').jtable('load', { EmpID: $('#hlblEID')[0].innerHTML });
 
         validate();
@@ -358,8 +392,51 @@
     }
 
     getAllVehList();
-    getPersonalVehList();
-    clear();
+    
+    
+
+    function getRptById(id) {
+        $('#jTableContainer').hide();
+        $('#dateBtnsDiv').hide();
+        $('#txtEntryDate').html('Looking Up Record...');
+        var getRptByIdAjax = new AsyncServerMethod();
+
+        getRptByIdAjax.add('ID',id);
+        getRptByIdAjax.exec("/SIU_DAO.asmx/GetVehInspById", getVehInspByIdSuccess);
+    }
+    function getVehInspByIdSuccess(data) {
+        var record = $.parseJSON(data.d);
+        
+        if (record) {
+            $('#txtVehicleNo').val(record.Vehicle);
+            $('#txtHazard').val(record.Hazard);
+            $('#txtCorrection').val(record.Correction);
+
+            $('#txtEntryDate')[0].innerHTML = record.SubmitTimeStamp;
+            $('#hlblRefID')[0].innerHTML = record.RefID;
+
+            $('#txtHazard').attr("readonly", true);
+            $('#txtVehicleNo').attr("readonly", true);
+
+            $('#reportedBy').html(record.SubmitEmpName);
+
+            validate();
+            $('#txtCorrection').focus();
+        }
+        else {
+            $('#txtEntryDate').html('Look Up Failed...');
+            clear();
+        }
+
+
+    }
+    
+    var loadId = $.fn.getURLParameter('rpt');
+    
+    if (loadId)
+        getRptById(loadId);
+    else
+        clear();
 
 
 });

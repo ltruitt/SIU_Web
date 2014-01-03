@@ -145,13 +145,13 @@ $(document).ready(function () {
         clip: {
             autoPlay: true,
             autoBuffering: true,
-            scaling: 'fit',
-            onStart: function (clip) { FloPostMovieStart(clip); },
-            onError: function (errorCode, errorMessage) {
-                 alert(errorCode + " " + errorMessage);
-            },
-            onSeek: function (clip, timeIdx) { FloPostMovieSeek(clip, timeIdx); },
-            onFinish: function (clip) { FloPostMovieFinish(clip); }
+            scaling: 'fit'//,
+            //onStart: function (clip) { FloPostMovieStart(clip); },
+            //onError: function (errorCode, errorMessage) {
+            //     alert(errorCode + " " + errorMessage);
+            //},
+            //onSeek: function (clip, timeIdx) { FloPostMovieSeek(clip, timeIdx); },
+            //onFinish: function (clip) { FloPostMovieFinish(clip); }
         },
         playlist: [
                     { url: "/images/Si-Shermco-OneLine.jpg", duration: 5 },

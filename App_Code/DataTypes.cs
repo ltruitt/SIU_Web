@@ -69,55 +69,55 @@ namespace ShermcoYou.DataTypes
     }
     public class SIU_DOT_Rpt
     {
-        private string _Vehicle;
-        private string _EmpID;
-        private string _Make;
-        private string _Model;
-        private string _Plate;
-        private string _EmpName;
+        private string _vehicle;
+        private string _empId;
+        private string _make;
+        private string _model;
+        private string _plate;
+        private string _empName;
 
         public int RefID { get; set;  }
         public string Vehicle
         {
-            get { return _Vehicle; }
+            get { return _vehicle; }
             set 
             {
                 if (value == null)
-                    _Vehicle = "";
+                    _vehicle = "";
                 else
                 {
-                    _Vehicle = value.Trim();
-                    Shermco_Vehicle veh = SqlServer_Impl.GetVehicleRecord(_Vehicle);
+                    _vehicle = value.Trim();
+                    Shermco_Vehicle veh = SqlServer_Impl.GetVehicleRecord(_vehicle);
                     if (veh != null)
                     {
-                        _Make = veh.Make;
-                        _Model = veh.Model;
-                        _Plate = veh.License;
+                        _make = veh.Make;
+                        _model = veh.Model;
+                        _plate = veh.License;
                     }
                 }
 
             }
         }
-        public string Make { get { return _Make;  } }
-        public string Model { get { return _Model; } }
-        public string Plate { get { return _Plate; } }
+        public string Make { get { return _make;  } }
+        public string Model { get { return _model; } }
+        public string Plate { get { return _plate; } }
         public string SubmitTimeStamp { get; set; }
         public string SubmitEmpID
         {
-            get { return _EmpID; } 
+            get { return _empId; } 
             set
             {
                 if (value == null)
-                    _Vehicle = "";
+                    _vehicle = "";
                 else
                 {
-                    _EmpID = value.Trim();
-                    _EmpName = SqlServer_Impl.GetEmployeeNameByNo(_EmpID);
+                    _empId = value.Trim();
+                    _empName = SqlServer_Impl.GetEmployeeNameByNo(_empId);
                 }
             }
         }
 
-        public string SubmitEmpName { get { return _EmpName; } }
+        public string SubmitEmpName { get { return _empName; } }
         public string Hazard { get; set; }
         public string Correction { get; set; }
     }
@@ -222,7 +222,7 @@ namespace ShermcoYou.DataTypes
             DueDate = Rpt.DueDate;
             AssignedEmpID = Rpt.AssignedEmpID;
             if (Rpt.CompletedDate != null)
-                CompletedDate = (System.DateTime)Rpt.CompletedDate;
+                CompletedDate = (DateTime)Rpt.CompletedDate;
             else
                 Rpt.CompletedDate = null;
             AssignedEmpName = SqlServer_Impl.GetEmployeeNameByNo(Rpt.AssignedEmpID);
@@ -263,9 +263,9 @@ namespace ShermcoYou.DataTypes
 
                     if (System.IO.File.Exists(filePath))
                     {
-                        System.IO.StreamReader QomFile = new System.IO.StreamReader(filePath);
-                        Question += QomFile.ReadToEnd();
-                        QomFile.Close();
+                        System.IO.StreamReader qomFile = new System.IO.StreamReader(filePath);
+                        Question += qomFile.ReadToEnd();
+                        qomFile.Close();
                     }
                 }
 

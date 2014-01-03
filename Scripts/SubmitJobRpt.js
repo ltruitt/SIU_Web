@@ -465,7 +465,6 @@ $(document).ready(function () {
             return message;
         }
         
-
     };
     
 
@@ -518,7 +517,8 @@ $(document).ready(function () {
         // If Sales Contact Request Checked, Ensure Sales Notes Provided //
         ///////////////////////////////////////////////////////////////////
         if ($('#chkSalesY:checked').length > 0) {
-            if ($('#txtSalesNotes')[0].value.length == 0) {
+            if ( ! isAlpha( ($('#txtSalesNotes').val()   ) )  ) {
+            //if ($('#txtSalesNotes')[0].value.length == 0) {
                 $('#btnSubmit').hide();
                 return;                
             }

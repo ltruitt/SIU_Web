@@ -5,7 +5,7 @@
     
     <link href="/Phone/Styles/ELO.css" rel="stylesheet"  type="text/css" />
     <link href="/Phone/Styles/TimeEntry.css" rel="stylesheet"  type="text/css" />
-    <script type="text/javascript" src="/Scripts/TimeEntry.js"></script>     
+    <script type="text/javascript" src="/Scripts/TimeEntry.js?0000"></script>     
     
 </asp:Content>
 
@@ -40,31 +40,32 @@
                             <a href="/ELO/TimeRpt.aspx" style="color:white; font-weight: bold;">Rejected</a>
                         </span>
                         <span ID="imgReport" runat="server"  style="float: right; margin-right: 21px; "  >
-                            <a href="/Phone/ELO/TimeRpt.aspx" style="color:white; font-weight: bold;">Report</a>
+                            <a href="/Phone/ELO/TimeRpt.aspx" style="color:aqua; font-style: italic; text-decoration: underline !important;  font-weight: bold;">Report</a>
                         </span>
                     </div>
                     <div style="height: 45px;"></div>
                     
+                    <div id="AccruDiv">
+                        <span class="VHcss" style="margin-left: -5px;"  >Vac:
+                            <span style="float: right; margin-left: 7px; "  runat="server" ID="lblVac" ></span>
+                        </span>
 
-                    <span class="VHcss" style="margin-left: -5px;"  >Vac:
-                        <span style="float: right; margin-left: 7px; "  runat="server" ID="lblVac" ></span>
-                    </span>
-
-                    <span class="VHcss" style="margin-left: -5px;"  >Per:
-                        <span style="float: right; margin-left: 7px; "  runat="server" ID="lblHol" ></span>
-                    </span>
+                        <span class="VHcss" style="margin-left: -5px;"  >Per:
+                            <span style="float: right; margin-left: 7px; "  runat="server" ID="lblHol" ></span>
+                        </span>
                     
-                    <span class="VHcss" style="margin-left: -5px;  display: none;">Sick:
-                        <span style="float: right; margin-left: 7px;"  runat="server" ID="lblSick" ></span>
-                    </span>
+                        <span class="VHcss" style="margin-left: -5px;  display: none;">Sick:
+                            <span style="float: right; margin-left: 7px;"  runat="server" ID="lblSick" ></span>
+                        </span>
+                    </div>
                 </div>
 
 
                 <p style="height: 10px;"></p> 
 
+                <div id="TimeAck" style="height: 30px; margin-top: -10px; color:red; margin-left: -15px; "></div>  
 
                 <!-- Date For Time Being Entered -->
-		            
 
                 <div class="TimeRow">
                     
@@ -109,6 +110,7 @@
                      </div>
                  </div>
                 <div style="clear: both;"></div>
+                
                 
                 
                 <!-- Job Charge DD -->
@@ -265,7 +267,7 @@
                         <input type="button" ID="btnSubmit" value="Submit" Class="SearchBtnCSS" />
                     </div>
                     
-                    <div style="float: left;  width: 35%; margin: 0; padding: 0; text-align: center; line-height: 14px;">
+                    <div id="WeekSumDiv" style="float: left;  width: 35%; margin: 0; padding: 0; text-align: center; line-height: 14px;">
                         <span style="font-size: .9em;">Today:</span>
                         <span id="lblHoursThisDay" style="font-size: 1.1em; float: right;"></span>
                         <br/>

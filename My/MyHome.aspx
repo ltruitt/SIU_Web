@@ -378,13 +378,13 @@
                         </a>
                     </li>
                     
-                    <li class="l8" id="liMissedMeetings">
+<%--                    <li class="l8" id="liMissedMeetings">
                         <a href="/My/MissedSafetyMeetings.aspx" ID="A12"  runat="server">
                             You Missed 
                             <span id="MissedMeetings"  runat="server"/> 
                             Safety Meetings
                         </a>
-                    </li>
+                    </li>--%>
                 
                     <li class="l8" id="liVehicleMileageReported">
                         <a href="/ELO/VehMileage.aspx" ID="A10"  runat="server">

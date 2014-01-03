@@ -80,43 +80,21 @@ public partial class _Default : System.Web.UI.Page
     }
 
 
-
-    protected void btn_SSL_Click(object sender, EventArgs e)
+    protected void TestEmailCeClick(object sender, EventArgs e)
     {
-        SLDocument sl = new SLDocument();
+        const string eMailSubject = "Unresolved Vehicle Inspections.";
+        WebMail.HtmlMail("cearp@shermco.com", eMailSubject, BusinessLayer.GenFleetInspRpt("70"));
+    }
 
-        sl.SetCellValue("C2", "Apple");
-        sl.SetCellValue("D2", "Banana");
-        sl.SetCellValue("E2", "Cherry");
-        sl.SetCellValue("F2", "Durian");
-        sl.SetCellValue("G2", "Elderberry");
-        sl.SetCellValue("B3", "North");
-        sl.SetCellValue("B4", "South");
-        sl.SetCellValue("B5", "East");
-        sl.SetCellValue("B6", "West");
+    protected void TestEmailMpClick(object sender, EventArgs e)
+    {
+        const string eMailSubject = "Unresolved Vehicle Inspections.";
+        WebMail.HtmlMail("mpustejovsky@shermco.com", eMailSubject, BusinessLayer.GenFleetInspRpt("80"));
+    }
 
-        Random rand = new Random();
-        for (int i = 3; i <= 6; ++i)
-        {
-            for (int j = 3; j <= 7; ++j)
-            {
-                sl.SetCellValue(i, j, 9000 * rand.NextDouble() + 1000);
-            }
-        }
-
-        SLChart chart;
-
-        chart = sl.CreateChart("B2", "G6");
-        chart.SetChartType(SLBarChartType.ClusteredBar);
-        // the chartsheet name should not clash with any existing sheet names
-        // including worksheet names.
-        sl.InsertChart(chart, "Chart1");
-
-        Response.Clear();
-        Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-        Response.AddHeader("Content-Disposition", "attachment; filename=WebStreamDownload.xlsx");
-        sl.SaveAs(Response.OutputStream);
-        Response.End();
-
+    protected void TestEmailBbClick(object sender, EventArgs e)
+    {
+        const string eMailSubject = "Unresolved Vehicle Inspections.";
+        WebMail.HtmlMail("bborowczak@shermco.com", eMailSubject, BusinessLayer.GenFleetInspRpt(""));
     }
 }
