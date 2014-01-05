@@ -1246,16 +1246,6 @@
       <Column Name="CertLineNo" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </Type>
   </Table>
-  <Table Name="dbo.SIU_Safety_MoQ" Member="SIU_Safety_MoQs">
-    <Type Name="SIU_Safety_MoQ">
-      <Column Name="Q_Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="StartDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="EndDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="Question" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
-      <Column Name="QuestionFile" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
-      <Column Name="QuestionGroup" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.SIU_SafetyPaysReport" Member="SIU_SafetyPaysReports">
     <Type Name="SIU_SafetyPaysReport">
       <Column Name="IncidentNo" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -1609,6 +1599,17 @@
       <Column Name="OSHA_RIR_NAT_AVG" Type="System.Double" DbType="Float" CanBeNull="true" />
       <Column Name="OSHA_LRIR_NAT_AVG" Type="System.Double" DbType="Float" CanBeNull="true" />
       <Column Name="OSHA_DART_NAT_AVG" Type="System.Double" DbType="Float" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SIU_Safety_MoQ" Member="SIU_Safety_MoQs">
+    <Type Name="SIU_Safety_MoQ">
+      <Column Name="Q_Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StartDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="EndDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Question" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="QuestionFile" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="QuestionGroup" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="QuestionAns" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
     </Type>
   </Table>
   <Function Name="dbo.SIU_ELO_GetBalance" Method="SIU_ELO_GetBalance">

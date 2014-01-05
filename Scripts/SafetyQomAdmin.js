@@ -107,6 +107,7 @@
                     $('#txtGroup').val(record.QuestionGroup);
                     $('#lblFile')[0].innerHTML = record.QuestionFile;
                     $('#txtQContent').val(record.Question);
+                    $('#txtQAns').val(record.QuestionAns);
                     $('#ContentTypeBlock').hide();
                     $('#btnUpload').hide();
                     $('#FileBlock').hide();
@@ -118,6 +119,7 @@
                     } else {
                         $('#FileBlock').show('slow');
                     }
+                    $('#AnsBlock').show('slow');
                 });
                 
                 validate();
@@ -179,6 +181,7 @@
             $('#ContentTypeBlock').hide();
             $('#FileBlock').hide();
             $('#TextBlock').hide();
+            $('#AnsBlock').hide();
             hasError = 1;
         } else {
             $('#ContentTypeBlock').show();
@@ -191,8 +194,6 @@
         if ($('#txtFile').val().length == 0 && $('#txtQContent').val().length == 0 && $('#lblFile')[0].innerHTML.length == 0) {
             $('#btnSubmit').hide();
             hasError = 1;
-            
-            
         }
 
         return hasError;
@@ -210,6 +211,7 @@
         $('#txtFile').hide();
         $('#btnUpload').show();
         $('#UploadStats').hide();
+        $('#AnsBlock').show();
     });
 
 
@@ -226,6 +228,7 @@
         $('#ContentTypeBlock').show();
         $('#FileBlock').hide();
         $('#TextBlock').hide();
+        $('#AnsBlock').hide();
         $('#txtFile').show();
         $('#UploadStats').hide();
         $('#lblFile').hide();
@@ -237,6 +240,7 @@
         $('#txtGroup').val('');
         $('#txtFile').val('');
         $('#txtQContent').val('');
+        $('#txtQAns').val('');
         $('#lblFile')[0].innerHTML = "";
 
         validate();
@@ -258,9 +262,10 @@
         recordQomCall.add('_dept', $('#txtGroup').val() );
         recordQomCall.add('_start', $('#StartDate').val() );
         recordQomCall.add('_end', $('#EndDate').val() );
-        recordQomCall.add('_text', $('#txtQContent').val() );
+        recordQomCall.add('_text', encodeURIComponent($('#txtQContent').val()));
         recordQomCall.add('_file', encodeURIComponent( filename ) );
-
+        recordQomCall.add('_ans', encodeURIComponent($('#txtQAns').val()));
+        
         recordQomCall.exec("/SIU_DAO.asmx/RecordSafetyQomQuestion", recordQomSuccess);
         $('#btnSubmit').hide();
     });
@@ -281,12 +286,14 @@
         $('#FileBlock').show('slow');
         //$('#txtFile').val('');
         $('#TextBlock').hide();
+        $('#AnsBlock').hide();
         //$('#ContentTypeBlock').hide();
         $('#btnUpload').hide();
     });
 
     $('#btnText').click(function () {
         $('#TextBlock').show('slow');
+        $('#AnsBlock').show('slow');
         $('#FileBlock').hide();
         //$('#txtQContent').val('');
         //$('#ContentTypeBlock').hide();

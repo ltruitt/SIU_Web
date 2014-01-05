@@ -12,7 +12,7 @@
     <script type="text/javascript" src="/Scripts/jtable.2.2.1/jquery.jtable.js">                             </script>        
     <script type="text/javascript" src="/Scripts/jtable.2.2.1/extensions/jquery.jtable.aspnetpagemethods.js"></script> 
     
-    <script type="text/javascript" src="/Scripts/SafetyQomAdmin.js"></script>  
+    <script type="text/javascript" src="/Scripts/SafetyQomAdmin.js?0000"></script>  
     <link rel="stylesheet" type="text/css" media="screen" href="/Styles/SafetyQomAdmin.css" />
     
     <link href="/styles/upload.css" rel="stylesheet" type="text/css" />
@@ -126,9 +126,12 @@
 
                     <div id="TextBlock" style="font-size: 1.2em; font-weight: bold; display: inline-block; width: 100%;">
                         <div style="float: left; width: 300px;">Simple Question Text</div>
-                        <textarea id="txtQContent" Class="DataInputCss DateEntryCss"  style="width: 95%; height: 200px;"> </textarea>
+                        <textarea id="txtQContent" Class="DataInputCss DateEntryCss"  style="width: 95%; height: 100px;"> </textarea>
                     </div>
-                    
+                    <div id="AnsBlock" style="font-size: 1.2em; font-weight: bold; display: inline-block; width: 100%;">
+                        <div style="float: left; margin-top: 5px; width: 300px;">Answer Presented After End Date</div>
+                        <textarea id="txtQAns" Class="DataInputCss DateEntryCss"  style="width: 95%; height: 100px;"> </textarea>
+                    </div>
                 </div>
 
                 <%--------------------%>                    

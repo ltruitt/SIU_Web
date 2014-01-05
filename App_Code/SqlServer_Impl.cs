@@ -2037,12 +2037,30 @@ public class SiuDao : WebService
         }
     }
 
+    [WebMethod(EnableSession = true)]
+    public string GetSafetyQomQHList(string Eid)
+    {
+        ////////////////////////////////
+        // Build Response Data Object //
+        ////////////////////////////////
+        JavaScriptSerializer serializer = new JavaScriptSerializer();
+        try
+        {
+            List<SIU_Qom_QR> jasonResp = SqlServer_Impl.GetSafetyQomQHList(Eid);
+            return serializer.Serialize(new { Result = "OK", Records = jasonResp });
+        }
+        catch (Exception ex)
+        {
+            SqlServer_Impl.LogDebug("SiuDao.GetSafetyQomQHList", ex.Message);
+            return serializer.Serialize(new { Result = "ERROR", ex.Message });
+        }
+    }
 
 
 
 
     [WebMethod(EnableSession = true)]
-    public object RecordSafetyQomQuestion(string _UID, string _dept, string _start, string _end, string _text, string _file)
+    public object RecordSafetyQomQuestion(string _UID, string _dept, string _start, string _end, string _text, string _file, string _ans)
     {
         try
         {
@@ -2051,9 +2069,10 @@ public class SiuDao : WebService
                 QuestionGroup = _dept,
                 StartDate =  DateTime.Parse(_start),
                 EndDate = DateTime.Parse(_end),
-                Question = _text,
+                Question = Server.UrlDecode(_text),
                 QuestionFile = Server.UrlDecode(_file),
-                Q_Id = int.Parse(_UID)
+                Q_Id = int.Parse(_UID),
+                QuestionAns = Server.UrlDecode(_ans)
             };
             int rId = SqlServer_Impl.RecordSafetyQomQuestion(moQ);
             return new { Result = "OK", Record = rId };
@@ -7313,7 +7332,7 @@ public class SqlServer_Impl : WebService
         DateTime periodEnd = DateTime.Now.AddDays(1);
 
         return (from qomList in nvDb.SIU_Safety_MoQs
-                where qomList.EndDate <= periodEnd
+                where qomList.EndDate >= periodEnd
                 select qomList
                ).ToList();        
     }
@@ -7326,7 +7345,15 @@ public class SqlServer_Impl : WebService
     {
         SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
 
-        DateTime periodStart = DateTime.Now.AddDays(-1);
+        DateTime periodEnd = DateTime.Now;
+
+        ///////////////////////////
+        // Check For Admin Priv. //
+        ///////////////////////////
+        StringCollection sessionVar = (StringCollection)HttpContext.Current.Session["UserGroups"];
+        if (sessionVar != null)
+            if (sessionVar.Contains("ShermcoYou_Safety_Pays") || sessionVar.Contains("EHS_TEST"))
+                periodEnd = DateTime.Now.AddDays(-30);
 
         var responses =
             from respData in nvDb.SIU_SafetyPaysReports
@@ -7337,7 +7364,29 @@ public class SqlServer_Impl : WebService
             from qomQ in nvDb.SIU_Safety_MoQs
             join empRespData in responses on qomQ.Q_Id equals empRespData.QOM_ID into oj
             from joinedData in oj.DefaultIfEmpty()
-            where qomQ.StartDate <= DateTime.Now && qomQ.EndDate.AddDays(1) >= DateTime.Now
+            where qomQ.StartDate <= DateTime.Now && qomQ.EndDate.AddDays(1) >= periodEnd
+            join spp in nvDb.SIU_SafetyPays_Points on joinedData.IncidentNo equals spp.SPR_UID into oj2
+            from allData in oj2.DefaultIfEmpty()
+            select new SIU_Qom_QR(qomQ, joinedData, allData);
+
+        return questionResponse.ToList();
+    }
+    public static List<SIU_Qom_QR> GetSafetyQomQHList(string Eid)
+    {
+        SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
+
+        DateTime periodEnd = DateTime.Now.AddDays(-180);
+
+        var responses =
+            from respData in nvDb.SIU_SafetyPaysReports
+            where respData.EmpID == BusinessLayer.UserEmpID && respData.IncTypeTxt.Contains("QOM")
+            select respData;
+
+        var questionResponse =
+            from qomQ in nvDb.SIU_Safety_MoQs
+            join empRespData in responses on qomQ.Q_Id equals empRespData.QOM_ID into oj
+            from joinedData in oj.DefaultIfEmpty()
+            where qomQ.StartDate <= DateTime.Now && qomQ.EndDate.AddDays(1) >= periodEnd
             join spp in nvDb.SIU_SafetyPays_Points on joinedData.IncidentNo equals spp.SPR_UID into oj2
             from allData in oj2.DefaultIfEmpty()
             select new SIU_Qom_QR(qomQ, joinedData, allData);

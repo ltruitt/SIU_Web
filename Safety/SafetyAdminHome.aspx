@@ -37,10 +37,13 @@
 
         <!-- Admin Tasks -->
         <div id="SafetyAdmin" class="AdminMenu"  style="background-color: white; margin-top: 0; ">
-            
-            <div class="ui-widget-header ui-corner-all" >
-                <div  style="text-align: center; font-size: 2em;">Safety Administration</div>
-            </div>      
+                 
+            <section class="ui-widget-header ui-corner-all" style="height: 45px; width: 99%; margin-top: 10px; margin-bottom: 30px;" >
+                <a href="/Safety/SafetyHome.aspx" style="text-decoration: none;">
+                    <div  style="text-decoration: underline; font-style: italic; text-align: center; font-size: .9em; float: left; margin-left: 3px;">back</div>
+                    <div  style="text-align: center; font-size: 2em; width: 100%;  position:relative; margin-left: auto; margin-right: auto; margin-top: 7px;">Environmental Health and Safety Administration</div>
+                </a>
+            </section> 
                
 
                                                         

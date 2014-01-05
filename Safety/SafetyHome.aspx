@@ -50,12 +50,12 @@
 				    </li>
                     
 				    <!--  Recorded Safety Meeting Link -->
-				    <li>
+<%--				    <li>
 					    <a href="/Library/LibVideoPane.aspx?VR=/Videos&Path=Safety" >
 						    <img  alt="Previous Safety Meeting" src="/Images/icon-MeetingPrevious.png" style="height: 57px; width: 57px"/>
                                     <br/>Recorded Meetings
 					    </a>  
-				    </li>
+				    </li>--%>
                     
 				    <!--  Safety Blogs -->
 				    <li style="padding-top: 20px;">
@@ -80,7 +80,7 @@
             
             <section class="ui-widget-header ui-corner-all" style="height: 45px; width: 99%; margin-top: 10px; margin-bottom: 30px;" >
                 <a href="/HomePage.aspx" style="text-decoration: none;">
-                    <span style="position: relative; left: 3px; vertical-align: top; font-size: .8em; line-height: 10px;">Home</span>
+                    <span style="text-decoration: underline;  font-style:italic;   position: relative; left: 3px; vertical-align: top; font-size: .8em; line-height: 10px;">Home</span>
                     <div  style="text-align: center; font-size: 2em; width: 100%;  position:relative; margin-left: auto; margin-right: auto;margin-top: -10px;">Environmental Health and Safety</div>
                 </a>
             </section> 
@@ -166,6 +166,7 @@
                                 <img src="/Images/QOM.png" style="width: 110px; height: 100px;  padding-bottom: 8px; margin-top: 0;" alt="QOM">
                                 <div style="font-size: .8em; float: left; font-weight: bold;  width: 100%; width: 100%;  text-decoration: underline; margin-bottom: 5px; ">Submit Response</div>
                             </a>
+                            <a href="/Safety/SafetyPays/SafetyQomHistory.aspx" style="font-size: .8em; float: left; font-weight: bold;  width: 100%; width: 100%;  text-decoration: underline !important; margin-bottom: 5px;">Previous Submissions</a>
 
                             <div style="clear: both;"></div>
                     </li>

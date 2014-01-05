@@ -1,7 +1,7 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteMaster2.master" AutoEventWireup="true" CodeFile="SafetyQomUser.aspx.cs" Inherits="Safety_SafetyPays_SafetyQomUser" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteMaster2.master" AutoEventWireup="true" CodeFile="SafetyQomHistory.aspx.cs" Inherits="Safety_SafetyPays_SafetyQomHistory" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
-    <title>Question of the Month</title>
+    <title>Question of the Month History</title>
     <link rel="stylesheet" type="text/css" media="screen" href="/Styles/DeskTop-Forms.css" />
     
     <!-- Include one of jTable styles. -->
@@ -11,15 +11,12 @@
     <script type="text/javascript" src="/Scripts/jtable.2.2.1/jquery.jtable.js">                             </script>        
     <script type="text/javascript" src="/Scripts/jtable.2.2.1/extensions/jquery.jtable.aspnetpagemethods.js"></script> 
 
-    <script type="text/javascript" src="/Scripts/SafetyQomUser.js?0000"></script>  
-    <link rel="stylesheet" type="text/css" media="screen" href="/Styles/SafetyQomUser.css" />
-      
+    <script type="text/javascript" src="/Scripts/SafetyQomHistory.js"></script>  
+    <link rel="stylesheet" type="text/css" media="screen" href="/Styles/SafetyQomUser.css" />    
 </asp:Content>
 
-
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
-    
- <div id="FormWrapper" class="ui-widget ui-form">
+<div id="FormWrapper" class="ui-widget ui-form">
                     
         <section style="visibility: hidden; height: 0; width: 0;">
             <span id="hlblEID" runat="server"></span>
@@ -49,61 +46,49 @@
                     <label style="float: none; padding: 0; width:auto; margin-top: -20px;"   ID="Label1" runat="server"></label>
                         
                     <span ID="Span1"   style="float: right; margin-right: 31px; "  >
-                        <a href="/Safety/SafetyPays/SafetyQomHistory.aspx" style="color:aqua; font-style: italic; text-decoration: underline !important; font-weight: bold;">Previous Submissions</a>
+                        <a href="/Safety/SafetyPays/SafetyQomUser.aspx" style="color:aqua; font-style: italic; text-decoration: underline !important; font-weight: bold;">Active Questions</a>
                     </span>
                 </div>
-
-                <div id="SuprArea" style="margin-top: 20px; margin-bottom: 20px; display:inline-block; position: absolute; left: 20px;" runat="server"  >
-                    <div style="float:left; margin-right: 20px; font-size: 1.3em; width: auto;  font-weight: bold; display:inline">Select Employee:</div>
-                    <input ID="ddEmpIds" class="DataInputCss" runat="server"   style="width: 400px;  background-color:yellow; border-color: black;" />         
-                </div>
-                
-
-
             </div>
             
             <div style="height: 40px;">
                 <span  id="lblErrServer" Class="errorTextCss"  ></span>
             </div>
-                        
-            <div id="container" class="holder">
-                
-                <div id="column-one" class="even-height">
-                    <div id="jTableQomList" style="margin-bottom: 40px;"></div>
-                </div>
-                <div id="column-two" class="even-height">
-                    
-                    <div class="QomQDiv">
-                        <h2 style="text-decoration: underline;">Answer the Following Question</h2>
-                        <label id="QomQ"></label>
-                    </div>
-                </div>
+                                        
+            <div id="column-one" class="even-height">
+                <div id="jTableQomList" style="margin-bottom: 40px;"></div>
             </div>
-            
+                    
             <div style="clear: both;"></div>
             
+
             <div id="DivResponse" style="margin-left: -10px; margin-top: 10px; font-size: 1.2em;">
-                <%--------------------%>                    
-                <%-- Submit Buttons --%>                    
-                <%--------------------%>
-                <div style="margin-top: -30px; margin-left: 10px;">
-                    <input type="button" ID="btnSubmit" value="Submit" Class="SearchBtnCSS" style="margin-top: 15px; margin-right: 15px;" />
-                    <h3 style="color: antiquewhite;  margin-bottom: 0; float: left;">Your Response......</h3>
-                </div>
                 
-                <textarea id="txtResponse" Class="QomRDiv"  style="width: 98%; height: 200px; margin: 0;"></textarea>
-                <label id="QomR">
-                    
-                </label>
+                <div style="margin-top: -30px; margin-left: 10px;">
+                    <h3 style="color: antiquewhite;  margin-bottom: 0; float: left;">The Question......</h3>
+                    <div id="QomQ" Class="QomRDiv"  style="width: 98%; margin: 0;"></div>
+                </div>
+
+                <div style="margin-top: -30px; margin-left: 10px;">
+                    <h3 style="color: antiquewhite;  margin-bottom: 0; float: left;">Your Response......</h3>
+                    <div id="QomA" Class="QomRDiv"  style="width: 98%; margin: 0;"></div>
+                </div>                
+
+                <div style="margin-top: -30px; margin-left: 10px;">
+                    <h3 style="color: antiquewhite;  margin-bottom: 0; float: left;">Expected Answer......</h3>
+                    <div id="Q_Ans" Class="QomRDiv"  style="width: 98%; margin: 0;"></div>
+                </div>                
+
+                <div style="margin-top: -30px; margin-left: 10px;">
+                    <h3 style="color: antiquewhite;  margin-bottom: 0; float: left;">EHS Response......</h3>
+                    <div id="QomE" Class="QomRDiv"  style="width: 98%; margin: 0;"></div>
+                </div>  
+                                
             </div>
-            
-            <div>
-                <label id="ehsResponse" style="margin-top: 10px; color: antiquewhite; margin-left: 0; font-size: 1.2em; font-weight: bold;">
-                </label>
-            </div>
+
 
             <div style="clear: both;"></div>
         </section>
-    </div>
+    </div>    
 </asp:Content>
 

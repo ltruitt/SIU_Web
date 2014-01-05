@@ -241,6 +241,7 @@ namespace ShermcoYou.DataTypes
         public string Q_Grp = "";
         public string Status = "No Response";
         public string Points = "";
+        public string Q_Ans;
 
         private static readonly string RootFilesPath = HttpContext.Current.Server.MapPath("/Files");
 
@@ -254,6 +255,11 @@ namespace ShermcoYou.DataTypes
             StartDate = Q.StartDate;
             EndDate = Q.EndDate;
             Q_Grp = Q.QuestionGroup;
+
+            Q_Ans = "";
+            if ( Q.EndDate > DateTime.Now )
+                Q_Ans = Q.QuestionAns;
+            
             if ( Q.Question != null )
                 Question = Q.Question + Environment.NewLine;
             if (  Q.QuestionFile != null )

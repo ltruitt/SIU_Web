@@ -137,9 +137,6 @@ public partial class SIU_ORM_LINQDataContext : System.Data.Linq.DataContext
   partial void InsertSIU_Training_Attendance_h(SIU_Training_Attendance_h instance);
   partial void UpdateSIU_Training_Attendance_h(SIU_Training_Attendance_h instance);
   partial void DeleteSIU_Training_Attendance_h(SIU_Training_Attendance_h instance);
-  partial void InsertSIU_Safety_MoQ(SIU_Safety_MoQ instance);
-  partial void UpdateSIU_Safety_MoQ(SIU_Safety_MoQ instance);
-  partial void DeleteSIU_Safety_MoQ(SIU_Safety_MoQ instance);
   partial void InsertSIU_SafetyPaysReport(SIU_SafetyPaysReport instance);
   partial void UpdateSIU_SafetyPaysReport(SIU_SafetyPaysReport instance);
   partial void DeleteSIU_SafetyPaysReport(SIU_SafetyPaysReport instance);
@@ -164,6 +161,9 @@ public partial class SIU_ORM_LINQDataContext : System.Data.Linq.DataContext
   partial void InsertSIU_ReportingChain(SIU_ReportingChain instance);
   partial void UpdateSIU_ReportingChain(SIU_ReportingChain instance);
   partial void DeleteSIU_ReportingChain(SIU_ReportingChain instance);
+  partial void InsertSIU_Safety_MoQ(SIU_Safety_MoQ instance);
+  partial void UpdateSIU_Safety_MoQ(SIU_Safety_MoQ instance);
+  partial void DeleteSIU_Safety_MoQ(SIU_Safety_MoQ instance);
   #endregion
 	
 	public SIU_ORM_LINQDataContext() : 
@@ -524,14 +524,6 @@ public partial class SIU_ORM_LINQDataContext : System.Data.Linq.DataContext
 		}
 	}
 	
-	public System.Data.Linq.Table<SIU_Safety_MoQ> SIU_Safety_MoQs
-	{
-		get
-		{
-			return this.GetTable<SIU_Safety_MoQ>();
-		}
-	}
-	
 	public System.Data.Linq.Table<SIU_SafetyPaysReport> SIU_SafetyPaysReports
 	{
 		get
@@ -593,6 +585,14 @@ public partial class SIU_ORM_LINQDataContext : System.Data.Linq.DataContext
 		get
 		{
 			return this.GetTable<SIU_ReportingChain>();
+		}
+	}
+	
+	public System.Data.Linq.Table<SIU_Safety_MoQ> SIU_Safety_MoQs
+	{
+		get
+		{
+			return this.GetTable<SIU_Safety_MoQ>();
 		}
 	}
 	
@@ -27734,188 +27734,6 @@ public partial class SIU_Training_Attendance_h : INotifyPropertyChanging, INotif
 	}
 }
 
-[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SIU_Safety_MoQ")]
-public partial class SIU_Safety_MoQ : INotifyPropertyChanging, INotifyPropertyChanged
-{
-	
-	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-	
-	private int _Q_Id;
-	
-	private System.DateTime _StartDate;
-	
-	private System.DateTime _EndDate;
-	
-	private string _Question;
-	
-	private string _QuestionFile;
-	
-	private string _QuestionGroup;
-	
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnQ_IdChanging(int value);
-    partial void OnQ_IdChanged();
-    partial void OnStartDateChanging(System.DateTime value);
-    partial void OnStartDateChanged();
-    partial void OnEndDateChanging(System.DateTime value);
-    partial void OnEndDateChanged();
-    partial void OnQuestionChanging(string value);
-    partial void OnQuestionChanged();
-    partial void OnQuestionFileChanging(string value);
-    partial void OnQuestionFileChanged();
-    partial void OnQuestionGroupChanging(string value);
-    partial void OnQuestionGroupChanged();
-    #endregion
-	
-	public SIU_Safety_MoQ()
-	{
-		OnCreated();
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Q_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-	public int Q_Id
-	{
-		get
-		{
-			return this._Q_Id;
-		}
-		set
-		{
-			if ((this._Q_Id != value))
-			{
-				this.OnQ_IdChanging(value);
-				this.SendPropertyChanging();
-				this._Q_Id = value;
-				this.SendPropertyChanged("Q_Id");
-				this.OnQ_IdChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StartDate", DbType="DateTime NOT NULL")]
-	public System.DateTime StartDate
-	{
-		get
-		{
-			return this._StartDate;
-		}
-		set
-		{
-			if ((this._StartDate != value))
-			{
-				this.OnStartDateChanging(value);
-				this.SendPropertyChanging();
-				this._StartDate = value;
-				this.SendPropertyChanged("StartDate");
-				this.OnStartDateChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EndDate", DbType="DateTime NOT NULL")]
-	public System.DateTime EndDate
-	{
-		get
-		{
-			return this._EndDate;
-		}
-		set
-		{
-			if ((this._EndDate != value))
-			{
-				this.OnEndDateChanging(value);
-				this.SendPropertyChanging();
-				this._EndDate = value;
-				this.SendPropertyChanged("EndDate");
-				this.OnEndDateChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Question", DbType="VarChar(MAX) NOT NULL", CanBeNull=false)]
-	public string Question
-	{
-		get
-		{
-			return this._Question;
-		}
-		set
-		{
-			if ((this._Question != value))
-			{
-				this.OnQuestionChanging(value);
-				this.SendPropertyChanging();
-				this._Question = value;
-				this.SendPropertyChanged("Question");
-				this.OnQuestionChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QuestionFile", DbType="VarChar(150)")]
-	public string QuestionFile
-	{
-		get
-		{
-			return this._QuestionFile;
-		}
-		set
-		{
-			if ((this._QuestionFile != value))
-			{
-				this.OnQuestionFileChanging(value);
-				this.SendPropertyChanging();
-				this._QuestionFile = value;
-				this.SendPropertyChanged("QuestionFile");
-				this.OnQuestionFileChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QuestionGroup", DbType="VarChar(50)")]
-	public string QuestionGroup
-	{
-		get
-		{
-			return this._QuestionGroup;
-		}
-		set
-		{
-			if ((this._QuestionGroup != value))
-			{
-				this.OnQuestionGroupChanging(value);
-				this.SendPropertyChanging();
-				this._QuestionGroup = value;
-				this.SendPropertyChanged("QuestionGroup");
-				this.OnQuestionGroupChanged();
-			}
-		}
-	}
-	
-	public event PropertyChangingEventHandler PropertyChanging;
-	
-	public event PropertyChangedEventHandler PropertyChanged;
-	
-	protected virtual void SendPropertyChanging()
-	{
-		if ((this.PropertyChanging != null))
-		{
-			this.PropertyChanging(this, emptyChangingEventArgs);
-		}
-	}
-	
-	protected virtual void SendPropertyChanged(String propertyName)
-	{
-		if ((this.PropertyChanged != null))
-		{
-			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-		}
-	}
-}
-
 [global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SIU_SafetyPaysReport")]
 public partial class SIU_SafetyPaysReport : INotifyPropertyChanging, INotifyPropertyChanged
 {
@@ -35947,6 +35765,212 @@ public partial class SIU_ReportingChain : INotifyPropertyChanging, INotifyProper
 				this._OSHA_DART_NAT_AVG = value;
 				this.SendPropertyChanged("OSHA_DART_NAT_AVG");
 				this.OnOSHA_DART_NAT_AVGChanged();
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+}
+
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SIU_Safety_MoQ")]
+public partial class SIU_Safety_MoQ : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _Q_Id;
+	
+	private System.DateTime _StartDate;
+	
+	private System.DateTime _EndDate;
+	
+	private string _Question;
+	
+	private string _QuestionFile;
+	
+	private string _QuestionGroup;
+	
+	private string _QuestionAns;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnQ_IdChanging(int value);
+    partial void OnQ_IdChanged();
+    partial void OnStartDateChanging(System.DateTime value);
+    partial void OnStartDateChanged();
+    partial void OnEndDateChanging(System.DateTime value);
+    partial void OnEndDateChanged();
+    partial void OnQuestionChanging(string value);
+    partial void OnQuestionChanged();
+    partial void OnQuestionFileChanging(string value);
+    partial void OnQuestionFileChanged();
+    partial void OnQuestionGroupChanging(string value);
+    partial void OnQuestionGroupChanged();
+    partial void OnQuestionAnsChanging(string value);
+    partial void OnQuestionAnsChanged();
+    #endregion
+	
+	public SIU_Safety_MoQ()
+	{
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Q_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int Q_Id
+	{
+		get
+		{
+			return this._Q_Id;
+		}
+		set
+		{
+			if ((this._Q_Id != value))
+			{
+				this.OnQ_IdChanging(value);
+				this.SendPropertyChanging();
+				this._Q_Id = value;
+				this.SendPropertyChanged("Q_Id");
+				this.OnQ_IdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StartDate", DbType="DateTime NOT NULL")]
+	public System.DateTime StartDate
+	{
+		get
+		{
+			return this._StartDate;
+		}
+		set
+		{
+			if ((this._StartDate != value))
+			{
+				this.OnStartDateChanging(value);
+				this.SendPropertyChanging();
+				this._StartDate = value;
+				this.SendPropertyChanged("StartDate");
+				this.OnStartDateChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EndDate", DbType="DateTime NOT NULL")]
+	public System.DateTime EndDate
+	{
+		get
+		{
+			return this._EndDate;
+		}
+		set
+		{
+			if ((this._EndDate != value))
+			{
+				this.OnEndDateChanging(value);
+				this.SendPropertyChanging();
+				this._EndDate = value;
+				this.SendPropertyChanged("EndDate");
+				this.OnEndDateChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Question", DbType="VarChar(MAX) NOT NULL", CanBeNull=false)]
+	public string Question
+	{
+		get
+		{
+			return this._Question;
+		}
+		set
+		{
+			if ((this._Question != value))
+			{
+				this.OnQuestionChanging(value);
+				this.SendPropertyChanging();
+				this._Question = value;
+				this.SendPropertyChanged("Question");
+				this.OnQuestionChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QuestionFile", DbType="VarChar(150)")]
+	public string QuestionFile
+	{
+		get
+		{
+			return this._QuestionFile;
+		}
+		set
+		{
+			if ((this._QuestionFile != value))
+			{
+				this.OnQuestionFileChanging(value);
+				this.SendPropertyChanging();
+				this._QuestionFile = value;
+				this.SendPropertyChanged("QuestionFile");
+				this.OnQuestionFileChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QuestionGroup", DbType="VarChar(50)")]
+	public string QuestionGroup
+	{
+		get
+		{
+			return this._QuestionGroup;
+		}
+		set
+		{
+			if ((this._QuestionGroup != value))
+			{
+				this.OnQuestionGroupChanging(value);
+				this.SendPropertyChanging();
+				this._QuestionGroup = value;
+				this.SendPropertyChanged("QuestionGroup");
+				this.OnQuestionGroupChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QuestionAns", DbType="VarChar(MAX)")]
+	public string QuestionAns
+	{
+		get
+		{
+			return this._QuestionAns;
+		}
+		set
+		{
+			if ((this._QuestionAns != value))
+			{
+				this.OnQuestionAnsChanging(value);
+				this.SendPropertyChanging();
+				this._QuestionAns = value;
+				this.SendPropertyChanged("QuestionAns");
+				this.OnQuestionAnsChanged();
 			}
 		}
 	}
