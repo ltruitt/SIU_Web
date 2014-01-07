@@ -42,7 +42,7 @@
     
 
 
-        <section style="visibility: hidden; height: 0px; width: 0px;">
+        <section style="visibility: hidden; height: 0; width: 0;">
             <span id="hlblEID"           runat="server"/> 
             <span ID="lblEmpName"        runat="server"/>
         </section>   

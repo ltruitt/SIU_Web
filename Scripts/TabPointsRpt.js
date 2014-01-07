@@ -16,7 +16,14 @@
 
     function defaultQuarter() {
         var d = new Date();
+        var thisQ = d.getMonth();
+        var thisY = d.getFullYear();
+
+        if (thisQ < 3)
+            thisY--;
+        
         var quarter = Math.floor((d.getMonth() / 3));
+        
         var firstDate = new Date(d.getFullYear(), quarter * 3, 1);
         $("#StartDate").datepicker("setDate", firstDate);
         $("#EndDate").datepicker("setDate", new Date(firstDate.getFullYear(), firstDate.getMonth() + 3, 0));
@@ -28,11 +35,19 @@
 
     function setQuarter(quarter) {
         var d = new Date();
+        var thisQ = d.getMonth();
+        var thisY = d.getFullYear();
+        
+        if (thisQ < 1)
+            thisY--;
+        
         quarter = quarter - 1;
 
-        var firstDate = new Date(d.getFullYear(), quarter * 3, 1);
+        //var firstDate = new Date(d.getFullYear(), quarter * 3, 1);
+        var firstDate = new Date(thisY, quarter * 3, 1);
         $("#StartDate").datepicker("setDate", firstDate);
-        $("#EndDate").datepicker("setDate", new Date(firstDate.getFullYear(), firstDate.getMonth() + 3, 0));
+        //$("#EndDate").datepicker("setDate", new Date(firstDate.getFullYear(), firstDate.getMonth() + 3, 0));
+        $("#EndDate").datepicker("setDate", new Date(thisY, firstDate.getMonth() + 3, 0));
     }
 
     $('#btnQ1').click(function () {
@@ -123,15 +138,20 @@
 
         mon = mon - 1;
 
-        if ($('#StartDate').val().length > 0 && $('#EndDate').val().length > 0) {
-            $('#StartDate').val('');
-            $('#EndDate').val('');
-        }
+        //if ($('#StartDate').val().length > 0 && $('#EndDate').val().length > 0) {
+        //    $('#StartDate').val('');
+        //    $('#EndDate').val('');
+        //}
 
         var d = new Date();
         var firstDate = new Date(d.getFullYear(), mon, 1);
         var lastDate = new Date(d.getFullYear(), mon + 1, 0);
 
+        $("#StartDate").datepicker("setDate", firstDate);
+        $("#EndDate").datepicker("setDate", lastDate);
+        lookUp();
+        return;
+        
         if ( $('#StartDate').val().length == 0 ) {
             $("#StartDate").datepicker("setDate", firstDate);
             lookUp();
@@ -383,54 +403,4 @@
 
     });
 
-
-
-
-
-
-
-    ///////////////////////////////////////////////////////////////
-    // Load List Of Employees So Supr Can Change Viewed Employee //
-    ///////////////////////////////////////////////////////////////
-    var listOfEmps = [];
-    function getEmpsSuccess(data) {
-        listOfEmps = data.d.split("\r");
-        $("#ddEmpIds").autocomplete({ source: listOfEmps },
-            {
-                matchContains: false,
-                minChars: 1,
-                autoFill: false,
-                mustMatch: false,
-                cacheLength: 20,
-                max: 20,
-                delay: 0,
-                select: function (event, ui) {
-                    var dataPieces = ui.item.value.split(' ');
-                    $('#hlblEID')[0].innerHTML = dataPieces[0];
-                    $("#ddEmpIds").autocomplete("close");
-                    $("#ddEmpIds").val(dataPieces[0] + ' ' + dataPieces[2] + ', ' + dataPieces[3]);
-
-                    $("#ExpTbl").setGridParam({ postData: { EmpID: dataPieces[0], T: timestamp.getTime() } }).trigger("reloadGrid", [{ page: 1 }]);
-                },
-                response: function (event, ui) {
-                    if (ui.content.length == 1) {
-                        var dataPieces = ui.content[0].value.split(' ');
-                        $('#hlblEID')[0].innerHTML = dataPieces[0];
-                        $("#ddEmpIds").autocomplete("close");
-                        $("#ddEmpIds").val(dataPieces[0] + ' ' + dataPieces[2] + ', ' + dataPieces[3]);
-
-                        $("#ExpTbl").setGridParam({ postData: { EmpID: dataPieces[0], T: timestamp.getTime() } }).trigger("reloadGrid", [{ page: 1 }]);
-                    }
-
-                    return ui;
-                }
-            });
-    }
-
-
-    // Load Emps AutoComplete List
-    if ($("#SuprArea").length > 0) {
-        var getEmpsCall = new AsyncServerMethod();
-        getEmpsCall.exec("/SIU_DAO.asmx/GetAutoCompleteActiveEmployees", getEmpsSuccess);
-    }
 });

@@ -497,7 +497,7 @@
     
     function getTimeJobs() {
         var getTimeJobsCall = new AsyncServerMethod();
-        getTimeJobsCall.exec("/SIU_DAO.asmx/GetTimeJobs", getTimeJobsSuccess);
+        getTimeJobsCall.exec("/SIU_DAO.asmx/Affe31", getTimeJobsSuccess);
     }
     getTimeJobs();
 
@@ -526,7 +526,7 @@
         
         var getTimeJobCall = new AsyncServerMethod();
         getTimeJobCall.add('jobNo', $('#ddJobNo').val());
-        getTimeJobCall.exec("/SIU_DAO.asmx/GetTimeJob", getTimeJobSuccess);
+        getTimeJobCall.exec("/SIU_DAO.asmx/Gffeop1", getTimeJobSuccess);
     }
 
 

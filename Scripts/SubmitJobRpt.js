@@ -145,7 +145,7 @@ $(document).ready(function () {
 
         var getTimeJobAjax = new AsyncServerMethod();
         getTimeJobAjax.add('jobNo', job);
-        getTimeJobAjax.exec("/SIU_DAO.asmx/GetTimeJob", getTimeJobSuccess, getTimeJobFailure);
+        getTimeJobAjax.exec("/SIU_DAO.asmx/Gffeop1", getTimeJobSuccess, getTimeJobFailure);
 
         var getSubmitJobReportByNoAjax = new AsyncServerMethod();
         getSubmitJobReportByNoAjax.add('jobNo', job);
@@ -608,15 +608,6 @@ $(document).ready(function () {
 
 
 
-    //$('input:checkbox').change(function () {
-    //    validate();
-    //});
-
-    //$('input:text').blur(function () {
-    //    validate();
-    //});
-
-
 
     ////////////////////////////
     // Submit Data Processing //
@@ -633,7 +624,7 @@ $(document).ready(function () {
         submitJobRptAjax.add('Complete', $('#chkComplete')[0].checked);
         submitJobRptAjax.add('Partial', $('#chkPartial')[0].checked);
         submitJobRptAjax.add('PE', $('#chkPe')[0].checked);
-        submitJobRptAjax.add('No_Report_Reason', $('#txtNoRpt')[0].value);
+        submitJobRptAjax.add('No_Report_Reason', encodeURIComponent($('#txtNoRpt').val()));
         submitJobRptAjax.add('comments', encodeURIComponent($('#txtComments').val()));
 
 
@@ -670,7 +661,7 @@ $(document).ready(function () {
         else
             submitJobRptAjax.add('Oil_Sample_Follow_UP', '0');
         
-        submitJobRptAjax.add('OtherText', $('#OtherData')[0].value);
+        submitJobRptAjax.add('OtherText', encodeURIComponent($('#OtherData').val()));
 
 
 
@@ -699,7 +690,7 @@ $(document).ready(function () {
         submitJobRptAjax.add('chkIrOnly', $('#chkIrOnly')[0].checked);
         submitJobRptAjax.add('chkIrPort', $('#chkIrPort')[0].checked);
         submitJobRptAjax.add('txtIrHardCnt', $('#txtIrHardCnt')[0].value);
-        submitJobRptAjax.add('txtAddEmail', $('#txtAddEmail')[0].value);
+        submitJobRptAjax.add('txtAddEmail', encodeURIComponent($('#txtAddEmail').val()));
         submitJobRptAjax.add('chkRptDrBox', $('#RptDrBoxY')[0].checked);
         
         submitJobRptAjax.add('chkRptDrBoxNo', $('#RptDrBoxN')[0].checked);
@@ -844,51 +835,6 @@ $(document).ready(function () {
     }
 
 
-
-    ///////////////////////////////////////////////////////////////
-    // Load List Of Employees So Supr Can Change Viewed Employee //
-    ///////////////////////////////////////////////////////////////
-    var listOfEmps = [];
-    function getEmpsSuccess(data) {
-        listOfEmps = data.d.split("\r");
-        $("#ddEmpIds").autocomplete({ source: listOfEmps },
-            {
-                matchContains: false,
-                minChars: 1,
-                autoFill: false,
-                mustMatch: false,
-                cacheLength: 20,
-                max: 20,
-                delay: 0,
-                select: function (event, ui) {
-                    var dataPieces = ui.item.value.split(' ');
-                    $('#hlblEID')[0].innerHTML = dataPieces[0];
-                    $("#ddEmpIds").autocomplete("close");
-                    $("#ddEmpIds").val(dataPieces[0] + ' ' + dataPieces[2] + ', ' + dataPieces[3]);
-
-                    showPastDue();
-                },
-                response: function (event, ui) {
-                    if (ui.content.length == 1) {
-                        var dataPieces = ui.content[0].value.split(' ');
-                        $('#hlblEID')[0].innerHTML = dataPieces[0];
-                        $("#ddEmpIds").autocomplete("close");
-                        $("#ddEmpIds").val(dataPieces[0] + ' ' + dataPieces[2] + ', ' + dataPieces[3]);
-
-                        showPastDue();
-                    }
-
-                    return ui;
-                }
-            });
-    }
-
-
-    // Load Emps AutoComplete List
-    //if ($("#SuprArea").length > 0) {
-    //    var getEmpsCall = new AsyncServerMethod();
-    //    getEmpsCall.exec("/SIU_DAO.asmx/GetAutoCompleteActiveEmployees", getEmpsSuccess);
-    //}
 
     // If A Job No Was Passed in, Go Get It
     var jobNo = $.fn.getURLParameter('Job');

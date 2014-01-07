@@ -37,7 +37,7 @@
 
     function GetTimeJobs() {
         var GetTimeJobsCall = new AsyncServerMethod();
-        GetTimeJobsCall.exec("/SIU_DAO.asmx/GetTimeJobs", GetTimeJobs_success);
+        GetTimeJobsCall.exec("/SIU_DAO.asmx/Affe31", GetTimeJobs_success);
     }
     GetTimeJobs();
 
@@ -68,7 +68,7 @@
     function GetJobDetails() {
         var GetTimeJobCall = new AsyncServerMethod();
         GetTimeJobCall.add('jobNo', $('#acJobNo').val());
-        GetTimeJobCall.exec("/SIU_DAO.asmx/GetTimeJob", GetTimeJob_success);
+        GetTimeJobCall.exec("/SIU_DAO.asmx/Gffeop1", GetTimeJob_success);
     }
 
 
@@ -79,7 +79,6 @@
         $('#lblJobNoSelection')[0].innerHTML = "<b>Job No:</b> " + JobDetails.JobNo + "<br/>";
         $('#lblJobSiteSelection')[0].innerHTML = "<b>Customer:</b> " + JobDetails.JobCust + "<br/>";
         $('#lblJobDescSelection')[0].innerHTML = "<b>Job:</b> " + JobDetails.JobDesc + "<br/>";
-        //$('#lblDeptSelection')[0].innerHTML = "<b>Div/Dept:</b> " + JobDetails.JobDept; // +"<br/>"
     }
     
 

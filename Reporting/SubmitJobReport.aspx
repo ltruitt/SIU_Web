@@ -431,16 +431,11 @@
                         <section id="Section4" class="ui-state-error ui-corner-all" style="width: 100%;  margin-top: 4px;"   >
                             <div style="font-weight: bold; text-align: center;">Optional Notes for sales follow-up</div>    
                             
-                            <br/>
-<%--                            <div style="display: inline-block; width: 100%;   margin-bottom: 0; ">
-                                <span style="padding-top: 5px; padding-left: 3px; -webkit-margin-start: 3px;">Y</span>
-                                <span style="padding-top: 5px; padding-left: 9px; -webkit-margin-start: 8px;">N</span>
-                            </div>  --%>                            
+                            <br/>                        
                             
                             <div style="display: inline-block; width: 100%;   margin-bottom: 10px;">
                                 <span>Were there any defencies found OR does the Salesperson need to call the customer</span>
                                 <input type="checkbox" id="chkSalesY"   class="chkSales" value="1" />
-                                <%--<input type="checkbox" id="chkSalesN"   class="chkSales" value="2"   />--%>
                             </div>                             
                             
                             <div style="display: inline-block; width: 100%;   margin-bottom: 10px;">

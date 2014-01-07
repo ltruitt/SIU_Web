@@ -165,7 +165,7 @@
         qomResponseSubmitCall.add('SafetyMeetingType', '');
         qomResponseSubmitCall.add('SafetyMeetingDate', '');
 
-        qomResponseSubmitCall.add('Comments', $('#txtResponse').val() );
+        qomResponseSubmitCall.add('Comments', encodeURIComponent($('#txtResponse').val()));
 
         qomResponseSubmitCall.add('JobSite', '-');
         qomResponseSubmitCall.add('IncTypeText', $('#hlblDept').val());

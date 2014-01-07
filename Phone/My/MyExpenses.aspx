@@ -59,6 +59,13 @@
 
             <p style="height: 5px;"></p>             
         
+        <div style="margin-top: -5px; width: 100%; background-color: gainsboro;">
+            <div style="display: inline-block;">
+                <input type="checkbox" id="chkLY" style="color: black; margin-left: 10px; margin-top: 2px;" value="chkLY"/>
+            </div>
+            <div style="clear: both; margin-left: 5px; font-size: 1.4em; margin-top: -27px; display:inline-block;">Last Year</div>
+        </div> 
+
         <div id="jqwrapper" style="width: 100%; height: 100%; text-align: center;">
             <table id="ExpTbl"></table>
         </div>

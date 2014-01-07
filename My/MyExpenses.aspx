@@ -30,14 +30,21 @@
         <section class="ui-widget-header ui-corner-all" style="height: 45px; margin-top: 15px; margin-bottom: 5px;" >
             <a href="/ELO/MainMenu.aspx" style="text-decoration: none;">
                 <span style="position: relative; left: 3px; vertical-align: top; font-size: .8em; line-height: 10px;">elo menu</span>
-                <span  style="text-align: center; font-size: 2em; width: 100%;  position:absolute; left: 0; margin-left: auto; margin-right: auto;">YTD Expenses</span>
+                <span  style="text-align: center; font-size: 2em; width: 100%; margin-top: 7px; position:absolute; left: 0; margin-left: auto; margin-right: auto;">YTD Expenses</span>
             </a>
         </section>  
 
         <section style="visibility: hidden; height: 0; width: 0;">
             <span id="hlblEID"     runat="server"/> 
             <span ID="lblEmpName"  runat="server"/>
-        </section>            
+        </section>      
+    
+        <div style="margin-top: -5px; width: 100%; background-color: gainsboro;">
+            <div style="display: inline-block;">
+                <input type="checkbox" id="chkLY" style="color: black; margin-left: 10px; margin-top: 2px;" value="chkLY"/>
+            </div>
+            <div style="clear: both; margin-left: 5px; font-size: 1.4em; margin-top: -27px; display:inline-block;">Last Year</div>
+        </div>          
             
         <div id="jqwrapper" style="width: 100%; height: 100%; text-align: center;">
             <table id="ExpTbl"></table>

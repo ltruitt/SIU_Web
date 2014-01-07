@@ -4,11 +4,11 @@
 
     jQuery("#ExpTbl").jqGrid({
 
-        url: '/SIU_DAO.asmx/GetMyYtdExpenses',
+        url: '/SIU_DAO.asmx/adf1a',
         mtype: 'POST',
         ajaxGridOptions: { contentType: 'application/json; charset=utf-8' },
         datatype: 'json',
-        postData: { EmpID: $('#hlblEID')[0].innerHTML, T: timestamp.getTime() },
+        postData: { EmpID: $('#hlblEID').html(), LY: $('#chkLY').checked, T: timestamp.getTime() },
         serializeGridData: function (postData) { return JSON.stringify(postData); },
         autowidth: false,
         autoheight: true,
@@ -79,52 +79,4 @@
 
     }).trigger('resize');
 
-
-    ///////////////////////////////////////////////////////////////
-    // Load List Of Employees So Supr Can Change Viewed Employee //
-    ///////////////////////////////////////////////////////////////
-    var listOfEmps = [];
-    function GetEmps_success(data) {
-        return;
-
-        listOfEmps = data.d.split("\r");
-        $("#ddEmpIds").autocomplete({ source: listOfEmps },
-            {
-                matchContains: false,
-                minChars: 1,
-                autoFill: false,
-                mustMatch: false,
-                cacheLength: 20,
-                max: 20,
-                delay: 0,
-                select: function (event, ui) {
-                    var DataPieces = ui.item.value.split(' ');
-                    $('#hlblEID')[0].innerHTML = DataPieces[0];
-                    $("#ddEmpIds").autocomplete("close");
-                    $("#ddEmpIds").val(DataPieces[0] + ' ' + DataPieces[2] + ', ' + DataPieces[3]);
-
-                    $("#ExpTbl").setGridParam({ postData: { EmpID: DataPieces[0], T: timestamp.getTime() } }).trigger("reloadGrid", [{ page: 1 }]);
-                },
-                response: function (event, ui) {
-                    if (ui.content.length == 1) {
-                        var DataPieces = ui.content[0].value.split(' ');
-                        $('#hlblEID')[0].innerHTML = DataPieces[0];
-                        $("#ddEmpIds").autocomplete("close");
-                        $("#ddEmpIds").val(DataPieces[0] + ' ' + DataPieces[2] + ', ' + DataPieces[3]);
-
-                        var xxx = $("#ExpTbl");
-                        $("#ExpTbl").setGridParam({ postData: { EmpID: DataPieces[0], T: timestamp.getTime() } }).trigger("reloadGrid", [{ page: 1 }]);
-                    }
-
-                    return ui;
-                }
-            });
-    }
-
-
-    // Load Emps AutoComplete List
-    if ($("#SuprArea").length > 0) {
-        var GetEmpsCall = new AsyncServerMethod();
-        GetEmpsCall.exec("/SIU_DAO.asmx/GetAutoCompleteActiveEmployees", GetEmps_success);
-    }
 });

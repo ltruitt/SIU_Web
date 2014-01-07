@@ -151,7 +151,7 @@
     }
     function getTimeJobs() {
         var getTimeJobsAjax = new AsyncServerMethod();
-        getTimeJobsAjax.exec("/SIU_DAO.asmx/GetTimeJobs", getTimeJobsSuccess);
+        getTimeJobsAjax.exec("/SIU_DAO.asmx/Affe31", getTimeJobsSuccess);
     }
 
     getTimeJobs();

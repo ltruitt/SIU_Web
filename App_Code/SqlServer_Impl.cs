@@ -18,6 +18,7 @@ using System.Web;
 using System.Globalization;
 using System.Web.Configuration;
 using System.Web.Script.Services;
+using DocumentFormat.OpenXml.Bibliography;
 using ShermcoYou.DataTypes;
 using AutoMapper;
 using System.Web.Services;
@@ -176,12 +177,12 @@ public class SiuDao : WebService
 #endregion Certification and Classes
 
 #region ELO Time And Time Reporting
-    ////////////////////////////////////////////////////////
-    // Get List Of Open Jobs Available For Time Reporting //
-    // Support For Time Entry Form                        //
-    ////////////////////////////////////////////////////////
+    ///////////////////////////
+    // Get Jobs List         //
+    // Get List Of Open Jobs //
+    ///////////////////////////
     [WebMethod(EnableSession = true)]
-    public string GetTimeJobs()
+    public string Affe31()
     {
         string jobList = string.Empty;
 
@@ -191,12 +192,12 @@ public class SiuDao : WebService
         return jobList;
     }
 
-    //////////////////////////////////////////////
-    // Lookup A Specific Job For Time Reporting //
-    // Support For Time Entry Form              //
-    //////////////////////////////////////////////
+    ///////////////////////////
+    // Get Job               //
+    // Lookup A Specific Job //
+    ///////////////////////////
     [WebMethod(EnableSession = true)]
-    public string GetTimeJob(string jobNo)
+    public string Gffeop1(string jobNo)
     {
         ////////////////////////////////
         // Build Response Data Object //
@@ -1163,18 +1164,32 @@ public class SiuDao : WebService
             // UUDecode Free Format Text Fields //
             //////////////////////////////////////
             SalesNotes = Server.UrlDecode(SalesNotes);
-            comments = Server.UrlDecode(comments);
-            //int len = GetLengthLimit(jobRpt, "SalesFollowUp_Comment"); 
+            int len = GetLengthLimit(jobRpt, "SalesFollowUp_Comment");
+            if (SalesNotes.Length > len)
+                SalesNotes = SalesNotes.Substring(0, len);
 
-            ///////////////////////////////////
-            // Record Debug Info For IR Jobs //
-            ///////////////////////////////////
-            //string debugBody;
-            //if (chkIrOnly == "true" || chkIrPort == "true")
-            //    debugBody = "Job: " + jobNo + "  " +  ((jobRpt.IROnly == 1) ? "IR Rpt Only " : "IR Partial Rpt ") + "  Emp: " + UserEmpID;
-            //else
-            //    debugBody = "Job: " + jobNo + "  Emp: " + UserEmpID;    
-            //SqlServer_Impl.LogDebug("SiuDao.SubmitJobRpt", debugBody);
+            
+            comments = Server.UrlDecode(comments);
+            len = GetLengthLimit(jobRpt, "Comment");
+            if (comments.Length > len)
+                comments = comments.Substring(0, len);
+
+            No_Report_Reason = Server.UrlDecode(No_Report_Reason);
+            len = GetLengthLimit(jobRpt, "No_Report_Required_Reason");
+            if (No_Report_Reason.Length > len)
+                No_Report_Reason = No_Report_Reason.Substring(0, len);
+
+            OtherText = Server.UrlDecode(OtherText);
+            len = GetLengthLimit(jobRpt, "TmpOtherText");
+            if (OtherText.Length > len)
+                OtherText = OtherText.Substring(0, len);
+
+            txtAddEmail = Server.UrlDecode(txtAddEmail);
+            len = GetLengthLimit(jobRpt, "Email");
+            if (txtAddEmail.Length > len)
+                txtAddEmail = txtAddEmail.Substring(0, len);
+            
+            
 
             ////////////
             // Job No //
@@ -1186,19 +1201,10 @@ public class SiuDao : WebService
             /////////////////////////////////////////////////
             if ( chkIrOnly == "true")
             {
-                //jobRpt.Logged_In_By_Rpt_Dpt = DateTime.Now.Date;
-                //jobRpt.Logged_In_By_Rpt_Dpt_User = BusinessLayer.UserName;
-
-                //jobRpt.Logged_and_Scanned_User = BusinessLayer.UserName;
-                //jobRpt.Logged_and_Scanned = DateTime.Now.Date;
-
                 jobRpt.Date_Report_Turned_In_by_Tech = DateTime.Now.Date;
 
                 jobRpt.Turned_in_by_Tech_Date = DateTime.Now.Date;
                 jobRpt.Turned_in_by_Tech_UserID = UserEmpID;
-
-                //jobRpt.IR_Received_From_Tech = DateTime.Now.Date;
-                //jobRpt.IR_Received_From_Tech_User = BusinessLayer.UserName;
             }
 
             ///////////////////////////////////////////////////////
@@ -2951,10 +2957,10 @@ public class SiuDao : WebService
     // Provide Data For YTD Expenses Report //
     //////////////////////////////////////////
     [WebMethod(EnableSession = true)]
-    public List<SIU_YTD_Exp_Rpt> GetMyYtdExpenses(string EmpID, bool _search, long nd, int rows, int page, string sidx, string sord)
+    public List<SIU_YTD_Exp_Rpt> adf1a(string EmpID, bool LY,  bool _search, long nd, int rows, int page, string sidx, string sord)
     {
         sord = ((sidx.Length == 0) ? "WorkDate" : sidx) + " " + sord.ToUpper();
-        return SqlServer_Impl.GetMyYtdExpenses(EmpID).OrderBy(sord).ToList();
+        return SqlServer_Impl.GetMyYtdExpenses(EmpID, LY).OrderBy(sord).ToList();
     }
 #endregion MySi Reporting
 
@@ -5335,11 +5341,15 @@ public class SqlServer_Impl : WebService
                 select rptData
                ).ToList();
     }
-    public static List<SIU_YTD_Exp_Rpt> GetMyYtdExpenses(string empNo)
+    public static List<SIU_YTD_Exp_Rpt> GetMyYtdExpenses(string empNo, bool LastYear)
     {
         SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
 
-        DateTime thisYear = DateTime.Parse(  "01/01/" + DateTime.Now.Year );
+        DateTime thisYear;
+        if ( ! LastYear )
+            thisYear = DateTime.Parse("01/01/" + DateTime.Now.Year);
+        else
+            thisYear = DateTime.Parse("01/01/" + DateTime.Now.AddYears(-1).Year);
 
         return (from rptData in nvDb.Shermco_Employee_Expenses
                 where rptData.Employee_No_ == empNo && rptData.Status == 2 && rptData.Work_Date >= thisYear

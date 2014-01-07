@@ -1363,15 +1363,15 @@ public partial class Safety_SafetyPays_TabPointsRpt : System.Web.UI.Page
         styleCellDate = sl.CreateStyle();
         styleCellDate.FormatCode = "mm/dd/yy";
 
-        SLStyle Wrap = sl.CreateStyle();
-        Wrap.SetWrapText(true);
+        SLStyle wrap = sl.CreateStyle();
+        wrap.SetWrapText(true);
 
         //////////////////////////////
         // Write Monthly Table Data //
         //////////////////////////////
         foreach (var rptRcd in SqlServer_Impl.GetSafetyPaysRawDataRpt(_start, _end))
         {
-            sl.SetCellValueNumeric(row, 1, rptRcd.IncidentNo.ToString());
+            sl.SetCellValueNumeric(row, 1, rptRcd.IncidentNo.ToString(CultureInfo.InvariantCulture));
             sl.SetCellValue(row, 2, rptRcd.IncStatus);
             sl.SetCellValue(row, 3, rptRcd.IncTypeTxt);
 
@@ -1396,13 +1396,13 @@ public partial class Safety_SafetyPays_TabPointsRpt : System.Web.UI.Page
             sl.SetCellValueNumeric(row, 11, rptRcd.ObservedEmpID);
 
             sl.SetCellValue(row, 12, rptRcd.JobSite);
-            sl.SetCellStyle(row, 12, Wrap);
+            sl.SetCellStyle(row, 12, wrap);
             sl.SetCellValue(row, 13, rptRcd.Comments);
-            sl.SetCellStyle(row, 13, Wrap);
+            sl.SetCellStyle(row, 13, wrap);
             sl.SetCellValue(row, 14, rptRcd.InitialResponse);
-            sl.SetCellStyle(row, 14, Wrap);
+            sl.SetCellStyle(row, 14, wrap);
             sl.SetCellValue(row, 15, rptRcd.ehsRepsonse);
-            sl.SetCellStyle(row, 15, Wrap);
+            sl.SetCellStyle(row, 15, wrap);
 
             row++;
         }

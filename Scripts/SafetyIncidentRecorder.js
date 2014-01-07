@@ -345,7 +345,7 @@
     }
     function getJobs() {
         var getJobsCall = new AsyncServerMethod();
-        getJobsCall.exec("/SIU_DAO.asmx/GetTimeJobs", getJobsSuccess);
+        getJobsCall.exec("/SIU_DAO.asmx/Affe31", getJobsSuccess);
     }
     getJobs();
 
