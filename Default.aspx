@@ -19,6 +19,9 @@
             <br/>
             <br/>
             <asp:Button ID="Button4" runat="server" Text="Generate CE Veh Insp Report Email" OnClick="TestEmailCeClick"  />
+            <br/>
+            <br/>
+            <asp:Button ID="Button5" runat="server" Text="Generate QTM Notice" OnClick="TestEmailQtm1stClick"  />
 <%--            <br/>
             <br/>
             <asp:Button id="btnEncrypt" runat="server" Text="Encrypt" onclick="btnEncrypt_Click" />

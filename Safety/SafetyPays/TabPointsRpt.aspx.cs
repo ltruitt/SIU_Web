@@ -1315,25 +1315,26 @@ public partial class Safety_SafetyPays_TabPointsRpt : System.Web.UI.Page
         //////////////////////////////////////////                        
         sl.SetCellValue(Row, 1, "Incident");        sl.SetColumnWidth("A", 10);
         sl.SetCellValue(Row, 2, "Status");          sl.SetColumnWidth("B", 10);
-        sl.SetCellValue(Row, 3, "Report Type");     sl.SetColumnWidth("C", 20);
+        sl.SetCellValue(Row, 3, "Report Type");     sl.SetColumnWidth("C", 35);
+        sl.SetCellValue(Row, 4, "Meeting Type");    sl.SetColumnWidth("D", 13);
 
-        sl.SetCellValue(Row, 4, "Opened");          sl.SetColumnWidth("D", 13);
-        sl.SetCellValue(Row, 5, "Closed");          sl.SetColumnWidth("E", 13);
-        sl.SetCellValue(Row, 6, "Pts");             sl.SetColumnWidth("F", 6);
+        sl.SetCellValue(Row, 5, "Rpt Opened");      sl.SetColumnWidth("E", 13);
+        sl.SetCellValue(Row, 6, "Rpt Closed");      sl.SetColumnWidth("F", 13);
+        sl.SetCellValue(Row, 7, "Award");           sl.SetColumnWidth("G", 13);
+        sl.SetCellValue(Row, 8, "Rpt Incident");    sl.SetColumnWidth("H", 13);
+        sl.SetCellValue(Row, 9, "Rpt Meeting");     sl.SetColumnWidth("I", 13);
+        sl.SetCellValue(Row, 10, "Event Period");   sl.SetColumnWidth("J", 13);
+        
+        sl.SetCellValue(Row, 11, "Emp ID");         sl.SetColumnWidth("K", 6);
+        sl.SetCellValue(Row, 12, "Obs ID");         sl.SetColumnWidth("L", 6);
+        sl.SetCellValue(Row, 13, "Pts");            sl.SetColumnWidth("M", 6);
 
-        sl.SetCellValue(Row, 7, "Incident Date");   sl.SetColumnWidth("G", 13);
-        sl.SetCellValue(Row, 8, "Meeting Date");    sl.SetColumnWidth("H", 13);
-        sl.SetCellValue(Row, 9, "Meeting Type");    sl.SetColumnWidth("I", 13);
+        sl.SetCellValue(Row, 14, "Site");           sl.SetColumnWidth("N", 13);
+        sl.SetCellValue(Row, 15, "Report Text");        sl.SetColumnWidth("O", 40);
+        sl.SetCellValue(Row, 16, "Initial Response");   sl.SetColumnWidth("P", 40);
+        sl.SetCellValue(Row, 17, "EHS Message");        sl.SetColumnWidth("Q", 40);
 
-        sl.SetCellValue(Row, 10, "Emp ID");         sl.SetColumnWidth("J", 6);
-        sl.SetCellValue(Row, 11, "Obs ID");         sl.SetColumnWidth("K", 6);
-
-        sl.SetCellValue(Row, 12, "Site");               sl.SetColumnWidth("L", 13);
-        sl.SetCellValue(Row, 13, "Report Text");        sl.SetColumnWidth("M", 40);
-        sl.SetCellValue(Row, 14, "Initial Response");   sl.SetColumnWidth("N", 40);
-        sl.SetCellValue(Row, 15, "EHS Message");        sl.SetColumnWidth("O", 40);
-
-        sl.SetCellStyle(Row, 1, Row, 15, styleRowHeader);
+        sl.SetCellStyle(Row, 1, Row, 17, styleRowHeader);
 
         ///////////////////////////
         // Freeze the top 2 rows //
@@ -1366,44 +1367,71 @@ public partial class Safety_SafetyPays_TabPointsRpt : System.Web.UI.Page
         SLStyle wrap = sl.CreateStyle();
         wrap.SetWrapText(true);
 
+        Dictionary<int, string> ptTypes = SqlServer_Impl.GetAutoCompletePointTypes().ToDictionary(mc => mc.UID, mc => mc.Description);
+
         //////////////////////////////
         // Write Monthly Table Data //
         //////////////////////////////
         foreach (var rptRcd in SqlServer_Impl.GetSafetyPaysRawDataRpt(_start, _end))
         {
-            sl.SetCellValueNumeric(row, 1, rptRcd.IncidentNo.ToString(CultureInfo.InvariantCulture));
-            sl.SetCellValue(row, 2, rptRcd.IncStatus);
-            sl.SetCellValue(row, 3, rptRcd.IncTypeTxt);
+            sl.SetCellValue(row, 2, "Adm Awd");
 
-            sl.SetCellValue(row, 4, rptRcd.IncOpenTimestamp);
-            sl.SetCellStyle(row, 4, styleCellDate);
-            if (rptRcd.IncCloseTimestamp != null )
-                sl.SetCellValue(row, 5, (DateTime)rptRcd.IncCloseTimestamp);
-            sl.SetCellStyle(row, 5, styleCellDate);
-            sl.SetCellValueNumeric(row, 6, rptRcd.PointsAssigned.ToString());
+            sl.SetCellValue(row, 3, ptTypes[rptRcd.Item1.ReasonForPoints]);
 
-            if (rptRcd.IncidentDate != null)
-                sl.SetCellValue(row, 7, (DateTime)rptRcd.IncidentDate);
+            sl.SetCellValue(row, 7, rptRcd.Item1.DatePointsGiven);
             sl.SetCellStyle(row, 7, styleCellDate);
-            if (rptRcd.SafetyMeetingDate != null)
+
+            sl.SetCellValue(row, 10, rptRcd.Item1.EventDate);
+            sl.SetCellStyle(row, 10, styleCellDate);
+
+            sl.SetCellValueNumeric(row, 11, rptRcd.Item1.Emp_No);
+
+            sl.SetCellValueNumeric(row, 13, rptRcd.Item1.Points.ToString(CultureInfo.InvariantCulture));
+                    
+            sl.SetCellValue(row, 17, rptRcd.Item1.Comments);
+            sl.SetCellStyle(row, 17, wrap);
+
+            if (rptRcd.Item2 != null)
             {
-                sl.SetCellValue(row, 8, (DateTime)rptRcd.SafetyMeetingDate);
-                sl.SetCellValue(row, 9, rptRcd.SafetyMeetingType);
+                sl.SetCellValueNumeric(row, 1, rptRcd.Item2.IncidentNo.ToString(CultureInfo.InvariantCulture));
+
+                sl.SetCellValue(row, 2, rptRcd.Item2.IncStatus);
+
+                sl.SetCellValue(row, 3, rptRcd.Item2.IncTypeTxt);
+
+                if (rptRcd.Item2.SafetyMeetingDate != null)
+                {
+                    sl.SetCellValue(row, 9, (DateTime)rptRcd.Item2.SafetyMeetingDate);                    
+                    sl.SetCellValue(row, 4, rptRcd.Item2.SafetyMeetingType);
+                }
+                sl.SetCellStyle(row, 9, styleCellDate);
+
+                sl.SetCellValue(row, 5, rptRcd.Item2.IncOpenTimestamp);
+                sl.SetCellStyle(row, 5, styleCellDate);
+
+                if (rptRcd.Item2.IncCloseTimestamp != null)
+                    sl.SetCellValue(row, 6, (DateTime)rptRcd.Item2.IncCloseTimestamp);
+                sl.SetCellStyle(row, 6, styleCellDate);
+
+                sl.SetCellValue(row, 7, (DateTime)rptRcd.Item1.DatePointsGiven);
+                sl.SetCellStyle(row, 7, styleCellDate);
+
+                if (rptRcd.Item2.IncidentDate != null)
+                    sl.SetCellValue(row, 8, (DateTime)rptRcd.Item2.IncidentDate);
+                sl.SetCellStyle(row, 8, styleCellDate);
+
+                sl.SetCellValueNumeric(row, 11, rptRcd.Item2.EmpID);
+                sl.SetCellValueNumeric(row, 12, rptRcd.Item2.ObservedEmpID);
+
+                sl.SetCellValue(row, 14, rptRcd.Item2.JobSite);
+                sl.SetCellStyle(row, 14, wrap);
+                sl.SetCellValue(row, 15, rptRcd.Item2.Comments);
+                sl.SetCellStyle(row, 15, wrap);
+                sl.SetCellValue(row, 16, rptRcd.Item2.InitialResponse);
+                sl.SetCellStyle(row, 16, wrap);
+                sl.SetCellValue(row, 17, rptRcd.Item2.ehsRepsonse);
+                sl.SetCellStyle(row, 17, wrap);
             }
-            sl.SetCellStyle(row, 8, styleCellDate);
-
-            sl.SetCellValueNumeric(row, 10, rptRcd.EmpID);
-            sl.SetCellValueNumeric(row, 11, rptRcd.ObservedEmpID);
-
-            sl.SetCellValue(row, 12, rptRcd.JobSite);
-            sl.SetCellStyle(row, 12, wrap);
-            sl.SetCellValue(row, 13, rptRcd.Comments);
-            sl.SetCellStyle(row, 13, wrap);
-            sl.SetCellValue(row, 14, rptRcd.InitialResponse);
-            sl.SetCellStyle(row, 14, wrap);
-            sl.SetCellValue(row, 15, rptRcd.ehsRepsonse);
-            sl.SetCellStyle(row, 15, wrap);
-
             row++;
         }
     }

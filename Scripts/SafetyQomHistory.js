@@ -13,7 +13,7 @@
         defaultSorting: 'workDate ASC',
 
         actions: {
-            listAction: '/SIU_DAO.asmx/GetSafetyQomQHList',
+            listAction: '/SIU_DAO.asmx/K9Kgjn',
         },
 
         fields: {

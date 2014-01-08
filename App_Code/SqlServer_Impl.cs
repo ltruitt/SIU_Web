@@ -2044,7 +2044,7 @@ public class SiuDao : WebService
     }
 
     [WebMethod(EnableSession = true)]
-    public string GetSafetyQomQHList(string Eid)
+    public string K9Kgjn(string Eid)
     {
         ////////////////////////////////
         // Build Response Data Object //
@@ -6935,7 +6935,7 @@ public class SqlServer_Impl : WebService
                 PointsGivenBy = rptRcd.IncLastTouchEmpID,
                 Comments = "Awarded for " + rptRcd.IncTypeTxt,
                 Points = (int)rptRcd.PointsAssigned,
-                EventDate = rptRcd.IncidentDate ?? rptRcd.IncOpenTimestamp,
+                EventDate = (DateTime) (rptRcd.IncidentDate ?? rptRcd.SafetyMeetingDate),
                 SPR_UID = rptRcd.IncidentNo,
                 QOM_ID = rptRcd.QOM_ID
             };
@@ -7031,18 +7031,7 @@ public class SqlServer_Impl : WebService
         s.Insert(0, "");
         return s;
     }
-    public static List<String> GetList_SafetyPaysTypes()
-    {
-        SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
-
-        var t = (from types in nvDb.SIU_SafetyPaysReports
-                select types.IncTypeTxt
-           ).Distinct().ToList();
-
-        t.Insert(0, "");
-        return t;
-    }
-    
+   
     public static int RecordAdminPoints(SIU_SafetyPays_Point _Pts)
     {
         SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
@@ -7301,7 +7290,7 @@ public class SqlServer_Impl : WebService
         return new List<SIU_SafetyPays_AcceptReject_Rpt_SPResult>();
 
     }
-    public static List<SIU_SafetyPaysReport> GetSafetyPaysRawDataRpt(DateTime startDate, DateTime endDate)
+    public static List< Tuple<SIU_SafetyPays_Point, SIU_SafetyPaysReport>> GetSafetyPaysRawDataRpt(DateTime startDate, DateTime endDate)
     {
         try
         {
@@ -7314,10 +7303,12 @@ public class SqlServer_Impl : WebService
 
             using (new TransactionScope(TransactionScopeOption.RequiresNew, to))
             {
-                return (from cntrs in nvDb.SIU_SafetyPaysReports
-                        where cntrs.IncidentDate >= startDate && cntrs.IncidentDate <= endDate
-                        select cntrs
-                       ).ToList();
+                return new List<Tuple<SIU_SafetyPays_Point, SIU_SafetyPaysReport>>
+                     (from p in nvDb.SIU_SafetyPays_Points
+                        where p.EventDate >= DateTime.Parse("10/1/2013") && p.EventDate <= DateTime.Parse("12/31/2013")
+                        join r in nvDb.SIU_SafetyPaysReports on new { SPR_UID = Convert.ToInt32(p.SPR_UID) } equals new { SPR_UID = r.IncidentNo } into r_join
+                        from r in r_join.DefaultIfEmpty()
+                        select Tuple.Create(p,r)); //.ToList();
             }
         }
         catch (Exception ex)
@@ -7325,7 +7316,7 @@ public class SqlServer_Impl : WebService
             LogDebug("GetSafetyPaysRawDataRpt", ex.Message);
         }
 
-        return new List<SIU_SafetyPaysReport>();
+        return new List<Tuple<SIU_SafetyPays_Point, SIU_SafetyPaysReport>>();
 
     }
 #endregion
@@ -8820,7 +8811,7 @@ public static class BusinessLayer
             string emp = (from thisEmp in emps where thisEmp.No_ == Rpt.SubmitEmpID.TrimEnd() select thisEmp.Last_Name + ", " + thisEmp.First_Name).SingleOrDefault();
 
             emailBody += "<tr style='color: black; text-align: center;'>";
-            emailBody += "<td><a href=" + webServer + "/ELO/VehDotEntry.aspx?rpt=" + Rpt.RefID + ">" + Rpt.RefID + "</href></td>";
+            emailBody += "<td><a href=" + webServer + "/ELO/VehDotEntry.aspx?rpt=" + Rpt.RefID + ">" + Rpt.RefID + "</a></td>";
             emailBody += "<td>" + Rpt.Vehicle + "</td>";
             emailBody += "<td>(" + Rpt.SubmitEmpID.TrimEnd() + ") " + emp + "</td>";
             emailBody += "<td>" + Rpt.SubmitTimeStamp.ToShortDateString() + "</td>";
@@ -8831,6 +8822,32 @@ public static class BusinessLayer
         emailBody += "</table>";
 
         return emailBody;
+    }
+
+    public static void GenQtmNotices()
+    {
+        string webServer = "http://" + HttpContext.Current.Request.Url.DnsSafeHost;
+        List<SIU_Qom_QR> qtmList = SqlServer_Impl.GetSafetyQomQRList("0");
+
+        DateTimeFormatInfo mfi = new DateTimeFormatInfo();
+        string strMonthName = mfi.GetMonthName(DateTime.Now.Month);
+
+
+        foreach (SIU_Qom_QR qtm in qtmList)
+        {
+            string emailBody;
+            emailBody = "<h1>The " + strMonthName + " " + qtm.Q_Grp + " Question of the month is:</h1>";
+
+            emailBody += "<b>" + qtm.Question + "</b>";
+            emailBody += "<br/><br/>";
+            emailBody += "<a href=" + webServer + "/Safety/SafetyPays/SafetyQomUser.aspx>Click here to respond to this or other open Questions of the Month</a>";
+
+            emailBody += "<br/><br/>";
+
+            emailBody += "If you have questions or comments, please email mailto:aschumacher@shermco.com?subject=" + strMonthName + " " + qtm.Q_Grp + " Question of the Month";
+
+            WebMail.HtmlMail("allemployees@shermco.com", strMonthName + " " + qtm.Q_Grp + " Question of the month", emailBody);
+        }
     }
 }
 

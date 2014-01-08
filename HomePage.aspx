@@ -106,15 +106,15 @@
 				    </li>--%>
 
                     <!---------------------------------->	
-				    <!-- HR Insurabce Enrollment Info -->
+				    <!-- HR Insurance Enrollment Info -->
                     <!---------------------------------->	
-				    <li id="HR_Insurance" runat="server" style="height: 100px; clear:both;">
+<%--				    <li id="HR_Insurance" runat="server" style="height: 100px; clear:both;">
                         <a  href="/HR/Insurance.aspx"    id="A7" >
 					        <img  alt="Previous Safety Meeting" src="/Images/Benifits.png" />
                             <br/>
                             2014 Open Enrollment
 					    </a>  
-				    </li>
+				    </li>--%>
                     
                                         
                     

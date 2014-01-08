@@ -257,7 +257,7 @@ namespace ShermcoYou.DataTypes
             Q_Grp = Q.QuestionGroup;
 
             Q_Ans = "";
-            if ( Q.EndDate > DateTime.Now )
+            if ( Q.EndDate < DateTime.Now )
                 Q_Ans = Q.QuestionAns;
             
             if ( Q.Question != null )

@@ -97,4 +97,9 @@ public partial class _Default : System.Web.UI.Page
         const string eMailSubject = "Unresolved Vehicle Inspections.";
         WebMail.HtmlMail("bborowczak@shermco.com", eMailSubject, BusinessLayer.GenFleetInspRpt(""));
     }
+
+    protected void TestEmailQtm1stClick(object sender, EventArgs e)
+    {
+        BusinessLayer.GenQtmNotices();
+    }
 }

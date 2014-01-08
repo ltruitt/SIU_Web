@@ -117,15 +117,40 @@
                         </ul>                    
                 </li>
                 
-                <li>
+<%--                <li>
                         <img    alt="HR Videos" src="/Images/Home_videos.png" />
                         <ul class="DeptGallery2Links" id="DirectoryVideos">
                         </ul>                    
-                </li>
+                </li>--%>
                 
             </ul>
                                     
         </section>
+
+        <div style="display: block"><hr/></div>                                                         
+        
+
+		<div id="Div1" style="margin-left:0; " >
+		        
+            <ul class="DeptGallery2">
+                <li>
+                        
+                        <ul class="DeptGallery2Links" >
+                            <!---------------------------------->	
+				            <!-- HR Insurance Enrollment Info -->
+                            <!---------------------------------->	
+				            <li id="HR_Insurance" runat="server" style="height: 100px; clear:both;">
+                                <a  href="/HR/Insurance.aspx"    id="A7" >
+					                <img  alt="Previous Safety Meeting" src="/Images/Benifits.png" style="height: 75px; width: 75px;" />
+                                    <br/>
+                                    2014 Benefits
+					            </a>  
+				            </li>
+                        </ul>                    
+                </li>                
+
+            </ul> 
+        </div> 
     </div>
 
 
