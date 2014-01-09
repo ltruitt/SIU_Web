@@ -48,7 +48,7 @@
                     <section class="ui-widget-header ui-corner-all" style="height: 45px; margin-top: 40px;" >
                         <a href="/Phone/ELO/MainMenu.aspx" style="text-decoration: none;">
                             <span style="position: relative; left: 3px; vertical-align: top; font-size: .8em; line-height: 10px;">elo menu</span>
-                            <span  style="text-align: center; font-size: 2em; width: 100%;  position:absolute; left: 0; margin-left: auto; margin-right: auto;">Submit Job Rpt</span>
+                            <span  style="text-align: center; font-size: 2em; width: 100%;  position:absolute; left: 0; margin-left: auto; margin-right: auto;">Turn In Job Rpt</span>
                         </a>
                     </section>  
                     
@@ -77,11 +77,12 @@
                 <%------------------------------%>                    
                 <%-- Submit and Clear Buttons --%>                    
                 <%------------------------------%>
-                <div style="float: right; margin-right: 10px;">
+                <div style="clear: both;"></div>
+                <div style="float: right; margin-right: 2px;">
                     <input type="button" ID="btnClear" value="Clear" Class="SearchBtnCSS"  />
                 </div>
 
-                <div id="Comments" style="float: right; margin-right: 20px;">
+                <div id="Comments" style="float: left; margin-right: 20px;">
                     <input type="button" ID="btnSubmit" value="Submit" Class="SearchBtnCSS" />
                 </div>
 
@@ -92,7 +93,7 @@
                 <section class="ui-widget-header ui-corner-all" style="height: 45px; margin-top: 40px;" >
                     <a href="/Phone/ELO/MainMenu.aspx" style="text-decoration: none;">
                         <span style="position: relative; left: 3px; vertical-align: top; font-size: .8em; line-height: 10px;">elo menu</span>
-                        <span  style="text-align: center; font-size: 2em; width: 100%;  position:absolute; left: 0; margin-left: auto; margin-right: auto;">Submit Job Rpt</span>
+                        <span  style="text-align: center; font-size: 2em; width: 100%;  position:absolute; left: 0; margin-left: auto; margin-right: auto;">Turn In Job Rpt</span>
                     </a>
                 </section>  
                     
@@ -107,7 +108,7 @@
                     <li><a href="#OtherDataTab">Other</a></li>
                     <li><a href="#TestsTab">Test Desc</a></li>
                     <li><a href="#IrTab">IR</a></li>
-                    <li><a href="#SalesTab">Sales</a></li>
+                    <li><a href="#SalesTab">Cust Follow Up</a></li>
                 </ul>
 
                 <div id="JobTab">
@@ -399,66 +400,84 @@
                     <section id="Section2" class="ui-state-error ui-corner-all" style="width: 100%;  margin-top: 4px;"   >
                         
                         <div style="font-weight: bold; text-align: center;">Infrared<br/>( ONLY If You Have Infrared Data )</div>    
-                        
-                        <div style="display: inline-block; width: 100%;   margin-bottom: 0; ">
-                            <span style="padding-top: 5px; padding-left: 3px; -webkit-margin-start: 3px;  margin-left: 23%;">Y</span>
-                            <span style="padding-top: 5px; padding-left: 9px; -webkit-margin-start: 8px;">N</span>
-                        </div>   
+                        <br/>                        
 
-                        <div style="display: inline-block; width: 100%;   margin-bottom: 10px;">
-                            <span>All IR data is in Dropbox</span>
-                            <input type="checkbox" id="IrDrpBoxY"   class="chkIrDrBox" value="1"   style="margin-left: 23%;"/>
-                            <input type="checkbox" id="IrDrpBoxN"   class="chkIrDrBox" value="2"   />
-                        </div>
+                        <div id="irQ" style="text-align: center;">    
+                            <div>Are you turning in I/R data?</div>
+                            
+                            <div style="display: inline-block; width: 100%;   margin-bottom: 0; ">
+                                <span style="padding-top: 5px; padding-left: 3px; -webkit-margin-start: 3px;">Y</span>
+                                <span style="padding-top: 5px; padding-left: 9px; -webkit-margin-start: 8px;">N</span>
+                            </div>    
+
+                            <div style="display: inline-block; width: 100%; margin-left: 48.5%; margin-bottom: 10px; ">
+                                <input type="checkbox" id="chkIrDataY"   class="chkIrData" value="1" />
+                                <input type="checkbox" id="Checkbox2"   class="chkIrData" value="2" />
+                            </div>                                  
+                        </div>                        
+                        
+                        <div id="irDataDiv">
+                            <div style="display: inline-block; width: 100%;   margin-bottom: 0; ">
+                                <span style="padding-top: 5px; padding-left: 3px; -webkit-margin-start: 3px;  margin-left: 23%;">Y</span>
+                                <span style="padding-top: 5px; padding-left: 9px; -webkit-margin-start: 8px;">N</span>
+                            </div>   
+
+                            <div style="display: inline-block; width: 100%;   margin-bottom: 10px;">
+                                <span>All IR data is in Dropbox</span>
+                                <input type="checkbox" id="IrDrpBoxY"   class="chkIrDrBox" value="1"   style="margin-left: 23%;"/>
+                                <input type="checkbox" id="IrDrpBoxN"   class="chkIrDrBox" value="2"   />
+                            </div>
                         
 
-                        <div style="display: inline-block; width: 100%;   margin-bottom: 5px; margin-top: 10px;">
-                            <input type="checkbox" id="chkIrOnly"   class="chkIR" value="IrData"/>
-                            <span>IR Report Only</span>
-                        </div>
+                            <div style="display: inline-block; width: 100%;   margin-bottom: 5px; margin-top: 10px;">
+                                <input type="checkbox" id="chkIrOnly"   class="chkIR" value="IrData"/>
+                                <span>IR Report Only</span>
+                            </div>
                             
-                        <div style="display: inline-block; width: 100%;   margin-bottom: 10px;">
-                            <input type="checkbox" id="chkIrPort"   class="chkIR" value="IrData"/>
-                            <span>IR Portion of Final Report</span>
-                        </div>
+                            <div style="display: inline-block; width: 100%;   margin-bottom: 10px;">
+                                <input type="checkbox" id="chkIrPort"   class="chkIR" value="IrData"/>
+                                <span>IR Portion of Final Report</span>
+                            </div>
                             
-                        <div style="display: inline-block; width: 100%;   margin-bottom: 10px;">
-                            <div>How Many Hard Copies: </div>
-                            <input type="text" id="txtIrHardCnt" class="DataInputCss"  value="0"  maxlength="1"  style="width: 20px; text-align: center;"/>
+                            <div style="display: inline-block; width: 100%;   margin-bottom: 10px;">
+                                <div>How Many Hard Copies: </div>
+                                <input type="text" id="txtIrHardCnt" class="DataInputCss"  value="0"  maxlength="1"  style="width: 20px; text-align: center;"/>
                                 
-                        </div>
+                            </div>
                             
-                        <div style="display: inline-block; width: 100%;   margin-bottom: 10px;">
-                            <div>Additional Email Address: </div>
-                            <input type="text" id="txtAddEmail" class="DataInputCss"  style="width: 285px;" maxlength="50"/>
+                            <div style="display: inline-block; width: 100%;   margin-bottom: 10px;">
+                                <div>Additional Email Address: </div>
+                                <input type="text" id="txtAddEmail" class="DataInputCss"  style="width: 285px;" maxlength="50"/>
                                 
+                            </div>
                         </div>
 
                     </section>
                 </div>
                 
-                    <div id="SalesTab">                        
-                        <section id="Section5" class="ui-state-error ui-corner-all" style="width: 100%;  margin-top: 4px;"   >
-                            <div style="font-weight: bold; text-align: center;">Optional Notes for sales follow-up</div>    
+                <div id="SalesTab">                        
+                    <section id="Section5" class="ui-state-error ui-corner-all" style="width: 100%;  margin-top: 4px;"   >
+                        <div style="font-weight: bold; text-align: center;">Optional Notes for sales follow-up</div>    
                             
-                            <br/>
-<%--                            <div style="display: inline-block; width: 100%;   margin-bottom: 0; ">
-                                <span style="padding-top: 5px; padding-left: 3px; -webkit-margin-start: 3px;">Y</span>
-                                <span style="padding-top: 5px; padding-left: 9px; -webkit-margin-start: 8px;">N</span>
-                            </div>  --%>                            
+                        <br/>
+                        <div>Were there any defencies found OR does the Salesperson need to call the customer ?</div>
+
+                        <div style="display: inline-block; width: 100%;   margin-bottom: 0; ">
+                            <span style="padding-top: 5px; padding-left: 3px; -webkit-margin-start: 3px;">Y</span>
+                            <span style="padding-top: 5px; padding-left: 9px; -webkit-margin-start: 8px;">N</span>
+                        </div>                           
                             
-                            <div style="display: inline-block; width: 100%;   margin-bottom: 10px;">
-                                <span>Were there any defencies found OR does the Salesperson need to call the customer</span>
-                                <input type="checkbox" id="chkSalesY"   class="chkSales" value="1" />
-                                <%--<input type="checkbox" id="chkSalesN"   class="chkSales" value="2"   />--%>
-                            </div>                             
+                        <div style="display: inline-block; width: 100%; margin-bottom: 10px;">    
+                            <input type="checkbox" id="chkSalesY"   class="chkSales" value="1" />
+                            <input type="checkbox" id="chkSalesN"   class="chkSales" value="2" />
+                        </div>                             
                             
-                            <div style="display: inline-block; width: 100%;   margin-bottom: 10px;">
-                                <div>Notes to salesperson: </div>
-                                <textarea id="txtSalesNotes" class="DataInputCss" style="width: 90%;" rows="5"></textarea>
-                            </div>
-                        </section>
-                    </div>
+                        <div id="saleNotesDiv" style="display: inline-block; width: 100%;   margin-bottom: 10px;">
+                            <div>Notes to salesperson: </div>
+                            <textarea id="txtSalesNotes" class="DataInputCss" style="width: 90%;" rows="5"></textarea>
+                        </div>
+                    </section>
+                </div>
                     
                 <div style="clear: both; width: 100%;  margin-top: 0;"/>
             </div>    

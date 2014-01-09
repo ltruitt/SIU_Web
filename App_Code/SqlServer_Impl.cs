@@ -1318,6 +1318,8 @@ public class SiuDao : WebService
 
             if (jobRpt.SalesFollowUp == 1)
                 WebMail.JobSalesNotice(jobRpt);
+
+            WebMail.JobTechAckNotice(jobRpt);
         }
         catch (Exception ex)
         {
@@ -6935,10 +6937,21 @@ public class SqlServer_Impl : WebService
                 PointsGivenBy = rptRcd.IncLastTouchEmpID,
                 Comments = "Awarded for " + rptRcd.IncTypeTxt,
                 Points = (int)rptRcd.PointsAssigned,
-                EventDate = (DateTime) (rptRcd.IncidentDate ?? rptRcd.SafetyMeetingDate),
                 SPR_UID = rptRcd.IncidentNo,
                 QOM_ID = rptRcd.QOM_ID
             };
+
+            ///////////////////////////////////////////////////////////////
+            // Figure Out Which Date To Use As The Event Date            //
+            // The Data that Decided Which Period the Points Are Awarded //
+            ///////////////////////////////////////////////////////////////
+            if ( rptRcd.IncidentDate != null )
+                newPts.EventDate = (DateTime)rptRcd.IncidentDate;
+            else
+                if ( rptRcd.SafetyMeetingDate != null )
+                    newPts.EventDate = (DateTime)rptRcd.SafetyMeetingDate;
+                else
+                    newPts.EventDate = (DateTime)rptRcd.IncOpenTimestamp;
 
             ///////////////////////////////////////////////
             // Manually Convert SP Form Type to Rpt Type //

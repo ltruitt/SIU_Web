@@ -700,6 +700,51 @@ public static class WebMail
 
         NetMail(addressList, eMailSubject, emailBody);
     }
+    public static void JobTechAckNotice(Shermco_Job_Report Rpt)
+    {
+        try
+        {
+            string addressList = SqlServer_Impl.GetEmployeeEmailByNo(new List<string>() { Rpt.Turned_in_by_Tech_UserID })[0];
+
+            const string eMailSubject = "Job Report Submission Acknowledgement";
+
+            var jr = SqlServer_Impl.GetJobByNo(Rpt.Job_No_);
+            var cn = SqlServer_Impl.GetCustomerName(jr.Bill_to_Customer_No_);
+
+            string emailBody = "<b>Job No.: </b>" + Rpt.Job_No_ + "<br/>";
+            emailBody += "<b>Customer: </b>(" + jr.Bill_to_Customer_No_ + ") " + cn + "<br/>";
+            emailBody += "<b>Job Description: </b>" + jr.Description + "<br/>";
+            emailBody += "<b>DivDep: </b>" + jr.Global_Dimension_1_Code + "<br/>";
+            emailBody += "<b>Tech Submitted: </b>" + SqlServer_Impl.GetEmployeeNameByNo(Rpt.Turned_in_By_Emp__No_) + "<br/>";
+            emailBody += "<b>Comment for Sales: </b>" + Rpt.SalesFollowUp_Comment + "<br/>" + "<br/>";
+
+            emailBody += "<b>Site Location: </b>" + jr.Site_Location + "<br/>";
+            emailBody += "<b>Site Address: </b>" + jr.Site_Address + "<br/>";
+            if (jr.Site_Address_2.Length > 0)
+                emailBody += "<b>Site Address: </b>" + jr.Site_Address_2 + "<br/>";
+            emailBody += "<b>Site City: </b>" + jr.Site_City + "<br/>";
+            emailBody += "<b>Site State: </b>" + jr.Site_County + "<br/>";
+            emailBody += "<b>Site Zip: </b>" + jr.Site_Post_Code + "<br/>" + "<br/>";
+
+            emailBody += "<b>Sell-To Contact: </b>" + jr.Sell_To_Contact + "<br/>";
+            emailBody += "<b>Sell-To Contact Phone: </b>" + jr.Sell_To_Contact_Phone_No_ + "<br/>";
+            emailBody += "<b>Sell-To Contact Mobile: </b>" + jr.Sell_To_Contact_Mobile_No_ + "<br/>";
+            emailBody += "<b>Sell-To Contact Email: </b>" + jr.Sell_To_Contact_Email + "<br/>" + "<br/>";
+
+            emailBody += "<b>Report Comments: </b>" + "<br/>";
+            emailBody += Rpt.Comment;
+            emailBody += "<br/>";
+
+            HtmlMail(addressList, eMailSubject, emailBody);
+        }
+
+        catch (Exception ex)
+        {
+            SqlServer_Impl.LogDebug("WebMail.JobTechAckNotice", ex.Message);
+            if (Rpt != null)
+                SqlServer_Impl.LogDebug("WebMail.JobTechAckNotice", "JobNo: " + Rpt.Job_No_);
+        }
+    }
 
     public static void MovieCompletedEMail(string empID, string videoName)
     {

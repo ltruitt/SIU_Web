@@ -28,6 +28,7 @@ $(document).ready(function () {
     mutex('chkIR');
     mutex('chkIrDrBox');
     mutex('chkSales');
+    mutex('chkIrData');
     
     ///////////////////////////////////
     // Catch CheckBox Change Events  //
@@ -176,7 +177,8 @@ $(document).ready(function () {
         var jobDetails = JSON.parse(data.d, dateTimeReviver);
 
         if (jobDetails == null) {
-            $("#btnClear").trigger('click');
+            clearForm();
+            //$("#btnClear").trigger('click');
             $('#NoJobError').show();
             return;
         }
@@ -400,31 +402,75 @@ $(document).ready(function () {
             // IR Page Reconstruction //
             ////////////////////////////
             if (jobDetails.Turned_in_by_Tech_Date != '--/--/--') {
-                if (jobDetails.TmpIRData == 1)
+                if (jobDetails.TmpIRData == 1) {
                     $('#IrDrpBoxY')[0].checked = true;
+                    $('#chkIrDataY')[0].checked = true;
+                }
 
-                if (jobDetails.TmpIRData_No == 1)
+                if (jobDetails.TmpIRData_No == 1) {
                     $('#IrDrpBoxN')[0].checked = true;
+                    $('#chkIrDataY')[0].checked = true;
+                }
             }
 
             $('#chkIrOnly')[0].checked = jobDetails.IROnly;
             $('#chkIrPort')[0].checked = jobDetails.IRonFinalReport;
+            if ( $('#chkIrOnly')[0].checked )
+                $('#chkIrDataY')[0].checked = true;
+            if ($('#chkIrPort')[0].checked)
+                $('#chkIrDataY')[0].checked = true;
+            
             $('#txtIrHardCnt').val(jobDetails.No__of_Copies);
             $('#txtAddEmail').val(jobDetails.Email);
 
             ///////////////////////////////
             // Sales Page Reconstruction //
             ///////////////////////////////
-            if (jobDetails.SalesFollowUp == 1)
+            if (jobDetails.SalesFollowUp == 1) {
                 $('#chkSalesY')[0].checked = true;
-
-            //if (jobDetails.TMPNO == 1)
-            //    $('#chkSalesN')[0].checked = true;
+                $('#saleNotesDiv').show();
+            }
+            else {
+                $('#chkSalesN')[0].checked = true;
+                $('#saleNotesDiv').hide();
+            }
 
             $('#txtSalesNotes')[0].value = jobDetails.SalesFollowUp_Comment;
 
+            ///////////////////////////////////
+            // Catch CheckBox Change Events  //
+            // For Rpt Disposition           //
+            ///////////////////////////////////
+            $('.chkSales').change(function () {
+                if ($('#chkIrDataY')[0].checked)
+                    $('#saleNotesDiv').show('slow');
+                else
+                    $('#saleNotesDiv').hide();
+            });
 
-
+            ///////////////////////////////////
+            // Catch CheckBox Change Events  //
+            // For Rpt Disposition           //
+            ///////////////////////////////////
+            $('.chkIrData').change(function () {
+                if ($('#chkIrDataY')[0].checked) {
+                    $('#irDataDiv').show('slow');
+                    $('#irQ').hide();
+                }
+                else {
+                    $('#irDataDiv').hide();
+                    $('#irQ').show('slow');
+                }
+            });
+            if ($('#chkIrDataY')[0].checked) {
+                $('#irDataDiv').show('slow');
+                $('#irQ').hide();
+            }
+            else {
+                $('#irDataDiv').hide();
+                $('#irQ').show('slow');
+            }
+            
             /////////////////////////////
             // Sidebar Data Population //
             /////////////////////////////
@@ -505,6 +551,36 @@ $(document).ready(function () {
             return;
         }
 
+
+        
+        ///////////////////////////////////////////////////////////////////
+        // If Sales Contact Request Checked, Ensure Sales Notes Provided //
+        ///////////////////////////////////////////////////////////////////
+        if ($('#chkSalesY:checked').length > 0) {
+            if ( ! isAlpha( ($('#txtSalesNotes').val()   ) )  ) {
+                $('#btnSubmit').hide();
+                return;                
+            }
+        }
+
+        ///////////////////////////////////
+        // Check Report Disposition Page //
+        ///////////////////////////////////
+        if ($('input:checkbox[class=chkIrDrBox]:checked').length == 0) {
+            if ($('#txtNoRpt')[0].value.length == 0) {
+                $('#btnSubmit').hide();
+                return;
+            }
+        }
+        
+        /////////////////////////////////////////////////
+        // If IR Only Checked, Thats All That's Needed //
+        /////////////////////////////////////////////////
+        if ($('#chkIrPort:checked').length > 0) {
+            $('#btnSubmit').show();
+            return;
+        }
+        
         /////////////////////////////////////////////////
         // If IR Only Checked, Thats All That's Needed //
         /////////////////////////////////////////////////
@@ -513,24 +589,6 @@ $(document).ready(function () {
             return;
         }
         
-        ///////////////////////////////////////////////////////////////////
-        // If Sales Contact Request Checked, Ensure Sales Notes Provided //
-        ///////////////////////////////////////////////////////////////////
-        if ($('#chkSalesY:checked').length > 0) {
-            if ( ! isAlpha( ($('#txtSalesNotes').val()   ) )  ) {
-            //if ($('#txtSalesNotes')[0].value.length == 0) {
-                $('#btnSubmit').hide();
-                return;                
-            }
-        }
-
-        /////////////////////////////////////////////////
-        // If IR Only Checked, Thats All That's Needed //
-        /////////////////////////////////////////////////
-        if ($('#chkIrPort:checked').length > 0) {
-            $('#btnSubmit').show();
-            return;
-        }
         
         ///////////////////////////////////
         // Check Report Disposition Page //
@@ -716,6 +774,13 @@ $(document).ready(function () {
     // Clear / Reset Form //
     ////////////////////////
     $("#btnClear").click(function () {
+        var ans = confirm('Are you sure you want to clear this data');
+        if ( ans==true )
+            clearForm();
+    });
+   
+    
+    function clearForm() {
 
         $('#NotReady').html('');
         
@@ -782,7 +847,7 @@ $(document).ready(function () {
         // Send Focus To Job No Entry Field //
         //////////////////////////////////////
         $("#ddJobNo").focus();
-    });
+    };
 
     /////////////////
     // Format Tabs //
