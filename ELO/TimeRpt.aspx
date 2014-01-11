@@ -4,7 +4,7 @@
     <title>Time Card Report</title>
     
     <link href="/Styles/ELO.css" rel="stylesheet"  type="text/css" />
-    <script type="text/javascript" src="/Scripts/TimeRpt.js"></script> 
+    <script type="text/javascript" src="/Scripts/TimeRpt.js?0000"></script> 
     
     <!-- Include one of jTable styles. -->
     <link href="/Scripts/jtable.2.2.1/themes/metro/blue/jtable.min.css" rel="stylesheet" type="text/css" />

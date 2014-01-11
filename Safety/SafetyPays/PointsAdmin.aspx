@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
     <title>ELO Time Entry</title>
 
-    <script type="text/javascript" src="/Scripts/PointsAdmin.js"></script>  
+    <script type="text/javascript" src="/Scripts/PointsAdmin.js?0000"></script>  
     <link rel="stylesheet" type="text/css" media="screen" href="/Styles/DeskTop-Forms.css" />
 
     <!-- Include one of jTable styles. -->
@@ -45,6 +45,7 @@
     <section style="visibility: hidden; height: 0; width: 0;">
         <span runat="server" id="hlblEID"                      /> 
         <span runat="server" id="hlblPointsType"               /> 
+        <span runat="server" id="hlblUID"               />
     </section>
 
     <div >
@@ -75,7 +76,7 @@
                            
                     <p style="height: 15px;"></p> 
 
-                    <span style="float:left; margin-right: 20px; width: 150px;  font-weight: bold; display:inline">Date Earned:</span>
+                    <span style="float:left; margin-right: 20px; width: 150px;  font-weight: bold; display:inline">Event Date:</span>
                     <input type="text" id="txtEntryDate" Class="DataInputCss DateEntryCss"  runat="server" style="width: 100px; color: black;" />   
 
                     <p style="height: 15px;"></p> 

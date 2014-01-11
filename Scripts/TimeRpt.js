@@ -17,8 +17,8 @@
         defaultSorting: 'workDate ASC',
 
         actions: {
-            listAction: '/SIU_DAO.asmx/GetAllHoursRptLast60',
-            deleteAction: '/SIU_DAO.asmx/DeleteTimeRecord'
+            listAction: '/SIU_DAO.asmx/rrrrrT',
+            deleteAction: '/SIU_DAO.asmx/hfghfg'
         },
         fields: {
             EntryNo: {

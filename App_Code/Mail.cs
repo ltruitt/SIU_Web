@@ -1163,13 +1163,6 @@ public static class WebMail
         NetMail("ITDEPARTMENT@shermco.com", eMailSubject, emailBody);
         NetMail(EmailAddr, eMailSubject, emailBody);
     }
-
-
-
-
-
-
-
     public static void HardwareRequstSendCompleteEmail(string EmailAddr, SIU_IT_HW_Req Req)
     {
         string forEmpName = SqlServer_Impl.GetEmployeeNameByNo(Req.For_EmpID);

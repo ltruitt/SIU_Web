@@ -340,7 +340,7 @@ public class SiuDao : WebService
     // Manually Add Safety Pays Points //
     /////////////////////////////////////
     [WebMethod(EnableSession = true)]
-    public string RecordAdminPoints(string EmpID, string ReasonCode, string Points, string Comment, string DateOfEvent )
+    public string Xxx5554S(string EmpID, string ReasonCode, string Points, string Comment, string DateOfEvent, string UID)
     {
         SIU_SafetyPays_Point pt = new SIU_SafetyPays_Point
         {
@@ -353,6 +353,9 @@ public class SiuDao : WebService
             EventDate = DateTime.Parse( DateOfEvent ),
             SPR_UID = 0
         };
+
+        if (UID.Length > 0)
+            pt.UID =  int.Parse(UID);
             
         SqlServer_Impl.RecordAdminPoints(pt);
     
@@ -363,7 +366,7 @@ public class SiuDao : WebService
     // Lookup Safety Pays Points For Emp //
     ///////////////////////////////////////
     [WebMethod(EnableSession = true)]
-    public string GetEmpIdPoints(string EmpID, string jtSorting)
+    public string k00PY34(string EmpID, string jtSorting)
     {
         List<SIU_SafetyPays_Point> rpt = SqlServer_Impl.GetEmpIdPoints(EmpID).OrderBy(jtSorting).ToList();
         JavaScriptSerializer serializer = new JavaScriptSerializer();
@@ -374,7 +377,7 @@ public class SiuDao : WebService
     // Lookup Safety Pays Points For Emp //
     ///////////////////////////////////////
     [WebMethod(EnableSession = true)]
-    public string RemoveEmpIdPoints(string UID)
+    public string GhjjI0E(string UID)
     {
         JavaScriptSerializer serializer = new JavaScriptSerializer();
         try
@@ -475,7 +478,7 @@ public class SiuDao : WebService
     }
 
     [WebMethod(EnableSession = true)]
-    public string GetAllHoursRptLast60(string EmpID, string jtSorting)
+    public string rrrrrT(string EmpID, string jtSorting)
     {
         string[] sorting = jtSorting.Split(' ');
 
@@ -739,7 +742,7 @@ public class SiuDao : WebService
     // Remove A Time Record //
     //////////////////////////
     [WebMethod(EnableSession = true)]
-    public string DeleteTimeRecord(string EntryNo)
+    public string hfghfg(string EntryNo)
     {
         int recordId = int.Parse(EntryNo);
 
@@ -1508,15 +1511,42 @@ public class SiuDao : WebService
     // Generate Open Vehicle Issues Reports //
     //////////////////////////////////////////
     [WebMethod(EnableSession = true)]
-//    [PrincipalPermission(SecurityAction.Demand, Authenticated = false, Name = "10371")]
-    public void GenVehInspEmails()
+    public void kjbbvc665()
     {
         const string eMailSubject = "Unresolved Vehicle Inspections.";
 
         WebMail.HtmlMail("bborowczak@shermco.com", eMailSubject, BusinessLayer.GenFleetInspRpt(""));
-        WebMail.HtmlMail("mpustejovsky@shermco.com", eMailSubject, BusinessLayer.GenFleetInspRpt("80"));
-        WebMail.HtmlMail("cearp@shermco.com", eMailSubject, BusinessLayer.GenFleetInspRpt("70"));
 
+        foreach (var deptList in SqlServer_Impl.GetReportingChainList())
+        {
+            List<string> emList = SqlServer_Impl.GetEmployeeEmailByNo(new List<string>() { deptList.DeptMgrEmpId });
+            if (emList.Count > 0)
+            {
+                string email = BusinessLayer.GenFleetInspRpt(deptList.Dept);
+                if (email.Length > 0)
+                    WebMail.HtmlMail(emList[0], eMailSubject, email);
+            }
+
+        }
+
+    }
+
+    //////////////////////////
+    // Generate QOM Notices //
+    //////////////////////////
+    [WebMethod(EnableSession = true)]
+    public void SSddf55s()
+    {
+        BusinessLayer.GenQtmNotices();
+    }
+
+    //////////////////////////////////////////
+    // Generate 
+    //////////////////////////////////////////
+    [WebMethod(EnableSession = true)]
+    public void p775689hh()
+    {
+        BusinessLayer.GenQtmReminders();
     }
 
     //////////////////////////////////////////
@@ -2948,7 +2978,7 @@ public class SiuDao : WebService
     // Lookup Expenses For Employee //
     //////////////////////////////////
     [WebMethod(EnableSession = true)]
-    public string GetMyExpenses(string EmpID)
+    public string hhtl0(string EmpID)
     {
         List<Shermco_Employee_Expense> rpt = SqlServer_Impl.GetMyExpenses(EmpID);
         JavaScriptSerializer serializer = new JavaScriptSerializer();
@@ -3013,7 +3043,7 @@ public class SiuDao : WebService
     // Remove An Unposted Expense //
     ////////////////////////////////
     [WebMethod(EnableSession = true)]
-    public string DeleteMyExpense(int Line_No_)
+    public string zz0p(int Line_No_)
     {
         JavaScriptSerializer serializer = new JavaScriptSerializer();
         try
@@ -4435,6 +4465,21 @@ public class SqlServer_Impl : WebService
             LogDebug("GetEmployeeReportingChain", ex.Message);
         }
         return null;        
+    }
+    public static List<SIU_ReportingChain> GetReportingChainList()
+    {
+        try
+        {
+            SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
+
+            return (from chain in nvDb.SIU_ReportingChains
+                    select chain).ToList();
+        }
+        catch (Exception ex)
+        {
+            LogDebug("GetEmployeeReportingChain", ex.Message);
+        }
+        return null;
     }
     public static List<SIU_ReportingChain> GetOshaDeptData()
     {
@@ -7033,25 +7078,56 @@ public class SqlServer_Impl : WebService
     ////////////////////////////////////////////////////////////////////////
     // Data Support For EHS Admin manual Management Of Safety Pays Points //
     ////////////////////////////////////////////////////////////////////////
-    public static List<String> GetList_SafetyPaysStatuses()
-    {
-        SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
+    //public static List<String> GetList_SafetyPaysStatuses()
+    //{
+    //    SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
 
-        var s = (from statuses in nvDb.SIU_SafetyPaysReports
-                select statuses.IncStatus
-           ).Distinct().ToList();
+    //    var s = (from statuses in nvDb.SIU_SafetyPaysReports
+    //            select statuses.IncStatus
+    //       ).Distinct().ToList();
 
-        s.Insert(0, "");
-        return s;
-    }
+    //    s.Insert(0, "");
+    //    return s;
+    //}
    
     public static int RecordAdminPoints(SIU_SafetyPays_Point _Pts)
     {
         SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
 
-        nvDb.SIU_SafetyPays_Points.InsertOnSubmit(_Pts);
-        nvDb.SubmitChanges();
+        if (_Pts.UID > 0)
+        {
+            SIU_SafetyPays_Point changePtRcd = (from ptRcd in nvDb.SIU_SafetyPays_Points
+                                                where ptRcd.UID == _Pts.UID
+                                                select ptRcd).SingleOrDefault();
 
+            if (changePtRcd == null) throw (new Exception("Failed To Locate Update Record for " + _Pts.UID));
+
+            changePtRcd.Points = _Pts.Points;
+            changePtRcd.ReasonForPoints = _Pts.ReasonForPoints;
+
+            if (changePtRcd.SPR_UID != null)
+            {
+                if (changePtRcd.SPR_UID > 0)
+                {
+                    SIU_SafetyPaysReport changeRptRcd = (from rptRcd in nvDb.SIU_SafetyPaysReports
+                                                         where rptRcd.IncidentNo == changePtRcd.SPR_UID
+                                                         select rptRcd).SingleOrDefault();
+
+                    changeRptRcd.PointsAssigned = _Pts.Points;
+                    changeRptRcd.IncLastTouchTimestamp = DateTime.Now;
+                    changeRptRcd.IncLastTouchEmpID = BusinessLayer.UserEmpID;
+                    changeRptRcd.IncTypeTxt = Get_SafetyPaysType(_Pts.ReasonForPoints);
+                }
+            }
+
+        }
+
+        else
+        {
+            nvDb.SIU_SafetyPays_Points.InsertOnSubmit(_Pts);
+        }
+
+        nvDb.SubmitChanges();
         return _Pts.UID;
     }
     public static List<SIU_SafetyPays_Point> GetEmpIdPoints(string EmpID)
@@ -7185,32 +7261,61 @@ public class SqlServer_Impl : WebService
                     join ptType in nvDb.SIU_SafetyPays_Points_Types on rptData.ReasonForPoints equals ptType.UID
                     where rptData.EventDate >= start && rptData.EventDate <= end && emp.No_ == EmpNo
                     orderby emp.Global_Dimension_1_Code descending
-                    select (new SIU_Points_Rpt(rptData, emp.Global_Dimension_1_Code, emp.Last_Name + ", " + emp.First_Name, ptType.Description))
+                    select (new SIU_Points_Rpt(rptData, emp.No_, emp.Global_Dimension_1_Code, emp.Last_Name + ", " + emp.First_Name, ptType.Description))
                 ).ToList();
     }
     public static List<SIU_Points_Rpt> GetAdminPointsRptEmpPoints(DateTime start, DateTime end)
     {
         SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
 
-        return (from rptData in nvDb.SIU_SafetyPays_Points
-                join emp in nvDb.Shermco_Employees on rptData.Emp_No equals emp.No_
-                join ptType in nvDb.SIU_SafetyPays_Points_Types on rptData.ReasonForPoints equals ptType.UID
-                where rptData.EventDate >= start && rptData.EventDate <= end
-                orderby emp.Global_Dimension_1_Code ascending, emp.No_ ascending, emp.Last_Name ascending
-                select (new SIU_Points_Rpt(rptData, emp.Global_Dimension_1_Code, emp.Last_Name + ", " + emp.First_Name, ptType.Description ))
-                ).ToList();
+        //return (from rptData in nvDb.SIU_SafetyPays_Points
+        //        join emp in nvDb.Shermco_Employees on rptData.Emp_No equals emp.No_
+        //        join ptType in nvDb.SIU_SafetyPays_Points_Types on rptData.ReasonForPoints equals ptType.UID
+        //        where rptData.EventDate >= start && rptData.EventDate <= end
+        //        orderby emp.Global_Dimension_1_Code ascending, emp.No_ ascending, emp.Last_Name ascending
+        //        select (new SIU_Points_Rpt(rptData, emp.No_, emp.Global_Dimension_1_Code, emp.Last_Name + ", " + emp.First_Name, ptType.Description))
+        //        ).ToList();
+
+        return (from t1 in nvDb.Shermco_Employees
+                join t0 in nvDb.SIU_SafetyPays_Points on new { No_ = t1.No_ } equals new { No_ = t0.Emp_No } into t0_join
+                where t1.Status == 0 && t1.Blocked == 0
+
+                from t0 in t0_join.DefaultIfEmpty()
+                join t2 in nvDb.SIU_SafetyPays_Points_Types on new { ReasonForPoints = t0.ReasonForPoints } equals new { ReasonForPoints = t2.UID } into t2_join
+
+                from t2 in t2_join.DefaultIfEmpty()
+                where (t0.EventDate >= start && t0.EventDate <= end) || t0.EventDate == null
+
+                orderby t1.Global_Dimension_1_Code ascending, t1.No_ ascending, t1.Last_Name ascending
+                select (new SIU_Points_Rpt(t0, t1.No_, t1.Global_Dimension_1_Code, t1.Last_Name + ", " + t1.First_Name, t2.Description))
+                 ).ToList();
     }
     public static List<SIU_Points_Rpt> GetAdminPointsRptEmpPointsFromProd(DateTime start, DateTime end)
     {
         SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(ForcedProductionConnectString);
 
-        return (from rptData in nvDb.SIU_SafetyPays_Points
-                join emp in nvDb.Shermco_Employees on rptData.Emp_No equals emp.No_
-                join ptType in nvDb.SIU_SafetyPays_Points_Types on rptData.ReasonForPoints equals ptType.UID
-                where rptData.EventDate >= start && rptData.EventDate <= end
-                orderby emp.Global_Dimension_1_Code ascending, emp.No_ ascending, emp.Last_Name ascending
-                select (new SIU_Points_Rpt(rptData, emp.Global_Dimension_1_Code, emp.Last_Name + ", " + emp.First_Name, ptType.Description))
+        //return (from rptData in nvDb.SIU_SafetyPays_Points
+        //        join emp in nvDb.Shermco_Employees on rptData.Emp_No equals emp.No_
+        //        join ptType in nvDb.SIU_SafetyPays_Points_Types on rptData.ReasonForPoints equals ptType.UID
+        //        where rptData.EventDate >= start && rptData.EventDate <= end
+        //        orderby emp.Global_Dimension_1_Code ascending, emp.No_ ascending, emp.Last_Name ascending
+        //        select (new SIU_Points_Rpt(rptData, emp.Global_Dimension_1_Code, emp.Last_Name + ", " + emp.First_Name, ptType.Description))
+        //        ).ToList();
+
+       return ( from t1 in nvDb.Shermco_Employees
+                join t0 in nvDb.SIU_SafetyPays_Points on new { No_ = t1.No_ } equals new { No_ = t0.Emp_No } into t0_join
+                where t1.Status == 0 && t1.Blocked == 0
+
+                from t0 in t0_join.DefaultIfEmpty()
+                join t2 in nvDb.SIU_SafetyPays_Points_Types on new { ReasonForPoints = t0.ReasonForPoints } equals new { ReasonForPoints = t2.UID } into t2_join
+
+                from t2 in t2_join.DefaultIfEmpty()
+                where (t0.EventDate >= start && t0.EventDate <= end) || t0.EventDate == null
+
+                orderby t1.Global_Dimension_1_Code ascending, t1.No_ ascending, t1.Last_Name ascending
+                select (new SIU_Points_Rpt(t0, t1.No_, t1.Global_Dimension_1_Code, t1.Last_Name + ", " + t1.First_Name, t2.Description))
                 ).ToList();
+
     }
     public static List<SIU_Points_Rpt> GetAdminPointsRptDepts(string startDate, string endDate)
     {
@@ -7318,7 +7423,7 @@ public class SqlServer_Impl : WebService
             {
                 return new List<Tuple<SIU_SafetyPays_Point, SIU_SafetyPaysReport>>
                      (from p in nvDb.SIU_SafetyPays_Points
-                        where p.EventDate >= DateTime.Parse("10/1/2013") && p.EventDate <= DateTime.Parse("12/31/2013")
+                        where p.EventDate >= startDate && p.EventDate <= endDate
                         join r in nvDb.SIU_SafetyPaysReports on new { SPR_UID = Convert.ToInt32(p.SPR_UID) } equals new { SPR_UID = r.IncidentNo } into r_join
                         from r in r_join.DefaultIfEmpty()
                         select Tuple.Create(p,r)); //.ToList();
@@ -8797,13 +8902,14 @@ public static class BusinessLayer
         else
             uncorrected = SqlServer_Impl.getAllOpenVehInsp();
 
-        List<Shermco_Employee> emps = SqlServer_Impl.GetActiveEmployees();
+        if (uncorrected.Count == 0)
+            return ("");
 
-        
+        List<Shermco_Employee> emps = SqlServer_Impl.GetActiveEmployees();
 
         string emailBody;
         if (Dept.Length > 0)
-            emailBody = "<h1>The following is a list of uncorrected vehicle inspections for departments beginning with \"" + Dept + "\".</h1>";
+            emailBody = "<h1>The following is a list of uncorrected vehicle inspections for department \"" + Dept + "\".</h1>";
         else
             emailBody = "<h1>The following is a list of ALL uncorrected vehicle Inspections.</h1>";
 
@@ -8857,7 +8963,55 @@ public static class BusinessLayer
 
             emailBody += "<br/><br/>";
 
-            emailBody += "If you have questions or comments, please email mailto:aschumacher@shermco.com?subject=" + strMonthName + " " + qtm.Q_Grp + " Question of the Month";
+            emailBody += "You may review your history of Questions and Answers ";
+            emailBody += "<a href=" + webServer + "/Safety/SafetyPays/SafetyQomHistory.aspx>here</a>.";
+
+            emailBody += "<br/><br/>";
+
+            emailBody += "<b>If you have questions or comments, please ";
+            emailBody += "<a href=mailto:aschumacher@shermco.com?subject=" + strMonthName + "%20" + qtm.Q_Grp + "%20Question%20of%20the%20Month%20message>email EHS</a></b>";
+
+            emailBody += "<br/><br/>";
+
+
+            WebMail.HtmlMail("allemployees@shermco.com", strMonthName + " " + qtm.Q_Grp + " Question of the month", emailBody);
+        }
+    }
+    public static void GenQtmReminders()
+    {
+        string webServer = "http://" + HttpContext.Current.Request.Url.DnsSafeHost;
+        List<SIU_Qom_QR> qtmList = SqlServer_Impl.GetSafetyQomQRList("0");
+
+        DateTimeFormatInfo mfi = new DateTimeFormatInfo();
+        string strMonthName = mfi.GetMonthName(DateTime.Now.Month);
+
+
+        foreach (SIU_Qom_QR qtm in qtmList)
+        {
+
+            string emailBody = "<div style='border: 2 solid blue; font-size: 1.3em; font-weight: bold; margin: 10px; color: blue; padding: 3px;'>";
+            emailBody += "The following email is a reminder to respond to any currently unanswered Questions of the Month</div>";
+
+            emailBody += "<br/>";
+
+            emailBody += "<h1>The " + strMonthName + " " + qtm.Q_Grp + " Question of the month is:</h1>";
+
+            emailBody += "<b>" + qtm.Question + "</b>";
+            emailBody += "<br/><br/>";
+            emailBody += "<a href=" + webServer + "/Safety/SafetyPays/SafetyQomUser.aspx>Click here to respond to this or other open Questions of the Month</a>";
+
+            emailBody += "<br/><br/>";
+
+            emailBody += "You may review your history of Questions and Answers ";
+            emailBody += "<a href=" + webServer + "/Safety/SafetyPays/SafetyQomHistory.aspx>here</a>.";
+
+            emailBody += "<br/><br/>";
+
+            emailBody += "<b>If you have questions or comments, please ";
+            emailBody += "<a href=mailto:aschumacher@shermco.com?subject=" + strMonthName + "%20" + qtm.Q_Grp + "%20Question%20of%20the%20Month%20message>email EHS</a></b>";
+
+            emailBody += "<br/><br/>";
+
 
             WebMail.HtmlMail("allemployees@shermco.com", strMonthName + " " + qtm.Q_Grp + " Question of the month", emailBody);
         }
@@ -8902,7 +9056,6 @@ public static class SqlDataMapper<T>
 
         return dao;
     }
-
     public static T MapAspForm<T>(T MapToDAO, HttpRequest PageRequest)
     {
         //////////////////////////////////////////

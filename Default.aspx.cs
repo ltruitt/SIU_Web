@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Web.Configuration;
 
@@ -80,26 +81,32 @@ public partial class _Default : System.Web.UI.Page
     }
 
 
-    protected void TestEmailCeClick(object sender, EventArgs e)
-    {
-        const string eMailSubject = "Unresolved Vehicle Inspections.";
-        WebMail.HtmlMail("cearp@shermco.com", eMailSubject, BusinessLayer.GenFleetInspRpt("70"));
-    }
-
-    protected void TestEmailMpClick(object sender, EventArgs e)
-    {
-        const string eMailSubject = "Unresolved Vehicle Inspections.";
-        WebMail.HtmlMail("mpustejovsky@shermco.com", eMailSubject, BusinessLayer.GenFleetInspRpt("80"));
-    }
-
     protected void TestEmailBbClick(object sender, EventArgs e)
     {
         const string eMailSubject = "Unresolved Vehicle Inspections.";
+
         WebMail.HtmlMail("bborowczak@shermco.com", eMailSubject, BusinessLayer.GenFleetInspRpt(""));
+
+        foreach (var deptList in SqlServer_Impl.GetReportingChainList())
+        {
+            List<string> emList = SqlServer_Impl.GetEmployeeEmailByNo(new List<string>() { deptList.DeptMgrEmpId });
+            if (emList.Count > 0)
+            {
+                string email = BusinessLayer.GenFleetInspRpt(deptList.Dept);
+                if ( email.Length > 0 )
+                    WebMail.HtmlMail(emList[0], eMailSubject, email);
+            }
+                
+        }
     }
 
     protected void TestEmailQtm1stClick(object sender, EventArgs e)
     {
         BusinessLayer.GenQtmNotices();
+    }
+
+    protected void TestEmailQtm15thClick(object sender, EventArgs e)
+    {
+        BusinessLayer.GenQtmReminders();
     }
 }

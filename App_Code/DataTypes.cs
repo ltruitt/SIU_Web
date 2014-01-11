@@ -514,23 +514,32 @@ namespace ShermcoYou.DataTypes
 
         public SIU_Points_Rpt() { }
 
-        public SIU_Points_Rpt(SIU_SafetyPays_Point Rpt, string Dept, string Name, string PtType)
+        public SIU_Points_Rpt(SIU_SafetyPays_Point Rpt, string EmpNo,  string Dept, string Name, string PtType)
         {
-            Emp_No = Rpt.Emp_No;
+            //Emp_No = Rpt.Emp_No;
+            Emp_No = EmpNo;
             EmpName = Name;
             EmpDept = Dept;
 
-            EventDate = Rpt.EventDate;
-            DatePointsGiven = Rpt.DatePointsGiven;
+            if (Rpt != null)
+            {
+                EventDate = Rpt.EventDate;
+                DatePointsGiven = Rpt.DatePointsGiven;
 
-            ReasonForPoints = Rpt.ReasonForPoints;
-            PointsType = PtType;
+                ReasonForPoints = Rpt.ReasonForPoints;
+                PointsType = PtType;
 
-            PointsGivenBy = Rpt.PointsGivenBy;
+                PointsGivenBy = Rpt.PointsGivenBy;
 
-            Comments = Rpt.Comments;
-            Points = Rpt.Points;
-            UID = Rpt.UID;
+                Comments = Rpt.Comments;
+                Points = Rpt.Points;
+                UID = Rpt.UID;
+            }
+            else
+            {
+                Points = 0;
+                EventDate = DateTime.MinValue;
+            }
         }
 
     }

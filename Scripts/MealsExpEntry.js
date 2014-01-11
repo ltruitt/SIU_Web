@@ -376,8 +376,8 @@
         defaultSorting: 'JobNo ASC',
         edit: true,
         actions: {
-            listAction: '/SIU_DAO.asmx/GetMyExpenses',
-            deleteAction: '/SIU_DAO.asmx/DeleteMyExpense'
+            listAction: '/SIU_DAO.asmx/hhtl0',
+            deleteAction: '/SIU_DAO.asmx/zz0p'
         },
         fields: {
             Line_No_: {

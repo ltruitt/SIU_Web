@@ -12,16 +12,13 @@
             <asp:Button ID="Button1" runat="server" Text="Generate Test Email" OnClick="TestEmailClick"  />
             <br/>
             <br/>
-            <asp:Button ID="Button2" runat="server" Text="Generate BB Veh Insp Report Email" OnClick="TestEmailBbClick"  />
-            <br/>
-            <br/>
-            <asp:Button ID="Button3" runat="server" Text="Generate MP Veh Insp Report Email" OnClick="TestEmailMpClick"  />
-            <br/>
-            <br/>
-            <asp:Button ID="Button4" runat="server" Text="Generate CE Veh Insp Report Email" OnClick="TestEmailCeClick"  />
+            <asp:Button ID="Button2" runat="server" Text="Generate Veh Insp Report Emails" OnClick="TestEmailBbClick"  />
             <br/>
             <br/>
             <asp:Button ID="Button5" runat="server" Text="Generate QTM Notice" OnClick="TestEmailQtm1stClick"  />
+            <br/>
+            <br/>
+            <asp:Button ID="Button3" runat="server" Text="Generate QTM Reminder" OnClick="TestEmailQtm15thClick"  />
 <%--            <br/>
             <br/>
             <asp:Button id="btnEncrypt" runat="server" Text="Encrypt" onclick="btnEncrypt_Click" />

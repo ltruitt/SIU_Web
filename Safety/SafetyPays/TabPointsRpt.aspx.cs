@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Globalization;
 using System.Linq;
 
@@ -55,15 +56,38 @@ public partial class Safety_SafetyPays_TabPointsRpt : System.Web.UI.Page
     ////////////////////////////////////////////////////////////
     // Type Used In Dictionary To Track Monthly Totals By Emp //
     ////////////////////////////////////////////////////////////
+    private class TypSumByMon
+    {
+        public string Month;
+        public int Type;
+        public int Points;
+        public int Submitted;
+        public int Rejected;
+        public int Open;
+        public int Working;
+        public int Killed;
+        public int Closed;
+    }
+
+    ////////////////////////////////////////////////////////////
+    // Type Used In Dictionary To Track Monthly Totals By Emp //
+    ////////////////////////////////////////////////////////////
     private class EmpDtl
     {
         public int[] ReasonPts;
     }
 
+    ////////////////////////////////
+    // List Of Months  < 1, "1" > //
+    ////////////////////////////////
+    Dictionary<int, string> months = new Dictionary<int, string>();                 
 
 
     protected void Consolidated_Click(object sender, EventArgs e)
     {
+        StringCollection sessionVar = (StringCollection)Session["UserGroups"];
+        Dictionary<int, string> ptTypes = SqlServer_Impl.GetAutoCompletePointTypes().ToDictionary(mc => mc.UID, mc => mc.Description);
+
         //////////////////////////////////
         // Build The Document Framework //
         //////////////////////////////////
@@ -89,55 +113,72 @@ public partial class Safety_SafetyPays_TabPointsRpt : System.Web.UI.Page
         sl.RenameWorksheet(SLDocument.DefaultFirstSheetName, "By Dept");
         sl.AddWorksheet("By Emp");
         sl.AddWorksheet("Bar Graph");
-        sl.AddWorksheet("Prj Pts Calc");
-        sl.AddWorksheet("Std Prj Pts");
-        sl.AddWorksheet("Pts by Type");
 
-        sl.AddWorksheet("Sum Submissions");
-        sl.AddWorksheet("Dtl Submissions");
+        if (sessionVar != null)
+            if (sessionVar.Contains("ShermcoYou_Safety_Pays"))
+            {
+                sl.AddWorksheet("Prj Pts Calc");
+                sl.AddWorksheet("Std Prj Pts");
+                sl.AddWorksheet("Pts by Type");
+                sl.AddWorksheet("Sum By Emp");
+                sl.AddWorksheet("Sum By Type");
+                sl.AddWorksheet("Dtl Submissions");
+            }
 
         ///////////////////////////////////////////////
         // Build The Summary By Department Worksheet //
         ///////////////////////////////////////////////
+        var data = SqlServer_Impl.GetAdminPointsRptEmpPointsFromProd(_start, _end);
         sl.SelectWorksheet("By Dept");
-        BuildDeptData(ref sl);
+        BuildDeptData(ref sl, ref data);
 
         ////////////////////////////////////////////
         // Build The Detail By EMployee Worksheet //
         ////////////////////////////////////////////
         sl.SelectWorksheet("By Emp");
-        BuildEmpDtlData(ref sl);
+        BuildEmpDtlData(ref sl, ref data, ref ptTypes);
 
-        /////////////////////////////////////////////////////////////////////////
-        // Build A Worksheet Showing Calculated Projected Points Over A Period //
-        /////////////////////////////////////////////////////////////////////////
-        sl.SelectWorksheet("Prj Pts Calc");
-        BuildPrjDtlData(ref sl);
+        if (sessionVar != null)
+            if (sessionVar.Contains("ShermcoYou_Safety_Pays"))
+            {
+                List<Tuple<SIU_SafetyPays_Point, SIU_SafetyPaysReport>> rawData =   SqlServer_Impl.GetSafetyPaysRawDataRpt(_start, _end);
 
-        /////////////////////////////////////////////////////////
-        // Build A Worksheet Showing Default Projection Points //
-        /////////////////////////////////////////////////////////
-        sl.SelectWorksheet("Std Prj Pts");
-        BuildPrjStdData(ref sl);
+                /////////////////////////////////////////////////////////////////////////
+                // Build A Worksheet Showing Calculated Projected Points Over A Period //
+                /////////////////////////////////////////////////////////////////////////
+                sl.SelectWorksheet("Prj Pts Calc");
+                BuildPrjDtlData(ref sl, ref ptTypes);
 
-        /////////////////////////
-        // Show Points By Type //
-        /////////////////////////
-        sl.SelectWorksheet("Pts by Type");
-        BuildPtTypeData(ref sl);
+                /////////////////////////////////////////////////////////
+                // Build A Worksheet Showing Default Projection Points //
+                /////////////////////////////////////////////////////////
+                sl.SelectWorksheet("Std Prj Pts");
+                BuildPrjStdData(ref sl, ref ptTypes);
 
-        ///////////////////////////////////////////////
-        // Build Deptartment Managers Summary Report //
-        ///////////////////////////////////////////////
-        sl.SelectWorksheet("Sum Submissions");
-        BuildDeptSumData(ref sl);
+                /////////////////////////
+                // Show Points By Type //
+                /////////////////////////
+                sl.SelectWorksheet("Pts by Type");
+                BuildPtTypeData(ref sl);
 
-        ///////////////////
-        // Raw Data Dump //
-        ///////////////////
-        sl.SelectWorksheet("Dtl Submissions");
-        BuildRawData(ref sl);
+                ///////////////////////////////////////////////
+                // Build Deptartment Managers Summary Report //
+                ///////////////////////////////////////////////
+                sl.SelectWorksheet("Sum By Emp");
+                BuildDeptSumData(ref sl);
 
+                ///////////////////////////////////////////////
+                // Build Deptartment Managers Summary Report //
+                ///////////////////////////////////////////////
+                sl.SelectWorksheet("Sum By Type");
+                BuildTypeSum(ref sl, ref ptTypes, ref rawData);
+
+                ///////////////////
+                // Raw Data Dump //
+                ///////////////////
+                sl.SelectWorksheet("Dtl Submissions");
+                BuildRawData(ref sl, ref ptTypes, ref rawData);
+            }
 
         sl.SelectWorksheet("By Dept");
         Response.Clear();
@@ -147,10 +188,8 @@ public partial class Safety_SafetyPays_TabPointsRpt : System.Web.UI.Page
         Response.End();
     }
 
-    private void BuildDeptData(ref SLDocument sl)
+    private void BuildDeptData(ref SLDocument sl, ref List<SIU_Points_Rpt> data )
     {
-        Dictionary<int, string> months = new Dictionary<int, string>();                 // List Of Months  < 1, "1" >
-
         EmpByMon sumEmpPts;                                                             // Array [14] (One For Each Month  [0] For Sum 
         Dictionary<string, EmpByMon> sumEmpMon = new Dictionary<string, EmpByMon>();    // Sum By Emp  <"empNo",  Array[14] As Above
 
@@ -164,34 +203,33 @@ public partial class Safety_SafetyPays_TabPointsRpt : System.Web.UI.Page
 
         if (_end.Day == 1)
             _end = _end.AddDays(-1);
-
-        /////////////////////////////////////////////////////////////
-        // Get Employee Points Detail Records For Reporting Period //
-        /////////////////////////////////////////////////////////////
-        var data = SqlServer_Impl.GetAdminPointsRptEmpPointsFromProd(_start, _end).OrderBy("EmpDept");
-
+                                  
         ///////////////////////////////////////////////////////////
         // Build A Summary Array For Each Employee For Each Dept //
         //////////////////////////////////////////////////////////
-        foreach (SIU_Points_Rpt rptRcd in data)
+        foreach (SIU_Points_Rpt rptRcd in data.OrderBy("EmpDept"))
         {
             if (sumEmpMon.ContainsKey(rptRcd.Emp_No))
             {
                 sumEmpPts = sumEmpMon[rptRcd.Emp_No];
-                sumEmpPts.Months[rptRcd.EventDate.Month] += rptRcd.Points;
+                if (rptRcd.EventDate != DateTime.MinValue)
+                    sumEmpPts.Months[rptRcd.EventDate.Month] += rptRcd.Points;
                 sumEmpPts.Months[13] += rptRcd.Points;
             }
             else
             {
                 sumEmpPts = new EmpByMon();
-                sumEmpPts.Months[rptRcd.EventDate.Month] = rptRcd.Points;
+                if ( rptRcd.EventDate != DateTime.MinValue )
+                    sumEmpPts.Months[rptRcd.EventDate.Month] = rptRcd.Points;
+
                 sumEmpPts.Months[13] = rptRcd.Points;
                 sumEmpMon.Add(rptRcd.Emp_No, sumEmpPts);
             }
 
 
             if (!months.ContainsKey(rptRcd.EventDate.Month))
-                months.Add(rptRcd.EventDate.Month, rptRcd.EventDate.Month.ToString(CultureInfo.InvariantCulture));
+                if (rptRcd.EventDate != DateTime.MinValue)
+                    months.Add(rptRcd.EventDate.Month, rptRcd.EventDate.Month.ToString(CultureInfo.InvariantCulture));
             months = months.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
         }
 
@@ -438,7 +476,7 @@ public partial class Safety_SafetyPays_TabPointsRpt : System.Web.UI.Page
         sl.AddConditionalFormatting(cf);        
     }
 
-    protected void BuildEmpDtlData(ref SLDocument sl)
+    protected void BuildEmpDtlData(ref SLDocument sl, ref List<SIU_Points_Rpt> data, ref Dictionary<int, string> ptTypes)
     {
         System.Text.UnicodeEncoding uniEncoding = new System.Text.UnicodeEncoding();
         if (_end.Day == 1)
@@ -447,14 +485,11 @@ public partial class Safety_SafetyPays_TabPointsRpt : System.Web.UI.Page
         //////////////////////////////////////////////////////////////////////////////////////////
         // Buid Dict To Hold Freq Used Conversion of PointsType Index to PointsType Description //
         //////////////////////////////////////////////////////////////////////////////////////////
-        Dictionary<int, string> ptTypes = SqlServer_Impl.GetAutoCompletePointTypes().ToDictionary(mc => mc.UID, mc => mc.Description);
         EmpDtl ed = new EmpDtl { ReasonPts = new int[ptTypes.Count] };
         SIU_Points_Rpt prevRcd = new SIU_Points_Rpt { Emp_No = "FIRSTRCD" };
 
-        var data = SqlServer_Impl.GetAdminPointsRptEmpPoints(_start, _end);
-
         BuildEmpPage(ref sl);
-        BuildEmpColumnHeader(ref sl, 1);
+        BuildEmpColumnHeader(ref sl, 1, ref ptTypes);
 
         int row = 2;
         int DeptStartRow = 2;
@@ -480,8 +515,8 @@ public partial class Safety_SafetyPays_TabPointsRpt : System.Web.UI.Page
                 }
             }
 
-
-            ed.ReasonPts[rptRcd.ReasonForPoints - 1] += rptRcd.Points;
+            if ( rptRcd.EventDate != DateTime.MinValue)
+                ed.ReasonPts[rptRcd.ReasonForPoints - 1] += rptRcd.Points;
             prevRcd = rptRcd;
         }
         BuildEmpDtl(ref sl, row, "(" + prevRcd.Emp_No + ") " + prevRcd.EmpName, prevRcd.EmpDept, ref ed);
@@ -509,7 +544,7 @@ public partial class Safety_SafetyPays_TabPointsRpt : System.Web.UI.Page
 
         sl.SetColumnWidth("A", 25);
     }
-    private void BuildEmpColumnHeader(ref SLDocument sl, int Row)
+    private void BuildEmpColumnHeader(ref SLDocument sl, int Row, ref Dictionary<int, string> ptTypes)
     {
         SLStyle styleRowHeader = sl.CreateStyle();
         styleRowHeader.Font.FontName = "Calibri";
@@ -533,7 +568,6 @@ public partial class Safety_SafetyPays_TabPointsRpt : System.Web.UI.Page
         sl.SetCellValue(Row, 3, "Eligibility");
 
         int col = 4;
-        Dictionary<int, string> ptTypes = SqlServer_Impl.GetAutoCompletePointTypes().ToDictionary(mc => mc.UID, mc => mc.Description);
         foreach (KeyValuePair<int, string> pair in ptTypes)
         {
             sl.SetColumnWidth(col, 11);
@@ -602,7 +636,7 @@ public partial class Safety_SafetyPays_TabPointsRpt : System.Web.UI.Page
         sl.GroupRows(startRowCnt, endRowCnt);
     }
 
-    protected void BuildPrjDtlData(ref SLDocument sl)
+    protected void BuildPrjDtlData(ref SLDocument sl, ref Dictionary<int, string> ptTypes)
     {
         System.Text.UnicodeEncoding uniEncoding = new System.Text.UnicodeEncoding();
         if (_end.Day == 1)
@@ -610,8 +644,8 @@ public partial class Safety_SafetyPays_TabPointsRpt : System.Web.UI.Page
 
         BuildPrjPage(ref sl);
 
-        int row = BuildPrjSumTable(ref sl, 1);
-        BuildPrjMonTable(ref sl, row);
+        int row = BuildPrjSumTable(ref sl, 1, ref ptTypes);
+        BuildPrjMonTable(ref sl, row, ref ptTypes);
 
     }
     private void BuildPrjPage(ref SLDocument sl)
@@ -633,7 +667,7 @@ public partial class Safety_SafetyPays_TabPointsRpt : System.Web.UI.Page
         ps.AppendEvenFooter(" of ");
         ps.AppendEvenFooter(SLHeaderFooterFormatCodeValues.NumberOfPages);
     }
-    private void BuildPrjColumnHeader(ref SLDocument sl, int Row, string TableHeaderText)
+    private void BuildPrjColumnHeader(ref SLDocument sl, int Row, string TableHeaderText, ref Dictionary<int, string> ptTypes)
     {
         SLStyle styleRowHeader = sl.CreateStyle();
         styleRowHeader.Font.FontName = "Calibri";
@@ -669,7 +703,6 @@ public partial class Safety_SafetyPays_TabPointsRpt : System.Web.UI.Page
         sl.SetColumnWidth("B", 9);
 
         int col = 3;
-        Dictionary<int, string> ptTypes = SqlServer_Impl.GetAutoCompletePointTypes().ToDictionary(mc => mc.UID, mc => mc.Description);
         foreach (KeyValuePair<int, string> pair in ptTypes)
         {
             sl.SetColumnWidth(col, 11);
@@ -684,7 +717,7 @@ public partial class Safety_SafetyPays_TabPointsRpt : System.Web.UI.Page
         ////////////////////////////////////////
         sl.FreezePanes(1, 2);
     }
-    private int BuildPrjSumTable(ref SLDocument sl, int row)
+    private int BuildPrjSumTable(ref SLDocument sl, int row, ref Dictionary<int, string> ptTypes)
     {
         int FirstRow = row + 1;
         int col = 1;
@@ -706,7 +739,7 @@ public partial class Safety_SafetyPays_TabPointsRpt : System.Web.UI.Page
         styleCellRBorder.Border.RightBorder.BorderStyle = BorderStyleValues.Thick;
         styleCellRBorder.Border.RightBorder.Color = System.Drawing.Color.Black;
 
-        BuildPrjColumnHeader(ref sl, row, "TOTAL");
+        BuildPrjColumnHeader(ref sl, row, "TOTAL", ref ptTypes);
         row += 2;
 
         //////////////////////////////
@@ -758,7 +791,7 @@ public partial class Safety_SafetyPays_TabPointsRpt : System.Web.UI.Page
 
         return row;
     }
-    private void BuildPrjMonTable(ref SLDocument sl, int row)
+    private void BuildPrjMonTable(ref SLDocument sl, int row, ref Dictionary<int, string> ptTypes)
     {
         int FirstRow = row + 1;
         int col = 1;
@@ -790,7 +823,7 @@ public partial class Safety_SafetyPays_TabPointsRpt : System.Web.UI.Page
             row += 2;
 
             string monthName = (rptMonths.Value).ToString("MMM", CultureInfo.InvariantCulture);
-            BuildPrjColumnHeader(ref sl, row++, monthName);
+            BuildPrjColumnHeader(ref sl, row++, monthName, ref ptTypes);
             row++;
 
             //////////////////////////////
@@ -838,21 +871,17 @@ public partial class Safety_SafetyPays_TabPointsRpt : System.Web.UI.Page
             SLStyle styleBorderRight = sl.CreateStyle();
             styleBorderRight.SetRightBorder(BorderStyleValues.Medium, System.Drawing.Color.Black);
             sl.SetCellStyle(FirstRow, col, row - 1, col, styleBorderRight);
-
-
-
-
         }
     }
 
-    protected void BuildPrjStdData(ref SLDocument sl)
+    protected void BuildPrjStdData(ref SLDocument sl, ref Dictionary<int, string> ptTypes)
     {
         System.Text.UnicodeEncoding uniEncoding = new System.Text.UnicodeEncoding();
         if (_end.Day == 1)
             _end = _end.AddDays(-1);
 
         BuildPrjStdPage(ref sl);
-        BuildPrjStdTable(ref sl, 1);
+        BuildPrjStdTable(ref sl, 1, ref ptTypes);
 
     }
     private void BuildPrjStdPage(ref SLDocument sl)
@@ -874,7 +903,7 @@ public partial class Safety_SafetyPays_TabPointsRpt : System.Web.UI.Page
         ps.AppendEvenFooter(" of ");
         ps.AppendEvenFooter(SLHeaderFooterFormatCodeValues.NumberOfPages);
     }
-    private void BuildPrjStdColumnHeader(ref SLDocument sl, int Row, string TableHeaderText)
+    private void BuildPrjStdColumnHeader(ref SLDocument sl, int Row, string TableHeaderText, ref Dictionary<int, string> ptTypes)
     {
         SLStyle styleRowHeader = sl.CreateStyle();
         styleRowHeader.Font.FontName = "Calibri";
@@ -911,7 +940,6 @@ public partial class Safety_SafetyPays_TabPointsRpt : System.Web.UI.Page
 
         int col = 3;
 
-        Dictionary<int, string> ptTypes = SqlServer_Impl.GetAutoCompletePointTypes().ToDictionary(mc => mc.UID, mc => mc.Description);
         foreach (KeyValuePair<int, string> pair in ptTypes)
         {
             sl.SetColumnWidth(col, 11);
@@ -926,7 +954,7 @@ public partial class Safety_SafetyPays_TabPointsRpt : System.Web.UI.Page
         ////////////////////////////////////////
         //sl.FreezePanes(1, 2);
     }
-    private void BuildPrjStdTable(ref SLDocument sl, int row)
+    private void BuildPrjStdTable(ref SLDocument sl, int row, ref Dictionary<int, string> ptTypes)
     {
         int FirstRow = row + 1;
         int col = 1;
@@ -949,7 +977,7 @@ public partial class Safety_SafetyPays_TabPointsRpt : System.Web.UI.Page
         styleCellRBorder.Border.RightBorder.Color = System.Drawing.Color.Black;
 
 
-        BuildPrjStdColumnHeader(ref sl, row++, "Default Projection Values");
+        BuildPrjStdColumnHeader(ref sl, row++, "Default Projection Values", ref ptTypes);
         row++;
 
         //////////////////////////////
@@ -1053,7 +1081,7 @@ public partial class Safety_SafetyPays_TabPointsRpt : System.Web.UI.Page
         styleDeptHeader.Font.FontSize = 18;
         styleDeptHeader.Font.Bold = true;
 
-        sl.MergeWorksheetCells(Row, 1, Row, 2);
+        sl.MergeWorksheetCells(Row, 1, Row, 3);
         sl.SetCellValue(Row, 1, TableHeaderText);
         sl.SetCellStyle(Row, 1, styleDeptHeader);
 
@@ -1063,13 +1091,14 @@ public partial class Safety_SafetyPays_TabPointsRpt : System.Web.UI.Page
         //////////////////////////////////////////
         // Start New Dept -- Add Column Headers //
         //////////////////////////////////////////                        
-        sl.SetCellValue(Row, 1, "Points Type");
-        sl.SetCellValue(Row, 2, "Dafault Value");
-        sl.SetColumnWidth("A", 40);
-        sl.SetColumnWidth("B", 13);
+        sl.SetCellValue(Row, 1, "ID");
+        sl.SetCellValue(Row, 2, "Points Type");
+        sl.SetCellValue(Row, 3, "Dafault Value");
+        sl.SetColumnWidth("B", 40);
+        sl.SetColumnWidth("C", 13);
 
-        sl.SetCellStyle(Row, 1, Row, 2, styleRowHeader);
-        sl.SetCellStyle(Row, 1, styleCellRBorder);
+        sl.SetCellStyle(Row, 1, Row, 3, styleRowHeader);
+        //sl.SetCellStyle(Row, 1, styleCellRBorder);
 
         ////////////////////////////////////////
         // Freeze the top row, left 2 columns //
@@ -1078,8 +1107,8 @@ public partial class Safety_SafetyPays_TabPointsRpt : System.Web.UI.Page
     }
     private void BuildPtTypeTable(ref SLDocument sl, int row)
     {
-        int FirstRow = row + 1;
-        int col = 2;
+        int firstRow = row + 1;
+        const int col = 3;
 
         SLStyle styleRow = sl.CreateStyle();
         styleRow.Font.FontName = "Calibri";
@@ -1104,9 +1133,10 @@ public partial class Safety_SafetyPays_TabPointsRpt : System.Web.UI.Page
 
         foreach (var pt in SqlServer_Impl.GetAutoCompletePointTypes())
         {
-            sl.SetCellValue(row, 1, pt.Description);
-            sl.SetCellValue(row, 2, pt.PointsCount);
-            sl.SetCellStyle(row, 1, row, 2, styleColHeader);
+            sl.SetCellValueNumeric(row, 1, pt.UID.ToString());
+            sl.SetCellValue(row, 2, pt.Description);
+            sl.SetCellValue(row, 3, pt.PointsCount);
+            sl.SetCellStyle(row, 1, row, 3, styleColHeader);
 
             row++;
         }
@@ -1115,11 +1145,11 @@ public partial class Safety_SafetyPays_TabPointsRpt : System.Web.UI.Page
         SLStyle styleBgr = sl.CreateStyle();
         styleBgr.Fill.SetPatternType(PatternValues.Solid);
         styleBgr.Fill.SetPatternForegroundColor(System.Drawing.Color.BlanchedAlmond);
-        sl.SetCellStyle(FirstRow, 1, row - 1, col, styleBgr);
+        sl.SetCellStyle(firstRow, 1, row - 1, col, styleBgr);
 
         SLStyle styleBorderTop = sl.CreateStyle();
         styleBorderTop.SetTopBorder(BorderStyleValues.Medium, System.Drawing.Color.Black);
-        sl.SetCellStyle(FirstRow, 1, FirstRow, col, styleBorderTop);
+        sl.SetCellStyle(firstRow, 1, firstRow, col, styleBorderTop);
 
         SLStyle styleBorderBottom = sl.CreateStyle();
         styleBorderBottom.SetBottomBorder(BorderStyleValues.Medium, System.Drawing.Color.Black);
@@ -1127,11 +1157,7 @@ public partial class Safety_SafetyPays_TabPointsRpt : System.Web.UI.Page
 
         SLStyle styleBorderRight = sl.CreateStyle();
         styleBorderRight.SetRightBorder(BorderStyleValues.Medium, System.Drawing.Color.Black);
-        sl.SetCellStyle(FirstRow, col, row - 1, col, styleBorderRight);
-
-
-
-
+        sl.SetCellStyle(firstRow, col, row - 1, col, styleBorderRight);
     }
 
     protected void BuildDeptSumData(ref SLDocument sl)
@@ -1253,7 +1279,7 @@ public partial class Safety_SafetyPays_TabPointsRpt : System.Web.UI.Page
         sl.SetCellStyle(Row, 1, Row, 5, styleRowHeader);
     }
 
-    protected void BuildRawData(ref SLDocument sl)
+    protected void BuildRawData(ref SLDocument sl, ref Dictionary<int, string> ptTypes, ref List<Tuple<SIU_SafetyPays_Point, SIU_SafetyPaysReport>>rawData)
     {
         System.Text.UnicodeEncoding uniEncoding = new System.Text.UnicodeEncoding();
         if (_end.Day == 1)
@@ -1261,9 +1287,8 @@ public partial class Safety_SafetyPays_TabPointsRpt : System.Web.UI.Page
 
         BuildRawDataPage(ref sl);
         BuildRawDataColumnHeader(ref sl, 1, "Raw Data");
-        BuildRawDataTable(ref sl, 3);
+        BuildRawDataTable(ref sl, 3, ref ptTypes, ref rawData);
     }
-
     private void BuildRawDataPage(ref SLDocument sl)
     {
         SLPageSettings ps = new SLPageSettings();
@@ -1341,7 +1366,7 @@ public partial class Safety_SafetyPays_TabPointsRpt : System.Web.UI.Page
         ///////////////////////////
         sl.FreezePanes(2, 0);
     }
-    private void BuildRawDataTable(ref SLDocument sl, int row)
+    private void BuildRawDataTable(ref SLDocument sl, int row, ref Dictionary<int, string> ptTypes, ref List<Tuple<SIU_SafetyPays_Point, SIU_SafetyPaysReport>> rawData)
     {
         SLStyle styleRow = sl.CreateStyle();
         styleRow.Font.FontName = "Calibri";
@@ -1367,12 +1392,10 @@ public partial class Safety_SafetyPays_TabPointsRpt : System.Web.UI.Page
         SLStyle wrap = sl.CreateStyle();
         wrap.SetWrapText(true);
 
-        Dictionary<int, string> ptTypes = SqlServer_Impl.GetAutoCompletePointTypes().ToDictionary(mc => mc.UID, mc => mc.Description);
-
-        //////////////////////////////
-        // Write Monthly Table Data //
-        //////////////////////////////
-        foreach (var rptRcd in SqlServer_Impl.GetSafetyPaysRawDataRpt(_start, _end))
+        ////////////////
+        // Write Data //
+        ////////////////
+        foreach (var rptRcd in rawData)
         {
             sl.SetCellValue(row, 2, "Adm Awd");
 
@@ -1432,6 +1455,165 @@ public partial class Safety_SafetyPays_TabPointsRpt : System.Web.UI.Page
                 sl.SetCellValue(row, 17, rptRcd.Item2.ehsRepsonse);
                 sl.SetCellStyle(row, 17, wrap);
             }
+            row++;
+        }
+    }
+
+    protected void BuildTypeSum(ref SLDocument sl, ref Dictionary<int, string> ptTypes, ref List<Tuple<SIU_SafetyPays_Point, SIU_SafetyPaysReport>> rawData)
+    {
+        System.Text.UnicodeEncoding uniEncoding = new System.Text.UnicodeEncoding();
+        if (_end.Day == 1)
+            _end = _end.AddDays(-1);
+
+        BuildTypeSumPage(ref sl);
+        BuildTypeSumColumnHeader(ref sl, 1, "Type Sum");
+        BuildTypeSumTable(ref sl, 3, ref ptTypes, ref rawData);
+    }
+    private void BuildTypeSumPage(ref SLDocument sl)
+    {
+        SLPageSettings ps = new SLPageSettings();
+
+        SLFont ft = sl.CreateFont();
+        ft.SetFont("Impact", 16);
+        ps.AppendOddHeader(ft, "Safety Pays Department Submission Summary Report By Type");
+        ps.AppendEvenHeader(ft, "Safety Pays Department Submission Summary Report By Type");
+
+        ps.AppendOddFooter(ft, "page ");
+        ps.AppendOddFooter(SLHeaderFooterFormatCodeValues.PageNumber);
+        ps.AppendOddFooter(" of ");
+        ps.AppendOddFooter(SLHeaderFooterFormatCodeValues.NumberOfPages);
+
+        ps.AppendEvenFooter(ft, "page ");
+        ps.AppendEvenFooter(SLHeaderFooterFormatCodeValues.PageNumber);
+        ps.AppendEvenFooter(" of ");
+        ps.AppendEvenFooter(SLHeaderFooterFormatCodeValues.NumberOfPages);
+    }
+    private void BuildTypeSumColumnHeader(ref SLDocument sl, int Row, string TableHeaderText)
+    {
+        SLStyle styleRowHeader = sl.CreateStyle();
+        styleRowHeader.Font.FontName = "Calibri";
+        styleRowHeader.Font.FontSize = 11;
+        styleRowHeader.Font.Bold = true;
+        styleRowHeader.Alignment.Horizontal = HorizontalAlignmentValues.Center;
+        styleRowHeader.Alignment.Vertical = VerticalAlignmentValues.Bottom;
+        styleRowHeader.SetWrapText(true);
+        styleRowHeader.Border.BottomBorder.BorderStyle = BorderStyleValues.Medium;
+
+        SLStyle styleCellRBorder = sl.CreateStyle();
+        styleCellRBorder.Border.RightBorder.BorderStyle = BorderStyleValues.Thick;
+        styleCellRBorder.Border.RightBorder.Color = System.Drawing.Color.Black;
+
+        SLStyle styleDeptHeader = sl.CreateStyle();
+        styleDeptHeader.Font.FontName = "Calibri";
+        styleDeptHeader.Font.FontSize = 18;
+        styleDeptHeader.Font.Bold = true;
+
+        sl.MergeWorksheetCells(Row, 1, Row, 5);
+        sl.SetCellValue(Row, 1, TableHeaderText);
+        sl.SetCellStyle(Row, 1, styleDeptHeader);
+
+        Row++;
+
+
+        //////////////////////////////////////////
+        // Start New Dept -- Add Column Headers //
+        //////////////////////////////////////////                        
+        sl.SetCellValue(Row, 1, "Month"); sl.SetColumnWidth("A", 20);
+        sl.SetCellValue(Row, 2, "Points Type"); sl.SetColumnWidth("B", 35);
+        sl.SetCellValue(Row, 3, "Awarded"); sl.SetColumnWidth("C", 10);
+        sl.SetCellValue(Row, 4, "Submitted"); sl.SetColumnWidth("D", 10);
+        sl.SetCellValue(Row, 5, "Rejected"); sl.SetColumnWidth("E", 10);
+        sl.SetCellValue(Row, 6, "Open"); sl.SetColumnWidth("F", 10);
+        sl.SetCellValue(Row, 7, "Working"); sl.SetColumnWidth("G", 10);
+        sl.SetCellValue(Row, 8, "Replaced"); sl.SetColumnWidth("H", 10);
+        sl.SetCellValue(Row, 9, "Closed"); sl.SetColumnWidth("I", 10);
+
+        sl.SetCellStyle(Row, 1, Row, 9, styleRowHeader);
+
+        ///////////////////////////
+        // Freeze the top 2 rows //
+        ///////////////////////////
+        sl.FreezePanes(2, 0);
+    }
+    private void BuildTypeSumTable(ref SLDocument sl, int row, ref Dictionary<int, string> ptTypes, ref List<Tuple<SIU_SafetyPays_Point, SIU_SafetyPaysReport>>rawData)
+    {
+        DateTimeFormatInfo mfi = new DateTimeFormatInfo();
+
+        SLStyle styleRow = sl.CreateStyle();
+        styleRow.Font.FontName = "Calibri";
+        styleRow.Font.FontSize = 11;
+        styleRow.Alignment.Horizontal = HorizontalAlignmentValues.Center;
+
+        SLStyle wrap = sl.CreateStyle();
+        wrap.SetWrapText(true);
+                
+        TypSumByMon typeSum;                                                             
+        Dictionary<string, TypSumByMon> sumTypMon = new Dictionary<string, TypSumByMon>();
+
+        ///////////////////////////////////
+        // Effectivly Presort the report //
+        ///////////////////////////////////
+        foreach (int mon in months.Keys)
+        {
+            foreach (int ptKey in ptTypes.Keys)
+            {
+                typeSum = new TypSumByMon();
+
+                typeSum.Month = mfi.GetMonthName(mon);
+                typeSum.Type = ptKey;
+
+                string key = mon + ":" + ptKey;
+                sumTypMon.Add(key, typeSum);
+            }
+        }
+
+        ////////////////////////
+        // Calculate the data //
+        ////////////////////////
+        foreach (var rptRcd in rawData)
+        {
+            string key = rptRcd.Item1.EventDate.Month + ":" + rptRcd.Item1.ReasonForPoints;
+
+            typeSum = sumTypMon[key];
+
+            typeSum.Submitted++;
+            typeSum.Points += rptRcd.Item1.Points;
+
+            if (rptRcd.Item2 != null)
+                switch (rptRcd.Item2.IncStatus)
+                {
+                    case "Reject": typeSum.Rejected++; break;
+                    case "Open": typeSum.Open++; break;
+                    case "Closed": typeSum.Closed++; break;
+                    case "Working": typeSum.Working++; break;
+                    case "Replaced": typeSum.Killed++; break;
+                }
+            else
+                typeSum.Closed++; 
+        }
+
+
+        ////////////////
+        // Write Data //
+        ////////////////
+        string prevMon = "";
+        foreach (var rptRcd in sumTypMon)
+        {
+            if (prevMon.Length > 0 && prevMon != rptRcd.Value.Month) row++;
+
+            sl.SetCellValue(row, 1, rptRcd.Value.Month);
+            sl.SetCellValue(row, 2, ptTypes[rptRcd.Value.Type]);
+
+            sl.SetCellValueNumeric(row, 3, rptRcd.Value.Points.ToString());
+            sl.SetCellValueNumeric(row, 4, rptRcd.Value.Submitted.ToString());
+            sl.SetCellValueNumeric(row, 5, rptRcd.Value.Rejected.ToString());
+            sl.SetCellValueNumeric(row, 6, rptRcd.Value.Open.ToString());
+            sl.SetCellValueNumeric(row, 7, rptRcd.Value.Working.ToString());
+            sl.SetCellValueNumeric(row, 8, rptRcd.Value.Killed.ToString());
+            sl.SetCellValueNumeric(row, 9, rptRcd.Value.Closed.ToString());
+
+            sl.SetCellStyle(row, 3, row, 9, styleRow);
+            prevMon = rptRcd.Value.Month;
             row++;
         }
     }

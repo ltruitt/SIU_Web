@@ -9,15 +9,12 @@
     });
 
     
-        
-
-
 
     ///////////////////////////////////////////////////////////////
     // Load List Of Employees So Supr Can Change Viewed Employee //
     ///////////////////////////////////////////////////////////////
     var listOfEmps = [];
-    function GetEmps_success(data) {
+    function getEmpsSuccess(data) {
         listOfEmps = data.d.split("\r");
         $("#ddEmpIds").autocomplete({ source: listOfEmps },
             {
@@ -29,25 +26,25 @@
                 max: 20,
                 delay: 0,
                 select: function (event, ui) {
-                    var DataPieces = ui.item.value.split(' ');
-                    $('#hlblEID')[0].innerHTML = DataPieces[0];
+                    var dataPieces = ui.item.value.split(' ');
+                    $('#hlblEID')[0].innerHTML = dataPieces[0];
                     $("#ddEmpIds").autocomplete("close");
-                    $("#ddEmpIds").val(DataPieces[0] + ' ' + DataPieces[2] + ', ' + DataPieces[3]);
+                    $("#ddEmpIds").val(dataPieces[0] + ' ' + dataPieces[2] + ', ' + dataPieces[3]);
                     $('#ddTypes').focus();
 
                     var timestamp = new Date();
-                    $('#EmpPointsRpt').jtable('load', { EmpID: DataPieces[0], T: timestamp.getTime() });
+                    $('#EmpPointsRpt').jtable('load', { EmpID: dataPieces[0], T: timestamp.getTime() });
                 },
                 response: function (event, ui) {
                     if (ui.content.length == 1) {
-                        var DataPieces = ui.content[0].value.split(' ');
-                        $('#hlblEID')[0].innerHTML = DataPieces[0];
+                        var dataPieces = ui.content[0].value.split(' ');
+                        $('#hlblEID')[0].innerHTML = dataPieces[0];
                         $("#ddEmpIds").autocomplete("close");
-                        $("#ddEmpIds").val(DataPieces[0] + ' ' + DataPieces[2] + ', ' + DataPieces[3]);
+                        $("#ddEmpIds").val(dataPieces[0] + ' ' + dataPieces[2] + ', ' + dataPieces[3]);
                         $('#ddTypes').focus();
 
                         var timestamp = new Date();
-                        $('#EmpPointsRpt').jtable('load', { EmpID: DataPieces[0], T: timestamp.getTime() });
+                        $('#EmpPointsRpt').jtable('load', { EmpID: dataPieces[0], T: timestamp.getTime() });
                     }
                     else {
                         $('#hlblEID')[0].innerHTML = '';
@@ -84,24 +81,24 @@
                 max: 20,
                 delay: 0,
                 select: function (event, ui) {
-                    var DataPieces = ui.item.value.split(' ');
-                    $("#txtNumPts").val(listOfPoints[DataPieces[0] - 1]);
+                    var dataPieces = ui.item.value.split(' ');
+                    $("#txtNumPts").val(listOfPoints[dataPieces[0] - 1]);
 
-                    DataPieces = ui.item.value.split('-');
-                    $('#hlblPointsType')[0].innerHTML = DataPieces[0];
+                    dataPieces = ui.item.value.split('-');
+                    $('#hlblPointsType')[0].innerHTML = dataPieces[0];
                     $("#ddTypes").autocomplete("close");
-                    ui.item.value = DataPieces[1].replace(' ', '');
+                    ui.item.value = dataPieces[1].replace(' ', '');
                     $('#txtNumPts').focus();
                 },
                 response: function (event, ui) {
                     if (ui.content.length == 1) {
-                        var DataPieces = ui.content[0].value.split('-');
-                        $('#hlblPointsType')[0].innerHTML = DataPieces[0];
+                        var dataPieces = ui.content[0].value.split('-');
+                        $('#hlblPointsType')[0].innerHTML = dataPieces[0];
                         $("#ddTypes").autocomplete("close");
-                        $("#ddTypes").val(DataPieces[1].replace(' ', ''));
+                        $("#ddTypes").val(dataPieces[1].replace(' ', ''));
 
-                        DataPieces = ui.content[0].value.split(' ');
-                        $("#txtNumPts").val(listOfPoints[DataPieces[0] - 1]);
+                        dataPieces = ui.content[0].value.split(' ');
+                        $("#txtNumPts").val(listOfPoints[dataPieces[0] - 1]);
                         $('#txtNumPts').focus();
                     }
                     else {
@@ -113,7 +110,7 @@
             });
     }
 
-    $("#datacollection").delegate("*", "focus blur", function (event) {
+    $("#datacollection").delegate("*", "focus blur", function () {
         var elem = $(this);
         setTimeout(function () {
             elem.toggleClass("focused", elem.is(":focus"));
@@ -233,26 +230,25 @@
         $('#btnSubmit').prop('disabled', true);
         $('#btnSubmit').css('color', "red");
 
-        var PointsSubmitCall = new AsyncServerMethod();
-        PointsSubmitCall.add('EmpID', $('#hlblEID')[0].innerHTML);
-        PointsSubmitCall.add('ReasonCode', $('#hlblPointsType')[0].innerHTML);
-        PointsSubmitCall.add('Points', $('#txtNumPts').val() );
-        PointsSubmitCall.add('Comment', '');
-        PointsSubmitCall.add('DateOfEvent', $('#txtEntryDate').val() );
+        var pointsSubmitCall = new AsyncServerMethod();
+        pointsSubmitCall.add('EmpID', $('#hlblEID')[0].innerHTML);
+        pointsSubmitCall.add('ReasonCode', $('#hlblPointsType')[0].innerHTML);
+        pointsSubmitCall.add('Points', $('#txtNumPts').val() );
+        pointsSubmitCall.add('Comment', '');
+        pointsSubmitCall.add('DateOfEvent', $('#txtEntryDate').val());
+        pointsSubmitCall.add('UID', $('#hlblUID').html());
         
-
-        PointsSubmitCall.exec("/SIU_DAO.asmx/RecordAdminPoints", TimeSubmit_success);
-
+        pointsSubmitCall.exec("/SIU_DAO.asmx/Xxx5554S", submitSuccess);
     });
 
 
     ///////////////////////////
     // Submit Button Handler //
     ///////////////////////////
-    function TimeSubmit_success(data) {
-        var ErrorMsg = data.d;
+    function submitSuccess(data) {
+        var errorMsg = data.d;
 
-        if (ErrorMsg.length > 6 && ErrorMsg.substring(0, 7) == "Success") {
+        if (errorMsg.length > 6 && errorMsg.substring(0, 7) == "Success") {
 
             ////////////////////
             // Reset The Form //
@@ -260,6 +256,8 @@
             $('#hlblPointsType')[0].innerHTML = '';
             $('#txtNumPts').val('');
             $('#ddTypes').val('');
+            $('#hlblUID').html('');
+            $('#txtEntryDate').val('');
 
             //////////////////////////////
             // Clear Any Previous Error //
@@ -279,16 +277,32 @@
     ////////////////////////
     $("#btnClear").click(function () {
 
+        /////////////////
+        // Clear Table //
+        /////////////////
+        $('#EmpPointsRpt').jtable('selectRows', $('*'));
+        var $selectedRows = $('#EmpPointsRpt').jtable('selectedRows');
+        $selectedRows.each(function () {
+            var record = $(this).data('record');
+            $('#EmpPointsRpt').jtable('deleteRecord', {
+                key: record.UID,
+                clientOnly: true,
+                animationsEnabled: true
+            });
+        });
+        $('#EmpPointsRpt').jtable('selectRows', $('xxx'));
+
         ////////////////////////////////////////
         // Clear Data Confirmation Containers //
         ////////////////////////////////////////        
         $('#hlblEID')[0].innerHTML = '';
+        $('#hlblUID').html('');
         $('#hlblPointsType')[0].innerHTML = '';
         $('#txtNumPts').val('');
         $('#ddTypes').val('');
         $('#ddEmpIds').val('');
         $('#txtEntryDate').val('');
-
+        
         //////////////////////////////
         // Clear Any Previous Error //
         //////////////////////////////
@@ -318,8 +332,8 @@
         defaultSorting: 'DatePointsGiven ASC',
 
         actions: {
-            listAction: '/SIU_DAO.asmx/GetEmpIdPoints',
-            deleteAction: '/SIU_DAO.asmx/RemoveEmpIdPoints'
+            listAction: '/SIU_DAO.asmx/k00PY34',
+            deleteAction: 'x/SIU_DAO.asmx/GhjjI0E'
         },
         fields: {
             UID: {
@@ -331,7 +345,7 @@
                 list: false
             },
             EventDate: {
-                title: 'Date',
+                title: 'Event Date',
                 type: 'date',
                 sorting: true,
                 width: '1.5%',
@@ -354,6 +368,26 @@
             PointsGivenBy: { list: false },
             Comments: { list: false },
             DatePointsGiven: { list: false }
+        },
+        selectionChanged: function () {
+            $('#hlblUID').html('');
+            //Get all selected rows
+            var $selectedRows = $('#EmpPointsRpt').jtable('selectedRows');
+
+            if ($selectedRows.length == 1) {
+                //Show selected rows
+
+                $selectedRows.each(function () {
+                    var record = $(this).data('record');
+
+                    $('#ddTypes').val(function () { return listOfTypes[record.ReasonForPoints - 1]; });
+                    $('#hlblPointsType').html(record.ReasonForPoints);
+                    $('#hlblUID').html(record.UID);
+                    $('#txtNumPts').val(record.Points);
+                    $('#txtEntryDate').datepicker("setDate", $.fn.parseJsonDate(record.EventDate));
+                    validate();
+                });
+            }
         }
     });
 
@@ -417,8 +451,8 @@
         validate();
         if ( $('#btnSubmit').prop('disabled') == false )
             $("#btnSubmit").focus();
-        else
-            $('#ddEmpIds').focus();
+        //else
+        //    $('#ddEmpIds').focus();
         return false;
     });
 
@@ -431,18 +465,18 @@
     /////////////////////////////////
     // Load Emps AutoComplete List //
     /////////////////////////////////
-    var GetEmpsCall = new AsyncServerMethod();
-    GetEmpsCall.exec("/SIU_DAO.asmx/GetAutoCompleteActiveEmployees", GetEmps_success);
+    var getEmpsCall = new AsyncServerMethod();
+    getEmpsCall.exec("/SIU_DAO.asmx/GetAutoCompleteActiveEmployees", getEmpsSuccess);
     
     ////////////////////////////////////////
     // Load Points Type AutoComplete List //
     ////////////////////////////////////////
-    var GetTypesCall = new AsyncServerMethod();
-    GetTypesCall.exec("/SIU_DAO.asmx/GetAutoCompletePointTypes", getTypesSuccess);
+    var getTypesCall = new AsyncServerMethod();
+    getTypesCall.exec("/SIU_DAO.asmx/GetAutoCompletePointTypes", getTypesSuccess);
 
 
-    var timestamp = new Date();
-    $('#txtEntryDate').val(timestamp.getMonth() + 1 + "/" + timestamp.getDate() + "/" + timestamp.getFullYear() );
+    //var timestamp = new Date();
+    //$('#txtEntryDate').val(timestamp.getMonth() + 1 + "/" + timestamp.getDate() + "/" + timestamp.getFullYear() );
     validate();
 
     $('#ddEmpIds').focus();

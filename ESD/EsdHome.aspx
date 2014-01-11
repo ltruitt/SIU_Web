@@ -9,7 +9,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $.SiLibrary.GetDepartmentDocumentFolders("/Files", "ESD", "DirectoryDocuments");
-            $.SiLibrary.GetDepartmentVideoFolders("/Videos", "ESD Production", "DirectoryVideos");
+            //$.SiLibrary.GetDepartmentVideoFolders("/Videos", "ESD Production", "DirectoryVideos");
         });     
     </script>
 </asp:Content>
@@ -82,20 +82,20 @@
                 </li>
 
                 
-                <li style="width: 200px;">
+<%--                <li style="width: 200px;">
                         <img alt="ESD Videos" src="/Images/Home_videos.png" />
                         <ul class="DeptGallery2Links" id="DirectoryVideos">
                         </ul>                    
-                </li>
+                </li>--%>
                 
                 
-                <li>
+<%--                <li>
                         <img    alt="ESD Documents" src="/Images/Home_documents.png" />
                         <ul class="DeptGallery2Links" id="EsdReports">
 
                             <li><a href="/Corporate/BandC/BandC_Licenses.aspx">State Licenses</a></li>
                         </ul>                    
-                </li>
+                </li>--%>
                 
 
                 
