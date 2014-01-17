@@ -333,7 +333,7 @@
 
         actions: {
             listAction: '/SIU_DAO.asmx/k00PY34',
-            deleteAction: 'x/SIU_DAO.asmx/GhjjI0E'
+            deleteAction: '/SIU_DAO.asmx/GhjjI0E'
         },
         fields: {
             UID: {

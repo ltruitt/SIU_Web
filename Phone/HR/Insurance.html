@@ -46,6 +46,7 @@
                         <li><a href="#ReadyPage" data-href="ReadyPage" data-ajax="false"  class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-active" >Ready</a></li>
                         <li><a href="#SetPage"   data-href="SetPage"   data-ajax="false"  class="ui-btn ui-corner-all ui-shadow ui-btn-inline" >Set</a></li>
                         <li><a href="#GoPage"    data-href="GoPage"    data-ajax="false"  class="ui-btn ui-corner-all ui-shadow ui-btn-inline" >Go</a></li>
+                        <li><a href="#RunPage"   data-href="RunPage"   data-ajax="false"  class="ui-btn ui-corner-all ui-shadow ui-btn-inline" >Run</a></li>
                     </ul>
                 </div>                 
                
@@ -87,23 +88,33 @@
                 </div>
                 
                 <div class="ui-content ui-screen-hidden" id="GoPage">                  
-                        <ul style=" padding-left: 0;">
-                            <li><a data-role="button" data-mini="true" data-theme="b"  href="/Files/Library/Human Resources/Insurance Benefits/Aetna Navigator.pdf"  target="_DocView"  id="A21" >How to use Aetna website</a></li>
-                            <li><a data-role="button" data-mini="true" data-theme="b"  href="/Files/Library/Human Resources/Insurance Benefits/Shermco_BenefitLink Employer Postcard_HR.pdf"  target="_DocView"  id="A9" >How to Use your Lockton Benefit Link App</a></li>
-                            <li><a data-role="button" data-mini="true" data-theme="b"  href="/Files/Library/Human Resources/Insurance Benefits/Compass_Brochure.pdf"  target="_DocView"  id="A15" >About Your Personal Health Pro Concierge</a></li>
-                            <li><a data-role="button" data-mini="true" data-theme="b"  href="/Files/Library/Human Resources/Insurance Benefits/COMPASS Whiteboard Video.mov" target="_DocView"  id="A16" >How to use your Health Pro Concierge</a></li>
-                            <li><a data-role="button" data-mini="true" data-theme="b"  href="/Files/Library/Human Resources/Insurance Benefits/Rx Home Delivery.pdf"  target="_DocView"  id="A22" >How to use RX Home Delivery</a></li>
-                            <li><a data-role="button" data-mini="true" data-theme="b"  href="/Files/Library/Human Resources/Insurance Benefits/Teladoc.pdf"  target="_DocView"  id="A13" >Teledoc Phone or Video Based Doctor Consults</a></li>
-                            <li><a data-role="button" data-mini="true" data-theme="b"  href="/Files/Library/Human Resources/Insurance Benefits/WhiteGlove English - Aetna.pdf"  target="_DocView"  id="A12" >White Glove - Healthcare at Home, Office or Online</a></li>
-                            <li><a data-role="button" data-mini="true" data-theme="b"  href="/Files/Library/Human Resources/Insurance Benefits/EAP Wallet Card 26 03 347 1.pdf"  target="_DocView"  id="A23" >How to use Aetna EAP Program</a></li>
-                            <li><a data-role="button" data-mini="true" data-theme="b"  href="http://www.aetnamedia.com/MPE"  target="_DocView"  id="A2" >How to Estimate your Payments</a></li>
-                            <li><a data-role="button" data-mini="true" data-theme="b"  href="http://www.aetnamedia.com/membertools" target="_DocView"   id="A3" >How to Use Aetna Navigator</a></li>
-                            <li><a data-role="button" data-mini="true" data-theme="b"  href="http://www.aetna.com/docfind/home.do" target="_DocView"   id="A4" >Online Doc Find directory</a></li>
-                        </ul> 
+                    <ul style=" padding-left: 0;">
+                        <li><a data-role="button" data-mini="true" data-theme="b"  href="/Files/Library/Human Resources/Insurance Benefits/Aetna Navigator.pdf"  target="_DocView"  id="A21" >How to use Aetna website</a></li>
+                        <li><a data-role="button" data-mini="true" data-theme="b"  href="/Files/Library/Human Resources/Insurance Benefits/Shermco_BenefitLink Employer Postcard_HR.pdf"  target="_DocView"  id="A9" >How to Use your Lockton Benefit Link App</a></li>
+                        <li><a data-role="button" data-mini="true" data-theme="b"  href="/Files/Library/Human Resources/Insurance Benefits/Compass_Brochure.pdf"  target="_DocView"  id="A15" >About Your Personal Health Pro Concierge</a></li>
+                        <li><a data-role="button" data-mini="true" data-theme="b"  href="/Files/Library/Human Resources/Insurance Benefits/COMPASS Whiteboard Video.mov" target="_DocView"  id="A16" >How to use your Health Pro Concierge</a></li>
+                        <li><a data-role="button" data-mini="true" data-theme="b"  href="/Files/Library/Human Resources/Insurance Benefits/Rx Home Delivery.pdf"  target="_DocView"  id="A22" >How to use RX Home Delivery</a></li>
+                        <li><a data-role="button" data-mini="true" data-theme="b"  href="/Files/Library/Human Resources/Insurance Benefits/Teladoc.pdf"  target="_DocView"  id="A13" >Teledoc Phone or Video Based Doctor Consults</a></li>
+                        <li><a data-role="button" data-mini="true" data-theme="b"  href="/Files/Library/Human Resources/Insurance Benefits/WhiteGlove English - Aetna.pdf"  target="_DocView"  id="A12" >White Glove - Healthcare at Home, Office or Online</a></li>
+                        <li><a data-role="button" data-mini="true" data-theme="b"  href="/Files/Library/Human Resources/Insurance Benefits/EAP Wallet Card 26 03 347 1.pdf"  target="_DocView"  id="A23" >How to use Aetna EAP Program</a></li>
+                        <li><a data-role="button" data-mini="true" data-theme="b"  href="http://www.aetnamedia.com/MPE"  target="_DocView"  id="A2" >How to Estimate your Payments</a></li>
+                        <li><a data-role="button" data-mini="true" data-theme="b"  href="http://www.aetnamedia.com/membertools" target="_DocView"   id="A3" >How to Use Aetna Navigator</a></li>
+                        <li><a data-role="button" data-mini="true" data-theme="b"  href="http://www.aetna.com/docfind/home.do" target="_DocView"   id="A4" >Online Doc Find directory</a></li>
+                    </ul> 
                 </div>
                 
-            </div>  <!-- End Content -->
-        </div> <!-- End Ready Page -->
+                <div class="ui-content ui-screen-hidden" id="RunPage">
+                    <ul style=" padding-left: 0;">   
+                        <li><a data-role="button" data-mini="true" data-theme="b" href="/Files/Library/Human Resources/Insurance Benefits/exercise.pdf"             target="_DocView"  id="A18" >Exercise – Get Motivate to get Moving</a></li>
+                        <li><a data-role="button" data-mini="true" data-theme="b" href="/Files/Library/Human Resources/Insurance Benefits/stress_management.pdf"    target="_DocView"  id="A19" >Stress – Five Ways to ease the Stress in your Life</a></li>
+                        <li><a data-role="button" data-mini="true" data-theme="b" href="/Files/Library/Human Resources/Insurance Benefits/Smoking_Cessation.pdf"    target="_DocView"  id="A38" >Smoking – You Really can Quit smoking</a></li>
+                        <li><a data-role="button" data-mini="true" data-theme="b" href="/Files/Library/Human Resources/Insurance Benefits/weight_management.pdf"    target="_DocView"  id="A39" >Weight Management – Five Tips for Success to Stay at Healthy Weight </a></li>
+
+                    </ul>                    
+                </div>
+
+                </div>  <!-- End Content -->
+        </div> 
         
         
         

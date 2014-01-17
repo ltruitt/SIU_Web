@@ -58,8 +58,8 @@
                     <!--------->
                     <!-- ELO -->  
                     <!--------->	
-				    <li style="height: 80px; clear:both;">
-					    <a href="/ELO/MainMenu.aspx">
+				    <li  style="height: 80px; clear:both;">
+					    <a id="eloSelect" href="/ELO/MainMenu.aspx" >
 						    <img style="width: 57px; height: 57px;" alt="ELO"
 								    src="/Images/icon-elo.png" id="Img1" />
 						
@@ -71,7 +71,7 @@
                     <!-- OWA -->  
                     <!--------->	
 				    <li style="height: 90px; clear:both;">
-                        <a href="https://Outlook.office365.com" target="_OWA">
+                        <a id="owaSelect" href="https://Outlook.office365.com" target="_OWA">
 						    <img style="width: 57px; height: 57px;" alt="ELO"
 								    src="/Images/icon-mail.png" id="Img2" />
 						
@@ -86,7 +86,7 @@
                     <!-- Live Meeting -->  
                     <!------------------>	
 				    <li style="height: 100px; clear:both;">
-					    <a href="/Safety/SafetyMeeting.aspx">
+					    <a id="liveSelect" href="/Safety/SafetyMeeting.aspx">
 						    <img style="width: 57px; height: 57px;" alt="Meet Online"
 								    src="/Images/icon-MeetingLive.png" id="LiveMeet" />
 						
@@ -232,7 +232,7 @@
                 <!-- TEAMS HOME PAGE LINK -->
                 <!-------------------------->
 				<li>
-					<a href="/Teams/TeamsHome.aspx" id="A3">
+					<a href="/Teams/TeamsHome.aspx" id="TeamsIcon">
 						<img src="/Images/Si-Teams.png" alt="Teams Home"/>
 						<div>Shermco Teams</div>
 					</a>
@@ -244,11 +244,11 @@
                 <!------------------>
 				<li>
 					<%--<a href="/Library/LibHome.aspx" id="A1">--%>
-                    <a href="/Library/LibDocPaneMobile.aspx?Back=/HomePage.aspx" id="A5">
+                    <a href="/Library/LibDocPaneMobile.aspx?Back=/HomePage.aspx" id="DocumentsIcon">
 						<img src="/Images/SI-Home-Library.png" alt="Document Library"/>
 						<div>Document Library</div>
 					</a>
-                    <a  href="/Library/LibHome.aspx"    id="A4" >
+                    <a  href="/Library/LibHome.aspx"    id="VideosIcon" >
                     <%--<a  href="/Library/LibDocPaneMobile.aspx?Back=HomePage&VR=/videos"    id="A4" >--%>
                         <div>Video Library</div>
                     </a>
@@ -259,7 +259,7 @@
                 <!-- Web Site Intro Videos -->
                 <!--------------------------->
 				<li style="height: 300px;">
-                    <a href="/Library/LibVideoPane.aspx?VR=/Videos&Path=/WEB/Intro" id="A2">
+                    <a href="/Library/LibVideoPane.aspx?VR=/Videos&Path=/WEB/Intro" id="IntroIcon">
                         <img style="border:0; margin-left: 20px; margin-top: 20px; height: 80px;" alt="WEB INTRO" src="/Images/icon-introvideos.png"   id="mbi_mb73g0_100" />
 						<div style="text-align: center;">Web Site Introduction</div>				    
 					</a>

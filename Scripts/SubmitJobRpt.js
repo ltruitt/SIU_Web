@@ -448,28 +448,8 @@ $(document).ready(function () {
                     $('#saleNotesDiv').hide();
             });
 
-            ///////////////////////////////////
-            // Catch CheckBox Change Events  //
-            // For Rpt Disposition           //
-            ///////////////////////////////////
-            $('.chkIrData').change(function () {
-                if ($('#chkIrDataY')[0].checked) {
-                    $('#irDataDiv').show('slow');
-                    $('#irQ').hide();
-                }
-                else {
-                    $('#irDataDiv').hide();
-                    $('#irQ').show('slow');
-                }
-            });
-            if ($('#chkIrDataY')[0].checked) {
-                $('#irDataDiv').show('slow');
-                $('#irQ').hide();
-            }
-            else {
-                $('#irDataDiv').hide();
-                $('#irQ').show('slow');
-            }
+
+
             
             /////////////////////////////
             // Sidebar Data Population //
@@ -490,6 +470,31 @@ $(document).ready(function () {
             $("#SiteWrapper").data("changed", false);
             validate();
         }
+        
+        if ($('#chkIrDataY')[0].checked) {
+            $('#irDataDiv').show('slow');
+            $('#irQ').hide();
+        }
+        else {
+            $('#irDataDiv').hide();
+            $('#irQ').show('slow');
+        }
+        
+        ///////////////////////////////////
+        // Catch CheckBox Change Events  //
+        // For Rpt Disposition           //
+        ///////////////////////////////////
+        $('.chkIrData').change(function () {
+            if ($('#chkIrDataY')[0].checked) {
+                $('#irDataDiv').show('slow');
+                $('#irQ').hide();
+            }
+            else {
+                $('#irDataDiv').hide();
+                $('#irQ').show('slow');
+            }
+        });
+        
     }
 
 
@@ -527,6 +532,7 @@ $(document).ready(function () {
             $('#NotReady').html('( Changes Not Ready To Submit )');
         }
 
+        //1
         ////////////////////////////////////////////
         // If Email Address Given -- Check Format //
         ////////////////////////////////////////////
@@ -543,6 +549,7 @@ $(document).ready(function () {
             $('#txtAddEmail').css('background-color', 'rgb(204,204,221)');
         }
         
+        //2
         /////////////////////////////////////////////////////
         // If No Report Is Checked, Thats All Thats Needed //
         /////////////////////////////////////////////////////
@@ -552,7 +559,7 @@ $(document).ready(function () {
         }
 
 
-        
+        //3
         ///////////////////////////////////////////////////////////////////
         // If Sales Contact Request Checked, Ensure Sales Notes Provided //
         ///////////////////////////////////////////////////////////////////
@@ -563,33 +570,74 @@ $(document).ready(function () {
             }
         }
 
-        ///////////////////////////////////
-        // Check Report Disposition Page //
-        ///////////////////////////////////
-        if ($('input:checkbox[class=chkIrDrBox]:checked').length == 0) {
+        //4
+        ////////////////////
+        // Check I/R Data //
+        ////////////////////
+        if ($('input:checkbox[class=chkIrData]:checked').length == 0) {
+            if ($('#txtNoRpt')[0].value.length == 0) {
+                $('#btnSubmit').hide();
+                return;
+            }
+        }
+
+        //5
+        ////////////////////
+        // Check I/R Data //
+        ////////////////////
+        if ($('input:checkbox[class=chkSales]:checked').length == 0) {
             if ($('#txtNoRpt')[0].value.length == 0) {
                 $('#btnSubmit').hide();
                 return;
             }
         }
         
-        /////////////////////////////////////////////////
-        // If IR Only Checked, Thats All That's Needed //
-        /////////////////////////////////////////////////
-        if ($('#chkIrPort:checked').length > 0) {
-            $('#btnSubmit').show();
-            return;
+
+        if ( $('#chkIrDataY:checked').length > 0) {
+                
+            // 6A
+            ///////////////////////////
+            // Check I/R In Drop Box //
+            ///////////////////////////
+            if ($('input:checkbox[class=chkIrDrBox]:checked').length == 0) {
+                if ($('#txtNoRpt')[0].value.length == 0) {
+                    $('#btnSubmit').hide();
+                    return;
+                }
+            }
+            
+            //6B
+            ////////////////////////
+            // Check I/R Type Set //
+            ////////////////////////
+            if ($('input:checkbox[class=chkIR]:checked').length == 0) {
+                if ($('#txtNoRpt')[0].value.length == 0) {
+                    $('#btnSubmit').hide();
+                    return;
+                }
+            }
+            
+            //6C
+            /////////////////////////////////////////////////
+            // If IR Only Checked, Thats All That's Needed //
+            /////////////////////////////////////////////////
+            if ($('#chkIrPort:checked').length > 0) {
+                $('#btnSubmit').show();
+                return;
+            }
+            
+            //6D
+            /////////////////////////////////////////////////
+            // If IR Only Checked, Thats All That's Needed //
+            /////////////////////////////////////////////////
+            if ($('#chkIrOnly:checked').length > 0) {
+                $('#btnSubmit').show();
+                return;
+            }
+        
         }
         
-        /////////////////////////////////////////////////
-        // If IR Only Checked, Thats All That's Needed //
-        /////////////////////////////////////////////////
-        if ($('#chkIrOnly:checked').length > 0) {
-            $('#btnSubmit').show();
-            return;
-        }
-        
-        
+        //7
         ///////////////////////////////////
         // Check Report Disposition Page //
         ///////////////////////////////////
@@ -600,6 +648,7 @@ $(document).ready(function () {
             }
         }
 
+        //8
         //////////////////////////////
         // Check Report Format Page //
         //////////////////////////////
@@ -608,11 +657,13 @@ $(document).ready(function () {
             return;
         }
         
+        //9 
         if ($('input:checkbox[class=chkDrBox]:checked').length == 0) {
             $('#btnSubmit').hide();
             return;
         }
 
+        //10
         //////////////////////
         // Check Other Page //
         //////////////////////
@@ -621,16 +672,19 @@ $(document).ready(function () {
             return;
         }
         
+        //11
         if ($('input:checkbox[class=chkCt]:checked').length == 0) {
             $('#btnSubmit').hide();
             return;
         }
         
+        //12
         if ($('input:checkbox[class=chkPd]:checked').length == 0) {
             $('#btnSubmit').hide();
             return;
         }
         
+        //13
         if ($('input:checkbox[class=chkOs]:checked').length == 0) {
             $('#btnSubmit').hide();
             return;

@@ -122,7 +122,7 @@
                 
 		    <!-- EHS Policy Manual Pdf Icon -->			
 		    <li>
-		        <a href="/Library/LibDocPaneMobile.aspx?Sub=Library/EHS/Manuals&Path=/Policies and Procedures&Back=HomePage">
+		        <a href="/Library/LibDocPaneMobile.aspx?Sub=Library/EHS/Manuals&Path=/Policies and Procedures&Back=/">
 				    <img alt="Policy Manual" src="/Images/icon-ehsmanual.png"/>
                     EHS Policy Manual
 			    </a>

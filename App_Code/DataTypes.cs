@@ -54,6 +54,70 @@ namespace ShermcoYou.DataTypes
         Success = 1,
         LockedOut = -99
     }
+
+    public class EmpByMon
+    {
+        public int[] Months = new int[14];
+    }
+    public class TypSumByMon
+    {
+        public string Month;
+        public int Type;
+        public int Points;
+        public int Submitted;
+        public int Rejected;
+        public int Open;
+        public int Working;
+        public int Killed;
+        public int Closed;
+    }
+    public class EmpDtl
+    {
+        public int[] ReasonPts;
+    }
+    public class sumRcd
+    {
+        public string Dept;
+        public string DeptName;
+        public decimal TotHours = 2000;
+        public int TotFirAidClasses;
+        public int TotMedRecordable;
+        public int TotRestrictDays;
+        public int TotLostDays;
+        public int TotVehIncidents;
+
+        public float TotInjInHouseCost;
+        public float TotInjIncurredCost;
+        public float TotInjReservedCost;
+
+        public float TotVehInHouseCost;
+        public float TotVehIncurredCost;
+        public float TotVehReservedCost;
+
+        public string OSHA_NAICS;
+        public float OSHA_TRIR_NAT_AVG;
+        public float OSHA_RIR_NAT_AVG;
+        public float OSHA_LTIR_NAT_AVG;
+        public float OSHA_DART_NAT_AVG;
+    }
+    public class SIU_Hours
+    {
+        public string Dept;
+        public DateTime? WorkDate;
+        public int WOY;
+        public string EID;
+        public string Pay_Posting_Group;
+        public string Job;
+        public string Task;
+        public decimal? ST;
+        public decimal? OT;
+        public decimal? DT;
+        public decimal? AB;
+        public decimal? HT;
+        public decimal? DTL_SUM;
+        public decimal? TYPE_SUM;
+        public decimal? DEPT_SUM;
+    }
     public class SIU_LogonProbeRcd
     {
         public int? Valid;

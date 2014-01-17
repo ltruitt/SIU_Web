@@ -5,7 +5,7 @@
     
     <link href="/Styles/SubmitTimeRpt.css" rel="stylesheet"  type="text/css" />
     <script type="text/javascript" src="http://code.jquery.com/ui/1.9.1/jquery-ui.min.js"></script>    
-    <script type="text/javascript" src="/Scripts/SubmitJobRpt.js"></script>  
+    <script type="text/javascript" src="/Scripts/SubmitJobRpt.js?0000"></script>  
 
     <link rel="stylesheet" type="text/css" media="screen" href="/Styles/DeskTop-Forms.css" />
     <script type="text/javascript" src="/Scripts/date.format.js"></script>  
@@ -41,7 +41,7 @@
             <section class="ui-widget-header ui-corner-all" style="height: 45px;" >
                 <%--<a href="/ELO/MainMenu.aspx" style="text-decoration: none;">--%>
                     <%--<span style="position: relative; left: 3px; vertical-align: top; font-size: .8em; line-height: 10px;">elo menu</span>--%>
-                    <span  style="text-align: center; font-size: 2em; width: 100%;  position:absolute; left: 0; margin-left: auto; margin-right: auto;">Job Report
+                    <span id="PageTitle"  style="text-align: center; font-size: 2em; width: 100%;  position:absolute; left: 0; margin-left: auto; margin-right: auto;">Job Report
                         <span id="NotReady" style="font-size: .7em; position: relative; top: -2px;" ></span>
                     </span>
                 <%--</a>--%>
@@ -230,7 +230,7 @@
                             <div style="font-weight: bold; text-align: center;">Other Data<br/>(Must Answer Each Question)</div>
 
                             <div style="display: inline-block; width: 100%;">
-                                <div style="margin-top: 10px;">Other Data in Dropbox</div>
+                                <div style="margin-top: 10px;">Other Data in Dropbox (Max 100 Characters)</div>
                                 <input type="text" id="OtherData" class="DataInputCss" style="width: 80%;" maxlength="100"    />
                             </div>
                         
