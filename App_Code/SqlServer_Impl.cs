@@ -1519,11 +1519,11 @@ public class SiuDao : WebService
     {
         const string eMailSubject = "Unresolved Vehicle Inspections.";
 
-        WebMail.HtmlMail("bborowczak@shermco.com, ltruitt@shermco.com", eMailSubject, BusinessLayer.GenFleetInspRpt(""));
+        WebMail.HtmlMail("bborowczak@shermco.com; ltruitt@shermco.com", eMailSubject, BusinessLayer.GenFleetInspRpt(""));
 
         foreach (var deptList in SqlServer_Impl.GetReportingChainList())
         {
-            List<string> emList = SqlServer_Impl.GetEmployeeEmailByNo(new List<string>() { deptList.DeptMgrEmpId, "ltruitt@shermco.com" });
+            List<string> emList = SqlServer_Impl.GetEmployeeEmailByNo(new List<string>() { deptList.DeptMgrEmpId });
             if (emList.Count > 0)
             {
                 string email = BusinessLayer.GenFleetInspRpt(deptList.Dept);

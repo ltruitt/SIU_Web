@@ -39,6 +39,7 @@
 
             StartDate: {
                 title: 'Starts',
+                list: false,
                 type: 'date',
                 displayFormat: 'mm-dd',
                 sorting: false,
@@ -49,6 +50,7 @@
 
             EndDate: {
                 title: 'Ends',
+                list: false,
                 type: 'date',
                 displayFormat: 'mm-dd',
                 sorting: false,

@@ -453,8 +453,8 @@ public static class BusinessLayer
 
             emailBody += "<br/><br/>";
 
-            WebMail.HtmlMail("ltruitt@shermco.com; kkirkpatrick@shermco.com", strMonthName + " " + qtm.Q_Grp + " Question of the month", emailBody);
-            //WebMail.HtmlMail("allemployees@shermco.com", strMonthName + " " + qtm.Q_Grp + " Question of the month", emailBody);
+            //WebMail.HtmlMail("ltruitt@shermco.com; kkirkpatrick@shermco.com", strMonthName + " " + qtm.Q_Grp + " Question of the month", emailBody);
+            WebMail.HtmlMail("ltruitt@shermco.com; allemployees@shermco.com", strMonthName + " " + qtm.Q_Grp + " Question of the month", emailBody);
         }
     }
     public static void GenQtmReminders()
@@ -492,8 +492,8 @@ public static class BusinessLayer
 
                 emailBody += "<br/><br/>";
 
-                WebMail.HtmlMail("ltruitt@shermco.com; kkirkpatrick@shermco.com", strMonthName + " " + qtm.Q_Grp + " Question of the month", emailBody);
-                //WebMail.HtmlMail("allemployees@shermco.com", strMonthName + " " + qtm.Q_Grp + " Question of the month", emailBody);
+                //WebMail.HtmlMail("ltruitt@shermco.com; kkirkpatrick@shermco.com", strMonthName + " " + qtm.Q_Grp + " Question of the month", emailBody);
+                WebMail.HtmlMail("ltruitt@shermco.com; allemployees@shermco.com", strMonthName + " " + qtm.Q_Grp + " Question of the month", emailBody);
 
             }
         }

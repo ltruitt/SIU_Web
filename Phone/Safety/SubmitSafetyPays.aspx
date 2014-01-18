@@ -29,8 +29,8 @@
             <!----------------->           
             <div class="ui-widget-header ui-corner-all" style="height: 45px;" >
                 <a href="/Phone/HomePage.aspx" style="text-decoration: none;">                    
-                    <span style="position: relative; left: 3px; vertical-align: top; font-size: .8em; line-height: 15px;">main menu</span>
-                    <span  style="text-align: center; font-size: 2em; width: 100%;  position:absolute; left: 0; margin-left: auto; margin-right: auto; margin-top: 8px;">Submit Safety Pays</span>
+                    <span style="position: relative; left: 3px; vertical-align: top; font-size: .8em; line-height: 15px;">home</span>
+                    <span  style="text-align: center; font-size: 1.7em; width: 100%;  position:absolute; left: 0; margin-left: auto; margin-right: auto; margin-top: 5px;">Submit Safety Pays</span>
                 </a>
             </div>
             
