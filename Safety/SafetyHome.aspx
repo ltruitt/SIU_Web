@@ -64,9 +64,6 @@
                         
                         <a href="/Teams/VPP/VppHome.aspx">VPP News</a><br/>  
                         <a href="/Teams/VEST/VestTeamHome.aspx">VEST News</a>                        
-
-<%--                        <a href="/Blog/Blog.aspx?BlogName=VPP">VPP News</a><br/>  
-                        <a href="/Blog/Blog.aspx?BlogName=VPP">VEST News</a>--%>  
 				    </li>
                     
 
@@ -136,9 +133,9 @@
                                 <div style="font-size: .8em; float: left; font-weight: bold;  width: 100%;  text-decoration: underline; margin-bottom: 5px; padding-left: 14px;">Tabulated Points</div>
                             </a>
 
-<%--                            <a href="/Safety/SafetyPays/PointsChart.aspx" >
-                                <div style="font-size: .8em; float: left; font-weight: bold;  width: 100%;  text-decoration: underline; margin-bottom: 5px; padding-left: 14px; ">Bar Chart</div>
-                            </a>--%>
+                            <a href="/Safety/SafetyPays/PointsChart.aspx" >
+                                <div style="font-size: .8em; float: left; font-weight: bold;  width: 100%;  text-decoration: underline; margin-bottom: 5px; padding-left: 14px; ">Q4 2013 Points Chart</div>
+                            </a>
                         
                                                                   
                     </li>          

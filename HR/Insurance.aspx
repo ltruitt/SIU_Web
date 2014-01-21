@@ -89,6 +89,7 @@
                             <li><a  href="/Files/Library/Human Resources/Insurance Benefits/stress_management.pdf"  target="_DocView"  id="A37" >Stress – Five Ways to ease the Stress in your Life</a></li>
                             <li><a  href="/Files/Library/Human Resources/Insurance Benefits/Smoking_Cessation.pdf"  target="_DocView"  id="A38" >Smoking – You Really can Quit smoking</a></li>
                             <li><a  href="/Files/Library/Human Resources/Insurance Benefits/weight_management.pdf" target="_DocView"  id="A39" >Weight Management – Five Tips for Success to Stay at Healthy Weight </a></li>
+                            <li><a  href="/Files/Library/Human Resources/Insurance Benefits/Member Simple Steps Brochure.pdf" target="_DocView"  id="A40" >Simple Steps to a Healthier Life Online Wellness Coaching Sessions </a></li>
 
                         </ul>                    
                 </li>

@@ -27,7 +27,7 @@
 		    </li>
 
                     <li>
-                        <a href="/Install/reportviewer/ReportViewer.exe"><b>INSTALL Step 1</b> Of Qualifications Invesigator</a>
+                        <a href="/Install/QualificationsInvestigator/reportviewer/ReportViewer.exe"><b>INSTALL Step 1</b> Of Qualifications Invesigator</a>
                         <br>
                         <span style="font-size: small;">Install Report Viewing Plug In</span> 
                         <br><br>

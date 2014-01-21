@@ -146,7 +146,6 @@ public class SiuDao : WebService
         {
             return  e.Message;
         }
-        return "";
     }
 
     ///////////////////////////////////////////////////////////////
@@ -2313,9 +2312,6 @@ public class SiuDao : WebService
             SqlServer_Impl.LogDebug("recordIncidentAccident", ex.Message);
             return ("ERROR " + ex.Message);
         }
-
-        return "";
-        
     }
 
     [WebMethod(EnableSession = true)]
