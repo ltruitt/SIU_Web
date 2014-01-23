@@ -10,7 +10,7 @@
     <script src="/jqGrid-4.4.4/js/jquery.jqGrid.min.js" type="text/javascript"></script>
 
     <link rel="stylesheet" type="text/css" media="screen" href="/Styles/DeskTop-Forms.css" />
-    <script type="text/javascript" src="/Scripts/TabPointsRpt.js"></script> 
+    <script type="text/javascript" src="/Scripts/TabPointsRpt.js?0000"></script> 
 
 <style>
     /*.ExpTbl_8090_t_1071_t td
@@ -24,6 +24,7 @@
         xborder-color: limegreen;
         background-color: grey;
     }*/
+    .MonBtn { }
 </style>
 </asp:Content>
 

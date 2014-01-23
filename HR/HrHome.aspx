@@ -38,9 +38,6 @@
     </div>
     
 
-  
-   <%--<a href="http://www.gwrs.com/" style="margin-right: 35px; margin-left: 35px;">Click Here for Additional Information and Documents<br/>on the Great West Retirement Services web site</a>--%>   
-   
 
     <div id="HomeWrapper" >
     
@@ -57,10 +54,10 @@
                     <!-- Jobs -->  
                     <!---------->	
 				    <li style="height: 90px; clear:both;">
-					    <a href="Corporate/Documents/PolicyManualJanuary2012.pdf" target="newton">
+					    <a href="http://newton.newtonsoftware.com/career/CareerAtomFeed.action?clientId=4028f88b2f0a1c35012f7f1f6ee246f8&amp;internal=true" target=_blank >
 						    <img style="width: 57px; height: 57px;" alt="Jobs" src="/Images/icon-jobs.png" id="Img6" />
 						
-						        <br/>Career
+						        <br/>Career Openings
 					    </a>
 				    </li> 
                 

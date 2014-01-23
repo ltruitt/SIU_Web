@@ -1076,6 +1076,12 @@ namespace ShermcoYou
             _PrjPts pts;
             Dictionary<int, string> ptTypes = SqlServer_Impl.GetAutoCompletePointTypes().ToDictionary(mc => mc.UID, mc => mc.Description);
 
+            ////////////////////////////////////////
+            // Get List Of Non Employee Employees //
+            ////////////////////////////////////////
+            List<Shermco_Employee> non_emps = SqlServer_Impl.Get_Non_Employees();
+
+
             /////////////////////////////////////////
             // If the said 1/1/13 through 4/1/13   //
             // they meant  1/1/13 through 3/31/13  //     
@@ -1126,7 +1132,7 @@ namespace ShermcoYou
             // Build The Summary By Department Worksheet //
             ///////////////////////////////////////////////
             sl.SelectWorksheet("By Dept");
-            SP_BuildDeptData(ref sl, ref data, ref months, ref pts, _start, _end);
+            SP_BuildDeptData(ref sl, ref data, ref months, ref pts, _start, _end, non_emps);
 
 
             ////////////////////////////////////////////
@@ -1188,7 +1194,7 @@ namespace ShermcoYou
             sl.SaveAs(ResponseStream);
         }
 
-        public static void SP_BuildDeptData(ref SLDocument sl, ref List<SIU_Points_Rpt> data, ref Dictionary<int, string> months, ref _PrjPts pts, DateTime _start, DateTime _end)
+        public static void SP_BuildDeptData(ref SLDocument sl, ref List<SIU_Points_Rpt> data, ref Dictionary<int, string> months, ref _PrjPts pts, DateTime _start, DateTime _end, List<Shermco_Employee> non_emps)
         {
             EmpByMon sumEmpPts;                                                             // Array [14] (One For Each Month  [0] For Sum 
             Dictionary<string, EmpByMon> sumEmpMon = new Dictionary<string, EmpByMon>();    // Sum By Emp  <"empNo",  Array[14] As Above
@@ -1282,7 +1288,16 @@ namespace ShermcoYou
                     ///////////////////////////////////////
                     sumEmpPts = sumEmpMon[rptRcd.Emp_No];
 
-                    SP_BuildDeptDtl(ref sl, endRowCnt, rptRcd.EmpName, ref sumEmpPts, deptSum, ref months);
+                    //////////////////////////////////////////////////////////
+                    // If This Is A Contractor, as needed, or temp employee //
+                    // There Are no points expectation                      //
+                    //////////////////////////////////////////////////////////
+                    int tdeptSum = deptSum;
+                    var non_emp = (from ne in non_emps where rptRcd.Emp_No == ne.No_ select ne).SingleOrDefault();
+                    if (non_emp != null)
+                        tdeptSum = 0;
+
+                    SP_BuildDeptDtl(ref sl, endRowCnt, rptRcd.EmpName, ref sumEmpPts, tdeptSum, ref months);
 
                     prevEmp = rptRcd.Emp_No;
                     endRowCnt++;
@@ -1451,6 +1466,7 @@ namespace ShermcoYou
 
             //string s5 = "=TEXT( (B" + (Row) + "/C" + (Row) + "),\"#%\")";
             string s5 = "=(B" + Row + "/C" + Row + ") * 100";
+            if (deptSum == 0) s5 = "0";
             sl.SetCellValue(Row, col, s5);
             sl.SetCellStyle(Row, 2, Row, col, styleRow);
 
@@ -1504,7 +1520,7 @@ namespace ShermcoYou
                     ed.ReasonPts[rptRcd.ReasonForPoints - 1] += rptRcd.Points;
                 prevRcd = rptRcd;
             }
-            SP_BuildEmpDtl(ref sl, row, "(" + prevRcd.Emp_No + ") " + prevRcd.EmpName, prevRcd.EmpDept, ref ed);
+            SP_BuildEmpDtl(ref sl, row++, "(" + prevRcd.Emp_No + ") " + prevRcd.EmpName, prevRcd.EmpDept, ref ed);
             SP_BuildEmpSum(ref sl, deptStartRow, row - 1, 4, ptTypes.Count + 5, prevRcd.EmpDept + " Totals");
 
         }

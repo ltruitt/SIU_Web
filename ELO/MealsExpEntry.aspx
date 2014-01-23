@@ -10,7 +10,7 @@
     <script type="text/javascript" src="/Scripts/jtable.2.2.1/jquery.jtable.js">                             </script>        
     <script type="text/javascript" src="/Scripts/jtable.2.2.1/extensions/jquery.jtable.aspnetpagemethods.js"></script> 
      
-    <script type="text/javascript" src="/Scripts/MealsExpEntry.js"></script>     
+    <script type="text/javascript" src="/Scripts/MealsExpEntry.js?0000"></script>     
     <script type="text/javascript" src="/Scripts/jquery.textchange.js"></script>
 
     <link rel="stylesheet" type="text/css" media="screen" href="/Styles/DeskTop-Forms.css" />       
@@ -121,7 +121,8 @@
                     <span runat="server" id="lblErrServer" Class="errorTextCss"  ></span>
                 </div>               
 
-
+                <%--<input type="file"  name="image" accept="image/*" capture>--%>
+                <%--<input type="file" name="photo" accept="image/*" capture="camera">--%>
                     
                    
                 <%--------------------%>                    

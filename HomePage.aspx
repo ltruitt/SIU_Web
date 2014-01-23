@@ -95,6 +95,19 @@
 				    </li> 
                     
                     
+                    <!------------------>
+                    <!-- LMS -->  
+                    <!------------------>	
+				    <li style="height: 100px; clear:both;">
+					    <a id="A2" href="http://shermco.csod.com" target="_LMS">
+						    <img style="width: 67px; height: 57px;" alt="LMS"
+								    src="/Images/VideoFolder2.png" id="Img3" />
+						
+						        <br/>LMS
+					    </a>
+				    </li> 
+                    
+
                     <!----------------------------------->	
 				    <!--  Recorded Safety Meeting Link -->
                     <!----------------------------------->	

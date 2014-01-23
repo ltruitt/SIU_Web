@@ -77,6 +77,12 @@
                     <td>Victor Leeber</td>
                     <td>44</td>
                 </tr>
+                
+                <tr>
+                    <td>10</td>
+                    <td>Trampus Martin</td>
+                    <td>44</td>
+                </tr>
             </table>
         </div>
         

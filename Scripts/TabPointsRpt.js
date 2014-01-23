@@ -5,13 +5,19 @@
 
     $('#StartDate').datepicker({
         constrainInput: true,
-        onSelect: lookUp()
+        onSelect: function () {
+             lookUp();
+        }
     });
 
     $('#EndDate').datepicker({
         constrainInput: true,
-        onSelect: lookUp()
+        onSelect: function () {
+             lookUp();
+        }        
     });
+    
+
 
 
     function defaultQuarter() {
@@ -39,7 +45,8 @@
         var thisY = d.getFullYear();
         
         if (thisQ < 1)
-            thisY--;
+            if (quarter == 4)
+                thisY--;
         
         quarter = quarter - 1;
 
@@ -69,13 +76,6 @@
         setQuarter(4);
         lookUp();
     });
-
-
-
-
-
-
-
 
 
 

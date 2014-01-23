@@ -1,5 +1,14 @@
 ﻿$(document).ready(function () {
 
+
+    //$("input[type=file]").change(function () {
+    //    var file = $("input[type=file]")[0].files[0];
+    //    alert(file.name + "\n" +
+    //          file.type + "\n" +
+    //          file.size + "\n" +
+    //          file.lastModifiedDate);
+    //});
+    
     /////////////////////////////////////////
     // Hide Addendum Data Collection Panes //
     /////////////////////////////////////////
@@ -175,7 +184,7 @@
     // Load List Of O/H Accounts //
     ///////////////////////////////
     var listOfAccounts = [];
-    function GetExpenseOHAcctsSuccess(data) {
+    function getExpenseOhAcctsSuccess(data) {
         listOfAccounts = data.d.split("\r");
 
         $("#ddOhAcct").autocomplete({ source: listOfAccounts },
@@ -208,11 +217,11 @@
         });
     }
 
-    function GetExpenseOHAccts() {
-        var GetExpenseOHAcctsAjax = new AsyncServerMethod();
-        GetExpenseOHAcctsAjax.exec("/SIU_DAO.asmx/GetExpenseOHAccts", GetExpenseOHAcctsSuccess);
+    function getExpenseOhAccts() {
+        var getExpenseOhAcctsAjax = new AsyncServerMethod();
+        getExpenseOhAcctsAjax.exec("/SIU_DAO.asmx/bbb66655", getExpenseOhAcctsSuccess);
     }
-    GetExpenseOHAccts();
+    getExpenseOhAccts();
 
     function showOhDetails() {
         var ohAcct = $('#ddOhAcct').val();

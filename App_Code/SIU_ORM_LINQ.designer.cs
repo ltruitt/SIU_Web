@@ -128,9 +128,6 @@ public partial class SIU_ORM_LINQDataContext : System.Data.Linq.DataContext
   partial void InsertSIU_Training_Log(SIU_Training_Log instance);
   partial void UpdateSIU_Training_Log(SIU_Training_Log instance);
   partial void DeleteSIU_Training_Log(SIU_Training_Log instance);
-  partial void InsertShermco_Job_Report(Shermco_Job_Report instance);
-  partial void UpdateShermco_Job_Report(Shermco_Job_Report instance);
-  partial void DeleteShermco_Job_Report(Shermco_Job_Report instance);
   partial void InsertSIU_Training_Attendance(SIU_Training_Attendance instance);
   partial void UpdateSIU_Training_Attendance(SIU_Training_Attendance instance);
   partial void DeleteSIU_Training_Attendance(SIU_Training_Attendance instance);
@@ -164,6 +161,15 @@ public partial class SIU_ORM_LINQDataContext : System.Data.Linq.DataContext
   partial void InsertSIU_Safety_MoQ(SIU_Safety_MoQ instance);
   partial void UpdateSIU_Safety_MoQ(SIU_Safety_MoQ instance);
   partial void DeleteSIU_Safety_MoQ(SIU_Safety_MoQ instance);
+  partial void InsertShermco_G_L_Account(Shermco_G_L_Account instance);
+  partial void UpdateShermco_G_L_Account(Shermco_G_L_Account instance);
+  partial void DeleteShermco_G_L_Account(Shermco_G_L_Account instance);
+  partial void InsertSIU_Allowed_OH_Acct(SIU_Allowed_OH_Acct instance);
+  partial void UpdateSIU_Allowed_OH_Acct(SIU_Allowed_OH_Acct instance);
+  partial void DeleteSIU_Allowed_OH_Acct(SIU_Allowed_OH_Acct instance);
+  partial void InsertShermco_Job_Report(Shermco_Job_Report instance);
+  partial void UpdateShermco_Job_Report(Shermco_Job_Report instance);
+  partial void DeleteShermco_Job_Report(Shermco_Job_Report instance);
   #endregion
 	
 	public SIU_ORM_LINQDataContext() : 
@@ -500,14 +506,6 @@ public partial class SIU_ORM_LINQDataContext : System.Data.Linq.DataContext
 		}
 	}
 	
-	public System.Data.Linq.Table<Shermco_Job_Report> Shermco_Job_Reports
-	{
-		get
-		{
-			return this.GetTable<Shermco_Job_Report>();
-		}
-	}
-	
 	public System.Data.Linq.Table<SIU_Training_Attendance> SIU_Training_Attendances
 	{
 		get
@@ -593,6 +591,30 @@ public partial class SIU_ORM_LINQDataContext : System.Data.Linq.DataContext
 		get
 		{
 			return this.GetTable<SIU_Safety_MoQ>();
+		}
+	}
+	
+	public System.Data.Linq.Table<Shermco_G_L_Account> Shermco_G_L_Accounts
+	{
+		get
+		{
+			return this.GetTable<Shermco_G_L_Account>();
+		}
+	}
+	
+	public System.Data.Linq.Table<SIU_Allowed_OH_Acct> SIU_Allowed_OH_Accts
+	{
+		get
+		{
+			return this.GetTable<SIU_Allowed_OH_Acct>();
+		}
+	}
+	
+	public System.Data.Linq.Table<Shermco_Job_Report> Shermco_Job_Reports
+	{
+		get
+		{
+			return this.GetTable<Shermco_Job_Report>();
 		}
 	}
 	
@@ -24092,3044 +24114,6 @@ public partial class SIU_Training_Log : INotifyPropertyChanging, INotifyProperty
 	}
 }
 
-[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.[Shermco$Job Report]")]
-public partial class Shermco_Job_Report : INotifyPropertyChanging, INotifyPropertyChanged
-{
-	
-	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-	
-	private System.Data.Linq.Binary _timestamp;
-	
-	private string _Job_No_;
-	
-	private System.DateTime _Last_Date_Modified;
-	
-	private System.DateTime _Logged_and_Scanned;
-	
-	private string _Logged_and_Scanned_User;
-	
-	private System.DateTime _Logged_In_By_Rpt_Dpt;
-	
-	private string _Logged_In_By_Rpt_Dpt_User;
-	
-	private System.DateTime _Start_Data_Sheet_Entry;
-	
-	private string _Start_Data_Sheet_Entry_User;
-	
-	private System.DateTime _Start_Proofread;
-	
-	private string _Start_Proofread_User;
-	
-	private System.DateTime _Received_for_Corrections;
-	
-	private string _Received_for_Corrections_User;
-	
-	private System.DateTime _Sent_for_Tech_Review;
-	
-	private string _Sent_for_Tech_Review_User;
-	
-	private System.DateTime _Tech_Review_Completed;
-	
-	private string _Tech_Review_Completed_User;
-	
-	private System.DateTime _Complete_and_Delivered;
-	
-	private string _Complete_and_Delivered_User;
-	
-	private int _Report_Required_on_Shipping;
-	
-	private byte _Letter_Report_Only;
-	
-	private byte _IR_Report_Only;
-	
-	private System.DateTime _IR_Received_From_Tech;
-	
-	private string _IR_Received_From_Tech_User;
-	
-	private System.DateTime _IR_Complete_and_Delivered;
-	
-	private string _IR_Complete_and_Delivered_User;
-	
-	private System.DateTime _Date_Report_Turned_In_by_Tech;
-	
-	private byte _JHA_Submitted;
-	
-	private System.DateTime _JHA_Submitted_Date;
-	
-	private string _JHA_Submitted_UserID;
-	
-	private string _COI_Email_Address;
-	
-	private byte _COI_Received;
-	
-	private byte _COI_Not_Needed;
-	
-	private byte _Work_Location;
-	
-	private int _Work_Location_State;
-	
-	private byte _Work_Location_Int;
-	
-	private string _Work_Location_Country;
-	
-	private string _Legal_Contact_Name;
-	
-	private string _Legal_Contact_Email;
-	
-	private string _Invoice_Requirements;
-	
-	private string _Legal_Contact_Ph_Number;
-	
-	private string _Legal_Contact_Fax;
-	
-	private byte _Site_Badge_Rqured;
-	
-	private byte _Safetey_Questionnaire;
-	
-	private byte _Background_Check_Required;
-	
-	private byte _Drug_Alcohol_Testing_Req;
-	
-	private string _Site_Badge_Comments;
-	
-	private string _Safety_Comments;
-	
-	private string _Background_Checks_Comments;
-	
-	private string _Drug_Alcohol_Testing_Comments;
-	
-	private byte _Subcontractors;
-	
-	private byte _Estimated_Subcontractors_Hours;
-	
-	private byte _Bid_Bond_Required;
-	
-	private byte _Performance_Bond_Required;
-	
-	private byte _Payment_Bond_Required;
-	
-	private int _Contract_to_be_returned;
-	
-	private string _Contract_Review_Comments;
-	
-	private string _Bid_Bond_Comments;
-	
-	private string _Performance_Bond_Comments;
-	
-	private string _Payment_Bond_Comments;
-	
-	private byte _New_Shermco_Customer;
-	
-	private string _Year_became_a_Shermco_Customer;
-	
-	private byte _Select;
-	
-	private System.DateTime _Turned_in_by_Tech_Date;
-	
-	private string _Turned_in_by_Tech_UserID;
-	
-	private string _Comment;
-	
-	private byte _TmpComplete;
-	
-	private byte _TmpPartial;
-	
-	private byte _TmpPE;
-	
-	private byte _TmpSynced;
-	
-	private byte _TmpHandwritten;
-	
-	private byte _TmpInbox;
-	
-	private byte _TmpWord;
-	
-	private byte _TmpPDBMaster;
-	
-	private byte _TmpOther;
-	
-	private string _TmpOtherText;
-	
-	private string _Turned_in_By_Emp__No_;
-	
-	private byte _Received;
-	
-	private byte _In_Progress;
-	
-	private byte _Certified_Payroll_Required;
-	
-	private byte _No_Report_Required;
-	
-	private string _No_Report_Required_Reason;
-	
-	private byte _SalesFollowUp;
-	
-	private System.DateTime _SalesFollowUp_Email_Date;
-	
-	private string _SalesFollowUp_Comment;
-	
-	private byte _SalesFollowUp_Acknowledge;
-	
-	private System.DateTime _SalesFollowUp_Ack_Date;
-	
-	private string _SalesFollowUp_Ack_Userid;
-	
-	private System.DateTime _Sent_to_Allied;
-	
-	private string _Sent_to_Allied_UserID;
-	
-	private byte _TmpLetterOnly;
-	
-	private byte _TmpIRData;
-	
-	private int _Report_Data_Format;
-	
-	private int _RTS_Relay_Data;
-	
-	private int _CT_Data_Saved;
-	
-	private int _Partial_Discharge;
-	
-	private int _Oil_Sample;
-	
-	private int _Oil_Sample_Follow_UP;
-	
-	private byte _Bus_Bolt_Torque;
-	
-	private byte _DC_Hipot;
-	
-	private byte _Decal_Color_Codes;
-	
-	private byte _DLRO;
-	
-	private byte _Doble;
-	
-	private byte _Ground_Fault_Systems;
-	
-	private byte _Grounding___Ground_Electrode;
-	
-	private byte _Insulation_Resistance;
-	
-	private byte _NFPA_99;
-	
-	private byte _Oil_Tests;
-	
-	private byte _Partial_Discharge_B;
-	
-	private byte _PCB_Info;
-	
-	private byte _Protective_Relays;
-	
-	private byte _Thermograpic_IR_;
-	
-	private byte _TTR;
-	
-	private byte _Ultrasonic_Testing;
-	
-	private byte _No_Testing_Done;
-	
-	private System.DateTime _Rejected_Date;
-	
-	private string _Rejected_Reason;
-	
-	private string _Rejected;
-	
-	private byte _IROnly;
-	
-	private byte _IRonFinalReport;
-	
-	private string _Email;
-	
-	private int _No__of_Copies;
-	
-	private byte _General_Dropbox;
-	
-	private byte _General_Dropbox_No;
-	
-	private byte _TmpIRData_No;
-	
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OntimestampChanging(System.Data.Linq.Binary value);
-    partial void OntimestampChanged();
-    partial void OnJob_No_Changing(string value);
-    partial void OnJob_No_Changed();
-    partial void OnLast_Date_ModifiedChanging(System.DateTime value);
-    partial void OnLast_Date_ModifiedChanged();
-    partial void OnLogged_and_ScannedChanging(System.DateTime value);
-    partial void OnLogged_and_ScannedChanged();
-    partial void OnLogged_and_Scanned_UserChanging(string value);
-    partial void OnLogged_and_Scanned_UserChanged();
-    partial void OnLogged_In_By_Rpt_DptChanging(System.DateTime value);
-    partial void OnLogged_In_By_Rpt_DptChanged();
-    partial void OnLogged_In_By_Rpt_Dpt_UserChanging(string value);
-    partial void OnLogged_In_By_Rpt_Dpt_UserChanged();
-    partial void OnStart_Data_Sheet_EntryChanging(System.DateTime value);
-    partial void OnStart_Data_Sheet_EntryChanged();
-    partial void OnStart_Data_Sheet_Entry_UserChanging(string value);
-    partial void OnStart_Data_Sheet_Entry_UserChanged();
-    partial void OnStart_ProofreadChanging(System.DateTime value);
-    partial void OnStart_ProofreadChanged();
-    partial void OnStart_Proofread_UserChanging(string value);
-    partial void OnStart_Proofread_UserChanged();
-    partial void OnReceived_for_CorrectionsChanging(System.DateTime value);
-    partial void OnReceived_for_CorrectionsChanged();
-    partial void OnReceived_for_Corrections_UserChanging(string value);
-    partial void OnReceived_for_Corrections_UserChanged();
-    partial void OnSent_for_Tech_ReviewChanging(System.DateTime value);
-    partial void OnSent_for_Tech_ReviewChanged();
-    partial void OnSent_for_Tech_Review_UserChanging(string value);
-    partial void OnSent_for_Tech_Review_UserChanged();
-    partial void OnTech_Review_CompletedChanging(System.DateTime value);
-    partial void OnTech_Review_CompletedChanged();
-    partial void OnTech_Review_Completed_UserChanging(string value);
-    partial void OnTech_Review_Completed_UserChanged();
-    partial void OnComplete_and_DeliveredChanging(System.DateTime value);
-    partial void OnComplete_and_DeliveredChanged();
-    partial void OnComplete_and_Delivered_UserChanging(string value);
-    partial void OnComplete_and_Delivered_UserChanged();
-    partial void OnReport_Required_on_ShippingChanging(int value);
-    partial void OnReport_Required_on_ShippingChanged();
-    partial void OnLetter_Report_OnlyChanging(byte value);
-    partial void OnLetter_Report_OnlyChanged();
-    partial void OnIR_Report_OnlyChanging(byte value);
-    partial void OnIR_Report_OnlyChanged();
-    partial void OnIR_Received_From_TechChanging(System.DateTime value);
-    partial void OnIR_Received_From_TechChanged();
-    partial void OnIR_Received_From_Tech_UserChanging(string value);
-    partial void OnIR_Received_From_Tech_UserChanged();
-    partial void OnIR_Complete_and_DeliveredChanging(System.DateTime value);
-    partial void OnIR_Complete_and_DeliveredChanged();
-    partial void OnIR_Complete_and_Delivered_UserChanging(string value);
-    partial void OnIR_Complete_and_Delivered_UserChanged();
-    partial void OnDate_Report_Turned_In_by_TechChanging(System.DateTime value);
-    partial void OnDate_Report_Turned_In_by_TechChanged();
-    partial void OnJHA_SubmittedChanging(byte value);
-    partial void OnJHA_SubmittedChanged();
-    partial void OnJHA_Submitted_DateChanging(System.DateTime value);
-    partial void OnJHA_Submitted_DateChanged();
-    partial void OnJHA_Submitted_UserIDChanging(string value);
-    partial void OnJHA_Submitted_UserIDChanged();
-    partial void OnCOI_Email_AddressChanging(string value);
-    partial void OnCOI_Email_AddressChanged();
-    partial void OnCOI_ReceivedChanging(byte value);
-    partial void OnCOI_ReceivedChanged();
-    partial void OnCOI_Not_NeededChanging(byte value);
-    partial void OnCOI_Not_NeededChanged();
-    partial void OnWork_LocationChanging(byte value);
-    partial void OnWork_LocationChanged();
-    partial void OnWork_Location_StateChanging(int value);
-    partial void OnWork_Location_StateChanged();
-    partial void OnWork_Location_IntChanging(byte value);
-    partial void OnWork_Location_IntChanged();
-    partial void OnWork_Location_CountryChanging(string value);
-    partial void OnWork_Location_CountryChanged();
-    partial void OnLegal_Contact_NameChanging(string value);
-    partial void OnLegal_Contact_NameChanged();
-    partial void OnLegal_Contact_EmailChanging(string value);
-    partial void OnLegal_Contact_EmailChanged();
-    partial void OnInvoice_RequirementsChanging(string value);
-    partial void OnInvoice_RequirementsChanged();
-    partial void OnLegal_Contact_Ph_NumberChanging(string value);
-    partial void OnLegal_Contact_Ph_NumberChanged();
-    partial void OnLegal_Contact_FaxChanging(string value);
-    partial void OnLegal_Contact_FaxChanged();
-    partial void OnSite_Badge_RquredChanging(byte value);
-    partial void OnSite_Badge_RquredChanged();
-    partial void OnSafetey_QuestionnaireChanging(byte value);
-    partial void OnSafetey_QuestionnaireChanged();
-    partial void OnBackground_Check_RequiredChanging(byte value);
-    partial void OnBackground_Check_RequiredChanged();
-    partial void OnDrug_Alcohol_Testing_ReqChanging(byte value);
-    partial void OnDrug_Alcohol_Testing_ReqChanged();
-    partial void OnSite_Badge_CommentsChanging(string value);
-    partial void OnSite_Badge_CommentsChanged();
-    partial void OnSafety_CommentsChanging(string value);
-    partial void OnSafety_CommentsChanged();
-    partial void OnBackground_Checks_CommentsChanging(string value);
-    partial void OnBackground_Checks_CommentsChanged();
-    partial void OnDrug_Alcohol_Testing_CommentsChanging(string value);
-    partial void OnDrug_Alcohol_Testing_CommentsChanged();
-    partial void OnSubcontractorsChanging(byte value);
-    partial void OnSubcontractorsChanged();
-    partial void OnEstimated_Subcontractors_HoursChanging(byte value);
-    partial void OnEstimated_Subcontractors_HoursChanged();
-    partial void OnBid_Bond_RequiredChanging(byte value);
-    partial void OnBid_Bond_RequiredChanged();
-    partial void OnPerformance_Bond_RequiredChanging(byte value);
-    partial void OnPerformance_Bond_RequiredChanged();
-    partial void OnPayment_Bond_RequiredChanging(byte value);
-    partial void OnPayment_Bond_RequiredChanged();
-    partial void OnContract_to_be_returnedChanging(int value);
-    partial void OnContract_to_be_returnedChanged();
-    partial void OnContract_Review_CommentsChanging(string value);
-    partial void OnContract_Review_CommentsChanged();
-    partial void OnBid_Bond_CommentsChanging(string value);
-    partial void OnBid_Bond_CommentsChanged();
-    partial void OnPerformance_Bond_CommentsChanging(string value);
-    partial void OnPerformance_Bond_CommentsChanged();
-    partial void OnPayment_Bond_CommentsChanging(string value);
-    partial void OnPayment_Bond_CommentsChanged();
-    partial void OnNew_Shermco_CustomerChanging(byte value);
-    partial void OnNew_Shermco_CustomerChanged();
-    partial void OnYear_became_a_Shermco_CustomerChanging(string value);
-    partial void OnYear_became_a_Shermco_CustomerChanged();
-    partial void OnSelectChanging(byte value);
-    partial void OnSelectChanged();
-    partial void OnTurned_in_by_Tech_DateChanging(System.DateTime value);
-    partial void OnTurned_in_by_Tech_DateChanged();
-    partial void OnTurned_in_by_Tech_UserIDChanging(string value);
-    partial void OnTurned_in_by_Tech_UserIDChanged();
-    partial void OnCommentChanging(string value);
-    partial void OnCommentChanged();
-    partial void OnTmpCompleteChanging(byte value);
-    partial void OnTmpCompleteChanged();
-    partial void OnTmpPartialChanging(byte value);
-    partial void OnTmpPartialChanged();
-    partial void OnTmpPEChanging(byte value);
-    partial void OnTmpPEChanged();
-    partial void OnTmpSyncedChanging(byte value);
-    partial void OnTmpSyncedChanged();
-    partial void OnTmpHandwrittenChanging(byte value);
-    partial void OnTmpHandwrittenChanged();
-    partial void OnTmpInboxChanging(byte value);
-    partial void OnTmpInboxChanged();
-    partial void OnTmpWordChanging(byte value);
-    partial void OnTmpWordChanged();
-    partial void OnTmpPDBMasterChanging(byte value);
-    partial void OnTmpPDBMasterChanged();
-    partial void OnTmpOtherChanging(byte value);
-    partial void OnTmpOtherChanged();
-    partial void OnTmpOtherTextChanging(string value);
-    partial void OnTmpOtherTextChanged();
-    partial void OnTurned_in_By_Emp__No_Changing(string value);
-    partial void OnTurned_in_By_Emp__No_Changed();
-    partial void OnReceivedChanging(byte value);
-    partial void OnReceivedChanged();
-    partial void OnIn_ProgressChanging(byte value);
-    partial void OnIn_ProgressChanged();
-    partial void OnCertified_Payroll_RequiredChanging(byte value);
-    partial void OnCertified_Payroll_RequiredChanged();
-    partial void OnNo_Report_RequiredChanging(byte value);
-    partial void OnNo_Report_RequiredChanged();
-    partial void OnNo_Report_Required_ReasonChanging(string value);
-    partial void OnNo_Report_Required_ReasonChanged();
-    partial void OnSalesFollowUpChanging(byte value);
-    partial void OnSalesFollowUpChanged();
-    partial void OnSalesFollowUp_Email_DateChanging(System.DateTime value);
-    partial void OnSalesFollowUp_Email_DateChanged();
-    partial void OnSalesFollowUp_CommentChanging(string value);
-    partial void OnSalesFollowUp_CommentChanged();
-    partial void OnSalesFollowUp_AcknowledgeChanging(byte value);
-    partial void OnSalesFollowUp_AcknowledgeChanged();
-    partial void OnSalesFollowUp_Ack_DateChanging(System.DateTime value);
-    partial void OnSalesFollowUp_Ack_DateChanged();
-    partial void OnSalesFollowUp_Ack_UseridChanging(string value);
-    partial void OnSalesFollowUp_Ack_UseridChanged();
-    partial void OnSent_to_AlliedChanging(System.DateTime value);
-    partial void OnSent_to_AlliedChanged();
-    partial void OnSent_to_Allied_UserIDChanging(string value);
-    partial void OnSent_to_Allied_UserIDChanged();
-    partial void OnTmpLetterOnlyChanging(byte value);
-    partial void OnTmpLetterOnlyChanged();
-    partial void OnTmpIRDataChanging(byte value);
-    partial void OnTmpIRDataChanged();
-    partial void OnReport_Data_FormatChanging(int value);
-    partial void OnReport_Data_FormatChanged();
-    partial void OnRTS_Relay_DataChanging(int value);
-    partial void OnRTS_Relay_DataChanged();
-    partial void OnCT_Data_SavedChanging(int value);
-    partial void OnCT_Data_SavedChanged();
-    partial void OnPartial_DischargeChanging(int value);
-    partial void OnPartial_DischargeChanged();
-    partial void OnOil_SampleChanging(int value);
-    partial void OnOil_SampleChanged();
-    partial void OnOil_Sample_Follow_UPChanging(int value);
-    partial void OnOil_Sample_Follow_UPChanged();
-    partial void OnBus_Bolt_TorqueChanging(byte value);
-    partial void OnBus_Bolt_TorqueChanged();
-    partial void OnDC_HipotChanging(byte value);
-    partial void OnDC_HipotChanged();
-    partial void OnDecal_Color_CodesChanging(byte value);
-    partial void OnDecal_Color_CodesChanged();
-    partial void OnDLROChanging(byte value);
-    partial void OnDLROChanged();
-    partial void OnDobleChanging(byte value);
-    partial void OnDobleChanged();
-    partial void OnGround_Fault_SystemsChanging(byte value);
-    partial void OnGround_Fault_SystemsChanged();
-    partial void OnGrounding___Ground_ElectrodeChanging(byte value);
-    partial void OnGrounding___Ground_ElectrodeChanged();
-    partial void OnInsulation_ResistanceChanging(byte value);
-    partial void OnInsulation_ResistanceChanged();
-    partial void OnNFPA_99Changing(byte value);
-    partial void OnNFPA_99Changed();
-    partial void OnOil_TestsChanging(byte value);
-    partial void OnOil_TestsChanged();
-    partial void OnPartial_Discharge_BChanging(byte value);
-    partial void OnPartial_Discharge_BChanged();
-    partial void OnPCB_InfoChanging(byte value);
-    partial void OnPCB_InfoChanged();
-    partial void OnProtective_RelaysChanging(byte value);
-    partial void OnProtective_RelaysChanged();
-    partial void OnThermograpic_IR_Changing(byte value);
-    partial void OnThermograpic_IR_Changed();
-    partial void OnTTRChanging(byte value);
-    partial void OnTTRChanged();
-    partial void OnUltrasonic_TestingChanging(byte value);
-    partial void OnUltrasonic_TestingChanged();
-    partial void OnNo_Testing_DoneChanging(byte value);
-    partial void OnNo_Testing_DoneChanged();
-    partial void OnRejected_DateChanging(System.DateTime value);
-    partial void OnRejected_DateChanged();
-    partial void OnRejected_ReasonChanging(string value);
-    partial void OnRejected_ReasonChanged();
-    partial void OnRejectedChanging(string value);
-    partial void OnRejectedChanged();
-    partial void OnIROnlyChanging(byte value);
-    partial void OnIROnlyChanged();
-    partial void OnIRonFinalReportChanging(byte value);
-    partial void OnIRonFinalReportChanged();
-    partial void OnEmailChanging(string value);
-    partial void OnEmailChanged();
-    partial void OnNo__of_CopiesChanging(int value);
-    partial void OnNo__of_CopiesChanged();
-    partial void OnGeneral_DropboxChanging(byte value);
-    partial void OnGeneral_DropboxChanged();
-    partial void OnGeneral_Dropbox_NoChanging(byte value);
-    partial void OnGeneral_Dropbox_NoChanged();
-    partial void OnTmpIRData_NoChanging(byte value);
-    partial void OnTmpIRData_NoChanged();
-    #endregion
-	
-	public Shermco_Job_Report()
-	{
-		OnCreated();
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_timestamp", AutoSync=AutoSync.Always, DbType="rowversion NOT NULL", CanBeNull=false, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
-	public System.Data.Linq.Binary timestamp
-	{
-		get
-		{
-			return this._timestamp;
-		}
-		set
-		{
-			if ((this._timestamp != value))
-			{
-				this.OntimestampChanging(value);
-				this.SendPropertyChanging();
-				this._timestamp = value;
-				this.SendPropertyChanged("timestamp");
-				this.OntimestampChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Job No_]", Storage="_Job_No_", DbType="VarChar(10) NOT NULL", CanBeNull=false, IsPrimaryKey=true, UpdateCheck=UpdateCheck.Never)]
-	public string Job_No_
-	{
-		get
-		{
-			return this._Job_No_;
-		}
-		set
-		{
-			if ((this._Job_No_ != value))
-			{
-				this.OnJob_No_Changing(value);
-				this.SendPropertyChanging();
-				this._Job_No_ = value;
-				this.SendPropertyChanged("Job_No_");
-				this.OnJob_No_Changed();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Last Date Modified]", Storage="_Last_Date_Modified", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public System.DateTime Last_Date_Modified
-	{
-		get
-		{
-			return this._Last_Date_Modified;
-		}
-		set
-		{
-			if ((this._Last_Date_Modified != value))
-			{
-				this.OnLast_Date_ModifiedChanging(value);
-				this.SendPropertyChanging();
-				this._Last_Date_Modified = value;
-				this.SendPropertyChanged("Last_Date_Modified");
-				this.OnLast_Date_ModifiedChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Logged and Scanned]", Storage="_Logged_and_Scanned", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public System.DateTime Logged_and_Scanned
-	{
-		get
-		{
-			return this._Logged_and_Scanned;
-		}
-		set
-		{
-			if ((this._Logged_and_Scanned != value))
-			{
-				this.OnLogged_and_ScannedChanging(value);
-				this.SendPropertyChanging();
-				this._Logged_and_Scanned = value;
-				this.SendPropertyChanged("Logged_and_Scanned");
-				this.OnLogged_and_ScannedChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Logged and Scanned User]", Storage="_Logged_and_Scanned_User", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Logged_and_Scanned_User
-	{
-		get
-		{
-			return this._Logged_and_Scanned_User;
-		}
-		set
-		{
-			if ((this._Logged_and_Scanned_User != value))
-			{
-				this.OnLogged_and_Scanned_UserChanging(value);
-				this.SendPropertyChanging();
-				this._Logged_and_Scanned_User = value;
-				this.SendPropertyChanged("Logged_and_Scanned_User");
-				this.OnLogged_and_Scanned_UserChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Logged In By Rpt Dpt]", Storage="_Logged_In_By_Rpt_Dpt", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public System.DateTime Logged_In_By_Rpt_Dpt
-	{
-		get
-		{
-			return this._Logged_In_By_Rpt_Dpt;
-		}
-		set
-		{
-			if ((this._Logged_In_By_Rpt_Dpt != value))
-			{
-				this.OnLogged_In_By_Rpt_DptChanging(value);
-				this.SendPropertyChanging();
-				this._Logged_In_By_Rpt_Dpt = value;
-				this.SendPropertyChanged("Logged_In_By_Rpt_Dpt");
-				this.OnLogged_In_By_Rpt_DptChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Logged In By Rpt Dpt User]", Storage="_Logged_In_By_Rpt_Dpt_User", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Logged_In_By_Rpt_Dpt_User
-	{
-		get
-		{
-			return this._Logged_In_By_Rpt_Dpt_User;
-		}
-		set
-		{
-			if ((this._Logged_In_By_Rpt_Dpt_User != value))
-			{
-				this.OnLogged_In_By_Rpt_Dpt_UserChanging(value);
-				this.SendPropertyChanging();
-				this._Logged_In_By_Rpt_Dpt_User = value;
-				this.SendPropertyChanged("Logged_In_By_Rpt_Dpt_User");
-				this.OnLogged_In_By_Rpt_Dpt_UserChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Start Data Sheet Entry]", Storage="_Start_Data_Sheet_Entry", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public System.DateTime Start_Data_Sheet_Entry
-	{
-		get
-		{
-			return this._Start_Data_Sheet_Entry;
-		}
-		set
-		{
-			if ((this._Start_Data_Sheet_Entry != value))
-			{
-				this.OnStart_Data_Sheet_EntryChanging(value);
-				this.SendPropertyChanging();
-				this._Start_Data_Sheet_Entry = value;
-				this.SendPropertyChanged("Start_Data_Sheet_Entry");
-				this.OnStart_Data_Sheet_EntryChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Start Data Sheet Entry User]", Storage="_Start_Data_Sheet_Entry_User", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Start_Data_Sheet_Entry_User
-	{
-		get
-		{
-			return this._Start_Data_Sheet_Entry_User;
-		}
-		set
-		{
-			if ((this._Start_Data_Sheet_Entry_User != value))
-			{
-				this.OnStart_Data_Sheet_Entry_UserChanging(value);
-				this.SendPropertyChanging();
-				this._Start_Data_Sheet_Entry_User = value;
-				this.SendPropertyChanged("Start_Data_Sheet_Entry_User");
-				this.OnStart_Data_Sheet_Entry_UserChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Start Proofread]", Storage="_Start_Proofread", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public System.DateTime Start_Proofread
-	{
-		get
-		{
-			return this._Start_Proofread;
-		}
-		set
-		{
-			if ((this._Start_Proofread != value))
-			{
-				this.OnStart_ProofreadChanging(value);
-				this.SendPropertyChanging();
-				this._Start_Proofread = value;
-				this.SendPropertyChanged("Start_Proofread");
-				this.OnStart_ProofreadChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Start Proofread User]", Storage="_Start_Proofread_User", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Start_Proofread_User
-	{
-		get
-		{
-			return this._Start_Proofread_User;
-		}
-		set
-		{
-			if ((this._Start_Proofread_User != value))
-			{
-				this.OnStart_Proofread_UserChanging(value);
-				this.SendPropertyChanging();
-				this._Start_Proofread_User = value;
-				this.SendPropertyChanged("Start_Proofread_User");
-				this.OnStart_Proofread_UserChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Received for Corrections]", Storage="_Received_for_Corrections", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public System.DateTime Received_for_Corrections
-	{
-		get
-		{
-			return this._Received_for_Corrections;
-		}
-		set
-		{
-			if ((this._Received_for_Corrections != value))
-			{
-				this.OnReceived_for_CorrectionsChanging(value);
-				this.SendPropertyChanging();
-				this._Received_for_Corrections = value;
-				this.SendPropertyChanged("Received_for_Corrections");
-				this.OnReceived_for_CorrectionsChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Received for Corrections User]", Storage="_Received_for_Corrections_User", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Received_for_Corrections_User
-	{
-		get
-		{
-			return this._Received_for_Corrections_User;
-		}
-		set
-		{
-			if ((this._Received_for_Corrections_User != value))
-			{
-				this.OnReceived_for_Corrections_UserChanging(value);
-				this.SendPropertyChanging();
-				this._Received_for_Corrections_User = value;
-				this.SendPropertyChanged("Received_for_Corrections_User");
-				this.OnReceived_for_Corrections_UserChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Sent for Tech Review]", Storage="_Sent_for_Tech_Review", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public System.DateTime Sent_for_Tech_Review
-	{
-		get
-		{
-			return this._Sent_for_Tech_Review;
-		}
-		set
-		{
-			if ((this._Sent_for_Tech_Review != value))
-			{
-				this.OnSent_for_Tech_ReviewChanging(value);
-				this.SendPropertyChanging();
-				this._Sent_for_Tech_Review = value;
-				this.SendPropertyChanged("Sent_for_Tech_Review");
-				this.OnSent_for_Tech_ReviewChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Sent for Tech Review User]", Storage="_Sent_for_Tech_Review_User", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Sent_for_Tech_Review_User
-	{
-		get
-		{
-			return this._Sent_for_Tech_Review_User;
-		}
-		set
-		{
-			if ((this._Sent_for_Tech_Review_User != value))
-			{
-				this.OnSent_for_Tech_Review_UserChanging(value);
-				this.SendPropertyChanging();
-				this._Sent_for_Tech_Review_User = value;
-				this.SendPropertyChanged("Sent_for_Tech_Review_User");
-				this.OnSent_for_Tech_Review_UserChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Tech Review Completed]", Storage="_Tech_Review_Completed", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public System.DateTime Tech_Review_Completed
-	{
-		get
-		{
-			return this._Tech_Review_Completed;
-		}
-		set
-		{
-			if ((this._Tech_Review_Completed != value))
-			{
-				this.OnTech_Review_CompletedChanging(value);
-				this.SendPropertyChanging();
-				this._Tech_Review_Completed = value;
-				this.SendPropertyChanged("Tech_Review_Completed");
-				this.OnTech_Review_CompletedChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Tech Review Completed User]", Storage="_Tech_Review_Completed_User", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Tech_Review_Completed_User
-	{
-		get
-		{
-			return this._Tech_Review_Completed_User;
-		}
-		set
-		{
-			if ((this._Tech_Review_Completed_User != value))
-			{
-				this.OnTech_Review_Completed_UserChanging(value);
-				this.SendPropertyChanging();
-				this._Tech_Review_Completed_User = value;
-				this.SendPropertyChanged("Tech_Review_Completed_User");
-				this.OnTech_Review_Completed_UserChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Complete and Delivered]", Storage="_Complete_and_Delivered", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public System.DateTime Complete_and_Delivered
-	{
-		get
-		{
-			return this._Complete_and_Delivered;
-		}
-		set
-		{
-			if ((this._Complete_and_Delivered != value))
-			{
-				this.OnComplete_and_DeliveredChanging(value);
-				this.SendPropertyChanging();
-				this._Complete_and_Delivered = value;
-				this.SendPropertyChanged("Complete_and_Delivered");
-				this.OnComplete_and_DeliveredChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Complete and Delivered User]", Storage="_Complete_and_Delivered_User", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Complete_and_Delivered_User
-	{
-		get
-		{
-			return this._Complete_and_Delivered_User;
-		}
-		set
-		{
-			if ((this._Complete_and_Delivered_User != value))
-			{
-				this.OnComplete_and_Delivered_UserChanging(value);
-				this.SendPropertyChanging();
-				this._Complete_and_Delivered_User = value;
-				this.SendPropertyChanged("Complete_and_Delivered_User");
-				this.OnComplete_and_Delivered_UserChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Report Required on Shipping]", Storage="_Report_Required_on_Shipping", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public int Report_Required_on_Shipping
-	{
-		get
-		{
-			return this._Report_Required_on_Shipping;
-		}
-		set
-		{
-			if ((this._Report_Required_on_Shipping != value))
-			{
-				this.OnReport_Required_on_ShippingChanging(value);
-				this.SendPropertyChanging();
-				this._Report_Required_on_Shipping = value;
-				this.SendPropertyChanged("Report_Required_on_Shipping");
-				this.OnReport_Required_on_ShippingChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Letter Report Only]", Storage="_Letter_Report_Only", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte Letter_Report_Only
-	{
-		get
-		{
-			return this._Letter_Report_Only;
-		}
-		set
-		{
-			if ((this._Letter_Report_Only != value))
-			{
-				this.OnLetter_Report_OnlyChanging(value);
-				this.SendPropertyChanging();
-				this._Letter_Report_Only = value;
-				this.SendPropertyChanged("Letter_Report_Only");
-				this.OnLetter_Report_OnlyChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[IR Report Only]", Storage="_IR_Report_Only", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte IR_Report_Only
-	{
-		get
-		{
-			return this._IR_Report_Only;
-		}
-		set
-		{
-			if ((this._IR_Report_Only != value))
-			{
-				this.OnIR_Report_OnlyChanging(value);
-				this.SendPropertyChanging();
-				this._IR_Report_Only = value;
-				this.SendPropertyChanged("IR_Report_Only");
-				this.OnIR_Report_OnlyChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[IR Received From Tech]", Storage="_IR_Received_From_Tech", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public System.DateTime IR_Received_From_Tech
-	{
-		get
-		{
-			return this._IR_Received_From_Tech;
-		}
-		set
-		{
-			if ((this._IR_Received_From_Tech != value))
-			{
-				this.OnIR_Received_From_TechChanging(value);
-				this.SendPropertyChanging();
-				this._IR_Received_From_Tech = value;
-				this.SendPropertyChanged("IR_Received_From_Tech");
-				this.OnIR_Received_From_TechChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[IR Received From Tech User]", Storage="_IR_Received_From_Tech_User", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string IR_Received_From_Tech_User
-	{
-		get
-		{
-			return this._IR_Received_From_Tech_User;
-		}
-		set
-		{
-			if ((this._IR_Received_From_Tech_User != value))
-			{
-				this.OnIR_Received_From_Tech_UserChanging(value);
-				this.SendPropertyChanging();
-				this._IR_Received_From_Tech_User = value;
-				this.SendPropertyChanged("IR_Received_From_Tech_User");
-				this.OnIR_Received_From_Tech_UserChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[IR Complete and Delivered]", Storage="_IR_Complete_and_Delivered", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public System.DateTime IR_Complete_and_Delivered
-	{
-		get
-		{
-			return this._IR_Complete_and_Delivered;
-		}
-		set
-		{
-			if ((this._IR_Complete_and_Delivered != value))
-			{
-				this.OnIR_Complete_and_DeliveredChanging(value);
-				this.SendPropertyChanging();
-				this._IR_Complete_and_Delivered = value;
-				this.SendPropertyChanged("IR_Complete_and_Delivered");
-				this.OnIR_Complete_and_DeliveredChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[IR Complete and Delivered User]", Storage="_IR_Complete_and_Delivered_User", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string IR_Complete_and_Delivered_User
-	{
-		get
-		{
-			return this._IR_Complete_and_Delivered_User;
-		}
-		set
-		{
-			if ((this._IR_Complete_and_Delivered_User != value))
-			{
-				this.OnIR_Complete_and_Delivered_UserChanging(value);
-				this.SendPropertyChanging();
-				this._IR_Complete_and_Delivered_User = value;
-				this.SendPropertyChanged("IR_Complete_and_Delivered_User");
-				this.OnIR_Complete_and_Delivered_UserChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Date Report Turned In by Tech]", Storage="_Date_Report_Turned_In_by_Tech", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public System.DateTime Date_Report_Turned_In_by_Tech
-	{
-		get
-		{
-			return this._Date_Report_Turned_In_by_Tech;
-		}
-		set
-		{
-			if ((this._Date_Report_Turned_In_by_Tech != value))
-			{
-				this.OnDate_Report_Turned_In_by_TechChanging(value);
-				this.SendPropertyChanging();
-				this._Date_Report_Turned_In_by_Tech = value;
-				this.SendPropertyChanged("Date_Report_Turned_In_by_Tech");
-				this.OnDate_Report_Turned_In_by_TechChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[JHA Submitted]", Storage="_JHA_Submitted", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte JHA_Submitted
-	{
-		get
-		{
-			return this._JHA_Submitted;
-		}
-		set
-		{
-			if ((this._JHA_Submitted != value))
-			{
-				this.OnJHA_SubmittedChanging(value);
-				this.SendPropertyChanging();
-				this._JHA_Submitted = value;
-				this.SendPropertyChanged("JHA_Submitted");
-				this.OnJHA_SubmittedChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[JHA Submitted Date]", Storage="_JHA_Submitted_Date", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public System.DateTime JHA_Submitted_Date
-	{
-		get
-		{
-			return this._JHA_Submitted_Date;
-		}
-		set
-		{
-			if ((this._JHA_Submitted_Date != value))
-			{
-				this.OnJHA_Submitted_DateChanging(value);
-				this.SendPropertyChanging();
-				this._JHA_Submitted_Date = value;
-				this.SendPropertyChanged("JHA_Submitted_Date");
-				this.OnJHA_Submitted_DateChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[JHA Submitted UserID]", Storage="_JHA_Submitted_UserID", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string JHA_Submitted_UserID
-	{
-		get
-		{
-			return this._JHA_Submitted_UserID;
-		}
-		set
-		{
-			if ((this._JHA_Submitted_UserID != value))
-			{
-				this.OnJHA_Submitted_UserIDChanging(value);
-				this.SendPropertyChanging();
-				this._JHA_Submitted_UserID = value;
-				this.SendPropertyChanged("JHA_Submitted_UserID");
-				this.OnJHA_Submitted_UserIDChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[COI Email Address]", Storage="_COI_Email_Address", DbType="VarChar(80) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string COI_Email_Address
-	{
-		get
-		{
-			return this._COI_Email_Address;
-		}
-		set
-		{
-			if ((this._COI_Email_Address != value))
-			{
-				this.OnCOI_Email_AddressChanging(value);
-				this.SendPropertyChanging();
-				this._COI_Email_Address = value;
-				this.SendPropertyChanged("COI_Email_Address");
-				this.OnCOI_Email_AddressChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[COI Received]", Storage="_COI_Received", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte COI_Received
-	{
-		get
-		{
-			return this._COI_Received;
-		}
-		set
-		{
-			if ((this._COI_Received != value))
-			{
-				this.OnCOI_ReceivedChanging(value);
-				this.SendPropertyChanging();
-				this._COI_Received = value;
-				this.SendPropertyChanged("COI_Received");
-				this.OnCOI_ReceivedChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[COI Not Needed]", Storage="_COI_Not_Needed", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte COI_Not_Needed
-	{
-		get
-		{
-			return this._COI_Not_Needed;
-		}
-		set
-		{
-			if ((this._COI_Not_Needed != value))
-			{
-				this.OnCOI_Not_NeededChanging(value);
-				this.SendPropertyChanging();
-				this._COI_Not_Needed = value;
-				this.SendPropertyChanged("COI_Not_Needed");
-				this.OnCOI_Not_NeededChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Work Location]", Storage="_Work_Location", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte Work_Location
-	{
-		get
-		{
-			return this._Work_Location;
-		}
-		set
-		{
-			if ((this._Work_Location != value))
-			{
-				this.OnWork_LocationChanging(value);
-				this.SendPropertyChanging();
-				this._Work_Location = value;
-				this.SendPropertyChanged("Work_Location");
-				this.OnWork_LocationChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Work Location State]", Storage="_Work_Location_State", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public int Work_Location_State
-	{
-		get
-		{
-			return this._Work_Location_State;
-		}
-		set
-		{
-			if ((this._Work_Location_State != value))
-			{
-				this.OnWork_Location_StateChanging(value);
-				this.SendPropertyChanging();
-				this._Work_Location_State = value;
-				this.SendPropertyChanged("Work_Location_State");
-				this.OnWork_Location_StateChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Work Location Int]", Storage="_Work_Location_Int", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte Work_Location_Int
-	{
-		get
-		{
-			return this._Work_Location_Int;
-		}
-		set
-		{
-			if ((this._Work_Location_Int != value))
-			{
-				this.OnWork_Location_IntChanging(value);
-				this.SendPropertyChanging();
-				this._Work_Location_Int = value;
-				this.SendPropertyChanged("Work_Location_Int");
-				this.OnWork_Location_IntChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Work Location Country]", Storage="_Work_Location_Country", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Work_Location_Country
-	{
-		get
-		{
-			return this._Work_Location_Country;
-		}
-		set
-		{
-			if ((this._Work_Location_Country != value))
-			{
-				this.OnWork_Location_CountryChanging(value);
-				this.SendPropertyChanging();
-				this._Work_Location_Country = value;
-				this.SendPropertyChanged("Work_Location_Country");
-				this.OnWork_Location_CountryChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Legal Contact Name]", Storage="_Legal_Contact_Name", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Legal_Contact_Name
-	{
-		get
-		{
-			return this._Legal_Contact_Name;
-		}
-		set
-		{
-			if ((this._Legal_Contact_Name != value))
-			{
-				this.OnLegal_Contact_NameChanging(value);
-				this.SendPropertyChanging();
-				this._Legal_Contact_Name = value;
-				this.SendPropertyChanged("Legal_Contact_Name");
-				this.OnLegal_Contact_NameChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Legal Contact Email]", Storage="_Legal_Contact_Email", DbType="VarChar(80) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Legal_Contact_Email
-	{
-		get
-		{
-			return this._Legal_Contact_Email;
-		}
-		set
-		{
-			if ((this._Legal_Contact_Email != value))
-			{
-				this.OnLegal_Contact_EmailChanging(value);
-				this.SendPropertyChanging();
-				this._Legal_Contact_Email = value;
-				this.SendPropertyChanged("Legal_Contact_Email");
-				this.OnLegal_Contact_EmailChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Invoice Requirements]", Storage="_Invoice_Requirements", DbType="VarChar(100) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Invoice_Requirements
-	{
-		get
-		{
-			return this._Invoice_Requirements;
-		}
-		set
-		{
-			if ((this._Invoice_Requirements != value))
-			{
-				this.OnInvoice_RequirementsChanging(value);
-				this.SendPropertyChanging();
-				this._Invoice_Requirements = value;
-				this.SendPropertyChanged("Invoice_Requirements");
-				this.OnInvoice_RequirementsChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Legal Contact Ph Number]", Storage="_Legal_Contact_Ph_Number", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Legal_Contact_Ph_Number
-	{
-		get
-		{
-			return this._Legal_Contact_Ph_Number;
-		}
-		set
-		{
-			if ((this._Legal_Contact_Ph_Number != value))
-			{
-				this.OnLegal_Contact_Ph_NumberChanging(value);
-				this.SendPropertyChanging();
-				this._Legal_Contact_Ph_Number = value;
-				this.SendPropertyChanged("Legal_Contact_Ph_Number");
-				this.OnLegal_Contact_Ph_NumberChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Legal Contact Fax]", Storage="_Legal_Contact_Fax", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Legal_Contact_Fax
-	{
-		get
-		{
-			return this._Legal_Contact_Fax;
-		}
-		set
-		{
-			if ((this._Legal_Contact_Fax != value))
-			{
-				this.OnLegal_Contact_FaxChanging(value);
-				this.SendPropertyChanging();
-				this._Legal_Contact_Fax = value;
-				this.SendPropertyChanged("Legal_Contact_Fax");
-				this.OnLegal_Contact_FaxChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Site Badge Rqured]", Storage="_Site_Badge_Rqured", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte Site_Badge_Rqured
-	{
-		get
-		{
-			return this._Site_Badge_Rqured;
-		}
-		set
-		{
-			if ((this._Site_Badge_Rqured != value))
-			{
-				this.OnSite_Badge_RquredChanging(value);
-				this.SendPropertyChanging();
-				this._Site_Badge_Rqured = value;
-				this.SendPropertyChanged("Site_Badge_Rqured");
-				this.OnSite_Badge_RquredChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Safetey Questionnaire]", Storage="_Safetey_Questionnaire", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte Safetey_Questionnaire
-	{
-		get
-		{
-			return this._Safetey_Questionnaire;
-		}
-		set
-		{
-			if ((this._Safetey_Questionnaire != value))
-			{
-				this.OnSafetey_QuestionnaireChanging(value);
-				this.SendPropertyChanging();
-				this._Safetey_Questionnaire = value;
-				this.SendPropertyChanged("Safetey_Questionnaire");
-				this.OnSafetey_QuestionnaireChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Background Check Required]", Storage="_Background_Check_Required", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte Background_Check_Required
-	{
-		get
-		{
-			return this._Background_Check_Required;
-		}
-		set
-		{
-			if ((this._Background_Check_Required != value))
-			{
-				this.OnBackground_Check_RequiredChanging(value);
-				this.SendPropertyChanging();
-				this._Background_Check_Required = value;
-				this.SendPropertyChanged("Background_Check_Required");
-				this.OnBackground_Check_RequiredChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Drug_Alcohol Testing Req]", Storage="_Drug_Alcohol_Testing_Req", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte Drug_Alcohol_Testing_Req
-	{
-		get
-		{
-			return this._Drug_Alcohol_Testing_Req;
-		}
-		set
-		{
-			if ((this._Drug_Alcohol_Testing_Req != value))
-			{
-				this.OnDrug_Alcohol_Testing_ReqChanging(value);
-				this.SendPropertyChanging();
-				this._Drug_Alcohol_Testing_Req = value;
-				this.SendPropertyChanged("Drug_Alcohol_Testing_Req");
-				this.OnDrug_Alcohol_Testing_ReqChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Site Badge Comments]", Storage="_Site_Badge_Comments", DbType="VarChar(100) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Site_Badge_Comments
-	{
-		get
-		{
-			return this._Site_Badge_Comments;
-		}
-		set
-		{
-			if ((this._Site_Badge_Comments != value))
-			{
-				this.OnSite_Badge_CommentsChanging(value);
-				this.SendPropertyChanging();
-				this._Site_Badge_Comments = value;
-				this.SendPropertyChanged("Site_Badge_Comments");
-				this.OnSite_Badge_CommentsChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Safety Comments]", Storage="_Safety_Comments", DbType="VarChar(100) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Safety_Comments
-	{
-		get
-		{
-			return this._Safety_Comments;
-		}
-		set
-		{
-			if ((this._Safety_Comments != value))
-			{
-				this.OnSafety_CommentsChanging(value);
-				this.SendPropertyChanging();
-				this._Safety_Comments = value;
-				this.SendPropertyChanged("Safety_Comments");
-				this.OnSafety_CommentsChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Background Checks Comments]", Storage="_Background_Checks_Comments", DbType="VarChar(100) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Background_Checks_Comments
-	{
-		get
-		{
-			return this._Background_Checks_Comments;
-		}
-		set
-		{
-			if ((this._Background_Checks_Comments != value))
-			{
-				this.OnBackground_Checks_CommentsChanging(value);
-				this.SendPropertyChanging();
-				this._Background_Checks_Comments = value;
-				this.SendPropertyChanged("Background_Checks_Comments");
-				this.OnBackground_Checks_CommentsChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Drug_Alcohol Testing Comments]", Storage="_Drug_Alcohol_Testing_Comments", DbType="VarChar(100) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Drug_Alcohol_Testing_Comments
-	{
-		get
-		{
-			return this._Drug_Alcohol_Testing_Comments;
-		}
-		set
-		{
-			if ((this._Drug_Alcohol_Testing_Comments != value))
-			{
-				this.OnDrug_Alcohol_Testing_CommentsChanging(value);
-				this.SendPropertyChanging();
-				this._Drug_Alcohol_Testing_Comments = value;
-				this.SendPropertyChanged("Drug_Alcohol_Testing_Comments");
-				this.OnDrug_Alcohol_Testing_CommentsChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Subcontractors", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte Subcontractors
-	{
-		get
-		{
-			return this._Subcontractors;
-		}
-		set
-		{
-			if ((this._Subcontractors != value))
-			{
-				this.OnSubcontractorsChanging(value);
-				this.SendPropertyChanging();
-				this._Subcontractors = value;
-				this.SendPropertyChanged("Subcontractors");
-				this.OnSubcontractorsChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Estimated Subcontractors Hours]", Storage="_Estimated_Subcontractors_Hours", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte Estimated_Subcontractors_Hours
-	{
-		get
-		{
-			return this._Estimated_Subcontractors_Hours;
-		}
-		set
-		{
-			if ((this._Estimated_Subcontractors_Hours != value))
-			{
-				this.OnEstimated_Subcontractors_HoursChanging(value);
-				this.SendPropertyChanging();
-				this._Estimated_Subcontractors_Hours = value;
-				this.SendPropertyChanged("Estimated_Subcontractors_Hours");
-				this.OnEstimated_Subcontractors_HoursChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Bid Bond Required]", Storage="_Bid_Bond_Required", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte Bid_Bond_Required
-	{
-		get
-		{
-			return this._Bid_Bond_Required;
-		}
-		set
-		{
-			if ((this._Bid_Bond_Required != value))
-			{
-				this.OnBid_Bond_RequiredChanging(value);
-				this.SendPropertyChanging();
-				this._Bid_Bond_Required = value;
-				this.SendPropertyChanged("Bid_Bond_Required");
-				this.OnBid_Bond_RequiredChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Performance Bond Required]", Storage="_Performance_Bond_Required", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte Performance_Bond_Required
-	{
-		get
-		{
-			return this._Performance_Bond_Required;
-		}
-		set
-		{
-			if ((this._Performance_Bond_Required != value))
-			{
-				this.OnPerformance_Bond_RequiredChanging(value);
-				this.SendPropertyChanging();
-				this._Performance_Bond_Required = value;
-				this.SendPropertyChanged("Performance_Bond_Required");
-				this.OnPerformance_Bond_RequiredChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Payment Bond Required]", Storage="_Payment_Bond_Required", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte Payment_Bond_Required
-	{
-		get
-		{
-			return this._Payment_Bond_Required;
-		}
-		set
-		{
-			if ((this._Payment_Bond_Required != value))
-			{
-				this.OnPayment_Bond_RequiredChanging(value);
-				this.SendPropertyChanging();
-				this._Payment_Bond_Required = value;
-				this.SendPropertyChanged("Payment_Bond_Required");
-				this.OnPayment_Bond_RequiredChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Contract to be returned]", Storage="_Contract_to_be_returned", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public int Contract_to_be_returned
-	{
-		get
-		{
-			return this._Contract_to_be_returned;
-		}
-		set
-		{
-			if ((this._Contract_to_be_returned != value))
-			{
-				this.OnContract_to_be_returnedChanging(value);
-				this.SendPropertyChanging();
-				this._Contract_to_be_returned = value;
-				this.SendPropertyChanged("Contract_to_be_returned");
-				this.OnContract_to_be_returnedChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Contract Review Comments]", Storage="_Contract_Review_Comments", DbType="VarChar(100) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Contract_Review_Comments
-	{
-		get
-		{
-			return this._Contract_Review_Comments;
-		}
-		set
-		{
-			if ((this._Contract_Review_Comments != value))
-			{
-				this.OnContract_Review_CommentsChanging(value);
-				this.SendPropertyChanging();
-				this._Contract_Review_Comments = value;
-				this.SendPropertyChanged("Contract_Review_Comments");
-				this.OnContract_Review_CommentsChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Bid Bond Comments]", Storage="_Bid_Bond_Comments", DbType="VarChar(100) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Bid_Bond_Comments
-	{
-		get
-		{
-			return this._Bid_Bond_Comments;
-		}
-		set
-		{
-			if ((this._Bid_Bond_Comments != value))
-			{
-				this.OnBid_Bond_CommentsChanging(value);
-				this.SendPropertyChanging();
-				this._Bid_Bond_Comments = value;
-				this.SendPropertyChanged("Bid_Bond_Comments");
-				this.OnBid_Bond_CommentsChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Performance Bond Comments]", Storage="_Performance_Bond_Comments", DbType="VarChar(100) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Performance_Bond_Comments
-	{
-		get
-		{
-			return this._Performance_Bond_Comments;
-		}
-		set
-		{
-			if ((this._Performance_Bond_Comments != value))
-			{
-				this.OnPerformance_Bond_CommentsChanging(value);
-				this.SendPropertyChanging();
-				this._Performance_Bond_Comments = value;
-				this.SendPropertyChanged("Performance_Bond_Comments");
-				this.OnPerformance_Bond_CommentsChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Payment Bond Comments]", Storage="_Payment_Bond_Comments", DbType="VarChar(100) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Payment_Bond_Comments
-	{
-		get
-		{
-			return this._Payment_Bond_Comments;
-		}
-		set
-		{
-			if ((this._Payment_Bond_Comments != value))
-			{
-				this.OnPayment_Bond_CommentsChanging(value);
-				this.SendPropertyChanging();
-				this._Payment_Bond_Comments = value;
-				this.SendPropertyChanged("Payment_Bond_Comments");
-				this.OnPayment_Bond_CommentsChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[New Shermco Customer]", Storage="_New_Shermco_Customer", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte New_Shermco_Customer
-	{
-		get
-		{
-			return this._New_Shermco_Customer;
-		}
-		set
-		{
-			if ((this._New_Shermco_Customer != value))
-			{
-				this.OnNew_Shermco_CustomerChanging(value);
-				this.SendPropertyChanging();
-				this._New_Shermco_Customer = value;
-				this.SendPropertyChanged("New_Shermco_Customer");
-				this.OnNew_Shermco_CustomerChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Year became a Shermco Customer]", Storage="_Year_became_a_Shermco_Customer", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Year_became_a_Shermco_Customer
-	{
-		get
-		{
-			return this._Year_became_a_Shermco_Customer;
-		}
-		set
-		{
-			if ((this._Year_became_a_Shermco_Customer != value))
-			{
-				this.OnYear_became_a_Shermco_CustomerChanging(value);
-				this.SendPropertyChanging();
-				this._Year_became_a_Shermco_Customer = value;
-				this.SendPropertyChanged("Year_became_a_Shermco_Customer");
-				this.OnYear_became_a_Shermco_CustomerChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Select]", Storage="_Select", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte Select
-	{
-		get
-		{
-			return this._Select;
-		}
-		set
-		{
-			if ((this._Select != value))
-			{
-				this.OnSelectChanging(value);
-				this.SendPropertyChanging();
-				this._Select = value;
-				this.SendPropertyChanged("Select");
-				this.OnSelectChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Turned in by Tech Date]", Storage="_Turned_in_by_Tech_Date", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public System.DateTime Turned_in_by_Tech_Date
-	{
-		get
-		{
-			return this._Turned_in_by_Tech_Date;
-		}
-		set
-		{
-			if ((this._Turned_in_by_Tech_Date != value))
-			{
-				this.OnTurned_in_by_Tech_DateChanging(value);
-				this.SendPropertyChanging();
-				this._Turned_in_by_Tech_Date = value;
-				this.SendPropertyChanged("Turned_in_by_Tech_Date");
-				this.OnTurned_in_by_Tech_DateChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Turned in by Tech UserID]", Storage="_Turned_in_by_Tech_UserID", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Turned_in_by_Tech_UserID
-	{
-		get
-		{
-			return this._Turned_in_by_Tech_UserID;
-		}
-		set
-		{
-			if ((this._Turned_in_by_Tech_UserID != value))
-			{
-				this.OnTurned_in_by_Tech_UserIDChanging(value);
-				this.SendPropertyChanging();
-				this._Turned_in_by_Tech_UserID = value;
-				this.SendPropertyChanged("Turned_in_by_Tech_UserID");
-				this.OnTurned_in_by_Tech_UserIDChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Comment", DbType="VarChar(250) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Comment
-	{
-		get
-		{
-			return this._Comment;
-		}
-		set
-		{
-			if ((this._Comment != value))
-			{
-				this.OnCommentChanging(value);
-				this.SendPropertyChanging();
-				this._Comment = value;
-				this.SendPropertyChanged("Comment");
-				this.OnCommentChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TmpComplete", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte TmpComplete
-	{
-		get
-		{
-			return this._TmpComplete;
-		}
-		set
-		{
-			if ((this._TmpComplete != value))
-			{
-				this.OnTmpCompleteChanging(value);
-				this.SendPropertyChanging();
-				this._TmpComplete = value;
-				this.SendPropertyChanged("TmpComplete");
-				this.OnTmpCompleteChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TmpPartial", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte TmpPartial
-	{
-		get
-		{
-			return this._TmpPartial;
-		}
-		set
-		{
-			if ((this._TmpPartial != value))
-			{
-				this.OnTmpPartialChanging(value);
-				this.SendPropertyChanging();
-				this._TmpPartial = value;
-				this.SendPropertyChanged("TmpPartial");
-				this.OnTmpPartialChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TmpPE", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte TmpPE
-	{
-		get
-		{
-			return this._TmpPE;
-		}
-		set
-		{
-			if ((this._TmpPE != value))
-			{
-				this.OnTmpPEChanging(value);
-				this.SendPropertyChanging();
-				this._TmpPE = value;
-				this.SendPropertyChanged("TmpPE");
-				this.OnTmpPEChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TmpSynced", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte TmpSynced
-	{
-		get
-		{
-			return this._TmpSynced;
-		}
-		set
-		{
-			if ((this._TmpSynced != value))
-			{
-				this.OnTmpSyncedChanging(value);
-				this.SendPropertyChanging();
-				this._TmpSynced = value;
-				this.SendPropertyChanged("TmpSynced");
-				this.OnTmpSyncedChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TmpHandwritten", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte TmpHandwritten
-	{
-		get
-		{
-			return this._TmpHandwritten;
-		}
-		set
-		{
-			if ((this._TmpHandwritten != value))
-			{
-				this.OnTmpHandwrittenChanging(value);
-				this.SendPropertyChanging();
-				this._TmpHandwritten = value;
-				this.SendPropertyChanged("TmpHandwritten");
-				this.OnTmpHandwrittenChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TmpInbox", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte TmpInbox
-	{
-		get
-		{
-			return this._TmpInbox;
-		}
-		set
-		{
-			if ((this._TmpInbox != value))
-			{
-				this.OnTmpInboxChanging(value);
-				this.SendPropertyChanging();
-				this._TmpInbox = value;
-				this.SendPropertyChanged("TmpInbox");
-				this.OnTmpInboxChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TmpWord", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte TmpWord
-	{
-		get
-		{
-			return this._TmpWord;
-		}
-		set
-		{
-			if ((this._TmpWord != value))
-			{
-				this.OnTmpWordChanging(value);
-				this.SendPropertyChanging();
-				this._TmpWord = value;
-				this.SendPropertyChanged("TmpWord");
-				this.OnTmpWordChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TmpPDBMaster", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte TmpPDBMaster
-	{
-		get
-		{
-			return this._TmpPDBMaster;
-		}
-		set
-		{
-			if ((this._TmpPDBMaster != value))
-			{
-				this.OnTmpPDBMasterChanging(value);
-				this.SendPropertyChanging();
-				this._TmpPDBMaster = value;
-				this.SendPropertyChanged("TmpPDBMaster");
-				this.OnTmpPDBMasterChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TmpOther", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte TmpOther
-	{
-		get
-		{
-			return this._TmpOther;
-		}
-		set
-		{
-			if ((this._TmpOther != value))
-			{
-				this.OnTmpOtherChanging(value);
-				this.SendPropertyChanging();
-				this._TmpOther = value;
-				this.SendPropertyChanged("TmpOther");
-				this.OnTmpOtherChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TmpOtherText", DbType="VarChar(100) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string TmpOtherText
-	{
-		get
-		{
-			return this._TmpOtherText;
-		}
-		set
-		{
-			if ((this._TmpOtherText != value))
-			{
-				this.OnTmpOtherTextChanging(value);
-				this.SendPropertyChanging();
-				this._TmpOtherText = value;
-				this.SendPropertyChanged("TmpOtherText");
-				this.OnTmpOtherTextChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Turned in By Emp_ No_]", Storage="_Turned_in_By_Emp__No_", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Turned_in_By_Emp__No_
-	{
-		get
-		{
-			return this._Turned_in_By_Emp__No_;
-		}
-		set
-		{
-			if ((this._Turned_in_By_Emp__No_ != value))
-			{
-				this.OnTurned_in_By_Emp__No_Changing(value);
-				this.SendPropertyChanging();
-				this._Turned_in_By_Emp__No_ = value;
-				this.SendPropertyChanged("Turned_in_By_Emp__No_");
-				this.OnTurned_in_By_Emp__No_Changed();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Received", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte Received
-	{
-		get
-		{
-			return this._Received;
-		}
-		set
-		{
-			if ((this._Received != value))
-			{
-				this.OnReceivedChanging(value);
-				this.SendPropertyChanging();
-				this._Received = value;
-				this.SendPropertyChanged("Received");
-				this.OnReceivedChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[In Progress]", Storage="_In_Progress", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte In_Progress
-	{
-		get
-		{
-			return this._In_Progress;
-		}
-		set
-		{
-			if ((this._In_Progress != value))
-			{
-				this.OnIn_ProgressChanging(value);
-				this.SendPropertyChanging();
-				this._In_Progress = value;
-				this.SendPropertyChanged("In_Progress");
-				this.OnIn_ProgressChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Certified Payroll Required]", Storage="_Certified_Payroll_Required", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte Certified_Payroll_Required
-	{
-		get
-		{
-			return this._Certified_Payroll_Required;
-		}
-		set
-		{
-			if ((this._Certified_Payroll_Required != value))
-			{
-				this.OnCertified_Payroll_RequiredChanging(value);
-				this.SendPropertyChanging();
-				this._Certified_Payroll_Required = value;
-				this.SendPropertyChanged("Certified_Payroll_Required");
-				this.OnCertified_Payroll_RequiredChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[No Report Required]", Storage="_No_Report_Required", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte No_Report_Required
-	{
-		get
-		{
-			return this._No_Report_Required;
-		}
-		set
-		{
-			if ((this._No_Report_Required != value))
-			{
-				this.OnNo_Report_RequiredChanging(value);
-				this.SendPropertyChanging();
-				this._No_Report_Required = value;
-				this.SendPropertyChanged("No_Report_Required");
-				this.OnNo_Report_RequiredChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[No Report Required Reason]", Storage="_No_Report_Required_Reason", DbType="VarChar(100) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string No_Report_Required_Reason
-	{
-		get
-		{
-			return this._No_Report_Required_Reason;
-		}
-		set
-		{
-			if ((this._No_Report_Required_Reason != value))
-			{
-				this.OnNo_Report_Required_ReasonChanging(value);
-				this.SendPropertyChanging();
-				this._No_Report_Required_Reason = value;
-				this.SendPropertyChanged("No_Report_Required_Reason");
-				this.OnNo_Report_Required_ReasonChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SalesFollowUp", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte SalesFollowUp
-	{
-		get
-		{
-			return this._SalesFollowUp;
-		}
-		set
-		{
-			if ((this._SalesFollowUp != value))
-			{
-				this.OnSalesFollowUpChanging(value);
-				this.SendPropertyChanging();
-				this._SalesFollowUp = value;
-				this.SendPropertyChanged("SalesFollowUp");
-				this.OnSalesFollowUpChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[SalesFollowUp Email Date]", Storage="_SalesFollowUp_Email_Date", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public System.DateTime SalesFollowUp_Email_Date
-	{
-		get
-		{
-			return this._SalesFollowUp_Email_Date;
-		}
-		set
-		{
-			if ((this._SalesFollowUp_Email_Date != value))
-			{
-				this.OnSalesFollowUp_Email_DateChanging(value);
-				this.SendPropertyChanging();
-				this._SalesFollowUp_Email_Date = value;
-				this.SendPropertyChanged("SalesFollowUp_Email_Date");
-				this.OnSalesFollowUp_Email_DateChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[SalesFollowUp Comment]", Storage="_SalesFollowUp_Comment", DbType="VarChar(100) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string SalesFollowUp_Comment
-	{
-		get
-		{
-			return this._SalesFollowUp_Comment;
-		}
-		set
-		{
-			if ((this._SalesFollowUp_Comment != value))
-			{
-				this.OnSalesFollowUp_CommentChanging(value);
-				this.SendPropertyChanging();
-				this._SalesFollowUp_Comment = value;
-				this.SendPropertyChanged("SalesFollowUp_Comment");
-				this.OnSalesFollowUp_CommentChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[SalesFollowUp Acknowledge]", Storage="_SalesFollowUp_Acknowledge", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte SalesFollowUp_Acknowledge
-	{
-		get
-		{
-			return this._SalesFollowUp_Acknowledge;
-		}
-		set
-		{
-			if ((this._SalesFollowUp_Acknowledge != value))
-			{
-				this.OnSalesFollowUp_AcknowledgeChanging(value);
-				this.SendPropertyChanging();
-				this._SalesFollowUp_Acknowledge = value;
-				this.SendPropertyChanged("SalesFollowUp_Acknowledge");
-				this.OnSalesFollowUp_AcknowledgeChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[SalesFollowUp Ack Date]", Storage="_SalesFollowUp_Ack_Date", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public System.DateTime SalesFollowUp_Ack_Date
-	{
-		get
-		{
-			return this._SalesFollowUp_Ack_Date;
-		}
-		set
-		{
-			if ((this._SalesFollowUp_Ack_Date != value))
-			{
-				this.OnSalesFollowUp_Ack_DateChanging(value);
-				this.SendPropertyChanging();
-				this._SalesFollowUp_Ack_Date = value;
-				this.SendPropertyChanged("SalesFollowUp_Ack_Date");
-				this.OnSalesFollowUp_Ack_DateChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[SalesFollowUp Ack Userid]", Storage="_SalesFollowUp_Ack_Userid", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string SalesFollowUp_Ack_Userid
-	{
-		get
-		{
-			return this._SalesFollowUp_Ack_Userid;
-		}
-		set
-		{
-			if ((this._SalesFollowUp_Ack_Userid != value))
-			{
-				this.OnSalesFollowUp_Ack_UseridChanging(value);
-				this.SendPropertyChanging();
-				this._SalesFollowUp_Ack_Userid = value;
-				this.SendPropertyChanged("SalesFollowUp_Ack_Userid");
-				this.OnSalesFollowUp_Ack_UseridChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Sent to Allied]", Storage="_Sent_to_Allied", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public System.DateTime Sent_to_Allied
-	{
-		get
-		{
-			return this._Sent_to_Allied;
-		}
-		set
-		{
-			if ((this._Sent_to_Allied != value))
-			{
-				this.OnSent_to_AlliedChanging(value);
-				this.SendPropertyChanging();
-				this._Sent_to_Allied = value;
-				this.SendPropertyChanged("Sent_to_Allied");
-				this.OnSent_to_AlliedChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Sent to Allied UserID]", Storage="_Sent_to_Allied_UserID", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Sent_to_Allied_UserID
-	{
-		get
-		{
-			return this._Sent_to_Allied_UserID;
-		}
-		set
-		{
-			if ((this._Sent_to_Allied_UserID != value))
-			{
-				this.OnSent_to_Allied_UserIDChanging(value);
-				this.SendPropertyChanging();
-				this._Sent_to_Allied_UserID = value;
-				this.SendPropertyChanged("Sent_to_Allied_UserID");
-				this.OnSent_to_Allied_UserIDChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TmpLetterOnly", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte TmpLetterOnly
-	{
-		get
-		{
-			return this._TmpLetterOnly;
-		}
-		set
-		{
-			if ((this._TmpLetterOnly != value))
-			{
-				this.OnTmpLetterOnlyChanging(value);
-				this.SendPropertyChanging();
-				this._TmpLetterOnly = value;
-				this.SendPropertyChanged("TmpLetterOnly");
-				this.OnTmpLetterOnlyChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TmpIRData", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte TmpIRData
-	{
-		get
-		{
-			return this._TmpIRData;
-		}
-		set
-		{
-			if ((this._TmpIRData != value))
-			{
-				this.OnTmpIRDataChanging(value);
-				this.SendPropertyChanging();
-				this._TmpIRData = value;
-				this.SendPropertyChanged("TmpIRData");
-				this.OnTmpIRDataChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Report Data Format]", Storage="_Report_Data_Format", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public int Report_Data_Format
-	{
-		get
-		{
-			return this._Report_Data_Format;
-		}
-		set
-		{
-			if ((this._Report_Data_Format != value))
-			{
-				this.OnReport_Data_FormatChanging(value);
-				this.SendPropertyChanging();
-				this._Report_Data_Format = value;
-				this.SendPropertyChanged("Report_Data_Format");
-				this.OnReport_Data_FormatChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[RTS Relay Data]", Storage="_RTS_Relay_Data", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public int RTS_Relay_Data
-	{
-		get
-		{
-			return this._RTS_Relay_Data;
-		}
-		set
-		{
-			if ((this._RTS_Relay_Data != value))
-			{
-				this.OnRTS_Relay_DataChanging(value);
-				this.SendPropertyChanging();
-				this._RTS_Relay_Data = value;
-				this.SendPropertyChanged("RTS_Relay_Data");
-				this.OnRTS_Relay_DataChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[CT Data Saved]", Storage="_CT_Data_Saved", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public int CT_Data_Saved
-	{
-		get
-		{
-			return this._CT_Data_Saved;
-		}
-		set
-		{
-			if ((this._CT_Data_Saved != value))
-			{
-				this.OnCT_Data_SavedChanging(value);
-				this.SendPropertyChanging();
-				this._CT_Data_Saved = value;
-				this.SendPropertyChanged("CT_Data_Saved");
-				this.OnCT_Data_SavedChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Partial Discharge]", Storage="_Partial_Discharge", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public int Partial_Discharge
-	{
-		get
-		{
-			return this._Partial_Discharge;
-		}
-		set
-		{
-			if ((this._Partial_Discharge != value))
-			{
-				this.OnPartial_DischargeChanging(value);
-				this.SendPropertyChanging();
-				this._Partial_Discharge = value;
-				this.SendPropertyChanged("Partial_Discharge");
-				this.OnPartial_DischargeChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Oil Sample]", Storage="_Oil_Sample", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public int Oil_Sample
-	{
-		get
-		{
-			return this._Oil_Sample;
-		}
-		set
-		{
-			if ((this._Oil_Sample != value))
-			{
-				this.OnOil_SampleChanging(value);
-				this.SendPropertyChanging();
-				this._Oil_Sample = value;
-				this.SendPropertyChanged("Oil_Sample");
-				this.OnOil_SampleChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Oil Sample Follow UP]", Storage="_Oil_Sample_Follow_UP", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public int Oil_Sample_Follow_UP
-	{
-		get
-		{
-			return this._Oil_Sample_Follow_UP;
-		}
-		set
-		{
-			if ((this._Oil_Sample_Follow_UP != value))
-			{
-				this.OnOil_Sample_Follow_UPChanging(value);
-				this.SendPropertyChanging();
-				this._Oil_Sample_Follow_UP = value;
-				this.SendPropertyChanged("Oil_Sample_Follow_UP");
-				this.OnOil_Sample_Follow_UPChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Bus Bolt Torque]", Storage="_Bus_Bolt_Torque", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte Bus_Bolt_Torque
-	{
-		get
-		{
-			return this._Bus_Bolt_Torque;
-		}
-		set
-		{
-			if ((this._Bus_Bolt_Torque != value))
-			{
-				this.OnBus_Bolt_TorqueChanging(value);
-				this.SendPropertyChanging();
-				this._Bus_Bolt_Torque = value;
-				this.SendPropertyChanged("Bus_Bolt_Torque");
-				this.OnBus_Bolt_TorqueChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[DC Hipot]", Storage="_DC_Hipot", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte DC_Hipot
-	{
-		get
-		{
-			return this._DC_Hipot;
-		}
-		set
-		{
-			if ((this._DC_Hipot != value))
-			{
-				this.OnDC_HipotChanging(value);
-				this.SendPropertyChanging();
-				this._DC_Hipot = value;
-				this.SendPropertyChanged("DC_Hipot");
-				this.OnDC_HipotChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Decal Color Codes]", Storage="_Decal_Color_Codes", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte Decal_Color_Codes
-	{
-		get
-		{
-			return this._Decal_Color_Codes;
-		}
-		set
-		{
-			if ((this._Decal_Color_Codes != value))
-			{
-				this.OnDecal_Color_CodesChanging(value);
-				this.SendPropertyChanging();
-				this._Decal_Color_Codes = value;
-				this.SendPropertyChanged("Decal_Color_Codes");
-				this.OnDecal_Color_CodesChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DLRO", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte DLRO
-	{
-		get
-		{
-			return this._DLRO;
-		}
-		set
-		{
-			if ((this._DLRO != value))
-			{
-				this.OnDLROChanging(value);
-				this.SendPropertyChanging();
-				this._DLRO = value;
-				this.SendPropertyChanged("DLRO");
-				this.OnDLROChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Doble", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte Doble
-	{
-		get
-		{
-			return this._Doble;
-		}
-		set
-		{
-			if ((this._Doble != value))
-			{
-				this.OnDobleChanging(value);
-				this.SendPropertyChanging();
-				this._Doble = value;
-				this.SendPropertyChanged("Doble");
-				this.OnDobleChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Ground Fault Systems]", Storage="_Ground_Fault_Systems", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte Ground_Fault_Systems
-	{
-		get
-		{
-			return this._Ground_Fault_Systems;
-		}
-		set
-		{
-			if ((this._Ground_Fault_Systems != value))
-			{
-				this.OnGround_Fault_SystemsChanging(value);
-				this.SendPropertyChanging();
-				this._Ground_Fault_Systems = value;
-				this.SendPropertyChanged("Ground_Fault_Systems");
-				this.OnGround_Fault_SystemsChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Grounding & Ground Electrode]", Storage="_Grounding___Ground_Electrode", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte Grounding___Ground_Electrode
-	{
-		get
-		{
-			return this._Grounding___Ground_Electrode;
-		}
-		set
-		{
-			if ((this._Grounding___Ground_Electrode != value))
-			{
-				this.OnGrounding___Ground_ElectrodeChanging(value);
-				this.SendPropertyChanging();
-				this._Grounding___Ground_Electrode = value;
-				this.SendPropertyChanged("Grounding___Ground_Electrode");
-				this.OnGrounding___Ground_ElectrodeChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Insulation Resistance]", Storage="_Insulation_Resistance", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte Insulation_Resistance
-	{
-		get
-		{
-			return this._Insulation_Resistance;
-		}
-		set
-		{
-			if ((this._Insulation_Resistance != value))
-			{
-				this.OnInsulation_ResistanceChanging(value);
-				this.SendPropertyChanging();
-				this._Insulation_Resistance = value;
-				this.SendPropertyChanged("Insulation_Resistance");
-				this.OnInsulation_ResistanceChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[NFPA-99]", Storage="_NFPA_99", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte NFPA_99
-	{
-		get
-		{
-			return this._NFPA_99;
-		}
-		set
-		{
-			if ((this._NFPA_99 != value))
-			{
-				this.OnNFPA_99Changing(value);
-				this.SendPropertyChanging();
-				this._NFPA_99 = value;
-				this.SendPropertyChanged("NFPA_99");
-				this.OnNFPA_99Changed();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Oil Tests]", Storage="_Oil_Tests", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte Oil_Tests
-	{
-		get
-		{
-			return this._Oil_Tests;
-		}
-		set
-		{
-			if ((this._Oil_Tests != value))
-			{
-				this.OnOil_TestsChanging(value);
-				this.SendPropertyChanging();
-				this._Oil_Tests = value;
-				this.SendPropertyChanged("Oil_Tests");
-				this.OnOil_TestsChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Partial Discharge B]", Storage="_Partial_Discharge_B", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte Partial_Discharge_B
-	{
-		get
-		{
-			return this._Partial_Discharge_B;
-		}
-		set
-		{
-			if ((this._Partial_Discharge_B != value))
-			{
-				this.OnPartial_Discharge_BChanging(value);
-				this.SendPropertyChanging();
-				this._Partial_Discharge_B = value;
-				this.SendPropertyChanged("Partial_Discharge_B");
-				this.OnPartial_Discharge_BChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[PCB Info]", Storage="_PCB_Info", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte PCB_Info
-	{
-		get
-		{
-			return this._PCB_Info;
-		}
-		set
-		{
-			if ((this._PCB_Info != value))
-			{
-				this.OnPCB_InfoChanging(value);
-				this.SendPropertyChanging();
-				this._PCB_Info = value;
-				this.SendPropertyChanged("PCB_Info");
-				this.OnPCB_InfoChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Protective Relays]", Storage="_Protective_Relays", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte Protective_Relays
-	{
-		get
-		{
-			return this._Protective_Relays;
-		}
-		set
-		{
-			if ((this._Protective_Relays != value))
-			{
-				this.OnProtective_RelaysChanging(value);
-				this.SendPropertyChanging();
-				this._Protective_Relays = value;
-				this.SendPropertyChanged("Protective_Relays");
-				this.OnProtective_RelaysChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Thermograpic(IR)]", Storage="_Thermograpic_IR_", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte Thermograpic_IR_
-	{
-		get
-		{
-			return this._Thermograpic_IR_;
-		}
-		set
-		{
-			if ((this._Thermograpic_IR_ != value))
-			{
-				this.OnThermograpic_IR_Changing(value);
-				this.SendPropertyChanging();
-				this._Thermograpic_IR_ = value;
-				this.SendPropertyChanged("Thermograpic_IR_");
-				this.OnThermograpic_IR_Changed();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TTR", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte TTR
-	{
-		get
-		{
-			return this._TTR;
-		}
-		set
-		{
-			if ((this._TTR != value))
-			{
-				this.OnTTRChanging(value);
-				this.SendPropertyChanging();
-				this._TTR = value;
-				this.SendPropertyChanged("TTR");
-				this.OnTTRChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Ultrasonic Testing]", Storage="_Ultrasonic_Testing", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte Ultrasonic_Testing
-	{
-		get
-		{
-			return this._Ultrasonic_Testing;
-		}
-		set
-		{
-			if ((this._Ultrasonic_Testing != value))
-			{
-				this.OnUltrasonic_TestingChanging(value);
-				this.SendPropertyChanging();
-				this._Ultrasonic_Testing = value;
-				this.SendPropertyChanged("Ultrasonic_Testing");
-				this.OnUltrasonic_TestingChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[No Testing Done]", Storage="_No_Testing_Done", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte No_Testing_Done
-	{
-		get
-		{
-			return this._No_Testing_Done;
-		}
-		set
-		{
-			if ((this._No_Testing_Done != value))
-			{
-				this.OnNo_Testing_DoneChanging(value);
-				this.SendPropertyChanging();
-				this._No_Testing_Done = value;
-				this.SendPropertyChanged("No_Testing_Done");
-				this.OnNo_Testing_DoneChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Rejected Date]", Storage="_Rejected_Date", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public System.DateTime Rejected_Date
-	{
-		get
-		{
-			return this._Rejected_Date;
-		}
-		set
-		{
-			if ((this._Rejected_Date != value))
-			{
-				this.OnRejected_DateChanging(value);
-				this.SendPropertyChanging();
-				this._Rejected_Date = value;
-				this.SendPropertyChanged("Rejected_Date");
-				this.OnRejected_DateChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Rejected Reason]", Storage="_Rejected_Reason", DbType="VarChar(100) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Rejected_Reason
-	{
-		get
-		{
-			return this._Rejected_Reason;
-		}
-		set
-		{
-			if ((this._Rejected_Reason != value))
-			{
-				this.OnRejected_ReasonChanging(value);
-				this.SendPropertyChanging();
-				this._Rejected_Reason = value;
-				this.SendPropertyChanged("Rejected_Reason");
-				this.OnRejected_ReasonChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Rejected", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Rejected
-	{
-		get
-		{
-			return this._Rejected;
-		}
-		set
-		{
-			if ((this._Rejected != value))
-			{
-				this.OnRejectedChanging(value);
-				this.SendPropertyChanging();
-				this._Rejected = value;
-				this.SendPropertyChanged("Rejected");
-				this.OnRejectedChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IROnly", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte IROnly
-	{
-		get
-		{
-			return this._IROnly;
-		}
-		set
-		{
-			if ((this._IROnly != value))
-			{
-				this.OnIROnlyChanging(value);
-				this.SendPropertyChanging();
-				this._IROnly = value;
-				this.SendPropertyChanged("IROnly");
-				this.OnIROnlyChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IRonFinalReport", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte IRonFinalReport
-	{
-		get
-		{
-			return this._IRonFinalReport;
-		}
-		set
-		{
-			if ((this._IRonFinalReport != value))
-			{
-				this.OnIRonFinalReportChanging(value);
-				this.SendPropertyChanging();
-				this._IRonFinalReport = value;
-				this.SendPropertyChanged("IRonFinalReport");
-				this.OnIRonFinalReportChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email", DbType="VarChar(50) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-	public string Email
-	{
-		get
-		{
-			return this._Email;
-		}
-		set
-		{
-			if ((this._Email != value))
-			{
-				this.OnEmailChanging(value);
-				this.SendPropertyChanging();
-				this._Email = value;
-				this.SendPropertyChanged("Email");
-				this.OnEmailChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[No_ of Copies]", Storage="_No__of_Copies", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public int No__of_Copies
-	{
-		get
-		{
-			return this._No__of_Copies;
-		}
-		set
-		{
-			if ((this._No__of_Copies != value))
-			{
-				this.OnNo__of_CopiesChanging(value);
-				this.SendPropertyChanging();
-				this._No__of_Copies = value;
-				this.SendPropertyChanged("No__of_Copies");
-				this.OnNo__of_CopiesChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[General Dropbox]", Storage="_General_Dropbox", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte General_Dropbox
-	{
-		get
-		{
-			return this._General_Dropbox;
-		}
-		set
-		{
-			if ((this._General_Dropbox != value))
-			{
-				this.OnGeneral_DropboxChanging(value);
-				this.SendPropertyChanging();
-				this._General_Dropbox = value;
-				this.SendPropertyChanged("General_Dropbox");
-				this.OnGeneral_DropboxChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[General Dropbox No]", Storage="_General_Dropbox_No", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte General_Dropbox_No
-	{
-		get
-		{
-			return this._General_Dropbox_No;
-		}
-		set
-		{
-			if ((this._General_Dropbox_No != value))
-			{
-				this.OnGeneral_Dropbox_NoChanging(value);
-				this.SendPropertyChanging();
-				this._General_Dropbox_No = value;
-				this.SendPropertyChanged("General_Dropbox_No");
-				this.OnGeneral_Dropbox_NoChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[TmpIRData No]", Storage="_TmpIRData_No", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
-	public byte TmpIRData_No
-	{
-		get
-		{
-			return this._TmpIRData_No;
-		}
-		set
-		{
-			if ((this._TmpIRData_No != value))
-			{
-				this.OnTmpIRData_NoChanging(value);
-				this.SendPropertyChanging();
-				this._TmpIRData_No = value;
-				this.SendPropertyChanged("TmpIRData_No");
-				this.OnTmpIRData_NoChanged();
-			}
-		}
-	}
-	
-	public event PropertyChangingEventHandler PropertyChanging;
-	
-	public event PropertyChangedEventHandler PropertyChanged;
-	
-	protected virtual void SendPropertyChanging()
-	{
-		if ((this.PropertyChanging != null))
-		{
-			this.PropertyChanging(this, emptyChangingEventArgs);
-		}
-	}
-	
-	protected virtual void SendPropertyChanged(String propertyName)
-	{
-		if ((this.PropertyChanged != null))
-		{
-			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-		}
-	}
-}
-
 [global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SIU_Training_Attendance")]
 public partial class SIU_Training_Attendance : INotifyPropertyChanging, INotifyPropertyChanged
 {
@@ -35971,6 +32955,4104 @@ public partial class SIU_Safety_MoQ : INotifyPropertyChanging, INotifyPropertyCh
 				this._QuestionAns = value;
 				this.SendPropertyChanged("QuestionAns");
 				this.OnQuestionAnsChanged();
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+}
+
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.[Shermco$G_L Account]")]
+public partial class Shermco_G_L_Account : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private System.Data.Linq.Binary _timestamp;
+	
+	private string _No_;
+	
+	private string _Name;
+	
+	private string _Search_Name;
+	
+	private int _Account_Type;
+	
+	private string _Global_Dimension_1_Code;
+	
+	private string _Global_Dimension_2_Code;
+	
+	private int _Income_Balance;
+	
+	private int _Debit_Credit;
+	
+	private string _No__2;
+	
+	private byte _Blocked;
+	
+	private byte _Direct_Posting;
+	
+	private byte _Reconciliation_Account;
+	
+	private byte _New_Page;
+	
+	private int _No__of_Blank_Lines;
+	
+	private int _Indentation;
+	
+	private System.DateTime _Last_Date_Modified;
+	
+	private string _Totaling;
+	
+	private int _Consol__Translation_Method;
+	
+	private string _Consol__Debit_Acc_;
+	
+	private string _Consol__Credit_Acc_;
+	
+	private int _Gen__Posting_Type;
+	
+	private string _Gen__Bus__Posting_Group;
+	
+	private string _Gen__Prod__Posting_Group;
+	
+	private System.Data.Linq.Binary _Picture;
+	
+	private byte _Automatic_Ext__Texts;
+	
+	private string _Tax_Area_Code;
+	
+	private byte _Tax_Liable;
+	
+	private string _Tax_Group_Code;
+	
+	private string _VAT_Bus__Posting_Group;
+	
+	private string _VAT_Prod__Posting_Group;
+	
+	private int _Exchange_Rate_Adjustment;
+	
+	private string _Default_IC_Partner_G_L_Acc__No;
+	
+	private string _GIFI_Code;
+	
+	private byte _Show_On_Time_Sheet;
+	
+	private string _Job_Balance_Acc__No_;
+	
+	private int _Cost_Category;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OntimestampChanging(System.Data.Linq.Binary value);
+    partial void OntimestampChanged();
+    partial void OnNo_Changing(string value);
+    partial void OnNo_Changed();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnSearch_NameChanging(string value);
+    partial void OnSearch_NameChanged();
+    partial void OnAccount_TypeChanging(int value);
+    partial void OnAccount_TypeChanged();
+    partial void OnGlobal_Dimension_1_CodeChanging(string value);
+    partial void OnGlobal_Dimension_1_CodeChanged();
+    partial void OnGlobal_Dimension_2_CodeChanging(string value);
+    partial void OnGlobal_Dimension_2_CodeChanged();
+    partial void OnIncome_BalanceChanging(int value);
+    partial void OnIncome_BalanceChanged();
+    partial void OnDebit_CreditChanging(int value);
+    partial void OnDebit_CreditChanged();
+    partial void OnNo__2Changing(string value);
+    partial void OnNo__2Changed();
+    partial void OnBlockedChanging(byte value);
+    partial void OnBlockedChanged();
+    partial void OnDirect_PostingChanging(byte value);
+    partial void OnDirect_PostingChanged();
+    partial void OnReconciliation_AccountChanging(byte value);
+    partial void OnReconciliation_AccountChanged();
+    partial void OnNew_PageChanging(byte value);
+    partial void OnNew_PageChanged();
+    partial void OnNo__of_Blank_LinesChanging(int value);
+    partial void OnNo__of_Blank_LinesChanged();
+    partial void OnIndentationChanging(int value);
+    partial void OnIndentationChanged();
+    partial void OnLast_Date_ModifiedChanging(System.DateTime value);
+    partial void OnLast_Date_ModifiedChanged();
+    partial void OnTotalingChanging(string value);
+    partial void OnTotalingChanged();
+    partial void OnConsol__Translation_MethodChanging(int value);
+    partial void OnConsol__Translation_MethodChanged();
+    partial void OnConsol__Debit_Acc_Changing(string value);
+    partial void OnConsol__Debit_Acc_Changed();
+    partial void OnConsol__Credit_Acc_Changing(string value);
+    partial void OnConsol__Credit_Acc_Changed();
+    partial void OnGen__Posting_TypeChanging(int value);
+    partial void OnGen__Posting_TypeChanged();
+    partial void OnGen__Bus__Posting_GroupChanging(string value);
+    partial void OnGen__Bus__Posting_GroupChanged();
+    partial void OnGen__Prod__Posting_GroupChanging(string value);
+    partial void OnGen__Prod__Posting_GroupChanged();
+    partial void OnPictureChanging(System.Data.Linq.Binary value);
+    partial void OnPictureChanged();
+    partial void OnAutomatic_Ext__TextsChanging(byte value);
+    partial void OnAutomatic_Ext__TextsChanged();
+    partial void OnTax_Area_CodeChanging(string value);
+    partial void OnTax_Area_CodeChanged();
+    partial void OnTax_LiableChanging(byte value);
+    partial void OnTax_LiableChanged();
+    partial void OnTax_Group_CodeChanging(string value);
+    partial void OnTax_Group_CodeChanged();
+    partial void OnVAT_Bus__Posting_GroupChanging(string value);
+    partial void OnVAT_Bus__Posting_GroupChanged();
+    partial void OnVAT_Prod__Posting_GroupChanging(string value);
+    partial void OnVAT_Prod__Posting_GroupChanged();
+    partial void OnExchange_Rate_AdjustmentChanging(int value);
+    partial void OnExchange_Rate_AdjustmentChanged();
+    partial void OnDefault_IC_Partner_G_L_Acc__NoChanging(string value);
+    partial void OnDefault_IC_Partner_G_L_Acc__NoChanged();
+    partial void OnGIFI_CodeChanging(string value);
+    partial void OnGIFI_CodeChanged();
+    partial void OnShow_On_Time_SheetChanging(byte value);
+    partial void OnShow_On_Time_SheetChanged();
+    partial void OnJob_Balance_Acc__No_Changing(string value);
+    partial void OnJob_Balance_Acc__No_Changed();
+    partial void OnCost_CategoryChanging(int value);
+    partial void OnCost_CategoryChanged();
+    #endregion
+	
+	public Shermco_G_L_Account()
+	{
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_timestamp", AutoSync=AutoSync.Always, DbType="rowversion NOT NULL", CanBeNull=false, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
+	public System.Data.Linq.Binary timestamp
+	{
+		get
+		{
+			return this._timestamp;
+		}
+		set
+		{
+			if ((this._timestamp != value))
+			{
+				this.OntimestampChanging(value);
+				this.SendPropertyChanging();
+				this._timestamp = value;
+				this.SendPropertyChanged("timestamp");
+				this.OntimestampChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_No_", DbType="VarChar(20) NOT NULL", CanBeNull=false, IsPrimaryKey=true, UpdateCheck=UpdateCheck.Never)]
+	public string No_
+	{
+		get
+		{
+			return this._No_;
+		}
+		set
+		{
+			if ((this._No_ != value))
+			{
+				this.OnNo_Changing(value);
+				this.SendPropertyChanging();
+				this._No_ = value;
+				this.SendPropertyChanged("No_");
+				this.OnNo_Changed();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Name
+	{
+		get
+		{
+			return this._Name;
+		}
+		set
+		{
+			if ((this._Name != value))
+			{
+				this.OnNameChanging(value);
+				this.SendPropertyChanging();
+				this._Name = value;
+				this.SendPropertyChanged("Name");
+				this.OnNameChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Search Name]", Storage="_Search_Name", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Search_Name
+	{
+		get
+		{
+			return this._Search_Name;
+		}
+		set
+		{
+			if ((this._Search_Name != value))
+			{
+				this.OnSearch_NameChanging(value);
+				this.SendPropertyChanging();
+				this._Search_Name = value;
+				this.SendPropertyChanged("Search_Name");
+				this.OnSearch_NameChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Account Type]", Storage="_Account_Type", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public int Account_Type
+	{
+		get
+		{
+			return this._Account_Type;
+		}
+		set
+		{
+			if ((this._Account_Type != value))
+			{
+				this.OnAccount_TypeChanging(value);
+				this.SendPropertyChanging();
+				this._Account_Type = value;
+				this.SendPropertyChanged("Account_Type");
+				this.OnAccount_TypeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Global Dimension 1 Code]", Storage="_Global_Dimension_1_Code", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Global_Dimension_1_Code
+	{
+		get
+		{
+			return this._Global_Dimension_1_Code;
+		}
+		set
+		{
+			if ((this._Global_Dimension_1_Code != value))
+			{
+				this.OnGlobal_Dimension_1_CodeChanging(value);
+				this.SendPropertyChanging();
+				this._Global_Dimension_1_Code = value;
+				this.SendPropertyChanged("Global_Dimension_1_Code");
+				this.OnGlobal_Dimension_1_CodeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Global Dimension 2 Code]", Storage="_Global_Dimension_2_Code", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Global_Dimension_2_Code
+	{
+		get
+		{
+			return this._Global_Dimension_2_Code;
+		}
+		set
+		{
+			if ((this._Global_Dimension_2_Code != value))
+			{
+				this.OnGlobal_Dimension_2_CodeChanging(value);
+				this.SendPropertyChanging();
+				this._Global_Dimension_2_Code = value;
+				this.SendPropertyChanged("Global_Dimension_2_Code");
+				this.OnGlobal_Dimension_2_CodeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Income_Balance", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public int Income_Balance
+	{
+		get
+		{
+			return this._Income_Balance;
+		}
+		set
+		{
+			if ((this._Income_Balance != value))
+			{
+				this.OnIncome_BalanceChanging(value);
+				this.SendPropertyChanging();
+				this._Income_Balance = value;
+				this.SendPropertyChanged("Income_Balance");
+				this.OnIncome_BalanceChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Debit_Credit", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public int Debit_Credit
+	{
+		get
+		{
+			return this._Debit_Credit;
+		}
+		set
+		{
+			if ((this._Debit_Credit != value))
+			{
+				this.OnDebit_CreditChanging(value);
+				this.SendPropertyChanging();
+				this._Debit_Credit = value;
+				this.SendPropertyChanged("Debit_Credit");
+				this.OnDebit_CreditChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[No_ 2]", Storage="_No__2", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string No__2
+	{
+		get
+		{
+			return this._No__2;
+		}
+		set
+		{
+			if ((this._No__2 != value))
+			{
+				this.OnNo__2Changing(value);
+				this.SendPropertyChanging();
+				this._No__2 = value;
+				this.SendPropertyChanged("No__2");
+				this.OnNo__2Changed();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Blocked", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Blocked
+	{
+		get
+		{
+			return this._Blocked;
+		}
+		set
+		{
+			if ((this._Blocked != value))
+			{
+				this.OnBlockedChanging(value);
+				this.SendPropertyChanging();
+				this._Blocked = value;
+				this.SendPropertyChanged("Blocked");
+				this.OnBlockedChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Direct Posting]", Storage="_Direct_Posting", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Direct_Posting
+	{
+		get
+		{
+			return this._Direct_Posting;
+		}
+		set
+		{
+			if ((this._Direct_Posting != value))
+			{
+				this.OnDirect_PostingChanging(value);
+				this.SendPropertyChanging();
+				this._Direct_Posting = value;
+				this.SendPropertyChanged("Direct_Posting");
+				this.OnDirect_PostingChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Reconciliation Account]", Storage="_Reconciliation_Account", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Reconciliation_Account
+	{
+		get
+		{
+			return this._Reconciliation_Account;
+		}
+		set
+		{
+			if ((this._Reconciliation_Account != value))
+			{
+				this.OnReconciliation_AccountChanging(value);
+				this.SendPropertyChanging();
+				this._Reconciliation_Account = value;
+				this.SendPropertyChanged("Reconciliation_Account");
+				this.OnReconciliation_AccountChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[New Page]", Storage="_New_Page", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte New_Page
+	{
+		get
+		{
+			return this._New_Page;
+		}
+		set
+		{
+			if ((this._New_Page != value))
+			{
+				this.OnNew_PageChanging(value);
+				this.SendPropertyChanging();
+				this._New_Page = value;
+				this.SendPropertyChanged("New_Page");
+				this.OnNew_PageChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[No_ of Blank Lines]", Storage="_No__of_Blank_Lines", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public int No__of_Blank_Lines
+	{
+		get
+		{
+			return this._No__of_Blank_Lines;
+		}
+		set
+		{
+			if ((this._No__of_Blank_Lines != value))
+			{
+				this.OnNo__of_Blank_LinesChanging(value);
+				this.SendPropertyChanging();
+				this._No__of_Blank_Lines = value;
+				this.SendPropertyChanged("No__of_Blank_Lines");
+				this.OnNo__of_Blank_LinesChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Indentation", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public int Indentation
+	{
+		get
+		{
+			return this._Indentation;
+		}
+		set
+		{
+			if ((this._Indentation != value))
+			{
+				this.OnIndentationChanging(value);
+				this.SendPropertyChanging();
+				this._Indentation = value;
+				this.SendPropertyChanged("Indentation");
+				this.OnIndentationChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Last Date Modified]", Storage="_Last_Date_Modified", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public System.DateTime Last_Date_Modified
+	{
+		get
+		{
+			return this._Last_Date_Modified;
+		}
+		set
+		{
+			if ((this._Last_Date_Modified != value))
+			{
+				this.OnLast_Date_ModifiedChanging(value);
+				this.SendPropertyChanging();
+				this._Last_Date_Modified = value;
+				this.SendPropertyChanged("Last_Date_Modified");
+				this.OnLast_Date_ModifiedChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Totaling", DbType="VarChar(250) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Totaling
+	{
+		get
+		{
+			return this._Totaling;
+		}
+		set
+		{
+			if ((this._Totaling != value))
+			{
+				this.OnTotalingChanging(value);
+				this.SendPropertyChanging();
+				this._Totaling = value;
+				this.SendPropertyChanged("Totaling");
+				this.OnTotalingChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Consol_ Translation Method]", Storage="_Consol__Translation_Method", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public int Consol__Translation_Method
+	{
+		get
+		{
+			return this._Consol__Translation_Method;
+		}
+		set
+		{
+			if ((this._Consol__Translation_Method != value))
+			{
+				this.OnConsol__Translation_MethodChanging(value);
+				this.SendPropertyChanging();
+				this._Consol__Translation_Method = value;
+				this.SendPropertyChanged("Consol__Translation_Method");
+				this.OnConsol__Translation_MethodChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Consol_ Debit Acc_]", Storage="_Consol__Debit_Acc_", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Consol__Debit_Acc_
+	{
+		get
+		{
+			return this._Consol__Debit_Acc_;
+		}
+		set
+		{
+			if ((this._Consol__Debit_Acc_ != value))
+			{
+				this.OnConsol__Debit_Acc_Changing(value);
+				this.SendPropertyChanging();
+				this._Consol__Debit_Acc_ = value;
+				this.SendPropertyChanged("Consol__Debit_Acc_");
+				this.OnConsol__Debit_Acc_Changed();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Consol_ Credit Acc_]", Storage="_Consol__Credit_Acc_", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Consol__Credit_Acc_
+	{
+		get
+		{
+			return this._Consol__Credit_Acc_;
+		}
+		set
+		{
+			if ((this._Consol__Credit_Acc_ != value))
+			{
+				this.OnConsol__Credit_Acc_Changing(value);
+				this.SendPropertyChanging();
+				this._Consol__Credit_Acc_ = value;
+				this.SendPropertyChanged("Consol__Credit_Acc_");
+				this.OnConsol__Credit_Acc_Changed();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Gen_ Posting Type]", Storage="_Gen__Posting_Type", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public int Gen__Posting_Type
+	{
+		get
+		{
+			return this._Gen__Posting_Type;
+		}
+		set
+		{
+			if ((this._Gen__Posting_Type != value))
+			{
+				this.OnGen__Posting_TypeChanging(value);
+				this.SendPropertyChanging();
+				this._Gen__Posting_Type = value;
+				this.SendPropertyChanged("Gen__Posting_Type");
+				this.OnGen__Posting_TypeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Gen_ Bus_ Posting Group]", Storage="_Gen__Bus__Posting_Group", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Gen__Bus__Posting_Group
+	{
+		get
+		{
+			return this._Gen__Bus__Posting_Group;
+		}
+		set
+		{
+			if ((this._Gen__Bus__Posting_Group != value))
+			{
+				this.OnGen__Bus__Posting_GroupChanging(value);
+				this.SendPropertyChanging();
+				this._Gen__Bus__Posting_Group = value;
+				this.SendPropertyChanged("Gen__Bus__Posting_Group");
+				this.OnGen__Bus__Posting_GroupChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Gen_ Prod_ Posting Group]", Storage="_Gen__Prod__Posting_Group", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Gen__Prod__Posting_Group
+	{
+		get
+		{
+			return this._Gen__Prod__Posting_Group;
+		}
+		set
+		{
+			if ((this._Gen__Prod__Posting_Group != value))
+			{
+				this.OnGen__Prod__Posting_GroupChanging(value);
+				this.SendPropertyChanging();
+				this._Gen__Prod__Posting_Group = value;
+				this.SendPropertyChanged("Gen__Prod__Posting_Group");
+				this.OnGen__Prod__Posting_GroupChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Picture", DbType="Image", UpdateCheck=UpdateCheck.Never)]
+	public System.Data.Linq.Binary Picture
+	{
+		get
+		{
+			return this._Picture;
+		}
+		set
+		{
+			if ((this._Picture != value))
+			{
+				this.OnPictureChanging(value);
+				this.SendPropertyChanging();
+				this._Picture = value;
+				this.SendPropertyChanged("Picture");
+				this.OnPictureChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Automatic Ext_ Texts]", Storage="_Automatic_Ext__Texts", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Automatic_Ext__Texts
+	{
+		get
+		{
+			return this._Automatic_Ext__Texts;
+		}
+		set
+		{
+			if ((this._Automatic_Ext__Texts != value))
+			{
+				this.OnAutomatic_Ext__TextsChanging(value);
+				this.SendPropertyChanging();
+				this._Automatic_Ext__Texts = value;
+				this.SendPropertyChanged("Automatic_Ext__Texts");
+				this.OnAutomatic_Ext__TextsChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Tax Area Code]", Storage="_Tax_Area_Code", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Tax_Area_Code
+	{
+		get
+		{
+			return this._Tax_Area_Code;
+		}
+		set
+		{
+			if ((this._Tax_Area_Code != value))
+			{
+				this.OnTax_Area_CodeChanging(value);
+				this.SendPropertyChanging();
+				this._Tax_Area_Code = value;
+				this.SendPropertyChanged("Tax_Area_Code");
+				this.OnTax_Area_CodeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Tax Liable]", Storage="_Tax_Liable", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Tax_Liable
+	{
+		get
+		{
+			return this._Tax_Liable;
+		}
+		set
+		{
+			if ((this._Tax_Liable != value))
+			{
+				this.OnTax_LiableChanging(value);
+				this.SendPropertyChanging();
+				this._Tax_Liable = value;
+				this.SendPropertyChanged("Tax_Liable");
+				this.OnTax_LiableChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Tax Group Code]", Storage="_Tax_Group_Code", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Tax_Group_Code
+	{
+		get
+		{
+			return this._Tax_Group_Code;
+		}
+		set
+		{
+			if ((this._Tax_Group_Code != value))
+			{
+				this.OnTax_Group_CodeChanging(value);
+				this.SendPropertyChanging();
+				this._Tax_Group_Code = value;
+				this.SendPropertyChanged("Tax_Group_Code");
+				this.OnTax_Group_CodeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[VAT Bus_ Posting Group]", Storage="_VAT_Bus__Posting_Group", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string VAT_Bus__Posting_Group
+	{
+		get
+		{
+			return this._VAT_Bus__Posting_Group;
+		}
+		set
+		{
+			if ((this._VAT_Bus__Posting_Group != value))
+			{
+				this.OnVAT_Bus__Posting_GroupChanging(value);
+				this.SendPropertyChanging();
+				this._VAT_Bus__Posting_Group = value;
+				this.SendPropertyChanged("VAT_Bus__Posting_Group");
+				this.OnVAT_Bus__Posting_GroupChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[VAT Prod_ Posting Group]", Storage="_VAT_Prod__Posting_Group", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string VAT_Prod__Posting_Group
+	{
+		get
+		{
+			return this._VAT_Prod__Posting_Group;
+		}
+		set
+		{
+			if ((this._VAT_Prod__Posting_Group != value))
+			{
+				this.OnVAT_Prod__Posting_GroupChanging(value);
+				this.SendPropertyChanging();
+				this._VAT_Prod__Posting_Group = value;
+				this.SendPropertyChanged("VAT_Prod__Posting_Group");
+				this.OnVAT_Prod__Posting_GroupChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Exchange Rate Adjustment]", Storage="_Exchange_Rate_Adjustment", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public int Exchange_Rate_Adjustment
+	{
+		get
+		{
+			return this._Exchange_Rate_Adjustment;
+		}
+		set
+		{
+			if ((this._Exchange_Rate_Adjustment != value))
+			{
+				this.OnExchange_Rate_AdjustmentChanging(value);
+				this.SendPropertyChanging();
+				this._Exchange_Rate_Adjustment = value;
+				this.SendPropertyChanged("Exchange_Rate_Adjustment");
+				this.OnExchange_Rate_AdjustmentChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Default IC Partner G_L Acc_ No]", Storage="_Default_IC_Partner_G_L_Acc__No", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Default_IC_Partner_G_L_Acc__No
+	{
+		get
+		{
+			return this._Default_IC_Partner_G_L_Acc__No;
+		}
+		set
+		{
+			if ((this._Default_IC_Partner_G_L_Acc__No != value))
+			{
+				this.OnDefault_IC_Partner_G_L_Acc__NoChanging(value);
+				this.SendPropertyChanging();
+				this._Default_IC_Partner_G_L_Acc__No = value;
+				this.SendPropertyChanged("Default_IC_Partner_G_L_Acc__No");
+				this.OnDefault_IC_Partner_G_L_Acc__NoChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[GIFI Code]", Storage="_GIFI_Code", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string GIFI_Code
+	{
+		get
+		{
+			return this._GIFI_Code;
+		}
+		set
+		{
+			if ((this._GIFI_Code != value))
+			{
+				this.OnGIFI_CodeChanging(value);
+				this.SendPropertyChanging();
+				this._GIFI_Code = value;
+				this.SendPropertyChanged("GIFI_Code");
+				this.OnGIFI_CodeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Show On Time Sheet]", Storage="_Show_On_Time_Sheet", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Show_On_Time_Sheet
+	{
+		get
+		{
+			return this._Show_On_Time_Sheet;
+		}
+		set
+		{
+			if ((this._Show_On_Time_Sheet != value))
+			{
+				this.OnShow_On_Time_SheetChanging(value);
+				this.SendPropertyChanging();
+				this._Show_On_Time_Sheet = value;
+				this.SendPropertyChanged("Show_On_Time_Sheet");
+				this.OnShow_On_Time_SheetChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Job Balance Acc_ No_]", Storage="_Job_Balance_Acc__No_", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Job_Balance_Acc__No_
+	{
+		get
+		{
+			return this._Job_Balance_Acc__No_;
+		}
+		set
+		{
+			if ((this._Job_Balance_Acc__No_ != value))
+			{
+				this.OnJob_Balance_Acc__No_Changing(value);
+				this.SendPropertyChanging();
+				this._Job_Balance_Acc__No_ = value;
+				this.SendPropertyChanged("Job_Balance_Acc__No_");
+				this.OnJob_Balance_Acc__No_Changed();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Cost Category]", Storage="_Cost_Category", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public int Cost_Category
+	{
+		get
+		{
+			return this._Cost_Category;
+		}
+		set
+		{
+			if ((this._Cost_Category != value))
+			{
+				this.OnCost_CategoryChanging(value);
+				this.SendPropertyChanging();
+				this._Cost_Category = value;
+				this.SendPropertyChanged("Cost_Category");
+				this.OnCost_CategoryChanged();
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+}
+
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SIU_Allowed_OH_Acct")]
+public partial class SIU_Allowed_OH_Acct : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private string _GlAccountNo;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnGlAccountNoChanging(string value);
+    partial void OnGlAccountNoChanged();
+    #endregion
+	
+	public SIU_Allowed_OH_Acct()
+	{
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GlAccountNo", DbType="VarChar(10) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+	public string GlAccountNo
+	{
+		get
+		{
+			return this._GlAccountNo;
+		}
+		set
+		{
+			if ((this._GlAccountNo != value))
+			{
+				this.OnGlAccountNoChanging(value);
+				this.SendPropertyChanging();
+				this._GlAccountNo = value;
+				this.SendPropertyChanged("GlAccountNo");
+				this.OnGlAccountNoChanged();
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+}
+
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.[Shermco$Job Report]")]
+public partial class Shermco_Job_Report : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private System.Data.Linq.Binary _timestamp;
+	
+	private string _Job_No_;
+	
+	private System.DateTime _Last_Date_Modified;
+	
+	private System.DateTime _Logged_and_Scanned;
+	
+	private string _Logged_and_Scanned_User;
+	
+	private System.DateTime _Logged_In_By_Rpt_Dpt;
+	
+	private string _Logged_In_By_Rpt_Dpt_User;
+	
+	private System.DateTime _Start_Data_Sheet_Entry;
+	
+	private string _Start_Data_Sheet_Entry_User;
+	
+	private System.DateTime _Start_Proofread;
+	
+	private string _Start_Proofread_User;
+	
+	private System.DateTime _Received_for_Corrections;
+	
+	private string _Received_for_Corrections_User;
+	
+	private System.DateTime _Sent_for_Tech_Review;
+	
+	private string _Sent_for_Tech_Review_User;
+	
+	private System.DateTime _Tech_Review_Completed;
+	
+	private string _Tech_Review_Completed_User;
+	
+	private System.DateTime _Complete_and_Delivered;
+	
+	private string _Complete_and_Delivered_User;
+	
+	private int _Report_Required_on_Shipping;
+	
+	private byte _Letter_Report_Only;
+	
+	private byte _IR_Report_Only;
+	
+	private System.DateTime _IR_Received_From_Tech;
+	
+	private string _IR_Received_From_Tech_User;
+	
+	private System.DateTime _IR_Complete_and_Delivered;
+	
+	private string _IR_Complete_and_Delivered_User;
+	
+	private System.DateTime _Date_Report_Turned_In_by_Tech;
+	
+	private byte _JHA_Submitted;
+	
+	private System.DateTime _JHA_Submitted_Date;
+	
+	private string _JHA_Submitted_UserID;
+	
+	private string _COI_Email_Address;
+	
+	private byte _COI_Received;
+	
+	private byte _COI_Not_Needed;
+	
+	private byte _Work_Location;
+	
+	private int _Work_Location_State;
+	
+	private byte _Work_Location_Int;
+	
+	private string _Work_Location_Country;
+	
+	private string _Legal_Contact_Name;
+	
+	private string _Legal_Contact_Email;
+	
+	private string _Invoice_Requirements;
+	
+	private string _Legal_Contact_Ph_Number;
+	
+	private string _Legal_Contact_Fax;
+	
+	private byte _Site_Badge_Rqured;
+	
+	private byte _Safetey_Questionnaire;
+	
+	private byte _Background_Check_Required;
+	
+	private byte _Drug_Alcohol_Testing_Req;
+	
+	private string _Site_Badge_Comments;
+	
+	private string _Safety_Comments;
+	
+	private string _Background_Checks_Comments;
+	
+	private string _Drug_Alcohol_Testing_Comments;
+	
+	private byte _Subcontractors;
+	
+	private byte _Estimated_Subcontractors_Hours;
+	
+	private byte _Bid_Bond_Required;
+	
+	private byte _Performance_Bond_Required;
+	
+	private byte _Payment_Bond_Required;
+	
+	private int _Contract_to_be_returned;
+	
+	private string _Contract_Review_Comments;
+	
+	private string _Bid_Bond_Comments;
+	
+	private string _Performance_Bond_Comments;
+	
+	private string _Payment_Bond_Comments;
+	
+	private byte _New_Shermco_Customer;
+	
+	private string _Year_became_a_Shermco_Customer;
+	
+	private byte _Select;
+	
+	private System.DateTime _Turned_in_by_Tech_Date;
+	
+	private string _Turned_in_by_Tech_UserID;
+	
+	private string _Comment;
+	
+	private byte _TmpComplete;
+	
+	private byte _TmpPartial;
+	
+	private byte _TmpPE;
+	
+	private byte _TmpSynced;
+	
+	private byte _TmpHandwritten;
+	
+	private byte _TmpInbox;
+	
+	private byte _TmpWord;
+	
+	private byte _TmpPDBMaster;
+	
+	private byte _TmpOther;
+	
+	private string _TmpOtherText;
+	
+	private string _Turned_in_By_Emp__No_;
+	
+	private byte _Received;
+	
+	private byte _In_Progress;
+	
+	private byte _Certified_Payroll_Required;
+	
+	private byte _No_Report_Required;
+	
+	private string _No_Report_Required_Reason;
+	
+	private byte _SalesFollowUp;
+	
+	private System.DateTime _SalesFollowUp_Email_Date;
+	
+	private string _SalesFollowUp_Comment;
+	
+	private byte _SalesFollowUp_Acknowledge;
+	
+	private System.DateTime _SalesFollowUp_Ack_Date;
+	
+	private string _SalesFollowUp_Ack_Userid;
+	
+	private System.DateTime _Sent_to_Allied;
+	
+	private string _Sent_to_Allied_UserID;
+	
+	private byte _TmpLetterOnly;
+	
+	private byte _TmpIRData;
+	
+	private int _Report_Data_Format;
+	
+	private int _RTS_Relay_Data;
+	
+	private int _CT_Data_Saved;
+	
+	private int _Partial_Discharge;
+	
+	private int _Oil_Sample;
+	
+	private int _Oil_Sample_Follow_UP;
+	
+	private byte _Bus_Bolt_Torque;
+	
+	private byte _DC_Hipot;
+	
+	private byte _Decal_Color_Codes;
+	
+	private byte _DLRO;
+	
+	private byte _Doble;
+	
+	private byte _Ground_Fault_Systems;
+	
+	private byte _Grounding___Ground_Electrode;
+	
+	private byte _Insulation_Resistance;
+	
+	private byte _NFPA_99;
+	
+	private byte _Oil_Tests;
+	
+	private byte _Partial_Discharge_B;
+	
+	private byte _PCB_Info;
+	
+	private byte _Protective_Relays;
+	
+	private byte _Thermograpic_IR_;
+	
+	private byte _TTR;
+	
+	private byte _Ultrasonic_Testing;
+	
+	private byte _No_Testing_Done;
+	
+	private System.DateTime _Rejected_Date;
+	
+	private string _Rejected_Reason;
+	
+	private string _Rejected;
+	
+	private byte _IROnly;
+	
+	private byte _IRonFinalReport;
+	
+	private string _Email;
+	
+	private int _No__of_Copies;
+	
+	private byte _General_Dropbox;
+	
+	private byte _General_Dropbox_No;
+	
+	private byte _TmpIRData_No;
+	
+	private byte _PDBYes;
+	
+	private byte _PDBNo;
+	
+	private string _PDBComment;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OntimestampChanging(System.Data.Linq.Binary value);
+    partial void OntimestampChanged();
+    partial void OnJob_No_Changing(string value);
+    partial void OnJob_No_Changed();
+    partial void OnLast_Date_ModifiedChanging(System.DateTime value);
+    partial void OnLast_Date_ModifiedChanged();
+    partial void OnLogged_and_ScannedChanging(System.DateTime value);
+    partial void OnLogged_and_ScannedChanged();
+    partial void OnLogged_and_Scanned_UserChanging(string value);
+    partial void OnLogged_and_Scanned_UserChanged();
+    partial void OnLogged_In_By_Rpt_DptChanging(System.DateTime value);
+    partial void OnLogged_In_By_Rpt_DptChanged();
+    partial void OnLogged_In_By_Rpt_Dpt_UserChanging(string value);
+    partial void OnLogged_In_By_Rpt_Dpt_UserChanged();
+    partial void OnStart_Data_Sheet_EntryChanging(System.DateTime value);
+    partial void OnStart_Data_Sheet_EntryChanged();
+    partial void OnStart_Data_Sheet_Entry_UserChanging(string value);
+    partial void OnStart_Data_Sheet_Entry_UserChanged();
+    partial void OnStart_ProofreadChanging(System.DateTime value);
+    partial void OnStart_ProofreadChanged();
+    partial void OnStart_Proofread_UserChanging(string value);
+    partial void OnStart_Proofread_UserChanged();
+    partial void OnReceived_for_CorrectionsChanging(System.DateTime value);
+    partial void OnReceived_for_CorrectionsChanged();
+    partial void OnReceived_for_Corrections_UserChanging(string value);
+    partial void OnReceived_for_Corrections_UserChanged();
+    partial void OnSent_for_Tech_ReviewChanging(System.DateTime value);
+    partial void OnSent_for_Tech_ReviewChanged();
+    partial void OnSent_for_Tech_Review_UserChanging(string value);
+    partial void OnSent_for_Tech_Review_UserChanged();
+    partial void OnTech_Review_CompletedChanging(System.DateTime value);
+    partial void OnTech_Review_CompletedChanged();
+    partial void OnTech_Review_Completed_UserChanging(string value);
+    partial void OnTech_Review_Completed_UserChanged();
+    partial void OnComplete_and_DeliveredChanging(System.DateTime value);
+    partial void OnComplete_and_DeliveredChanged();
+    partial void OnComplete_and_Delivered_UserChanging(string value);
+    partial void OnComplete_and_Delivered_UserChanged();
+    partial void OnReport_Required_on_ShippingChanging(int value);
+    partial void OnReport_Required_on_ShippingChanged();
+    partial void OnLetter_Report_OnlyChanging(byte value);
+    partial void OnLetter_Report_OnlyChanged();
+    partial void OnIR_Report_OnlyChanging(byte value);
+    partial void OnIR_Report_OnlyChanged();
+    partial void OnIR_Received_From_TechChanging(System.DateTime value);
+    partial void OnIR_Received_From_TechChanged();
+    partial void OnIR_Received_From_Tech_UserChanging(string value);
+    partial void OnIR_Received_From_Tech_UserChanged();
+    partial void OnIR_Complete_and_DeliveredChanging(System.DateTime value);
+    partial void OnIR_Complete_and_DeliveredChanged();
+    partial void OnIR_Complete_and_Delivered_UserChanging(string value);
+    partial void OnIR_Complete_and_Delivered_UserChanged();
+    partial void OnDate_Report_Turned_In_by_TechChanging(System.DateTime value);
+    partial void OnDate_Report_Turned_In_by_TechChanged();
+    partial void OnJHA_SubmittedChanging(byte value);
+    partial void OnJHA_SubmittedChanged();
+    partial void OnJHA_Submitted_DateChanging(System.DateTime value);
+    partial void OnJHA_Submitted_DateChanged();
+    partial void OnJHA_Submitted_UserIDChanging(string value);
+    partial void OnJHA_Submitted_UserIDChanged();
+    partial void OnCOI_Email_AddressChanging(string value);
+    partial void OnCOI_Email_AddressChanged();
+    partial void OnCOI_ReceivedChanging(byte value);
+    partial void OnCOI_ReceivedChanged();
+    partial void OnCOI_Not_NeededChanging(byte value);
+    partial void OnCOI_Not_NeededChanged();
+    partial void OnWork_LocationChanging(byte value);
+    partial void OnWork_LocationChanged();
+    partial void OnWork_Location_StateChanging(int value);
+    partial void OnWork_Location_StateChanged();
+    partial void OnWork_Location_IntChanging(byte value);
+    partial void OnWork_Location_IntChanged();
+    partial void OnWork_Location_CountryChanging(string value);
+    partial void OnWork_Location_CountryChanged();
+    partial void OnLegal_Contact_NameChanging(string value);
+    partial void OnLegal_Contact_NameChanged();
+    partial void OnLegal_Contact_EmailChanging(string value);
+    partial void OnLegal_Contact_EmailChanged();
+    partial void OnInvoice_RequirementsChanging(string value);
+    partial void OnInvoice_RequirementsChanged();
+    partial void OnLegal_Contact_Ph_NumberChanging(string value);
+    partial void OnLegal_Contact_Ph_NumberChanged();
+    partial void OnLegal_Contact_FaxChanging(string value);
+    partial void OnLegal_Contact_FaxChanged();
+    partial void OnSite_Badge_RquredChanging(byte value);
+    partial void OnSite_Badge_RquredChanged();
+    partial void OnSafetey_QuestionnaireChanging(byte value);
+    partial void OnSafetey_QuestionnaireChanged();
+    partial void OnBackground_Check_RequiredChanging(byte value);
+    partial void OnBackground_Check_RequiredChanged();
+    partial void OnDrug_Alcohol_Testing_ReqChanging(byte value);
+    partial void OnDrug_Alcohol_Testing_ReqChanged();
+    partial void OnSite_Badge_CommentsChanging(string value);
+    partial void OnSite_Badge_CommentsChanged();
+    partial void OnSafety_CommentsChanging(string value);
+    partial void OnSafety_CommentsChanged();
+    partial void OnBackground_Checks_CommentsChanging(string value);
+    partial void OnBackground_Checks_CommentsChanged();
+    partial void OnDrug_Alcohol_Testing_CommentsChanging(string value);
+    partial void OnDrug_Alcohol_Testing_CommentsChanged();
+    partial void OnSubcontractorsChanging(byte value);
+    partial void OnSubcontractorsChanged();
+    partial void OnEstimated_Subcontractors_HoursChanging(byte value);
+    partial void OnEstimated_Subcontractors_HoursChanged();
+    partial void OnBid_Bond_RequiredChanging(byte value);
+    partial void OnBid_Bond_RequiredChanged();
+    partial void OnPerformance_Bond_RequiredChanging(byte value);
+    partial void OnPerformance_Bond_RequiredChanged();
+    partial void OnPayment_Bond_RequiredChanging(byte value);
+    partial void OnPayment_Bond_RequiredChanged();
+    partial void OnContract_to_be_returnedChanging(int value);
+    partial void OnContract_to_be_returnedChanged();
+    partial void OnContract_Review_CommentsChanging(string value);
+    partial void OnContract_Review_CommentsChanged();
+    partial void OnBid_Bond_CommentsChanging(string value);
+    partial void OnBid_Bond_CommentsChanged();
+    partial void OnPerformance_Bond_CommentsChanging(string value);
+    partial void OnPerformance_Bond_CommentsChanged();
+    partial void OnPayment_Bond_CommentsChanging(string value);
+    partial void OnPayment_Bond_CommentsChanged();
+    partial void OnNew_Shermco_CustomerChanging(byte value);
+    partial void OnNew_Shermco_CustomerChanged();
+    partial void OnYear_became_a_Shermco_CustomerChanging(string value);
+    partial void OnYear_became_a_Shermco_CustomerChanged();
+    partial void OnSelectChanging(byte value);
+    partial void OnSelectChanged();
+    partial void OnTurned_in_by_Tech_DateChanging(System.DateTime value);
+    partial void OnTurned_in_by_Tech_DateChanged();
+    partial void OnTurned_in_by_Tech_UserIDChanging(string value);
+    partial void OnTurned_in_by_Tech_UserIDChanged();
+    partial void OnCommentChanging(string value);
+    partial void OnCommentChanged();
+    partial void OnTmpCompleteChanging(byte value);
+    partial void OnTmpCompleteChanged();
+    partial void OnTmpPartialChanging(byte value);
+    partial void OnTmpPartialChanged();
+    partial void OnTmpPEChanging(byte value);
+    partial void OnTmpPEChanged();
+    partial void OnTmpSyncedChanging(byte value);
+    partial void OnTmpSyncedChanged();
+    partial void OnTmpHandwrittenChanging(byte value);
+    partial void OnTmpHandwrittenChanged();
+    partial void OnTmpInboxChanging(byte value);
+    partial void OnTmpInboxChanged();
+    partial void OnTmpWordChanging(byte value);
+    partial void OnTmpWordChanged();
+    partial void OnTmpPDBMasterChanging(byte value);
+    partial void OnTmpPDBMasterChanged();
+    partial void OnTmpOtherChanging(byte value);
+    partial void OnTmpOtherChanged();
+    partial void OnTmpOtherTextChanging(string value);
+    partial void OnTmpOtherTextChanged();
+    partial void OnTurned_in_By_Emp__No_Changing(string value);
+    partial void OnTurned_in_By_Emp__No_Changed();
+    partial void OnReceivedChanging(byte value);
+    partial void OnReceivedChanged();
+    partial void OnIn_ProgressChanging(byte value);
+    partial void OnIn_ProgressChanged();
+    partial void OnCertified_Payroll_RequiredChanging(byte value);
+    partial void OnCertified_Payroll_RequiredChanged();
+    partial void OnNo_Report_RequiredChanging(byte value);
+    partial void OnNo_Report_RequiredChanged();
+    partial void OnNo_Report_Required_ReasonChanging(string value);
+    partial void OnNo_Report_Required_ReasonChanged();
+    partial void OnSalesFollowUpChanging(byte value);
+    partial void OnSalesFollowUpChanged();
+    partial void OnSalesFollowUp_Email_DateChanging(System.DateTime value);
+    partial void OnSalesFollowUp_Email_DateChanged();
+    partial void OnSalesFollowUp_CommentChanging(string value);
+    partial void OnSalesFollowUp_CommentChanged();
+    partial void OnSalesFollowUp_AcknowledgeChanging(byte value);
+    partial void OnSalesFollowUp_AcknowledgeChanged();
+    partial void OnSalesFollowUp_Ack_DateChanging(System.DateTime value);
+    partial void OnSalesFollowUp_Ack_DateChanged();
+    partial void OnSalesFollowUp_Ack_UseridChanging(string value);
+    partial void OnSalesFollowUp_Ack_UseridChanged();
+    partial void OnSent_to_AlliedChanging(System.DateTime value);
+    partial void OnSent_to_AlliedChanged();
+    partial void OnSent_to_Allied_UserIDChanging(string value);
+    partial void OnSent_to_Allied_UserIDChanged();
+    partial void OnTmpLetterOnlyChanging(byte value);
+    partial void OnTmpLetterOnlyChanged();
+    partial void OnTmpIRDataChanging(byte value);
+    partial void OnTmpIRDataChanged();
+    partial void OnReport_Data_FormatChanging(int value);
+    partial void OnReport_Data_FormatChanged();
+    partial void OnRTS_Relay_DataChanging(int value);
+    partial void OnRTS_Relay_DataChanged();
+    partial void OnCT_Data_SavedChanging(int value);
+    partial void OnCT_Data_SavedChanged();
+    partial void OnPartial_DischargeChanging(int value);
+    partial void OnPartial_DischargeChanged();
+    partial void OnOil_SampleChanging(int value);
+    partial void OnOil_SampleChanged();
+    partial void OnOil_Sample_Follow_UPChanging(int value);
+    partial void OnOil_Sample_Follow_UPChanged();
+    partial void OnBus_Bolt_TorqueChanging(byte value);
+    partial void OnBus_Bolt_TorqueChanged();
+    partial void OnDC_HipotChanging(byte value);
+    partial void OnDC_HipotChanged();
+    partial void OnDecal_Color_CodesChanging(byte value);
+    partial void OnDecal_Color_CodesChanged();
+    partial void OnDLROChanging(byte value);
+    partial void OnDLROChanged();
+    partial void OnDobleChanging(byte value);
+    partial void OnDobleChanged();
+    partial void OnGround_Fault_SystemsChanging(byte value);
+    partial void OnGround_Fault_SystemsChanged();
+    partial void OnGrounding___Ground_ElectrodeChanging(byte value);
+    partial void OnGrounding___Ground_ElectrodeChanged();
+    partial void OnInsulation_ResistanceChanging(byte value);
+    partial void OnInsulation_ResistanceChanged();
+    partial void OnNFPA_99Changing(byte value);
+    partial void OnNFPA_99Changed();
+    partial void OnOil_TestsChanging(byte value);
+    partial void OnOil_TestsChanged();
+    partial void OnPartial_Discharge_BChanging(byte value);
+    partial void OnPartial_Discharge_BChanged();
+    partial void OnPCB_InfoChanging(byte value);
+    partial void OnPCB_InfoChanged();
+    partial void OnProtective_RelaysChanging(byte value);
+    partial void OnProtective_RelaysChanged();
+    partial void OnThermograpic_IR_Changing(byte value);
+    partial void OnThermograpic_IR_Changed();
+    partial void OnTTRChanging(byte value);
+    partial void OnTTRChanged();
+    partial void OnUltrasonic_TestingChanging(byte value);
+    partial void OnUltrasonic_TestingChanged();
+    partial void OnNo_Testing_DoneChanging(byte value);
+    partial void OnNo_Testing_DoneChanged();
+    partial void OnRejected_DateChanging(System.DateTime value);
+    partial void OnRejected_DateChanged();
+    partial void OnRejected_ReasonChanging(string value);
+    partial void OnRejected_ReasonChanged();
+    partial void OnRejectedChanging(string value);
+    partial void OnRejectedChanged();
+    partial void OnIROnlyChanging(byte value);
+    partial void OnIROnlyChanged();
+    partial void OnIRonFinalReportChanging(byte value);
+    partial void OnIRonFinalReportChanged();
+    partial void OnEmailChanging(string value);
+    partial void OnEmailChanged();
+    partial void OnNo__of_CopiesChanging(int value);
+    partial void OnNo__of_CopiesChanged();
+    partial void OnGeneral_DropboxChanging(byte value);
+    partial void OnGeneral_DropboxChanged();
+    partial void OnGeneral_Dropbox_NoChanging(byte value);
+    partial void OnGeneral_Dropbox_NoChanged();
+    partial void OnTmpIRData_NoChanging(byte value);
+    partial void OnTmpIRData_NoChanged();
+    partial void OnPDBYesChanging(byte value);
+    partial void OnPDBYesChanged();
+    partial void OnPDBNoChanging(byte value);
+    partial void OnPDBNoChanged();
+    partial void OnPDBCommentChanging(string value);
+    partial void OnPDBCommentChanged();
+    #endregion
+	
+	public Shermco_Job_Report()
+	{
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_timestamp", AutoSync=AutoSync.Always, DbType="rowversion NOT NULL", CanBeNull=false, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
+	public System.Data.Linq.Binary timestamp
+	{
+		get
+		{
+			return this._timestamp;
+		}
+		set
+		{
+			if ((this._timestamp != value))
+			{
+				this.OntimestampChanging(value);
+				this.SendPropertyChanging();
+				this._timestamp = value;
+				this.SendPropertyChanged("timestamp");
+				this.OntimestampChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Job No_]", Storage="_Job_No_", DbType="VarChar(10) NOT NULL", CanBeNull=false, IsPrimaryKey=true, UpdateCheck=UpdateCheck.Never)]
+	public string Job_No_
+	{
+		get
+		{
+			return this._Job_No_;
+		}
+		set
+		{
+			if ((this._Job_No_ != value))
+			{
+				this.OnJob_No_Changing(value);
+				this.SendPropertyChanging();
+				this._Job_No_ = value;
+				this.SendPropertyChanged("Job_No_");
+				this.OnJob_No_Changed();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Last Date Modified]", Storage="_Last_Date_Modified", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public System.DateTime Last_Date_Modified
+	{
+		get
+		{
+			return this._Last_Date_Modified;
+		}
+		set
+		{
+			if ((this._Last_Date_Modified != value))
+			{
+				this.OnLast_Date_ModifiedChanging(value);
+				this.SendPropertyChanging();
+				this._Last_Date_Modified = value;
+				this.SendPropertyChanged("Last_Date_Modified");
+				this.OnLast_Date_ModifiedChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Logged and Scanned]", Storage="_Logged_and_Scanned", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public System.DateTime Logged_and_Scanned
+	{
+		get
+		{
+			return this._Logged_and_Scanned;
+		}
+		set
+		{
+			if ((this._Logged_and_Scanned != value))
+			{
+				this.OnLogged_and_ScannedChanging(value);
+				this.SendPropertyChanging();
+				this._Logged_and_Scanned = value;
+				this.SendPropertyChanged("Logged_and_Scanned");
+				this.OnLogged_and_ScannedChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Logged and Scanned User]", Storage="_Logged_and_Scanned_User", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Logged_and_Scanned_User
+	{
+		get
+		{
+			return this._Logged_and_Scanned_User;
+		}
+		set
+		{
+			if ((this._Logged_and_Scanned_User != value))
+			{
+				this.OnLogged_and_Scanned_UserChanging(value);
+				this.SendPropertyChanging();
+				this._Logged_and_Scanned_User = value;
+				this.SendPropertyChanged("Logged_and_Scanned_User");
+				this.OnLogged_and_Scanned_UserChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Logged In By Rpt Dpt]", Storage="_Logged_In_By_Rpt_Dpt", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public System.DateTime Logged_In_By_Rpt_Dpt
+	{
+		get
+		{
+			return this._Logged_In_By_Rpt_Dpt;
+		}
+		set
+		{
+			if ((this._Logged_In_By_Rpt_Dpt != value))
+			{
+				this.OnLogged_In_By_Rpt_DptChanging(value);
+				this.SendPropertyChanging();
+				this._Logged_In_By_Rpt_Dpt = value;
+				this.SendPropertyChanged("Logged_In_By_Rpt_Dpt");
+				this.OnLogged_In_By_Rpt_DptChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Logged In By Rpt Dpt User]", Storage="_Logged_In_By_Rpt_Dpt_User", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Logged_In_By_Rpt_Dpt_User
+	{
+		get
+		{
+			return this._Logged_In_By_Rpt_Dpt_User;
+		}
+		set
+		{
+			if ((this._Logged_In_By_Rpt_Dpt_User != value))
+			{
+				this.OnLogged_In_By_Rpt_Dpt_UserChanging(value);
+				this.SendPropertyChanging();
+				this._Logged_In_By_Rpt_Dpt_User = value;
+				this.SendPropertyChanged("Logged_In_By_Rpt_Dpt_User");
+				this.OnLogged_In_By_Rpt_Dpt_UserChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Start Data Sheet Entry]", Storage="_Start_Data_Sheet_Entry", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public System.DateTime Start_Data_Sheet_Entry
+	{
+		get
+		{
+			return this._Start_Data_Sheet_Entry;
+		}
+		set
+		{
+			if ((this._Start_Data_Sheet_Entry != value))
+			{
+				this.OnStart_Data_Sheet_EntryChanging(value);
+				this.SendPropertyChanging();
+				this._Start_Data_Sheet_Entry = value;
+				this.SendPropertyChanged("Start_Data_Sheet_Entry");
+				this.OnStart_Data_Sheet_EntryChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Start Data Sheet Entry User]", Storage="_Start_Data_Sheet_Entry_User", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Start_Data_Sheet_Entry_User
+	{
+		get
+		{
+			return this._Start_Data_Sheet_Entry_User;
+		}
+		set
+		{
+			if ((this._Start_Data_Sheet_Entry_User != value))
+			{
+				this.OnStart_Data_Sheet_Entry_UserChanging(value);
+				this.SendPropertyChanging();
+				this._Start_Data_Sheet_Entry_User = value;
+				this.SendPropertyChanged("Start_Data_Sheet_Entry_User");
+				this.OnStart_Data_Sheet_Entry_UserChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Start Proofread]", Storage="_Start_Proofread", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public System.DateTime Start_Proofread
+	{
+		get
+		{
+			return this._Start_Proofread;
+		}
+		set
+		{
+			if ((this._Start_Proofread != value))
+			{
+				this.OnStart_ProofreadChanging(value);
+				this.SendPropertyChanging();
+				this._Start_Proofread = value;
+				this.SendPropertyChanged("Start_Proofread");
+				this.OnStart_ProofreadChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Start Proofread User]", Storage="_Start_Proofread_User", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Start_Proofread_User
+	{
+		get
+		{
+			return this._Start_Proofread_User;
+		}
+		set
+		{
+			if ((this._Start_Proofread_User != value))
+			{
+				this.OnStart_Proofread_UserChanging(value);
+				this.SendPropertyChanging();
+				this._Start_Proofread_User = value;
+				this.SendPropertyChanged("Start_Proofread_User");
+				this.OnStart_Proofread_UserChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Received for Corrections]", Storage="_Received_for_Corrections", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public System.DateTime Received_for_Corrections
+	{
+		get
+		{
+			return this._Received_for_Corrections;
+		}
+		set
+		{
+			if ((this._Received_for_Corrections != value))
+			{
+				this.OnReceived_for_CorrectionsChanging(value);
+				this.SendPropertyChanging();
+				this._Received_for_Corrections = value;
+				this.SendPropertyChanged("Received_for_Corrections");
+				this.OnReceived_for_CorrectionsChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Received for Corrections User]", Storage="_Received_for_Corrections_User", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Received_for_Corrections_User
+	{
+		get
+		{
+			return this._Received_for_Corrections_User;
+		}
+		set
+		{
+			if ((this._Received_for_Corrections_User != value))
+			{
+				this.OnReceived_for_Corrections_UserChanging(value);
+				this.SendPropertyChanging();
+				this._Received_for_Corrections_User = value;
+				this.SendPropertyChanged("Received_for_Corrections_User");
+				this.OnReceived_for_Corrections_UserChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Sent for Tech Review]", Storage="_Sent_for_Tech_Review", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public System.DateTime Sent_for_Tech_Review
+	{
+		get
+		{
+			return this._Sent_for_Tech_Review;
+		}
+		set
+		{
+			if ((this._Sent_for_Tech_Review != value))
+			{
+				this.OnSent_for_Tech_ReviewChanging(value);
+				this.SendPropertyChanging();
+				this._Sent_for_Tech_Review = value;
+				this.SendPropertyChanged("Sent_for_Tech_Review");
+				this.OnSent_for_Tech_ReviewChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Sent for Tech Review User]", Storage="_Sent_for_Tech_Review_User", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Sent_for_Tech_Review_User
+	{
+		get
+		{
+			return this._Sent_for_Tech_Review_User;
+		}
+		set
+		{
+			if ((this._Sent_for_Tech_Review_User != value))
+			{
+				this.OnSent_for_Tech_Review_UserChanging(value);
+				this.SendPropertyChanging();
+				this._Sent_for_Tech_Review_User = value;
+				this.SendPropertyChanged("Sent_for_Tech_Review_User");
+				this.OnSent_for_Tech_Review_UserChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Tech Review Completed]", Storage="_Tech_Review_Completed", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public System.DateTime Tech_Review_Completed
+	{
+		get
+		{
+			return this._Tech_Review_Completed;
+		}
+		set
+		{
+			if ((this._Tech_Review_Completed != value))
+			{
+				this.OnTech_Review_CompletedChanging(value);
+				this.SendPropertyChanging();
+				this._Tech_Review_Completed = value;
+				this.SendPropertyChanged("Tech_Review_Completed");
+				this.OnTech_Review_CompletedChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Tech Review Completed User]", Storage="_Tech_Review_Completed_User", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Tech_Review_Completed_User
+	{
+		get
+		{
+			return this._Tech_Review_Completed_User;
+		}
+		set
+		{
+			if ((this._Tech_Review_Completed_User != value))
+			{
+				this.OnTech_Review_Completed_UserChanging(value);
+				this.SendPropertyChanging();
+				this._Tech_Review_Completed_User = value;
+				this.SendPropertyChanged("Tech_Review_Completed_User");
+				this.OnTech_Review_Completed_UserChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Complete and Delivered]", Storage="_Complete_and_Delivered", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public System.DateTime Complete_and_Delivered
+	{
+		get
+		{
+			return this._Complete_and_Delivered;
+		}
+		set
+		{
+			if ((this._Complete_and_Delivered != value))
+			{
+				this.OnComplete_and_DeliveredChanging(value);
+				this.SendPropertyChanging();
+				this._Complete_and_Delivered = value;
+				this.SendPropertyChanged("Complete_and_Delivered");
+				this.OnComplete_and_DeliveredChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Complete and Delivered User]", Storage="_Complete_and_Delivered_User", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Complete_and_Delivered_User
+	{
+		get
+		{
+			return this._Complete_and_Delivered_User;
+		}
+		set
+		{
+			if ((this._Complete_and_Delivered_User != value))
+			{
+				this.OnComplete_and_Delivered_UserChanging(value);
+				this.SendPropertyChanging();
+				this._Complete_and_Delivered_User = value;
+				this.SendPropertyChanged("Complete_and_Delivered_User");
+				this.OnComplete_and_Delivered_UserChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Report Required on Shipping]", Storage="_Report_Required_on_Shipping", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public int Report_Required_on_Shipping
+	{
+		get
+		{
+			return this._Report_Required_on_Shipping;
+		}
+		set
+		{
+			if ((this._Report_Required_on_Shipping != value))
+			{
+				this.OnReport_Required_on_ShippingChanging(value);
+				this.SendPropertyChanging();
+				this._Report_Required_on_Shipping = value;
+				this.SendPropertyChanged("Report_Required_on_Shipping");
+				this.OnReport_Required_on_ShippingChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Letter Report Only]", Storage="_Letter_Report_Only", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Letter_Report_Only
+	{
+		get
+		{
+			return this._Letter_Report_Only;
+		}
+		set
+		{
+			if ((this._Letter_Report_Only != value))
+			{
+				this.OnLetter_Report_OnlyChanging(value);
+				this.SendPropertyChanging();
+				this._Letter_Report_Only = value;
+				this.SendPropertyChanged("Letter_Report_Only");
+				this.OnLetter_Report_OnlyChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[IR Report Only]", Storage="_IR_Report_Only", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte IR_Report_Only
+	{
+		get
+		{
+			return this._IR_Report_Only;
+		}
+		set
+		{
+			if ((this._IR_Report_Only != value))
+			{
+				this.OnIR_Report_OnlyChanging(value);
+				this.SendPropertyChanging();
+				this._IR_Report_Only = value;
+				this.SendPropertyChanged("IR_Report_Only");
+				this.OnIR_Report_OnlyChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[IR Received From Tech]", Storage="_IR_Received_From_Tech", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public System.DateTime IR_Received_From_Tech
+	{
+		get
+		{
+			return this._IR_Received_From_Tech;
+		}
+		set
+		{
+			if ((this._IR_Received_From_Tech != value))
+			{
+				this.OnIR_Received_From_TechChanging(value);
+				this.SendPropertyChanging();
+				this._IR_Received_From_Tech = value;
+				this.SendPropertyChanged("IR_Received_From_Tech");
+				this.OnIR_Received_From_TechChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[IR Received From Tech User]", Storage="_IR_Received_From_Tech_User", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string IR_Received_From_Tech_User
+	{
+		get
+		{
+			return this._IR_Received_From_Tech_User;
+		}
+		set
+		{
+			if ((this._IR_Received_From_Tech_User != value))
+			{
+				this.OnIR_Received_From_Tech_UserChanging(value);
+				this.SendPropertyChanging();
+				this._IR_Received_From_Tech_User = value;
+				this.SendPropertyChanged("IR_Received_From_Tech_User");
+				this.OnIR_Received_From_Tech_UserChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[IR Complete and Delivered]", Storage="_IR_Complete_and_Delivered", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public System.DateTime IR_Complete_and_Delivered
+	{
+		get
+		{
+			return this._IR_Complete_and_Delivered;
+		}
+		set
+		{
+			if ((this._IR_Complete_and_Delivered != value))
+			{
+				this.OnIR_Complete_and_DeliveredChanging(value);
+				this.SendPropertyChanging();
+				this._IR_Complete_and_Delivered = value;
+				this.SendPropertyChanged("IR_Complete_and_Delivered");
+				this.OnIR_Complete_and_DeliveredChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[IR Complete and Delivered User]", Storage="_IR_Complete_and_Delivered_User", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string IR_Complete_and_Delivered_User
+	{
+		get
+		{
+			return this._IR_Complete_and_Delivered_User;
+		}
+		set
+		{
+			if ((this._IR_Complete_and_Delivered_User != value))
+			{
+				this.OnIR_Complete_and_Delivered_UserChanging(value);
+				this.SendPropertyChanging();
+				this._IR_Complete_and_Delivered_User = value;
+				this.SendPropertyChanged("IR_Complete_and_Delivered_User");
+				this.OnIR_Complete_and_Delivered_UserChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Date Report Turned In by Tech]", Storage="_Date_Report_Turned_In_by_Tech", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public System.DateTime Date_Report_Turned_In_by_Tech
+	{
+		get
+		{
+			return this._Date_Report_Turned_In_by_Tech;
+		}
+		set
+		{
+			if ((this._Date_Report_Turned_In_by_Tech != value))
+			{
+				this.OnDate_Report_Turned_In_by_TechChanging(value);
+				this.SendPropertyChanging();
+				this._Date_Report_Turned_In_by_Tech = value;
+				this.SendPropertyChanged("Date_Report_Turned_In_by_Tech");
+				this.OnDate_Report_Turned_In_by_TechChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[JHA Submitted]", Storage="_JHA_Submitted", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte JHA_Submitted
+	{
+		get
+		{
+			return this._JHA_Submitted;
+		}
+		set
+		{
+			if ((this._JHA_Submitted != value))
+			{
+				this.OnJHA_SubmittedChanging(value);
+				this.SendPropertyChanging();
+				this._JHA_Submitted = value;
+				this.SendPropertyChanged("JHA_Submitted");
+				this.OnJHA_SubmittedChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[JHA Submitted Date]", Storage="_JHA_Submitted_Date", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public System.DateTime JHA_Submitted_Date
+	{
+		get
+		{
+			return this._JHA_Submitted_Date;
+		}
+		set
+		{
+			if ((this._JHA_Submitted_Date != value))
+			{
+				this.OnJHA_Submitted_DateChanging(value);
+				this.SendPropertyChanging();
+				this._JHA_Submitted_Date = value;
+				this.SendPropertyChanged("JHA_Submitted_Date");
+				this.OnJHA_Submitted_DateChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[JHA Submitted UserID]", Storage="_JHA_Submitted_UserID", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string JHA_Submitted_UserID
+	{
+		get
+		{
+			return this._JHA_Submitted_UserID;
+		}
+		set
+		{
+			if ((this._JHA_Submitted_UserID != value))
+			{
+				this.OnJHA_Submitted_UserIDChanging(value);
+				this.SendPropertyChanging();
+				this._JHA_Submitted_UserID = value;
+				this.SendPropertyChanged("JHA_Submitted_UserID");
+				this.OnJHA_Submitted_UserIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[COI Email Address]", Storage="_COI_Email_Address", DbType="VarChar(80) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string COI_Email_Address
+	{
+		get
+		{
+			return this._COI_Email_Address;
+		}
+		set
+		{
+			if ((this._COI_Email_Address != value))
+			{
+				this.OnCOI_Email_AddressChanging(value);
+				this.SendPropertyChanging();
+				this._COI_Email_Address = value;
+				this.SendPropertyChanged("COI_Email_Address");
+				this.OnCOI_Email_AddressChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[COI Received]", Storage="_COI_Received", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte COI_Received
+	{
+		get
+		{
+			return this._COI_Received;
+		}
+		set
+		{
+			if ((this._COI_Received != value))
+			{
+				this.OnCOI_ReceivedChanging(value);
+				this.SendPropertyChanging();
+				this._COI_Received = value;
+				this.SendPropertyChanged("COI_Received");
+				this.OnCOI_ReceivedChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[COI Not Needed]", Storage="_COI_Not_Needed", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte COI_Not_Needed
+	{
+		get
+		{
+			return this._COI_Not_Needed;
+		}
+		set
+		{
+			if ((this._COI_Not_Needed != value))
+			{
+				this.OnCOI_Not_NeededChanging(value);
+				this.SendPropertyChanging();
+				this._COI_Not_Needed = value;
+				this.SendPropertyChanged("COI_Not_Needed");
+				this.OnCOI_Not_NeededChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Work Location]", Storage="_Work_Location", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Work_Location
+	{
+		get
+		{
+			return this._Work_Location;
+		}
+		set
+		{
+			if ((this._Work_Location != value))
+			{
+				this.OnWork_LocationChanging(value);
+				this.SendPropertyChanging();
+				this._Work_Location = value;
+				this.SendPropertyChanged("Work_Location");
+				this.OnWork_LocationChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Work Location State]", Storage="_Work_Location_State", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public int Work_Location_State
+	{
+		get
+		{
+			return this._Work_Location_State;
+		}
+		set
+		{
+			if ((this._Work_Location_State != value))
+			{
+				this.OnWork_Location_StateChanging(value);
+				this.SendPropertyChanging();
+				this._Work_Location_State = value;
+				this.SendPropertyChanged("Work_Location_State");
+				this.OnWork_Location_StateChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Work Location Int]", Storage="_Work_Location_Int", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Work_Location_Int
+	{
+		get
+		{
+			return this._Work_Location_Int;
+		}
+		set
+		{
+			if ((this._Work_Location_Int != value))
+			{
+				this.OnWork_Location_IntChanging(value);
+				this.SendPropertyChanging();
+				this._Work_Location_Int = value;
+				this.SendPropertyChanged("Work_Location_Int");
+				this.OnWork_Location_IntChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Work Location Country]", Storage="_Work_Location_Country", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Work_Location_Country
+	{
+		get
+		{
+			return this._Work_Location_Country;
+		}
+		set
+		{
+			if ((this._Work_Location_Country != value))
+			{
+				this.OnWork_Location_CountryChanging(value);
+				this.SendPropertyChanging();
+				this._Work_Location_Country = value;
+				this.SendPropertyChanged("Work_Location_Country");
+				this.OnWork_Location_CountryChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Legal Contact Name]", Storage="_Legal_Contact_Name", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Legal_Contact_Name
+	{
+		get
+		{
+			return this._Legal_Contact_Name;
+		}
+		set
+		{
+			if ((this._Legal_Contact_Name != value))
+			{
+				this.OnLegal_Contact_NameChanging(value);
+				this.SendPropertyChanging();
+				this._Legal_Contact_Name = value;
+				this.SendPropertyChanged("Legal_Contact_Name");
+				this.OnLegal_Contact_NameChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Legal Contact Email]", Storage="_Legal_Contact_Email", DbType="VarChar(80) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Legal_Contact_Email
+	{
+		get
+		{
+			return this._Legal_Contact_Email;
+		}
+		set
+		{
+			if ((this._Legal_Contact_Email != value))
+			{
+				this.OnLegal_Contact_EmailChanging(value);
+				this.SendPropertyChanging();
+				this._Legal_Contact_Email = value;
+				this.SendPropertyChanged("Legal_Contact_Email");
+				this.OnLegal_Contact_EmailChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Invoice Requirements]", Storage="_Invoice_Requirements", DbType="VarChar(100) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Invoice_Requirements
+	{
+		get
+		{
+			return this._Invoice_Requirements;
+		}
+		set
+		{
+			if ((this._Invoice_Requirements != value))
+			{
+				this.OnInvoice_RequirementsChanging(value);
+				this.SendPropertyChanging();
+				this._Invoice_Requirements = value;
+				this.SendPropertyChanged("Invoice_Requirements");
+				this.OnInvoice_RequirementsChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Legal Contact Ph Number]", Storage="_Legal_Contact_Ph_Number", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Legal_Contact_Ph_Number
+	{
+		get
+		{
+			return this._Legal_Contact_Ph_Number;
+		}
+		set
+		{
+			if ((this._Legal_Contact_Ph_Number != value))
+			{
+				this.OnLegal_Contact_Ph_NumberChanging(value);
+				this.SendPropertyChanging();
+				this._Legal_Contact_Ph_Number = value;
+				this.SendPropertyChanged("Legal_Contact_Ph_Number");
+				this.OnLegal_Contact_Ph_NumberChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Legal Contact Fax]", Storage="_Legal_Contact_Fax", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Legal_Contact_Fax
+	{
+		get
+		{
+			return this._Legal_Contact_Fax;
+		}
+		set
+		{
+			if ((this._Legal_Contact_Fax != value))
+			{
+				this.OnLegal_Contact_FaxChanging(value);
+				this.SendPropertyChanging();
+				this._Legal_Contact_Fax = value;
+				this.SendPropertyChanged("Legal_Contact_Fax");
+				this.OnLegal_Contact_FaxChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Site Badge Rqured]", Storage="_Site_Badge_Rqured", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Site_Badge_Rqured
+	{
+		get
+		{
+			return this._Site_Badge_Rqured;
+		}
+		set
+		{
+			if ((this._Site_Badge_Rqured != value))
+			{
+				this.OnSite_Badge_RquredChanging(value);
+				this.SendPropertyChanging();
+				this._Site_Badge_Rqured = value;
+				this.SendPropertyChanged("Site_Badge_Rqured");
+				this.OnSite_Badge_RquredChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Safetey Questionnaire]", Storage="_Safetey_Questionnaire", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Safetey_Questionnaire
+	{
+		get
+		{
+			return this._Safetey_Questionnaire;
+		}
+		set
+		{
+			if ((this._Safetey_Questionnaire != value))
+			{
+				this.OnSafetey_QuestionnaireChanging(value);
+				this.SendPropertyChanging();
+				this._Safetey_Questionnaire = value;
+				this.SendPropertyChanged("Safetey_Questionnaire");
+				this.OnSafetey_QuestionnaireChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Background Check Required]", Storage="_Background_Check_Required", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Background_Check_Required
+	{
+		get
+		{
+			return this._Background_Check_Required;
+		}
+		set
+		{
+			if ((this._Background_Check_Required != value))
+			{
+				this.OnBackground_Check_RequiredChanging(value);
+				this.SendPropertyChanging();
+				this._Background_Check_Required = value;
+				this.SendPropertyChanged("Background_Check_Required");
+				this.OnBackground_Check_RequiredChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Drug_Alcohol Testing Req]", Storage="_Drug_Alcohol_Testing_Req", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Drug_Alcohol_Testing_Req
+	{
+		get
+		{
+			return this._Drug_Alcohol_Testing_Req;
+		}
+		set
+		{
+			if ((this._Drug_Alcohol_Testing_Req != value))
+			{
+				this.OnDrug_Alcohol_Testing_ReqChanging(value);
+				this.SendPropertyChanging();
+				this._Drug_Alcohol_Testing_Req = value;
+				this.SendPropertyChanged("Drug_Alcohol_Testing_Req");
+				this.OnDrug_Alcohol_Testing_ReqChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Site Badge Comments]", Storage="_Site_Badge_Comments", DbType="VarChar(100) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Site_Badge_Comments
+	{
+		get
+		{
+			return this._Site_Badge_Comments;
+		}
+		set
+		{
+			if ((this._Site_Badge_Comments != value))
+			{
+				this.OnSite_Badge_CommentsChanging(value);
+				this.SendPropertyChanging();
+				this._Site_Badge_Comments = value;
+				this.SendPropertyChanged("Site_Badge_Comments");
+				this.OnSite_Badge_CommentsChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Safety Comments]", Storage="_Safety_Comments", DbType="VarChar(100) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Safety_Comments
+	{
+		get
+		{
+			return this._Safety_Comments;
+		}
+		set
+		{
+			if ((this._Safety_Comments != value))
+			{
+				this.OnSafety_CommentsChanging(value);
+				this.SendPropertyChanging();
+				this._Safety_Comments = value;
+				this.SendPropertyChanged("Safety_Comments");
+				this.OnSafety_CommentsChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Background Checks Comments]", Storage="_Background_Checks_Comments", DbType="VarChar(100) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Background_Checks_Comments
+	{
+		get
+		{
+			return this._Background_Checks_Comments;
+		}
+		set
+		{
+			if ((this._Background_Checks_Comments != value))
+			{
+				this.OnBackground_Checks_CommentsChanging(value);
+				this.SendPropertyChanging();
+				this._Background_Checks_Comments = value;
+				this.SendPropertyChanged("Background_Checks_Comments");
+				this.OnBackground_Checks_CommentsChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Drug_Alcohol Testing Comments]", Storage="_Drug_Alcohol_Testing_Comments", DbType="VarChar(100) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Drug_Alcohol_Testing_Comments
+	{
+		get
+		{
+			return this._Drug_Alcohol_Testing_Comments;
+		}
+		set
+		{
+			if ((this._Drug_Alcohol_Testing_Comments != value))
+			{
+				this.OnDrug_Alcohol_Testing_CommentsChanging(value);
+				this.SendPropertyChanging();
+				this._Drug_Alcohol_Testing_Comments = value;
+				this.SendPropertyChanged("Drug_Alcohol_Testing_Comments");
+				this.OnDrug_Alcohol_Testing_CommentsChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Subcontractors", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Subcontractors
+	{
+		get
+		{
+			return this._Subcontractors;
+		}
+		set
+		{
+			if ((this._Subcontractors != value))
+			{
+				this.OnSubcontractorsChanging(value);
+				this.SendPropertyChanging();
+				this._Subcontractors = value;
+				this.SendPropertyChanged("Subcontractors");
+				this.OnSubcontractorsChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Estimated Subcontractors Hours]", Storage="_Estimated_Subcontractors_Hours", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Estimated_Subcontractors_Hours
+	{
+		get
+		{
+			return this._Estimated_Subcontractors_Hours;
+		}
+		set
+		{
+			if ((this._Estimated_Subcontractors_Hours != value))
+			{
+				this.OnEstimated_Subcontractors_HoursChanging(value);
+				this.SendPropertyChanging();
+				this._Estimated_Subcontractors_Hours = value;
+				this.SendPropertyChanged("Estimated_Subcontractors_Hours");
+				this.OnEstimated_Subcontractors_HoursChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Bid Bond Required]", Storage="_Bid_Bond_Required", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Bid_Bond_Required
+	{
+		get
+		{
+			return this._Bid_Bond_Required;
+		}
+		set
+		{
+			if ((this._Bid_Bond_Required != value))
+			{
+				this.OnBid_Bond_RequiredChanging(value);
+				this.SendPropertyChanging();
+				this._Bid_Bond_Required = value;
+				this.SendPropertyChanged("Bid_Bond_Required");
+				this.OnBid_Bond_RequiredChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Performance Bond Required]", Storage="_Performance_Bond_Required", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Performance_Bond_Required
+	{
+		get
+		{
+			return this._Performance_Bond_Required;
+		}
+		set
+		{
+			if ((this._Performance_Bond_Required != value))
+			{
+				this.OnPerformance_Bond_RequiredChanging(value);
+				this.SendPropertyChanging();
+				this._Performance_Bond_Required = value;
+				this.SendPropertyChanged("Performance_Bond_Required");
+				this.OnPerformance_Bond_RequiredChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Payment Bond Required]", Storage="_Payment_Bond_Required", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Payment_Bond_Required
+	{
+		get
+		{
+			return this._Payment_Bond_Required;
+		}
+		set
+		{
+			if ((this._Payment_Bond_Required != value))
+			{
+				this.OnPayment_Bond_RequiredChanging(value);
+				this.SendPropertyChanging();
+				this._Payment_Bond_Required = value;
+				this.SendPropertyChanged("Payment_Bond_Required");
+				this.OnPayment_Bond_RequiredChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Contract to be returned]", Storage="_Contract_to_be_returned", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public int Contract_to_be_returned
+	{
+		get
+		{
+			return this._Contract_to_be_returned;
+		}
+		set
+		{
+			if ((this._Contract_to_be_returned != value))
+			{
+				this.OnContract_to_be_returnedChanging(value);
+				this.SendPropertyChanging();
+				this._Contract_to_be_returned = value;
+				this.SendPropertyChanged("Contract_to_be_returned");
+				this.OnContract_to_be_returnedChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Contract Review Comments]", Storage="_Contract_Review_Comments", DbType="VarChar(100) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Contract_Review_Comments
+	{
+		get
+		{
+			return this._Contract_Review_Comments;
+		}
+		set
+		{
+			if ((this._Contract_Review_Comments != value))
+			{
+				this.OnContract_Review_CommentsChanging(value);
+				this.SendPropertyChanging();
+				this._Contract_Review_Comments = value;
+				this.SendPropertyChanged("Contract_Review_Comments");
+				this.OnContract_Review_CommentsChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Bid Bond Comments]", Storage="_Bid_Bond_Comments", DbType="VarChar(100) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Bid_Bond_Comments
+	{
+		get
+		{
+			return this._Bid_Bond_Comments;
+		}
+		set
+		{
+			if ((this._Bid_Bond_Comments != value))
+			{
+				this.OnBid_Bond_CommentsChanging(value);
+				this.SendPropertyChanging();
+				this._Bid_Bond_Comments = value;
+				this.SendPropertyChanged("Bid_Bond_Comments");
+				this.OnBid_Bond_CommentsChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Performance Bond Comments]", Storage="_Performance_Bond_Comments", DbType="VarChar(100) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Performance_Bond_Comments
+	{
+		get
+		{
+			return this._Performance_Bond_Comments;
+		}
+		set
+		{
+			if ((this._Performance_Bond_Comments != value))
+			{
+				this.OnPerformance_Bond_CommentsChanging(value);
+				this.SendPropertyChanging();
+				this._Performance_Bond_Comments = value;
+				this.SendPropertyChanged("Performance_Bond_Comments");
+				this.OnPerformance_Bond_CommentsChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Payment Bond Comments]", Storage="_Payment_Bond_Comments", DbType="VarChar(100) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Payment_Bond_Comments
+	{
+		get
+		{
+			return this._Payment_Bond_Comments;
+		}
+		set
+		{
+			if ((this._Payment_Bond_Comments != value))
+			{
+				this.OnPayment_Bond_CommentsChanging(value);
+				this.SendPropertyChanging();
+				this._Payment_Bond_Comments = value;
+				this.SendPropertyChanged("Payment_Bond_Comments");
+				this.OnPayment_Bond_CommentsChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[New Shermco Customer]", Storage="_New_Shermco_Customer", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte New_Shermco_Customer
+	{
+		get
+		{
+			return this._New_Shermco_Customer;
+		}
+		set
+		{
+			if ((this._New_Shermco_Customer != value))
+			{
+				this.OnNew_Shermco_CustomerChanging(value);
+				this.SendPropertyChanging();
+				this._New_Shermco_Customer = value;
+				this.SendPropertyChanged("New_Shermco_Customer");
+				this.OnNew_Shermco_CustomerChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Year became a Shermco Customer]", Storage="_Year_became_a_Shermco_Customer", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Year_became_a_Shermco_Customer
+	{
+		get
+		{
+			return this._Year_became_a_Shermco_Customer;
+		}
+		set
+		{
+			if ((this._Year_became_a_Shermco_Customer != value))
+			{
+				this.OnYear_became_a_Shermco_CustomerChanging(value);
+				this.SendPropertyChanging();
+				this._Year_became_a_Shermco_Customer = value;
+				this.SendPropertyChanged("Year_became_a_Shermco_Customer");
+				this.OnYear_became_a_Shermco_CustomerChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Select]", Storage="_Select", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Select
+	{
+		get
+		{
+			return this._Select;
+		}
+		set
+		{
+			if ((this._Select != value))
+			{
+				this.OnSelectChanging(value);
+				this.SendPropertyChanging();
+				this._Select = value;
+				this.SendPropertyChanged("Select");
+				this.OnSelectChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Turned in by Tech Date]", Storage="_Turned_in_by_Tech_Date", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public System.DateTime Turned_in_by_Tech_Date
+	{
+		get
+		{
+			return this._Turned_in_by_Tech_Date;
+		}
+		set
+		{
+			if ((this._Turned_in_by_Tech_Date != value))
+			{
+				this.OnTurned_in_by_Tech_DateChanging(value);
+				this.SendPropertyChanging();
+				this._Turned_in_by_Tech_Date = value;
+				this.SendPropertyChanged("Turned_in_by_Tech_Date");
+				this.OnTurned_in_by_Tech_DateChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Turned in by Tech UserID]", Storage="_Turned_in_by_Tech_UserID", DbType="VarChar(30) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Turned_in_by_Tech_UserID
+	{
+		get
+		{
+			return this._Turned_in_by_Tech_UserID;
+		}
+		set
+		{
+			if ((this._Turned_in_by_Tech_UserID != value))
+			{
+				this.OnTurned_in_by_Tech_UserIDChanging(value);
+				this.SendPropertyChanging();
+				this._Turned_in_by_Tech_UserID = value;
+				this.SendPropertyChanged("Turned_in_by_Tech_UserID");
+				this.OnTurned_in_by_Tech_UserIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Comment", DbType="VarChar(250) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Comment
+	{
+		get
+		{
+			return this._Comment;
+		}
+		set
+		{
+			if ((this._Comment != value))
+			{
+				this.OnCommentChanging(value);
+				this.SendPropertyChanging();
+				this._Comment = value;
+				this.SendPropertyChanged("Comment");
+				this.OnCommentChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TmpComplete", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte TmpComplete
+	{
+		get
+		{
+			return this._TmpComplete;
+		}
+		set
+		{
+			if ((this._TmpComplete != value))
+			{
+				this.OnTmpCompleteChanging(value);
+				this.SendPropertyChanging();
+				this._TmpComplete = value;
+				this.SendPropertyChanged("TmpComplete");
+				this.OnTmpCompleteChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TmpPartial", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte TmpPartial
+	{
+		get
+		{
+			return this._TmpPartial;
+		}
+		set
+		{
+			if ((this._TmpPartial != value))
+			{
+				this.OnTmpPartialChanging(value);
+				this.SendPropertyChanging();
+				this._TmpPartial = value;
+				this.SendPropertyChanged("TmpPartial");
+				this.OnTmpPartialChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TmpPE", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte TmpPE
+	{
+		get
+		{
+			return this._TmpPE;
+		}
+		set
+		{
+			if ((this._TmpPE != value))
+			{
+				this.OnTmpPEChanging(value);
+				this.SendPropertyChanging();
+				this._TmpPE = value;
+				this.SendPropertyChanged("TmpPE");
+				this.OnTmpPEChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TmpSynced", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte TmpSynced
+	{
+		get
+		{
+			return this._TmpSynced;
+		}
+		set
+		{
+			if ((this._TmpSynced != value))
+			{
+				this.OnTmpSyncedChanging(value);
+				this.SendPropertyChanging();
+				this._TmpSynced = value;
+				this.SendPropertyChanged("TmpSynced");
+				this.OnTmpSyncedChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TmpHandwritten", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte TmpHandwritten
+	{
+		get
+		{
+			return this._TmpHandwritten;
+		}
+		set
+		{
+			if ((this._TmpHandwritten != value))
+			{
+				this.OnTmpHandwrittenChanging(value);
+				this.SendPropertyChanging();
+				this._TmpHandwritten = value;
+				this.SendPropertyChanged("TmpHandwritten");
+				this.OnTmpHandwrittenChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TmpInbox", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte TmpInbox
+	{
+		get
+		{
+			return this._TmpInbox;
+		}
+		set
+		{
+			if ((this._TmpInbox != value))
+			{
+				this.OnTmpInboxChanging(value);
+				this.SendPropertyChanging();
+				this._TmpInbox = value;
+				this.SendPropertyChanged("TmpInbox");
+				this.OnTmpInboxChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TmpWord", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte TmpWord
+	{
+		get
+		{
+			return this._TmpWord;
+		}
+		set
+		{
+			if ((this._TmpWord != value))
+			{
+				this.OnTmpWordChanging(value);
+				this.SendPropertyChanging();
+				this._TmpWord = value;
+				this.SendPropertyChanged("TmpWord");
+				this.OnTmpWordChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TmpPDBMaster", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte TmpPDBMaster
+	{
+		get
+		{
+			return this._TmpPDBMaster;
+		}
+		set
+		{
+			if ((this._TmpPDBMaster != value))
+			{
+				this.OnTmpPDBMasterChanging(value);
+				this.SendPropertyChanging();
+				this._TmpPDBMaster = value;
+				this.SendPropertyChanged("TmpPDBMaster");
+				this.OnTmpPDBMasterChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TmpOther", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte TmpOther
+	{
+		get
+		{
+			return this._TmpOther;
+		}
+		set
+		{
+			if ((this._TmpOther != value))
+			{
+				this.OnTmpOtherChanging(value);
+				this.SendPropertyChanging();
+				this._TmpOther = value;
+				this.SendPropertyChanged("TmpOther");
+				this.OnTmpOtherChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TmpOtherText", DbType="VarChar(100) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string TmpOtherText
+	{
+		get
+		{
+			return this._TmpOtherText;
+		}
+		set
+		{
+			if ((this._TmpOtherText != value))
+			{
+				this.OnTmpOtherTextChanging(value);
+				this.SendPropertyChanging();
+				this._TmpOtherText = value;
+				this.SendPropertyChanged("TmpOtherText");
+				this.OnTmpOtherTextChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Turned in By Emp_ No_]", Storage="_Turned_in_By_Emp__No_", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Turned_in_By_Emp__No_
+	{
+		get
+		{
+			return this._Turned_in_By_Emp__No_;
+		}
+		set
+		{
+			if ((this._Turned_in_By_Emp__No_ != value))
+			{
+				this.OnTurned_in_By_Emp__No_Changing(value);
+				this.SendPropertyChanging();
+				this._Turned_in_By_Emp__No_ = value;
+				this.SendPropertyChanged("Turned_in_By_Emp__No_");
+				this.OnTurned_in_By_Emp__No_Changed();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Received", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Received
+	{
+		get
+		{
+			return this._Received;
+		}
+		set
+		{
+			if ((this._Received != value))
+			{
+				this.OnReceivedChanging(value);
+				this.SendPropertyChanging();
+				this._Received = value;
+				this.SendPropertyChanged("Received");
+				this.OnReceivedChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[In Progress]", Storage="_In_Progress", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte In_Progress
+	{
+		get
+		{
+			return this._In_Progress;
+		}
+		set
+		{
+			if ((this._In_Progress != value))
+			{
+				this.OnIn_ProgressChanging(value);
+				this.SendPropertyChanging();
+				this._In_Progress = value;
+				this.SendPropertyChanged("In_Progress");
+				this.OnIn_ProgressChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Certified Payroll Required]", Storage="_Certified_Payroll_Required", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Certified_Payroll_Required
+	{
+		get
+		{
+			return this._Certified_Payroll_Required;
+		}
+		set
+		{
+			if ((this._Certified_Payroll_Required != value))
+			{
+				this.OnCertified_Payroll_RequiredChanging(value);
+				this.SendPropertyChanging();
+				this._Certified_Payroll_Required = value;
+				this.SendPropertyChanged("Certified_Payroll_Required");
+				this.OnCertified_Payroll_RequiredChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[No Report Required]", Storage="_No_Report_Required", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte No_Report_Required
+	{
+		get
+		{
+			return this._No_Report_Required;
+		}
+		set
+		{
+			if ((this._No_Report_Required != value))
+			{
+				this.OnNo_Report_RequiredChanging(value);
+				this.SendPropertyChanging();
+				this._No_Report_Required = value;
+				this.SendPropertyChanged("No_Report_Required");
+				this.OnNo_Report_RequiredChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[No Report Required Reason]", Storage="_No_Report_Required_Reason", DbType="VarChar(100) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string No_Report_Required_Reason
+	{
+		get
+		{
+			return this._No_Report_Required_Reason;
+		}
+		set
+		{
+			if ((this._No_Report_Required_Reason != value))
+			{
+				this.OnNo_Report_Required_ReasonChanging(value);
+				this.SendPropertyChanging();
+				this._No_Report_Required_Reason = value;
+				this.SendPropertyChanged("No_Report_Required_Reason");
+				this.OnNo_Report_Required_ReasonChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SalesFollowUp", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte SalesFollowUp
+	{
+		get
+		{
+			return this._SalesFollowUp;
+		}
+		set
+		{
+			if ((this._SalesFollowUp != value))
+			{
+				this.OnSalesFollowUpChanging(value);
+				this.SendPropertyChanging();
+				this._SalesFollowUp = value;
+				this.SendPropertyChanged("SalesFollowUp");
+				this.OnSalesFollowUpChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[SalesFollowUp Email Date]", Storage="_SalesFollowUp_Email_Date", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public System.DateTime SalesFollowUp_Email_Date
+	{
+		get
+		{
+			return this._SalesFollowUp_Email_Date;
+		}
+		set
+		{
+			if ((this._SalesFollowUp_Email_Date != value))
+			{
+				this.OnSalesFollowUp_Email_DateChanging(value);
+				this.SendPropertyChanging();
+				this._SalesFollowUp_Email_Date = value;
+				this.SendPropertyChanged("SalesFollowUp_Email_Date");
+				this.OnSalesFollowUp_Email_DateChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[SalesFollowUp Comment]", Storage="_SalesFollowUp_Comment", DbType="VarChar(100) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string SalesFollowUp_Comment
+	{
+		get
+		{
+			return this._SalesFollowUp_Comment;
+		}
+		set
+		{
+			if ((this._SalesFollowUp_Comment != value))
+			{
+				this.OnSalesFollowUp_CommentChanging(value);
+				this.SendPropertyChanging();
+				this._SalesFollowUp_Comment = value;
+				this.SendPropertyChanged("SalesFollowUp_Comment");
+				this.OnSalesFollowUp_CommentChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[SalesFollowUp Acknowledge]", Storage="_SalesFollowUp_Acknowledge", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte SalesFollowUp_Acknowledge
+	{
+		get
+		{
+			return this._SalesFollowUp_Acknowledge;
+		}
+		set
+		{
+			if ((this._SalesFollowUp_Acknowledge != value))
+			{
+				this.OnSalesFollowUp_AcknowledgeChanging(value);
+				this.SendPropertyChanging();
+				this._SalesFollowUp_Acknowledge = value;
+				this.SendPropertyChanged("SalesFollowUp_Acknowledge");
+				this.OnSalesFollowUp_AcknowledgeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[SalesFollowUp Ack Date]", Storage="_SalesFollowUp_Ack_Date", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public System.DateTime SalesFollowUp_Ack_Date
+	{
+		get
+		{
+			return this._SalesFollowUp_Ack_Date;
+		}
+		set
+		{
+			if ((this._SalesFollowUp_Ack_Date != value))
+			{
+				this.OnSalesFollowUp_Ack_DateChanging(value);
+				this.SendPropertyChanging();
+				this._SalesFollowUp_Ack_Date = value;
+				this.SendPropertyChanged("SalesFollowUp_Ack_Date");
+				this.OnSalesFollowUp_Ack_DateChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[SalesFollowUp Ack Userid]", Storage="_SalesFollowUp_Ack_Userid", DbType="VarChar(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string SalesFollowUp_Ack_Userid
+	{
+		get
+		{
+			return this._SalesFollowUp_Ack_Userid;
+		}
+		set
+		{
+			if ((this._SalesFollowUp_Ack_Userid != value))
+			{
+				this.OnSalesFollowUp_Ack_UseridChanging(value);
+				this.SendPropertyChanging();
+				this._SalesFollowUp_Ack_Userid = value;
+				this.SendPropertyChanged("SalesFollowUp_Ack_Userid");
+				this.OnSalesFollowUp_Ack_UseridChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Sent to Allied]", Storage="_Sent_to_Allied", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public System.DateTime Sent_to_Allied
+	{
+		get
+		{
+			return this._Sent_to_Allied;
+		}
+		set
+		{
+			if ((this._Sent_to_Allied != value))
+			{
+				this.OnSent_to_AlliedChanging(value);
+				this.SendPropertyChanging();
+				this._Sent_to_Allied = value;
+				this.SendPropertyChanged("Sent_to_Allied");
+				this.OnSent_to_AlliedChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Sent to Allied UserID]", Storage="_Sent_to_Allied_UserID", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Sent_to_Allied_UserID
+	{
+		get
+		{
+			return this._Sent_to_Allied_UserID;
+		}
+		set
+		{
+			if ((this._Sent_to_Allied_UserID != value))
+			{
+				this.OnSent_to_Allied_UserIDChanging(value);
+				this.SendPropertyChanging();
+				this._Sent_to_Allied_UserID = value;
+				this.SendPropertyChanged("Sent_to_Allied_UserID");
+				this.OnSent_to_Allied_UserIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TmpLetterOnly", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte TmpLetterOnly
+	{
+		get
+		{
+			return this._TmpLetterOnly;
+		}
+		set
+		{
+			if ((this._TmpLetterOnly != value))
+			{
+				this.OnTmpLetterOnlyChanging(value);
+				this.SendPropertyChanging();
+				this._TmpLetterOnly = value;
+				this.SendPropertyChanged("TmpLetterOnly");
+				this.OnTmpLetterOnlyChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TmpIRData", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte TmpIRData
+	{
+		get
+		{
+			return this._TmpIRData;
+		}
+		set
+		{
+			if ((this._TmpIRData != value))
+			{
+				this.OnTmpIRDataChanging(value);
+				this.SendPropertyChanging();
+				this._TmpIRData = value;
+				this.SendPropertyChanged("TmpIRData");
+				this.OnTmpIRDataChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Report Data Format]", Storage="_Report_Data_Format", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public int Report_Data_Format
+	{
+		get
+		{
+			return this._Report_Data_Format;
+		}
+		set
+		{
+			if ((this._Report_Data_Format != value))
+			{
+				this.OnReport_Data_FormatChanging(value);
+				this.SendPropertyChanging();
+				this._Report_Data_Format = value;
+				this.SendPropertyChanged("Report_Data_Format");
+				this.OnReport_Data_FormatChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[RTS Relay Data]", Storage="_RTS_Relay_Data", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public int RTS_Relay_Data
+	{
+		get
+		{
+			return this._RTS_Relay_Data;
+		}
+		set
+		{
+			if ((this._RTS_Relay_Data != value))
+			{
+				this.OnRTS_Relay_DataChanging(value);
+				this.SendPropertyChanging();
+				this._RTS_Relay_Data = value;
+				this.SendPropertyChanged("RTS_Relay_Data");
+				this.OnRTS_Relay_DataChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[CT Data Saved]", Storage="_CT_Data_Saved", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public int CT_Data_Saved
+	{
+		get
+		{
+			return this._CT_Data_Saved;
+		}
+		set
+		{
+			if ((this._CT_Data_Saved != value))
+			{
+				this.OnCT_Data_SavedChanging(value);
+				this.SendPropertyChanging();
+				this._CT_Data_Saved = value;
+				this.SendPropertyChanged("CT_Data_Saved");
+				this.OnCT_Data_SavedChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Partial Discharge]", Storage="_Partial_Discharge", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public int Partial_Discharge
+	{
+		get
+		{
+			return this._Partial_Discharge;
+		}
+		set
+		{
+			if ((this._Partial_Discharge != value))
+			{
+				this.OnPartial_DischargeChanging(value);
+				this.SendPropertyChanging();
+				this._Partial_Discharge = value;
+				this.SendPropertyChanged("Partial_Discharge");
+				this.OnPartial_DischargeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Oil Sample]", Storage="_Oil_Sample", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public int Oil_Sample
+	{
+		get
+		{
+			return this._Oil_Sample;
+		}
+		set
+		{
+			if ((this._Oil_Sample != value))
+			{
+				this.OnOil_SampleChanging(value);
+				this.SendPropertyChanging();
+				this._Oil_Sample = value;
+				this.SendPropertyChanged("Oil_Sample");
+				this.OnOil_SampleChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Oil Sample Follow UP]", Storage="_Oil_Sample_Follow_UP", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public int Oil_Sample_Follow_UP
+	{
+		get
+		{
+			return this._Oil_Sample_Follow_UP;
+		}
+		set
+		{
+			if ((this._Oil_Sample_Follow_UP != value))
+			{
+				this.OnOil_Sample_Follow_UPChanging(value);
+				this.SendPropertyChanging();
+				this._Oil_Sample_Follow_UP = value;
+				this.SendPropertyChanged("Oil_Sample_Follow_UP");
+				this.OnOil_Sample_Follow_UPChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Bus Bolt Torque]", Storage="_Bus_Bolt_Torque", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Bus_Bolt_Torque
+	{
+		get
+		{
+			return this._Bus_Bolt_Torque;
+		}
+		set
+		{
+			if ((this._Bus_Bolt_Torque != value))
+			{
+				this.OnBus_Bolt_TorqueChanging(value);
+				this.SendPropertyChanging();
+				this._Bus_Bolt_Torque = value;
+				this.SendPropertyChanged("Bus_Bolt_Torque");
+				this.OnBus_Bolt_TorqueChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[DC Hipot]", Storage="_DC_Hipot", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte DC_Hipot
+	{
+		get
+		{
+			return this._DC_Hipot;
+		}
+		set
+		{
+			if ((this._DC_Hipot != value))
+			{
+				this.OnDC_HipotChanging(value);
+				this.SendPropertyChanging();
+				this._DC_Hipot = value;
+				this.SendPropertyChanged("DC_Hipot");
+				this.OnDC_HipotChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Decal Color Codes]", Storage="_Decal_Color_Codes", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Decal_Color_Codes
+	{
+		get
+		{
+			return this._Decal_Color_Codes;
+		}
+		set
+		{
+			if ((this._Decal_Color_Codes != value))
+			{
+				this.OnDecal_Color_CodesChanging(value);
+				this.SendPropertyChanging();
+				this._Decal_Color_Codes = value;
+				this.SendPropertyChanged("Decal_Color_Codes");
+				this.OnDecal_Color_CodesChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DLRO", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte DLRO
+	{
+		get
+		{
+			return this._DLRO;
+		}
+		set
+		{
+			if ((this._DLRO != value))
+			{
+				this.OnDLROChanging(value);
+				this.SendPropertyChanging();
+				this._DLRO = value;
+				this.SendPropertyChanged("DLRO");
+				this.OnDLROChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Doble", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Doble
+	{
+		get
+		{
+			return this._Doble;
+		}
+		set
+		{
+			if ((this._Doble != value))
+			{
+				this.OnDobleChanging(value);
+				this.SendPropertyChanging();
+				this._Doble = value;
+				this.SendPropertyChanged("Doble");
+				this.OnDobleChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Ground Fault Systems]", Storage="_Ground_Fault_Systems", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Ground_Fault_Systems
+	{
+		get
+		{
+			return this._Ground_Fault_Systems;
+		}
+		set
+		{
+			if ((this._Ground_Fault_Systems != value))
+			{
+				this.OnGround_Fault_SystemsChanging(value);
+				this.SendPropertyChanging();
+				this._Ground_Fault_Systems = value;
+				this.SendPropertyChanged("Ground_Fault_Systems");
+				this.OnGround_Fault_SystemsChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Grounding & Ground Electrode]", Storage="_Grounding___Ground_Electrode", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Grounding___Ground_Electrode
+	{
+		get
+		{
+			return this._Grounding___Ground_Electrode;
+		}
+		set
+		{
+			if ((this._Grounding___Ground_Electrode != value))
+			{
+				this.OnGrounding___Ground_ElectrodeChanging(value);
+				this.SendPropertyChanging();
+				this._Grounding___Ground_Electrode = value;
+				this.SendPropertyChanged("Grounding___Ground_Electrode");
+				this.OnGrounding___Ground_ElectrodeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Insulation Resistance]", Storage="_Insulation_Resistance", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Insulation_Resistance
+	{
+		get
+		{
+			return this._Insulation_Resistance;
+		}
+		set
+		{
+			if ((this._Insulation_Resistance != value))
+			{
+				this.OnInsulation_ResistanceChanging(value);
+				this.SendPropertyChanging();
+				this._Insulation_Resistance = value;
+				this.SendPropertyChanged("Insulation_Resistance");
+				this.OnInsulation_ResistanceChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[NFPA-99]", Storage="_NFPA_99", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte NFPA_99
+	{
+		get
+		{
+			return this._NFPA_99;
+		}
+		set
+		{
+			if ((this._NFPA_99 != value))
+			{
+				this.OnNFPA_99Changing(value);
+				this.SendPropertyChanging();
+				this._NFPA_99 = value;
+				this.SendPropertyChanged("NFPA_99");
+				this.OnNFPA_99Changed();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Oil Tests]", Storage="_Oil_Tests", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Oil_Tests
+	{
+		get
+		{
+			return this._Oil_Tests;
+		}
+		set
+		{
+			if ((this._Oil_Tests != value))
+			{
+				this.OnOil_TestsChanging(value);
+				this.SendPropertyChanging();
+				this._Oil_Tests = value;
+				this.SendPropertyChanged("Oil_Tests");
+				this.OnOil_TestsChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Partial Discharge B]", Storage="_Partial_Discharge_B", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Partial_Discharge_B
+	{
+		get
+		{
+			return this._Partial_Discharge_B;
+		}
+		set
+		{
+			if ((this._Partial_Discharge_B != value))
+			{
+				this.OnPartial_Discharge_BChanging(value);
+				this.SendPropertyChanging();
+				this._Partial_Discharge_B = value;
+				this.SendPropertyChanged("Partial_Discharge_B");
+				this.OnPartial_Discharge_BChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[PCB Info]", Storage="_PCB_Info", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte PCB_Info
+	{
+		get
+		{
+			return this._PCB_Info;
+		}
+		set
+		{
+			if ((this._PCB_Info != value))
+			{
+				this.OnPCB_InfoChanging(value);
+				this.SendPropertyChanging();
+				this._PCB_Info = value;
+				this.SendPropertyChanged("PCB_Info");
+				this.OnPCB_InfoChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Protective Relays]", Storage="_Protective_Relays", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Protective_Relays
+	{
+		get
+		{
+			return this._Protective_Relays;
+		}
+		set
+		{
+			if ((this._Protective_Relays != value))
+			{
+				this.OnProtective_RelaysChanging(value);
+				this.SendPropertyChanging();
+				this._Protective_Relays = value;
+				this.SendPropertyChanged("Protective_Relays");
+				this.OnProtective_RelaysChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Thermograpic(IR)]", Storage="_Thermograpic_IR_", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Thermograpic_IR_
+	{
+		get
+		{
+			return this._Thermograpic_IR_;
+		}
+		set
+		{
+			if ((this._Thermograpic_IR_ != value))
+			{
+				this.OnThermograpic_IR_Changing(value);
+				this.SendPropertyChanging();
+				this._Thermograpic_IR_ = value;
+				this.SendPropertyChanged("Thermograpic_IR_");
+				this.OnThermograpic_IR_Changed();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TTR", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte TTR
+	{
+		get
+		{
+			return this._TTR;
+		}
+		set
+		{
+			if ((this._TTR != value))
+			{
+				this.OnTTRChanging(value);
+				this.SendPropertyChanging();
+				this._TTR = value;
+				this.SendPropertyChanged("TTR");
+				this.OnTTRChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Ultrasonic Testing]", Storage="_Ultrasonic_Testing", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte Ultrasonic_Testing
+	{
+		get
+		{
+			return this._Ultrasonic_Testing;
+		}
+		set
+		{
+			if ((this._Ultrasonic_Testing != value))
+			{
+				this.OnUltrasonic_TestingChanging(value);
+				this.SendPropertyChanging();
+				this._Ultrasonic_Testing = value;
+				this.SendPropertyChanged("Ultrasonic_Testing");
+				this.OnUltrasonic_TestingChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[No Testing Done]", Storage="_No_Testing_Done", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte No_Testing_Done
+	{
+		get
+		{
+			return this._No_Testing_Done;
+		}
+		set
+		{
+			if ((this._No_Testing_Done != value))
+			{
+				this.OnNo_Testing_DoneChanging(value);
+				this.SendPropertyChanging();
+				this._No_Testing_Done = value;
+				this.SendPropertyChanged("No_Testing_Done");
+				this.OnNo_Testing_DoneChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Rejected Date]", Storage="_Rejected_Date", DbType="DateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public System.DateTime Rejected_Date
+	{
+		get
+		{
+			return this._Rejected_Date;
+		}
+		set
+		{
+			if ((this._Rejected_Date != value))
+			{
+				this.OnRejected_DateChanging(value);
+				this.SendPropertyChanging();
+				this._Rejected_Date = value;
+				this.SendPropertyChanged("Rejected_Date");
+				this.OnRejected_DateChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Rejected Reason]", Storage="_Rejected_Reason", DbType="VarChar(100) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Rejected_Reason
+	{
+		get
+		{
+			return this._Rejected_Reason;
+		}
+		set
+		{
+			if ((this._Rejected_Reason != value))
+			{
+				this.OnRejected_ReasonChanging(value);
+				this.SendPropertyChanging();
+				this._Rejected_Reason = value;
+				this.SendPropertyChanged("Rejected_Reason");
+				this.OnRejected_ReasonChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Rejected", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Rejected
+	{
+		get
+		{
+			return this._Rejected;
+		}
+		set
+		{
+			if ((this._Rejected != value))
+			{
+				this.OnRejectedChanging(value);
+				this.SendPropertyChanging();
+				this._Rejected = value;
+				this.SendPropertyChanged("Rejected");
+				this.OnRejectedChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IROnly", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte IROnly
+	{
+		get
+		{
+			return this._IROnly;
+		}
+		set
+		{
+			if ((this._IROnly != value))
+			{
+				this.OnIROnlyChanging(value);
+				this.SendPropertyChanging();
+				this._IROnly = value;
+				this.SendPropertyChanged("IROnly");
+				this.OnIROnlyChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IRonFinalReport", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte IRonFinalReport
+	{
+		get
+		{
+			return this._IRonFinalReport;
+		}
+		set
+		{
+			if ((this._IRonFinalReport != value))
+			{
+				this.OnIRonFinalReportChanging(value);
+				this.SendPropertyChanging();
+				this._IRonFinalReport = value;
+				this.SendPropertyChanged("IRonFinalReport");
+				this.OnIRonFinalReportChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email", DbType="VarChar(50) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string Email
+	{
+		get
+		{
+			return this._Email;
+		}
+		set
+		{
+			if ((this._Email != value))
+			{
+				this.OnEmailChanging(value);
+				this.SendPropertyChanging();
+				this._Email = value;
+				this.SendPropertyChanged("Email");
+				this.OnEmailChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[No_ of Copies]", Storage="_No__of_Copies", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public int No__of_Copies
+	{
+		get
+		{
+			return this._No__of_Copies;
+		}
+		set
+		{
+			if ((this._No__of_Copies != value))
+			{
+				this.OnNo__of_CopiesChanging(value);
+				this.SendPropertyChanging();
+				this._No__of_Copies = value;
+				this.SendPropertyChanged("No__of_Copies");
+				this.OnNo__of_CopiesChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[General Dropbox]", Storage="_General_Dropbox", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte General_Dropbox
+	{
+		get
+		{
+			return this._General_Dropbox;
+		}
+		set
+		{
+			if ((this._General_Dropbox != value))
+			{
+				this.OnGeneral_DropboxChanging(value);
+				this.SendPropertyChanging();
+				this._General_Dropbox = value;
+				this.SendPropertyChanged("General_Dropbox");
+				this.OnGeneral_DropboxChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[General Dropbox No]", Storage="_General_Dropbox_No", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte General_Dropbox_No
+	{
+		get
+		{
+			return this._General_Dropbox_No;
+		}
+		set
+		{
+			if ((this._General_Dropbox_No != value))
+			{
+				this.OnGeneral_Dropbox_NoChanging(value);
+				this.SendPropertyChanging();
+				this._General_Dropbox_No = value;
+				this.SendPropertyChanged("General_Dropbox_No");
+				this.OnGeneral_Dropbox_NoChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[TmpIRData No]", Storage="_TmpIRData_No", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte TmpIRData_No
+	{
+		get
+		{
+			return this._TmpIRData_No;
+		}
+		set
+		{
+			if ((this._TmpIRData_No != value))
+			{
+				this.OnTmpIRData_NoChanging(value);
+				this.SendPropertyChanging();
+				this._TmpIRData_No = value;
+				this.SendPropertyChanged("TmpIRData_No");
+				this.OnTmpIRData_NoChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PDBYes", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte PDBYes
+	{
+		get
+		{
+			return this._PDBYes;
+		}
+		set
+		{
+			if ((this._PDBYes != value))
+			{
+				this.OnPDBYesChanging(value);
+				this.SendPropertyChanging();
+				this._PDBYes = value;
+				this.SendPropertyChanged("PDBYes");
+				this.OnPDBYesChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PDBNo", DbType="TinyInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+	public byte PDBNo
+	{
+		get
+		{
+			return this._PDBNo;
+		}
+		set
+		{
+			if ((this._PDBNo != value))
+			{
+				this.OnPDBNoChanging(value);
+				this.SendPropertyChanging();
+				this._PDBNo = value;
+				this.SendPropertyChanged("PDBNo");
+				this.OnPDBNoChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PDBComment", DbType="VarChar(100) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+	public string PDBComment
+	{
+		get
+		{
+			return this._PDBComment;
+		}
+		set
+		{
+			if ((this._PDBComment != value))
+			{
+				this.OnPDBCommentChanging(value);
+				this.SendPropertyChanging();
+				this._PDBComment = value;
+				this.SendPropertyChanged("PDBComment");
+				this.OnPDBCommentChanged();
 			}
 		}
 	}

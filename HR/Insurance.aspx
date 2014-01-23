@@ -75,7 +75,7 @@
                             <li><a  href="/Files/Library/Human Resources/Insurance Benefits/Rx Home Delivery.pdf"  target="_DocView"  id="A22" >How to use RX Home Delivery</a></li>
                             <li><a  href="/Files/Library/Human Resources/Insurance Benefits/Teladoc.pdf"  target="_DocView"  id="A13" >Teledoc Phone or Video Based Doctor Consults</a></li>
                             <li><a  href="/Files/Library/Human Resources/Insurance Benefits/WhiteGlove English - Aetna.pdf"  target="_DocView"  id="A12" >White Glove - Healthcare at Home, Office or Online</a></li>
-                            <li><a  href="/Files/Library/Human Resources/Insurance Benefits/EAP Wallet Card 26 03 347 1.pdf"  target="_DocView"  id="A23" >How to use Aetna EAP Program</a></li>
+                            
                             <li><a  href="http://www.aetnamedia.com/MPE"  target="_DocView"  id="A2" >How to Estimate your Payments</a></li>
                             <li><a  href="http://www.aetnamedia.com/membertools" target="_DocView"   id="A3" >How to Use Aetna Navigator</a></li>
                             <li><a  href="http://www.aetna.com/docfind/home.do" target="_DocView"   id="A4" >Online Doc Find directory</a></li>
@@ -90,7 +90,7 @@
                             <li><a  href="/Files/Library/Human Resources/Insurance Benefits/Smoking_Cessation.pdf"  target="_DocView"  id="A38" >Smoking – You Really can Quit smoking</a></li>
                             <li><a  href="/Files/Library/Human Resources/Insurance Benefits/weight_management.pdf" target="_DocView"  id="A39" >Weight Management – Five Tips for Success to Stay at Healthy Weight </a></li>
                             <li><a  href="/Files/Library/Human Resources/Insurance Benefits/Member Simple Steps Brochure.pdf" target="_DocView"  id="A40" >Simple Steps to a Healthier Life Online Wellness Coaching Sessions </a></li>
-
+                            <li><a  href="/Files/Library/Human Resources/Insurance Benefits/EAP Wallet Card 26 03 347 1.pdf"  target="_DocView"  id="A23" >Aetna’s Employee Assistance Program</a></li>
                         </ul>                    
                 </li>
                 

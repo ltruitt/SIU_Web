@@ -231,14 +231,36 @@ public class SiuDao : WebService
     // Support For Expense Entry Form                              //
     //////////////////////////////////////////////////////////////
     [WebMethod(EnableSession = true)]
-    public string GetExpenseOHAccts()
+    public string bbb66655()
     {
         string ohList = string.Empty;
 
+        ///////////////////////////
+        // Check For Admin Priv. //
+        ///////////////////////////
+        StringCollection sessionVar = (StringCollection)Session["UserGroups"];
+
+
+        //////////////////////////////////////
+        // Look Up Payroll Expense Accounts //
+        //////////////////////////////////////
         foreach (var oh in SqlServer_Impl.GetExpenseOHAccts())
         {
             if (ohList.Length > 0) ohList += "\r";
             ohList += oh.AccountDesc;
+        }
+
+        //////////////////////////////////////
+        // Add Approved GL Expense Accounts //
+        // Requires Photo Proof             //
+        //////////////////////////////////////
+        if ( sessionVar != null && sessionVar.Contains("ELO_EXP_TEST"))
+        {
+            foreach (var oh in SqlServer_Impl.GetExpenseOHAccts2())
+            {
+                if (ohList.Length > 0) ohList += "\r";
+                ohList += oh.AccountDesc + "*";
+            }            
         }
 
         return ohList;
@@ -4202,6 +4224,33 @@ public class SqlServer_Impl : WebService
         }
         return new List<Shermco_Employee>();
     }
+    public static List<Shermco_Employee> Get_Non_Employees()
+    {
+        try
+        {
+            SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
+
+            TransactionOptions to = new TransactionOptions
+            {
+                IsolationLevel = IsolationLevel.ReadUncommitted
+            };
+
+            using (new TransactionScope(TransactionScopeOption.RequiresNew, to))
+            {
+
+                return (from emplist in nvDb.Shermco_Employees
+                        where emplist.Status == 0 && emplist.Blocked == 0 && emplist.Temp_Block == 0 && 
+                        (emplist.Contractor == 1 || emplist.Temporary_Employee == 1 || emplist.Co_Op == 1 || emplist.Part_Time == 1 || emplist.Temp_to_Perm == 1 )
+                        select emplist
+                    ).ToList();
+            }
+        }
+        catch (Exception ex)
+        {
+            LogDebug("GetActiveEmployees", ex.Message);
+        }
+        return new List<Shermco_Employee>();
+    }
     public static List<SIU_Emp_Ids> GetAutoCompleteActiveEmployees()
     {
         try
@@ -4767,6 +4816,36 @@ public class SqlServer_Impl : WebService
         }
         return new List<SIU_Oh_Exp_Accounts>();
     }
+
+    public static List<SIU_Oh_Exp_Accounts> GetExpenseOHAccts2()
+    {
+        try
+        {
+            SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
+
+            TransactionOptions to = new TransactionOptions
+            {
+                IsolationLevel = IsolationLevel.ReadUncommitted
+            };
+
+            using (new TransactionScope(TransactionScopeOption.Required, to))
+            {
+
+                return ( from data in nvDb.Shermco_G_L_Accounts
+                        join sList in  nvDb.SIU_Allowed_OH_Accts on data.No_ equals sList.GlAccountNo
+                        orderby data.No_
+                         select new SIU_Oh_Exp_Accounts { Liab_Account = data.No_, Exp_Account = data.No_, Code = data.Search_Name, Desc = data.Search_Name }
+                ).ToList();                    
+                    
+            }
+        }
+        catch (Exception ex)
+        {
+            LogDebug("GetExpenseOHAccts2", ex.Message);
+        }
+        return new List<SIU_Oh_Exp_Accounts>();
+    }
+
 
     public static List<SIU_Oh_Accounts> GetTimeOhAccounts()
     {
