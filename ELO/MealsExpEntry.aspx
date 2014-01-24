@@ -122,7 +122,7 @@
                 </div>               
 
                 <%--<input type="file"  name="image" accept="image/*" capture>--%>
-                <%--<input type="file" name="photo" accept="image/*" capture="camera">--%>
+                <input type="file" name="photo" accept="image/*" capture="camera">
                     
                    
                 <%--------------------%>                    
