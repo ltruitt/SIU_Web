@@ -1,4 +1,5 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteMaster2.master" AutoEventWireup="true" CodeFile="MealsExpEntry.aspx.cs" Inherits="ELO_MealsExpEntry" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteMaster2.master" AutoEventWireup="true" CodeFile="MealsExpEntry2.aspx.cs" Inherits="ELO_MealsExpEntry" %>
+
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
     <title>Meals and Expenses Entry</title>
@@ -10,18 +11,25 @@
     <script type="text/javascript" src="/Scripts/jtable.2.2.1/jquery.jtable.js">                             </script>        
     <script type="text/javascript" src="/Scripts/jtable.2.2.1/extensions/jquery.jtable.aspnetpagemethods.js"></script> 
      
-    <script type="text/javascript" src="/Scripts/MealsExpEntry.js?0000"></script>     
+    <script type="text/javascript" src="/Scripts/MealsExpEntry2.js?0000"></script>     
     <script type="text/javascript" src="/Scripts/jquery.textchange.js"></script>
 
     <link rel="stylesheet" type="text/css" media="screen" href="/Styles/DeskTop-Forms.css" />       
+    <script src="/Scripts/EloUpload.js"></script>
+    
+    <style type="text/css">
+        .JobAndOh { }
+        .MilesAndMeals { }
+    </style>
+
 </asp:Content>
 
 
 
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" Runat="Server">
-        
-
+    
+       
     <div >
         <div id="FormWrapper" class="ui-widget ui-form">        
            
@@ -77,38 +85,74 @@
                 </div>  
                 
                 <!--  -->  
-                <div class="TimeRow MilesAndMeals" id="Div2"  style="margin-top: 20px;">
+                <div class="TimeRow MilesAndMeals" id="MilesDiv"  style="margin-top: 20px;">
                     <span style="float:left;   width: 157px;  font-weight: bold; display:inline-block; margin-top: 2px; text-align: right;  padding-right: 20px;">Reimbursment Miles:</span>
                     <input ID="txtMiles" class="DataInputCss" style="width: 100px; display: inline-block; float: left;"/> 
                 </div>  
                 <div style="height: 12px;"></div>
                        
                 <!--  -->  
-                <div class="TimeRow MilesAndMeals" id="Div3" >
+                <div class="TimeRow MilesAndMeals" id="MealsDiv" >
                     <span style="float:left;   width: 157px;  font-weight: bold; display:inline-block; margin-top: 2px; text-align: right;  padding-right: 20px;">Reimbursment Meals:</span>
                     <select ID="txtMeals"  class="DataInputCss" style="width: 100px; "> 
                         <option selected="selected" value="0">Pick  One</option>
                     </select>
-                </div>                          
-    
+                </div>  
+                
+                                 
+                
+                <div id="FileUploadDiv">
+                    <span id="UploadHead" style="width: 100%;  font-weight: bold; display:inline-block; margin-top: 2px;  padding-right: 20px;">Upload Image of Receipt:</span>
+                    <input class="DataInputCss"  style="width: 500px;" id="txtFile" name="txtFile" type="file" accept="image/*" capture="camera" onchange="fileSelected();"> 
+                    <span id="lblFile" style="width: 100%;"></span>         
+                    
+                    <div id="UploadStats">
+                        <div id="progress_info">
+                            <span id="progress"></span>
+                            <span id="progress_percent"></span>
+                            <div class="clear_both"></div>
+                            <div>
+                                <span id="speed"></span>
+                                <span id="remaining"></span>
+                                <span id="b_transfered"></span>
+                                <span class="clear_both"></span>
+                            </div>
+                            <div id="upload_response"></div>
+                        </div>
+                        <div id="error">Unsupported files type!</div>
+                        <div id="error2">An error occurred while uploading the file</div>
+                        <div id="abort">The upload has been canceled by the user or the browser dropped the connection</div>
+                        <div id="warnsize">Your file is very big. We can't accept it. Please select a smaller file</div>
+                    </div>
+                    <p></p>                                                 
+                </div>
+                
+                <div style="clear: both; margin-bottom: 5px;"></div>
 
                 
 
                 <!-- Display Labels Showing Selected Charge Account From DD Selections -->
                 <div style="color: white; font-size: smaller;">
-                    <span runat="server" id="lblDate"            />
-                    <span runat="server" id="lblJobNo"           />
-                    <span runat="server" id="lblOhAcct"          />
-                    <span runat="server" id="lblJobDesc"         />
-                    <span runat="server" id="lblJobSite"         />
-                    <span runat="server" id="lblMiles"           />
-                    <span runat="server" id="lblMeals"           /><br/>
+                    <span id="lblDate"></span>
+                    <span id="lblJobNo"></span>
+                    <span id="lblOhAcct"></span>
+                    <span id="lblJobDesc"></span>
+                    <span id="lblJobSite"></span>
+                    <span id="lblMiles"></span>
+                    <span id="lblMeals"></span>
+                                   
                     
+                    <br/>
+
                     <!-- Dept Code Time Being Charged To    --> 
                     <div id="DepDiv" class="TimeRow"   runat="server">
                         <span runat="server" id="lblAmount"   />
                         <input ID="ovrAmount" class="DataInputCss" runat="server"  style="width: 60px; float: none; margin-left: 10px;" />
                     </div>   
+                                        
+
+
+
                     
                                          
 
@@ -116,8 +160,12 @@
                     <span runat="server" id="lblErrServer" Class="errorTextCss"  ></span>
                 </div>               
 
-                <%--<input type="file"  name="image" accept="image/*" capture>--%>
-                <%--<input type="file" name="photo" accept="image/*" capture="camera">--%>
+                <!--  -->  
+                <div class="TimeRow MilesAndMeals" id="ExpAmountDiv" >
+                    <span style="float:left;   width: 157px;  font-weight: bold; display:inline-block; margin-top: 2px; text-align: right;  padding-right: 20px;">Expense Amount:</span>
+                    <input ID="txtExpAMount" class="DataInputCss" style="width: 100px; display: inline-block; float: left;"/> 
+                </div> 
+                
                     
                    
                 <%--------------------%>                    

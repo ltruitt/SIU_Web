@@ -1,29 +1,15 @@
 ﻿$(document).ready(function () {
-
-
-    //$("input[type=file]").change(function () {
-    //    var file = $("input[type=file]")[0].files[0];
-    //    alert(file.name + "\n" +
-    //          file.type + "\n" +
-    //          file.size + "\n" +
-    //          file.lastModifiedDate);
-    //});
+   
+    //////////////////////////
+    // Time Must Be Numeric //
+    //////////////////////////
+    $('#txtExpAMount').change(function () {
+        if (!isNumber($('#txtExpAMount').val())) {
+            $('#txtTime').addClass('ValidationError');
+            return;
+        }
+    });
     
-    /////////////////////////////////////////
-    // Hide Addendum Data Collection Panes //
-    /////////////////////////////////////////
-    $('.JobAndOh').hide();
-    $('#ovrAmount').hide();
-    $('.MilesAndMeals').hide();
-
-
-    ///////////////////////////
-    // Disable Submit Button //
-    ///////////////////////////
-    $('#btnSubmit').attr('disabled', true);
-
-
-
     ///////////////////////////
     // Submit Button Handler //
     ///////////////////////////
@@ -50,8 +36,8 @@
         mileExpSubmitCall.add('Meals', $('#hlblMealsIdx')[0].innerHTML);
         mileExpSubmitCall.add('Amount', $('#hlblAmount')[0].innerHTML);
         mileExpSubmitCall.exec("/SIU_DAO.asmx/MileExpSubmit", mileExpSubmitSuccess);
+        $('#btnSubmit').hide();
     });
-
 
     //////////////////
     // Clear Button //
@@ -59,17 +45,21 @@
     $('#btnClear').click(function () {
         clear();
     });
+    
+    $('#txtFile').click(function () {
+        $('#error').hide();
+        $('#error2').hide();
+        $('#abort').hide();
+        $('#warnsize').hide();
+        $('#UploadStats').show();
+    });
 
-
+    ///////////////////////////////////////////////
+    // Function To Clear The Form And Start Over //
+    ///////////////////////////////////////////////
     function clear() {
-        $('#jTableContainer').jtable('load', { EmpID: $('#hlblEID')[0].innerHTML });
-
-        $('.JobAndOh').hide();
-        $('#ovrAmount').hide();
-
-        $('.MilesAndMeals').hide();
-        $('#btnSubmit').attr('disabled', true);
-        $('#DateDiv').show('slow');
+        var timestamp = new Date();
+        $('#jTableContainer').jtable('load', { EmpID: $('#hlblEID')[0].innerHTML, T: timestamp.getTime() });        
 
         $('#txtWorkDate').val('');
         $('#txtMiles').val('');
@@ -90,6 +80,24 @@
         $('#lblMiles')[0].innerHTML = "";
         $('#lblMeals')[0].innerHTML = "";
         $('#lblAmount')[0].innerHTML = "";
+        
+        /////////////////////////////////////////
+        // Hide Addendum Data Collection Panes //
+        /////////////////////////////////////////
+        $('.JobAndOh').hide();
+        $('#ovrAmount').hide();
+        
+        $('#MealsDiv').hide();
+        $('#MilesDiv').hide();
+        $('#ExpAmountDiv').hide();
+        
+        
+        $('#UploadStats').hide();
+        $('#FileUploadDiv').hide();
+        $('#btnSubmit').hide();
+        
+        $('#DateDiv').show('slow');
+        
     }
 
     //////////////////////////////////////////////////
@@ -163,20 +171,20 @@
         getTimeJobsAjax.exec("/SIU_DAO.asmx/Affe31", getTimeJobsSuccess);
     }
 
-    getTimeJobs();
-
+    /////////////////////////////////
+    // Process Selected Job Number //
+    /////////////////////////////////
     function showJobDetails() {
         var job = $('#ddJobNo').val();
 
         $('#hlblJobNo')[0].innerHTML = job;
         $('#lblJobNo')[0].innerHTML = "<b>Job No:</b> " + job + "<br/>";
 
-        $('.MilesAndMeals').show('slow');
+        $('#MealsDiv').show();
+        $('#MilesDiv').show();
+        
         $('.JobAndOh').hide();
     }
-
-
-
 
 
 
@@ -198,16 +206,14 @@
             select: function (event, ui) {
                 var dataPieces = ui.item.value.split(' ');
                 $(this).val(dataPieces[0]);
-                showOhDetails();
-                $('#txtMiles').focus();
+                showOhDetails(ui.item.value);
             },
             response: function (event, ui) {
                 if (ui.content.length == 1) {
                     var dataPieces = ui.content[0].value.split(' ');
                     $(this).val(dataPieces[0]);
-                    showOhDetails();
+                    showOhDetails(ui.content[0].value);
                     $("#ddOhAcct").autocomplete("close");
-                    $('#txtMiles').focus();
                 }
 
                 return ui;
@@ -216,30 +222,43 @@
 
         });
     }
-
     function getExpenseOhAccts() {
         var getExpenseOhAcctsAjax = new AsyncServerMethod();
         getExpenseOhAcctsAjax.exec("/SIU_DAO.asmx/bbb66655", getExpenseOhAcctsSuccess);
     }
-    getExpenseOhAccts();
 
+
+    
+    ///////////////////////////////////////
+    // Process Selected Overhead Account //
+    ///////////////////////////////////////
     function showOhDetails() {
         var ohAcct = $('#ddOhAcct').val();
 
         $('#hlblOhAcct')[0].innerHTML = ohAcct;
         $('#lblOhAcct')[0].innerHTML = "<b>OH Acct:</b> " + ohAcct + "<br/>";
+        
+        switch (ohAcct) {
+            case '4291':
+                $('#MilesDiv').show('slow');
+                $('#txtMiles').focus();
+                break;
+                
+            case '4421':
+                $('#MealsDiv').show('slow');
+                $('#txtMeals').focus();
+                break;
+                
+            default:
+                $('#FileUploadDiv').show('slow');
+                $('#UploadHead').show();
+                $('#txtFile').focus();
+                break;
+        }
 
-        $('.MilesAndMeals').show('slow');
         $('.JobAndOh').hide();
+        
     }
-
-
-
-
-
-
-
-
 
     $("#ddJobNo").blur(function () {
         if (!listOfJobs.containsCaseInsensitive(this.value)) {
@@ -285,9 +304,11 @@
             $('#hlblAmount')[0].innerHTML = number_format($('#hlblAmount')[0].innerHTML, 2, '.', ''); // Round It
             $('#lblAmount')[0].innerHTML = "<b>Amount:</b> " + $('#hlblAmount')[0].innerHTML; // +"<br/>";
 
-
-            $('.MilesAndMeals').hide();
-            $('#btnSubmit').attr('disabled', false);
+            $('#MealsDiv').hide();
+            $('#MilesDiv').hide();
+            
+            //$('#btnSubmit').attr('disabled', false);
+            $('#btnSubmit').show();
             $('#btnSubmit').focus();
         }
     }
@@ -301,9 +322,12 @@
             $('#hlblAmount')[0].innerHTML = $('#txtMeals option:selected').val();
             $('#lblAmount')[0].innerHTML = "<b>Amount:</b> " + $('#hlblAmount')[0].innerHTML; // +"<br/>";
 
-            $('.MilesAndMeals').hide();
+            $('#MealsDiv').hide();
+            $('#MilesDiv').hide();
+            
             $('#ovrAmount').show();
-            $('#btnSubmit').attr('disabled', false);
+            //$('#btnSubmit').attr('disabled', false);
+            $('#btnSubmit').show();
             $('#btnSubmit').focus();
         }
     }
@@ -335,7 +359,7 @@
         var getMealRatesAjax = new AsyncServerMethod();
         getMealRatesAjax.exec("/SIU_DAO.asmx/GetMealRates", getMealRatesSuccess);
     }
-    getMealRates();
+    
 
 
 
@@ -432,8 +456,13 @@
         }
     });
 
-    var timestamp = new Date();
-    $('#jTableContainer').jtable('load', { EmpID: $('#hlblEID')[0].innerHTML, T: timestamp.getTime() });
 
 
+    ////////////////////
+    // Setup The Form //
+    ////////////////////
+    clear();
+    getTimeJobs();
+    getMealRates();
+    getExpenseOhAccts();
 });

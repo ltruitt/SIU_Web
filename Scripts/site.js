@@ -253,6 +253,12 @@ function isNumber(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
 }
 
+if (typeof String.prototype.endsWith !== 'function') {
+    String.prototype.endsWith = function (suffix) {
+        return this.indexOf(suffix, this.length - suffix.length) !== -1;
+    };
+}
+
 function number_format(number, decimals, dec_point, thousands_sep) {
     // *     example 1: number_format(1234.56);
     // *     returns 1: '1,235'

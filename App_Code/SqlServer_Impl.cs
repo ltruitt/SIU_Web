@@ -240,26 +240,27 @@ public class SiuDao : WebService
         ///////////////////////////
         StringCollection sessionVar = (StringCollection)Session["UserGroups"];
 
-
-        //////////////////////////////////////
-        // Look Up Payroll Expense Accounts //
-        //////////////////////////////////////
-        foreach (var oh in SqlServer_Impl.GetExpenseOHAccts())
-        {
-            if (ohList.Length > 0) ohList += "\r";
-            ohList += oh.AccountDesc;
-        }
-
         //////////////////////////////////////
         // Add Approved GL Expense Accounts //
         // Requires Photo Proof             //
         //////////////////////////////////////
-        if ( sessionVar != null && sessionVar.Contains("ELO_EXP_TEST"))
+        if (sessionVar != null && sessionVar.Contains("ELO_EXP_TEST"))
         {
             foreach (var oh in SqlServer_Impl.GetExpenseOHAccts2())
             {
                 if (ohList.Length > 0) ohList += "\r";
-                ohList += oh.AccountDesc + "*";
+                ohList += oh.AccountDesc; // +"*";
+            }
+        }
+        else
+        {
+            //////////////////////////////////////
+            // Look Up Payroll Expense Accounts //
+            //////////////////////////////////////
+            foreach (var oh in SqlServer_Impl.GetExpenseOHAccts())
+            {
+                if (ohList.Length > 0) ohList += "\r";
+                ohList += oh.AccountDesc;
             }            
         }
 
