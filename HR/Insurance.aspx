@@ -92,6 +92,7 @@
                             <li><a  href="/Files/Library/Human Resources/Insurance Benefits/Member Simple Steps Brochure.pdf" target="_DocView"  id="A40" >Simple Steps to a Healthier Life Online Wellness Coaching Sessions </a></li>
                             <li><a  href="/Files/Library/Human Resources/Insurance Benefits/EAP Wallet Card 26 03 347 1.pdf"  target="_DocView"  id="A23" >Aetna’s Employee Assistance Program</a></li>
                             <li><a  href="/Files/Library/Human Resources/Insurance Benefits/Preventing_the_Flu.pdf"  target="_DocView"  id="A41" >Flu Alert: Preventing, Recognizing, Treating, and Tracking the Flu.</a></li>
+                            <li><a  href="/Files/Library/Human Resources/Insurance Benefits/Management Memo May 2013 - Carmen.pdf"  target="_DocView"  id="A42" >Compass – Introducing Compass Mobile</a></li>
                         </ul>                    
                 </li>
                 

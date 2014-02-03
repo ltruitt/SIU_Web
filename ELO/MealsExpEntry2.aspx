@@ -4,18 +4,33 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
     <title>Meals and Expenses Entry</title>
     
+    <%--ELO Look and Feel--%>
     <link href="/Styles/ELO.css" rel="stylesheet"  type="text/css" />
+    
+    <%--Meals And Expenses Specific Look and Feel--%>
     <link href="/Styles/MealsExpEntry.css" rel="stylesheet"  type="text/css" />
+    
+    <%--Import JQuery Theme--%>
     <link href="/Scripts/jtable.2.2.1/themes/metro/blue/jtable.min.css" rel="stylesheet" type="text/css" />
-
+    
+    <%--Jquery Based CRUD Table--%>
     <script type="text/javascript" src="/Scripts/jtable.2.2.1/jquery.jtable.js">                             </script>        
     <script type="text/javascript" src="/Scripts/jtable.2.2.1/extensions/jquery.jtable.aspnetpagemethods.js"></script> 
      
-    <script type="text/javascript" src="/Scripts/MealsExpEntry2.js?0000"></script>     
-    <script type="text/javascript" src="/Scripts/jquery.textchange.js"></script>
-
-    <link rel="stylesheet" type="text/css" media="screen" href="/Styles/DeskTop-Forms.css" />       
+    <%--Form Management Code--%>
+    <script type="text/javascript" src="/Scripts/MealsExpEntry2.js?0000"></script> 
+    
+    <%--Code To Catch CHanges To Text Boxes--%>    
+    <%--<script type="text/javascript" src="/Scripts/jquery.textchange.js"></script>--%>
+    
+    <%--Desktop Look And Feel Base--%>
+    <link rel="stylesheet" type="text/css" media="screen" href="/Styles/DeskTop-Forms.css" />  
+    
+    <%--File Upload Code     --%>
     <script src="/Scripts/EloUpload.js"></script>
+    
+    <%--Numeric Formating Validation--%>
+    <script src="/Scripts/InputTypes/autoNumeric/autoNumeric.js" type=text/javascript> </script>
     
     <style type="text/css">
         .JobAndOh { }
@@ -163,7 +178,7 @@
                 <!--  -->  
                 <div class="TimeRow MilesAndMeals" id="ExpAmountDiv" >
                     <span style="float:left;   width: 157px;  font-weight: bold; display:inline-block; margin-top: 2px; text-align: right;  padding-right: 20px;">Expense Amount:</span>
-                    <input ID="txtExpAMount" class="DataInputCss" style="width: 100px; display: inline-block; float: left;"/> 
+                    <input id="txtExpAmount"   type="text" class="DataInputCss" style="width: 100px; display: inline-block; float: left;"/> 
                 </div> 
                 
                     

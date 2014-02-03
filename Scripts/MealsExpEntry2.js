@@ -1,14 +1,8 @@
 ﻿$(document).ready(function () {
    
-    //////////////////////////
-    // Time Must Be Numeric //
-    //////////////////////////
-    $('#txtExpAMount').change(function () {
-        if (!isNumber($('#txtExpAMount').val())) {
-            $('#txtTime').addClass('ValidationError');
-            return;
-        }
-    });
+    $('#txtExpAmount').autoNumeric('init', { vMin: '0', vMax: '99999.00', mDec: '2' });
+    
+
     
     ///////////////////////////
     // Submit Button Handler //
@@ -396,7 +390,19 @@
         if ($('#txtMeals').val() != null)
             meals();
     });
-
+    
+    //////////////////////////
+    // Time Must Be Numeric //
+    //////////////////////////
+    $('#txtExpAmount').keyup(function () {
+        if (!isNumber($('#txtExpAmount').val())) {
+            $('#txtTime').addClass('ValidationError');
+            $('#btnSubmit').hide();
+            return;
+        } else {
+            $('#btnSubmit').show();
+        }
+    });
 
 
 

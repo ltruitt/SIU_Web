@@ -62,38 +62,6 @@
 
             </div>
         </div>
-
-    
-
-    
-   
-	<%--<li class="l2"><a href="Forms/Jobs.aspx" id="PhoneJobsIcon">JOBS</a></li>--%>
-                
-
-	<%--<li class="l2"><a href="/Phone/ELO/MainMenu.aspx">ELO</a></li>--%>
-    <%--<li class="l2"><a href="/Phone/FAQ.aspx">FAQ</a></li>--%>
-                
-
-    
-    <%--<li class="l2"><a href="/Forms/SafetyQoMResponse.aspx">SAFETY Q.O.M</a></li>--%>
-    <%--<li class="l5"><a href="UsefulLinks/UsefulLinks.aspx">USEFUL LINKS</a></li>--%>
-    <%--<li class="l5"><a href="UsefulLinks/QuickLinks.aspx">QUICK LINKS</a></li>--%>
-
-      
-      
-
-
-	  <!-- Footer -->
-<%--	  <section id="footer" class="footer_gallery" >		
-            <ul class="footer_gallery">
-            </ul>
-      </section>
-      
-    <div style="position: absolute; bottom: 0; right: 10px; z-index: 100;">
-        <a href="javascript:  window.location = window.location.protocol + '//' + window.location.hostname + '/' + '/homepage.aspx?force';">
-            <img src="/Phone/Images/desktop1.png" alt="Desktop view" style="margin: 0; border: none; height: 60px;"/>
-        </a>
-    </div>--%>
     
 </asp:Content>
 
