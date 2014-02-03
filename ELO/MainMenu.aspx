@@ -11,6 +11,10 @@
             width: 100%; 
             background-color: red;        
         }
+
+        html {
+            background-color: #45473f;
+        }
         
          
     </style>
@@ -45,9 +49,9 @@
                 <p style="height: 10px;"></p> 
                 
                 <div  class="ui-helper-clearfix" >
-                    <div style="border: 2px solid red; background-color: yellow; color: red; font-weight: bold; padding: 5px;">
+<%--                    <div style="border: 2px solid red; background-color: yellow; color: red; font-weight: bold; padding: 5px;">
                         Effective Dec. 30th Vehicle Inspections must be entered into Shermco YOU! for Time Approval
-                    </div>
+                    </div>--%>
                     <ul >
 				        <li class="l3"><a href="/ELO/TimeEntry.aspx" ID="A5" runat="server">Record Time</a></li>
                         <li class="l3"><a href="/ELO/MealsExpEntry.aspx" ID="A7" runat="server">Reimbursable Meals and Mileage</a></li>
@@ -57,8 +61,11 @@
                         <div style="margin-top: 30px;"></div>
                         <li id="SubmitJobDiv" runat="server" class="l3" style="margin-top: 24px;" ><a href="/Reporting/SubmitJobReport.aspx" >Submit Report</a></li>
                         <div style="margin-top: 30px;"></div>
-                        <li class="l3"><a href="/ELO/VehDotEntry.aspx"  runat="server">Vehicle Inspection</a></li>                        
-
+                        <li class="l3"><a href="/ELO/VehDotEntry.aspx"  runat="server">Vehicle Inspection</a></li>                     
+                           
+                        <li runat="server" ID="TestExp"                 class="l7" style="margin-top: 30px;"><a href="/ELO/MealsExpEntry2.aspx"  >(NEW) Reimbursable Meals and Mileage</a></li>
+                        <li runat="server" ID="TestJobCompletion"       class="l7" style="margin-top: 30px;"><a href="/Jobs/JobsCompletion.aspx" >(NEW) Job Completion</a></li>
+                        <li runat="server" ID="TestJobCompletionReport" class="l7"                          ><a href="/Jobs/JobsView.aspx"       >(NEW) Job Completion</a></li>
                         
                     </ul>
                 </div>

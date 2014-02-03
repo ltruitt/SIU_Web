@@ -82,7 +82,8 @@
         multiselect: false,
         selectingCheckboxes: false,
         paging: true,
-        pageSize: 50,
+        pageSize: 20,
+        pageSizes: [10, 20, 30, 40, 50],
         actions: {
             listAction: '/SIU_DAO.asmx/GetSafetyPaysRptDataSorted',
             deleteAction: '/SIU_DAO.asmx/RemoveSafetyPaysRpt'
@@ -325,8 +326,6 @@
                 //No rows selected
                 clearDtl();
             }
-
-
         }
     });
 
@@ -357,7 +356,7 @@
 
     $('#cmdDiv').hide();
     var timestamp = new Date();
-    $('#jTableContainer').jtable('option', 'pageSize', 20);
+    //$('#jTableContainer').jtable('option', 'pageSize', 20);
     $('#jTableContainer').jtable('load', { DataFilter: 'New', isA: '1', T: timestamp.getTime() });
 
 

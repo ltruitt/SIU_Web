@@ -10,7 +10,7 @@ public partial class Login : System.Web.UI.Page
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            FailureText.Text = "Sign on To Shermco YOU!";
+            FailureText.Text = "Sign-on to Shermco YOU!";
             return;
             string domainUser = string.Empty;
             string domain = string.Empty;

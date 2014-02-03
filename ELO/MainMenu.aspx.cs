@@ -21,14 +21,25 @@ public partial class ELO_MainMenu : System.Web.UI.Page
                 TimeMangDiv.Visible = false;
 
 
-            ///////////////////////////
-            // Check For Admin Priv. //
-            ///////////////////////////
+            /////////////////////////////////////////////////
+            // Check If User Gets Tset Version Of Expenses //
+            /////////////////////////////////////////////////
             StringCollection sessionVar = (StringCollection)Session["UserGroups"];
+
+            TestExp.Visible = false;
             if (sessionVar != null && sessionVar.Contains("ELO_EXP_TEST"))
             {
-                A7.HRef = "/ELO/MealsExpEntry2.aspx";
+                TestExp.Visible = true;
             }
+
+            TestJobCompletion.Visible = false;
+            TestJobCompletionReport.Visible = false;
+            if (sessionVar != null && sessionVar.Contains("JOB_COMPLETION"))
+            {
+                TestJobCompletion.Visible = true;
+                TestJobCompletionReport.Visible = true;
+            }
+
         }
     }
 

@@ -1,0 +1,196 @@
+/*
+ * @namespace window.AcidJs
+ * @class ToggleSwitch
+ * @stylesheet
+ * @author Martin Ivanov
+ * @web http://wemakesites.net
+ **/
+
+:root .acidjs-toggle-switch input,
+:root .acidjs-toggle-switch b,
+:root .acidjs-toggle-switch span::before,
+:root .acidjs-toggle-switch span::after
+{
+    position: absolute;
+}
+
+:root .acidjs-toggle-switch b,
+:root .acidjs-toggle-switch span::before,
+:root .acidjs-toggle-switch span::after
+{
+    width: 41px;
+    height: 30px;
+}
+
+:root .acidjs-toggle-switch span::before,
+:root .acidjs-toggle-switch span::after
+{
+    text-align: center;
+}
+
+:root .acidjs-toggle-switch span::before,
+:root .acidjs-toggle-switch span::after
+{
+    color: #8c8c8c;
+    color: black;
+    text-transform: uppercase;
+    -webkit-pointer-events: none;
+    -moz-pointer-events: none;
+    pointer-events: none;
+}
+
+:root .acidjs-toggle-switch * {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    vertical-align: middle;
+    outline: none;
+    font-weight: normal;
+    font-style: normal;
+    -webkit-font-variant: normal;
+    -moz-font-variant: normal;
+    -ms-font-variant: normal;
+    -o-font-variant: normal;
+    font-variant: normal;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+:root .acidjs-toggle-switch li
+{
+    display: block;
+    margin: 4px;
+}
+
+:root .acidjs-toggle-switch
+{
+    font: bold 16px/30px Arial, Helvetica, Sans-serif;
+}
+
+:root .acidjs-toggle-switch span
+{
+    position: relative;
+    width: 82px;
+    height: 30px;
+}
+
+:root .acidjs-toggle-switch strong
+{
+    margin: 0 0 0 4px;
+    font-size: 12px;
+    color: #666;
+}
+
+:root .acidjs-toggle-switch strong:empty
+{
+    display: none;
+}
+
+:root .acidjs-toggle-switch input:checked ~ strong
+{
+    color: #333;
+}
+
+:root .acidjs-toggle-switch label
+{
+    cursor: pointer;
+    width: 100%;
+}
+
+:root .acidjs-toggle-switch input
+{
+    opacity: 0;
+}
+
+:root .acidjs-toggle-switch b
+{
+    z-index: 5;
+    border-radius: 2px;
+    box-shadow: 1px 0 1px rgba(0, 0, 0, .25),
+                1px 0 1px rgba(255, 255, 255, .75) inset;
+    background: #f9f9f9;
+    background: -webkit-linear-gradient(#cfcfcf, #f9f9f9);
+    background: -moz-linear-gradient(#cfcfcf, #f9f9f9);
+    background: -ms-linear-gradient(#cfcfcf, #f9f9f9);
+    background: -o-linear-gradient(#cfcfcf, #f9f9f9);
+    background: linear-gradient(#cfcfcf, #f9f9f9);
+    
+    -moz-transition: all 250ms cubic-bezier(.09, .11, .24, .91);
+    -webkit-transition: all 250ms cubic-bezier(.09, .11, .24, .91);
+    -ms-transition: all 250ms cubic-bezier(.09, .11, .24, .91);
+    -o-transition: all 250ms cubic-bezier(.09, .11, .24, .91);
+    transition: all 250ms cubic-bezier(.09, .11, .24, .91);
+}
+
+:root .acidjs-toggle-switch input:checked ~ span b
+{
+    -webkit-transform: translateX(100%);
+    -moz-transform: translateX(100%);
+    -ms-transform: translateX(100%);
+    -o-transform: translateX(100%);
+    transform: translateX(100%);
+}
+
+:root .acidjs-toggle-switch span {
+    border: solid 1px #bcbbbb;
+    -ms-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: 0 0 2px #ccc;
+    -ms-box-shadow: 0 0 2px #ccc;
+    box-shadow: 0 0 2px #ccc;
+    background: #f3f3f3;
+    background: -webkit-linear-gradient(#c8c8c8, #f3f3f3);
+    background: -moz-linear-gradient(#c8c8c8, #f3f3f3);
+    background: -ms-linear-gradient(#c8c8c8, #f3f3f3);
+    background: -o-linear-gradient(#c8c8c8, #f3f3f3);
+    background: linear-gradient(#c8c8c8, #f3f3f3);
+
+    background: #f3f3f3;
+    background: -webkit-linear-gradient(#F78181, #F5A9A9);
+    background: -moz-linear-gradient(#F78181, #F5A9A9);
+    background: -ms-linear-gradient(#F78181, #F5A9A9);
+    background: -o-linear-gradient(#F78181, #F5A9A9);
+    background: linear-gradient(#F78181, #F5A9A9);
+
+    margin-bottom: 3px;
+}
+
+:root .acidjs-toggle-switch span::before
+{
+    left: 0;
+    content: attr(data-on);
+    color: #fff;
+    text-shadow: 0 -1px #0d2046;
+}
+
+:root .acidjs-toggle-switch span::after
+{
+    right: 0;
+    content: attr(data-off);
+}
+
+:root .acidjs-toggle-switch input:checked ~ span
+{
+    border-color: #0f2a4f;
+    background: #5d96ea;
+    background: -webkit-linear-gradient(#1b45bd, #5d96ea);
+    background: -moz-linear-gradient(#1b45bd, #5d96ea);
+    background: -ms-linear-gradient(#1b45bd, #5d96ea);
+    background: -o-linear-gradient(#1b45bd, #5d96ea);
+    background: linear-gradient(#1b45bd, #5d96ea);
+}
+
+:root .acidjs-toggle-switch input:disabled ~ *
+{
+    opacity: .5;
+    cursor: no-drop;
+}
+
+.acidjs-toggle-switch
+{
+    display: block !important;
+}

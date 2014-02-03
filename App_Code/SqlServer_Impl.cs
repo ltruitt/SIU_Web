@@ -920,11 +920,7 @@ public class SiuDao : WebService
 
 #endregion ELO Time And Time Reporting
 
-
-
-
-
-    #region Sync
+#region Sync
     [WebMethod(EnableSession = true)]
     public string DirSync(string System, string Dept, string Dir)
     {
@@ -1106,7 +1102,7 @@ public class SiuDao : WebService
 
 #endregion Sync
 
-#region Job Reports
+#region Jobs
     [WebMethod(EnableSession = true)]
     public string GetJobRptJobs()
     {
@@ -1363,7 +1359,64 @@ public class SiuDao : WebService
             throw;
         }
     }
-#endregion Job Reports
+
+    ////////////////////////
+    // Get Job Completion //
+    ////////////////////////
+    [WebMethod(EnableSession = true)]
+    public string a886ppo9(string jobNo)
+    {
+        try
+        {
+            SIU_Complete_Job rpt = SqlServer_Impl.GetSiuCompletedJob(jobNo);
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            return serializer.Serialize(rpt);
+        }
+        catch (Exception ex)
+        {
+            SqlServer_Impl.LogDebug("SiuDao.GetSiuCompletedJob", jobNo);
+            SqlServer_Impl.LogDebug("SiuDao.GetSiuCompletedJob", ex.Message);
+            return ex.Message;
+        }        
+    }
+
+    /////////////////////////
+    // Save Job Completion //
+    /////////////////////////
+    [WebMethod(EnableSession = true)]
+    public void a886ppo8(string JobNo, bool JobComplete, bool OrigionalScope, int NumMgrs, decimal AddMaterial, decimal AddTravel, decimal AddLodge, decimal AddOther, double TotHours, string ApprovalName, bool SalesCall, bool SalesQuote )
+    {
+        try
+        {
+            SIU_Complete_Job cJob = new SIU_Complete_Job()
+            {
+                EmpNo = int.Parse(BusinessLayer.UserEmpID),
+                JobNo = JobNo.Split()[0],
+                JobComplete = JobComplete,
+                OrigionalScope = OrigionalScope,
+                NumMgrs = NumMgrs,
+                AddMaterial = AddMaterial,
+                AddTravel = AddTravel,
+                AddLodge = AddLodge,
+                AddOther = AddOther,
+                TotHours = TotHours,
+                ApprovalName = ApprovalName,
+                SalesCall = SalesCall,
+                SalesQuote = SalesQuote
+            };
+
+            SqlServer_Impl.RecordSiuCompletedJob(cJob);
+
+            //            WebMail.JobCompletionEmail(objSiHours, cbExtraBilling.Checked, BusinessLayer.UserEmail, BusinessLayer.UserFullName);
+
+        }
+        catch (Exception ex)
+        {
+            SqlServer_Impl.LogDebug("SiuDao.RecordSiuCompletedJob", JobNo);
+            SqlServer_Impl.LogDebug("SiuDao.RecordSiuCompletedJob", ex.Message);
+        }
+    }
+#endregion Jobs
 
 #region Vehicle Personal Miles
     ////////////////////////////////////////////////////////////////////////
@@ -1889,7 +1942,7 @@ public class SiuDao : WebService
             switch (DataFilter)
             {
                 case "New":
-                    jasonResp = SqlServer_Impl.GetNewSafetyPaysRpts(jtStartIndex, jtPageSize, jtSorting);
+                    jasonResp = SqlServer_Impl.GetNewSafetyPaysRpts2(jtStartIndex, jtPageSize, jtSorting);
                     rcdCnt = (jasonResp == null) ? 0 : SqlServer_Impl.GetNewSafetyPaysRptsCount();
                     break;
 
@@ -6972,6 +7025,35 @@ public class SqlServer_Impl : WebService
 
                ).ToList().OrderBy(SortBy).Skip(startIndex).Take(count).ToList();
     }
+
+    public static List<SIU_SafetyPaysReport_Rpt> GetNewSafetyPaysRpts2(int startIndex, int count, string SortBy)
+    {
+        SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
+
+        return (    from spList in nvDb.SIU_SafetyPaysReports
+                    join t2 in nvDb.Shermco_Employees on spList.IncLastTouchEmpID equals t2.No_
+                    join t0 in nvDb.Shermco_Employees on spList.EmpID             equals t0.No_ into t0_join
+                        where spList.IncStatus == "New"
+
+                    from t0 in t0_join.DefaultIfEmpty()
+                    join t1 in nvDb.Shermco_Employees on spList.ObservedEmpID equals t1.No_ into t1_join
+
+                    from t1 in t1_join.DefaultIfEmpty()
+                    join t3 in nvDb.SIU_SafetyPays_Points_Types on spList.IncTypeTxt equals t3.Description into t3_join
+
+                    from t3 in t3_join.DefaultIfEmpty()
+                    select new SIU_SafetyPaysReport_Rpt( 
+				                                                spList, 
+				                                                "(" + t0.No_ + ") " + t0.Last_Name + ", " + t0.First_Name, 
+				                                                "(" + t1.No_ + ") " + t1.Last_Name + ", " + t1.First_Name,
+				                                                "(" + t2.No_ + ") " + t2.Last_Name + ", " + t2.First_Name, 
+				                                                t3.PointsCount.ToString()
+		                        )
+               ).ToList().OrderBy(SortBy).Skip(startIndex).Take(count).ToList();
+    }
+
+
+
     public static List<SIU_SafetyPaysReport_Rpt> GetNewSafetyPaysRpts(int startIndex, int count)
     {
         SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);

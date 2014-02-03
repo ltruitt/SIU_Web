@@ -205,21 +205,6 @@
       <Column Name="[Risk Job]" Member="Risk_Job" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
-  <Table Name="dbo.SIU_Complete_Jobs" Member="SIU_Complete_Jobs">
-    <Type Name="SIU_Complete_Job">
-      <Column Name="EmpNo" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="JobNo" Type="System.String" DbType="VarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="JobComplete" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="OrigionalScope" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="NumMgrs" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="AddMaterial" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="AddTravel" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="AddLodge" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="AddOther" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="TotHours" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="TimeStamp" Type="System.DateTime" DbType="DateTime NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-    </Type>
-  </Table>
   <Table Name="dbo.SIU_IT_HW_Req_Adds" Member="SIU_IT_HW_Req_Adds">
     <Type Name="SIU_IT_HW_Req_Add">
       <Column Name="IsSW" Type="System.Boolean" DbType="Bit NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -1659,6 +1644,24 @@
       <Column Name="PDBYes" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
       <Column Name="PDBNo" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
       <Column Name="PDBComment" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SIU_Complete_Jobs" Member="SIU_Complete_Jobs">
+    <Type Name="SIU_Complete_Job">
+      <Column Name="EmpNo" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="JobNo" Type="System.String" DbType="VarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="JobComplete" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="OrigionalScope" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="NumMgrs" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AddMaterial" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="AddTravel" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="AddLodge" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="AddOther" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="TotHours" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="TimeStamp" Type="System.DateTime" DbType="DateTime NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ApprovalName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="SalesCall" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="SalesQuote" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
     </Type>
   </Table>
   <Function Name="dbo.SIU_ELO_GetBalance" Method="SIU_ELO_GetBalance">

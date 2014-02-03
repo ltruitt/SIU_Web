@@ -462,6 +462,79 @@ namespace ShermcoYou.DataTypes
                 QOM_ID = (int)Rpt.QOM_ID;
         }
 
+        public SIU_SafetyPaysReport_Rpt(SIU_SafetyPaysReport Rpt, string ReportingEmployee, string ObservedEmployee, string LastTouchedEmployee, string Points )
+        {
+            _incidentNo = Rpt.IncidentNo;
+            IncStatus = Rpt.IncStatus;
+            JobSite = Rpt.JobSite;
+            Comments = Rpt.Comments;
+
+            _incTypeTxt = Rpt.IncTypeTxt;
+            IncTypeSafeFlag = Rpt.IncTypeSafeFlag;
+            IncTypeUnsafeFlag = Rpt.IncTypeUnsafeFlag;
+            IncTypeSuggFlag = Rpt.IncTypeSuggFlag;
+            IncTypeTopicFlag = Rpt.IncTypeTopicFlag;
+            IncTypeSumFlag = Rpt.IncTypeSumFlag;
+
+            SafetyMeetingType = Rpt.SafetyMeetingType;
+
+            EmpID = Rpt.EmpID;
+            IncLastTouchEmpID = Rpt.IncLastTouchEmpID;
+            ObservedEmpID = Rpt.ObservedEmpID;
+
+            if (Rpt.IncOpenTimestamp != null)
+                _incOpenTimestamp = (System.DateTime)Rpt.IncOpenTimestamp;
+
+            if (Rpt.IncCloseTimestamp != null)
+                IncCloseTimestamp = (System.DateTime)Rpt.IncCloseTimestamp;
+
+            if (Rpt.IncLastTouchTimestamp != null)
+                IncLastTouchTimestamp = (System.DateTime)Rpt.IncLastTouchTimestamp;
+
+            if (Rpt.PointsAssignedTimeStamp != null)
+                PointsAssignedTimeStamp = (System.DateTime)Rpt.PointsAssignedTimeStamp;
+
+            if (Rpt.IncidentDate != null)
+                _incidentDate = (System.DateTime)Rpt.IncidentDate;
+
+            if (Rpt.SafetyMeetingDate != null)
+                SafetyMeetingDate = (System.DateTime)Rpt.SafetyMeetingDate;
+
+            PointsAssigned = (int)Rpt.PointsAssigned;
+            EhsRepsonse = Rpt.ehsRepsonse;
+            InitialResponse = Rpt.InitialResponse;
+
+            //ReportedByEmpName = SqlServer_Impl.GetEmployeeNameByNo(EmpID);
+            //LastModifedByEmpName = SqlServer_Impl.GetEmployeeNameByNo(IncLastTouchEmpID);
+            //ObservedEmpName = SqlServer_Impl.GetEmployeeNameByNo(ObservedEmpID);
+
+            ReportedByEmpName = ReportingEmployee;
+            LastModifedByEmpName = LastTouchedEmployee;
+            ObservedEmpName = ObservedEmployee;
+
+
+            //defaultPoints = SqlServer_Impl.GetAutoCompletePointTypes().Where(c => c.Description.ToLower() == _incTypeTxt.ToLower()).Select(c => c.PointsCount).SingleOrDefault();
+            if ( Points != null)
+            defaultPoints =  int.Parse(Points);
+
+            TotalTasks = 0;
+            OpenTasks = 0;
+            LateTasks = 0;
+            LateStatus = 0;
+
+            if (IncStatus.ToLower() == "working")
+            {
+                var tasks = SqlServer_Impl.GetSafetyPaysTasks(_incidentNo);
+                TotalTasks = tasks.Count();
+                OpenTasks = tasks.Where(c => c.CompletedDate == null).Count();
+                LateTasks = tasks.Where(c => c.CompletedDate == null && c.DueDate < DateTime.Now).Count();
+                LateStatus = SqlServer_Impl.GetSafetyPaysTaskStatus(_incidentNo).Where(c => c.ResponseDate == null).Count();
+            }
+
+            if (Rpt.QOM_ID != null)
+                QOM_ID = (int)Rpt.QOM_ID;
+        }
+
         public int IncidentNo
         {
             get { return _incidentNo; }

@@ -85,12 +85,13 @@
                 <li style="text-align: center; width: 31%; padding-left: 0; padding-right: 0;">
                         <img    alt="HR Videos" src="/Images/BenifitRun.png" />
                         <ul id="Ul1">
-                            <li><a  href="/Files/Library/Human Resources/Insurance Benefits/exercise.pdf"  target="_DocView"  id="A36" >Exercise – Get Motivate to get Moving</a></li>
+                            <li><a  href="/Files/Library/Human Resources/Insurance Benefits/exercise.pdf"  target="_DocView"  id="A36" >Exercise – Get Motivated to get Moving</a></li>
                             <li><a  href="/Files/Library/Human Resources/Insurance Benefits/stress_management.pdf"  target="_DocView"  id="A37" >Stress – Five Ways to ease the Stress in your Life</a></li>
                             <li><a  href="/Files/Library/Human Resources/Insurance Benefits/Smoking_Cessation.pdf"  target="_DocView"  id="A38" >Smoking – You Really can Quit smoking</a></li>
                             <li><a  href="/Files/Library/Human Resources/Insurance Benefits/weight_management.pdf" target="_DocView"  id="A39" >Weight Management – Five Tips for Success to Stay at Healthy Weight </a></li>
                             <li><a  href="/Files/Library/Human Resources/Insurance Benefits/Member Simple Steps Brochure.pdf" target="_DocView"  id="A40" >Simple Steps to a Healthier Life Online Wellness Coaching Sessions </a></li>
                             <li><a  href="/Files/Library/Human Resources/Insurance Benefits/EAP Wallet Card 26 03 347 1.pdf"  target="_DocView"  id="A23" >Aetna’s Employee Assistance Program</a></li>
+                            <li><a  href="/Files/Library/Human Resources/Insurance Benefits/Preventing_the_Flu.pdf"  target="_DocView"  id="A41" >Flu Alert: Preventing, Recognizing, Treating, and Tracking the Flu.</a></li>
                         </ul>                    
                 </li>
                 

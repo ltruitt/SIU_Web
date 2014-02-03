@@ -32,9 +32,6 @@ public partial class SIU_ORM_LINQDataContext : System.Data.Linq.DataContext
   partial void InsertShermco_Job(Shermco_Job instance);
   partial void UpdateShermco_Job(Shermco_Job instance);
   partial void DeleteShermco_Job(Shermco_Job instance);
-  partial void InsertSIU_Complete_Job(SIU_Complete_Job instance);
-  partial void UpdateSIU_Complete_Job(SIU_Complete_Job instance);
-  partial void DeleteSIU_Complete_Job(SIU_Complete_Job instance);
   partial void InsertSIU_IT_HW_Req_Add(SIU_IT_HW_Req_Add instance);
   partial void UpdateSIU_IT_HW_Req_Add(SIU_IT_HW_Req_Add instance);
   partial void DeleteSIU_IT_HW_Req_Add(SIU_IT_HW_Req_Add instance);
@@ -170,6 +167,9 @@ public partial class SIU_ORM_LINQDataContext : System.Data.Linq.DataContext
   partial void InsertShermco_Job_Report(Shermco_Job_Report instance);
   partial void UpdateShermco_Job_Report(Shermco_Job_Report instance);
   partial void DeleteShermco_Job_Report(Shermco_Job_Report instance);
+  partial void InsertSIU_Complete_Job(SIU_Complete_Job instance);
+  partial void UpdateSIU_Complete_Job(SIU_Complete_Job instance);
+  partial void DeleteSIU_Complete_Job(SIU_Complete_Job instance);
   #endregion
 	
 	public SIU_ORM_LINQDataContext() : 
@@ -207,14 +207,6 @@ public partial class SIU_ORM_LINQDataContext : System.Data.Linq.DataContext
 		get
 		{
 			return this.GetTable<Shermco_Job>();
-		}
-	}
-	
-	public System.Data.Linq.Table<SIU_Complete_Job> SIU_Complete_Jobs
-	{
-		get
-		{
-			return this.GetTable<SIU_Complete_Job>();
 		}
 	}
 	
@@ -615,6 +607,14 @@ public partial class SIU_ORM_LINQDataContext : System.Data.Linq.DataContext
 		get
 		{
 			return this.GetTable<Shermco_Job_Report>();
+		}
+	}
+	
+	public System.Data.Linq.Table<SIU_Complete_Job> SIU_Complete_Jobs
+	{
+		get
+		{
+			return this.GetTable<SIU_Complete_Job>();
 		}
 	}
 	
@@ -5500,308 +5500,6 @@ public partial class Shermco_Job : INotifyPropertyChanging, INotifyPropertyChang
 				this._Risk_Job = value;
 				this.SendPropertyChanged("Risk_Job");
 				this.OnRisk_JobChanged();
-			}
-		}
-	}
-	
-	public event PropertyChangingEventHandler PropertyChanging;
-	
-	public event PropertyChangedEventHandler PropertyChanged;
-	
-	protected virtual void SendPropertyChanging()
-	{
-		if ((this.PropertyChanging != null))
-		{
-			this.PropertyChanging(this, emptyChangingEventArgs);
-		}
-	}
-	
-	protected virtual void SendPropertyChanged(String propertyName)
-	{
-		if ((this.PropertyChanged != null))
-		{
-			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-		}
-	}
-}
-
-[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SIU_Complete_Jobs")]
-public partial class SIU_Complete_Job : INotifyPropertyChanging, INotifyPropertyChanged
-{
-	
-	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-	
-	private int _EmpNo;
-	
-	private string _JobNo;
-	
-	private bool _JobComplete;
-	
-	private bool _OrigionalScope;
-	
-	private System.Nullable<int> _NumMgrs;
-	
-	private System.Nullable<int> _AddMaterial;
-	
-	private System.Nullable<int> _AddTravel;
-	
-	private System.Nullable<int> _AddLodge;
-	
-	private System.Nullable<int> _AddOther;
-	
-	private System.Nullable<int> _TotHours;
-	
-	private System.DateTime _TimeStamp;
-	
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnEmpNoChanging(int value);
-    partial void OnEmpNoChanged();
-    partial void OnJobNoChanging(string value);
-    partial void OnJobNoChanged();
-    partial void OnJobCompleteChanging(bool value);
-    partial void OnJobCompleteChanged();
-    partial void OnOrigionalScopeChanging(bool value);
-    partial void OnOrigionalScopeChanged();
-    partial void OnNumMgrsChanging(System.Nullable<int> value);
-    partial void OnNumMgrsChanged();
-    partial void OnAddMaterialChanging(System.Nullable<int> value);
-    partial void OnAddMaterialChanged();
-    partial void OnAddTravelChanging(System.Nullable<int> value);
-    partial void OnAddTravelChanged();
-    partial void OnAddLodgeChanging(System.Nullable<int> value);
-    partial void OnAddLodgeChanged();
-    partial void OnAddOtherChanging(System.Nullable<int> value);
-    partial void OnAddOtherChanged();
-    partial void OnTotHoursChanging(System.Nullable<int> value);
-    partial void OnTotHoursChanged();
-    partial void OnTimeStampChanging(System.DateTime value);
-    partial void OnTimeStampChanged();
-    #endregion
-	
-	public SIU_Complete_Job()
-	{
-		OnCreated();
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EmpNo", DbType="Int NOT NULL")]
-	public int EmpNo
-	{
-		get
-		{
-			return this._EmpNo;
-		}
-		set
-		{
-			if ((this._EmpNo != value))
-			{
-				this.OnEmpNoChanging(value);
-				this.SendPropertyChanging();
-				this._EmpNo = value;
-				this.SendPropertyChanged("EmpNo");
-				this.OnEmpNoChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JobNo", DbType="VarChar(10) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
-	public string JobNo
-	{
-		get
-		{
-			return this._JobNo;
-		}
-		set
-		{
-			if ((this._JobNo != value))
-			{
-				this.OnJobNoChanging(value);
-				this.SendPropertyChanging();
-				this._JobNo = value;
-				this.SendPropertyChanged("JobNo");
-				this.OnJobNoChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JobComplete", DbType="Bit NOT NULL")]
-	public bool JobComplete
-	{
-		get
-		{
-			return this._JobComplete;
-		}
-		set
-		{
-			if ((this._JobComplete != value))
-			{
-				this.OnJobCompleteChanging(value);
-				this.SendPropertyChanging();
-				this._JobComplete = value;
-				this.SendPropertyChanged("JobComplete");
-				this.OnJobCompleteChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OrigionalScope", DbType="Bit NOT NULL")]
-	public bool OrigionalScope
-	{
-		get
-		{
-			return this._OrigionalScope;
-		}
-		set
-		{
-			if ((this._OrigionalScope != value))
-			{
-				this.OnOrigionalScopeChanging(value);
-				this.SendPropertyChanging();
-				this._OrigionalScope = value;
-				this.SendPropertyChanged("OrigionalScope");
-				this.OnOrigionalScopeChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NumMgrs", DbType="Int")]
-	public System.Nullable<int> NumMgrs
-	{
-		get
-		{
-			return this._NumMgrs;
-		}
-		set
-		{
-			if ((this._NumMgrs != value))
-			{
-				this.OnNumMgrsChanging(value);
-				this.SendPropertyChanging();
-				this._NumMgrs = value;
-				this.SendPropertyChanged("NumMgrs");
-				this.OnNumMgrsChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AddMaterial", DbType="Int")]
-	public System.Nullable<int> AddMaterial
-	{
-		get
-		{
-			return this._AddMaterial;
-		}
-		set
-		{
-			if ((this._AddMaterial != value))
-			{
-				this.OnAddMaterialChanging(value);
-				this.SendPropertyChanging();
-				this._AddMaterial = value;
-				this.SendPropertyChanged("AddMaterial");
-				this.OnAddMaterialChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AddTravel", DbType="Int")]
-	public System.Nullable<int> AddTravel
-	{
-		get
-		{
-			return this._AddTravel;
-		}
-		set
-		{
-			if ((this._AddTravel != value))
-			{
-				this.OnAddTravelChanging(value);
-				this.SendPropertyChanging();
-				this._AddTravel = value;
-				this.SendPropertyChanged("AddTravel");
-				this.OnAddTravelChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AddLodge", DbType="Int")]
-	public System.Nullable<int> AddLodge
-	{
-		get
-		{
-			return this._AddLodge;
-		}
-		set
-		{
-			if ((this._AddLodge != value))
-			{
-				this.OnAddLodgeChanging(value);
-				this.SendPropertyChanging();
-				this._AddLodge = value;
-				this.SendPropertyChanged("AddLodge");
-				this.OnAddLodgeChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AddOther", DbType="Int")]
-	public System.Nullable<int> AddOther
-	{
-		get
-		{
-			return this._AddOther;
-		}
-		set
-		{
-			if ((this._AddOther != value))
-			{
-				this.OnAddOtherChanging(value);
-				this.SendPropertyChanging();
-				this._AddOther = value;
-				this.SendPropertyChanged("AddOther");
-				this.OnAddOtherChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TotHours", DbType="Int")]
-	public System.Nullable<int> TotHours
-	{
-		get
-		{
-			return this._TotHours;
-		}
-		set
-		{
-			if ((this._TotHours != value))
-			{
-				this.OnTotHoursChanging(value);
-				this.SendPropertyChanging();
-				this._TotHours = value;
-				this.SendPropertyChanged("TotHours");
-				this.OnTotHoursChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TimeStamp", DbType="DateTime NOT NULL", IsPrimaryKey=true)]
-	public System.DateTime TimeStamp
-	{
-		get
-		{
-			return this._TimeStamp;
-		}
-		set
-		{
-			if ((this._TimeStamp != value))
-			{
-				this.OnTimeStampChanging(value);
-				this.SendPropertyChanging();
-				this._TimeStamp = value;
-				this.SendPropertyChanged("TimeStamp");
-				this.OnTimeStampChanged();
 			}
 		}
 	}
@@ -11996,7 +11694,7 @@ public partial class Shermco_Customer : INotifyPropertyChanging, INotifyProperty
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Picture", DbType="Image", UpdateCheck=UpdateCheck.Never)]
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Picture", DbType="Image", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
 	public System.Data.Linq.Binary Picture
 	{
 		get
@@ -16359,7 +16057,7 @@ public partial class Shermco_Company_Information : INotifyPropertyChanging, INot
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Picture", DbType="Image", UpdateCheck=UpdateCheck.Never)]
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Picture", DbType="Image", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
 	public System.Data.Linq.Binary Picture
 	{
 		get
@@ -16879,7 +16577,7 @@ public partial class Shermco_Company_Information : INotifyPropertyChanging, INot
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Menu Picture]", Storage="_Menu_Picture", DbType="Image", UpdateCheck=UpdateCheck.Never)]
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Menu Picture]", Storage="_Menu_Picture", DbType="Image", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
 	public System.Data.Linq.Binary Menu_Picture
 	{
 		get
@@ -16899,7 +16597,7 @@ public partial class Shermco_Company_Information : INotifyPropertyChanging, INot
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Signatur Picture 1]", Storage="_Signatur_Picture_1", DbType="Image", UpdateCheck=UpdateCheck.Never)]
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Signatur Picture 1]", Storage="_Signatur_Picture_1", DbType="Image", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
 	public System.Data.Linq.Binary Signatur_Picture_1
 	{
 		get
@@ -16919,7 +16617,7 @@ public partial class Shermco_Company_Information : INotifyPropertyChanging, INot
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Signatur Picture 2]", Storage="_Signatur_Picture_2", DbType="Image", UpdateCheck=UpdateCheck.Never)]
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Signatur Picture 2]", Storage="_Signatur_Picture_2", DbType="Image", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
 	public System.Data.Linq.Binary Signatur_Picture_2
 	{
 		get
@@ -16939,7 +16637,7 @@ public partial class Shermco_Company_Information : INotifyPropertyChanging, INot
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Bank Logo]", Storage="_Bank_Logo", DbType="Image", UpdateCheck=UpdateCheck.Never)]
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Bank Logo]", Storage="_Bank_Logo", DbType="Image", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
 	public System.Data.Linq.Binary Bank_Logo
 	{
 		get
@@ -16959,7 +16657,7 @@ public partial class Shermco_Company_Information : INotifyPropertyChanging, INot
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Barcode Picture]", Storage="_Barcode_Picture", DbType="Image", UpdateCheck=UpdateCheck.Never)]
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Barcode Picture]", Storage="_Barcode_Picture", DbType="Image", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
 	public System.Data.Linq.Binary Barcode_Picture
 	{
 		get
@@ -17019,7 +16717,7 @@ public partial class Shermco_Company_Information : INotifyPropertyChanging, INot
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[OHSA Pic]", Storage="_OHSA_Pic", DbType="Image", UpdateCheck=UpdateCheck.Never)]
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[OHSA Pic]", Storage="_OHSA_Pic", DbType="Image", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
 	public System.Data.Linq.Binary OHSA_Pic
 	{
 		get
@@ -28027,7 +27725,7 @@ public partial class Shermco_Employee : INotifyPropertyChanging, INotifyProperty
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Picture", DbType="Image", UpdateCheck=UpdateCheck.Never)]
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Picture", DbType="Image", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
 	public System.Data.Linq.Binary Picture
 	{
 		get
@@ -33625,7 +33323,7 @@ public partial class Shermco_G_L_Account : INotifyPropertyChanging, INotifyPrope
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Picture", DbType="Image", UpdateCheck=UpdateCheck.Never)]
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Picture", DbType="Image", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
 	public System.Data.Linq.Binary Picture
 	{
 		get
@@ -37053,6 +36751,380 @@ public partial class Shermco_Job_Report : INotifyPropertyChanging, INotifyProper
 				this._PDBComment = value;
 				this.SendPropertyChanged("PDBComment");
 				this.OnPDBCommentChanged();
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+}
+
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SIU_Complete_Jobs")]
+public partial class SIU_Complete_Job : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _EmpNo;
+	
+	private string _JobNo;
+	
+	private bool _JobComplete;
+	
+	private bool _OrigionalScope;
+	
+	private System.Nullable<int> _NumMgrs;
+	
+	private System.Nullable<decimal> _AddMaterial;
+	
+	private System.Nullable<decimal> _AddTravel;
+	
+	private System.Nullable<decimal> _AddLodge;
+	
+	private System.Nullable<decimal> _AddOther;
+	
+	private System.Nullable<double> _TotHours;
+	
+	private System.DateTime _TimeStamp;
+	
+	private string _ApprovalName;
+	
+	private System.Nullable<bool> _SalesCall;
+	
+	private System.Nullable<bool> _SalesQuote;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnEmpNoChanging(int value);
+    partial void OnEmpNoChanged();
+    partial void OnJobNoChanging(string value);
+    partial void OnJobNoChanged();
+    partial void OnJobCompleteChanging(bool value);
+    partial void OnJobCompleteChanged();
+    partial void OnOrigionalScopeChanging(bool value);
+    partial void OnOrigionalScopeChanged();
+    partial void OnNumMgrsChanging(System.Nullable<int> value);
+    partial void OnNumMgrsChanged();
+    partial void OnAddMaterialChanging(System.Nullable<decimal> value);
+    partial void OnAddMaterialChanged();
+    partial void OnAddTravelChanging(System.Nullable<decimal> value);
+    partial void OnAddTravelChanged();
+    partial void OnAddLodgeChanging(System.Nullable<decimal> value);
+    partial void OnAddLodgeChanged();
+    partial void OnAddOtherChanging(System.Nullable<decimal> value);
+    partial void OnAddOtherChanged();
+    partial void OnTotHoursChanging(System.Nullable<double> value);
+    partial void OnTotHoursChanged();
+    partial void OnTimeStampChanging(System.DateTime value);
+    partial void OnTimeStampChanged();
+    partial void OnApprovalNameChanging(string value);
+    partial void OnApprovalNameChanged();
+    partial void OnSalesCallChanging(System.Nullable<bool> value);
+    partial void OnSalesCallChanged();
+    partial void OnSalesQuoteChanging(System.Nullable<bool> value);
+    partial void OnSalesQuoteChanged();
+    #endregion
+	
+	public SIU_Complete_Job()
+	{
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EmpNo", DbType="Int NOT NULL")]
+	public int EmpNo
+	{
+		get
+		{
+			return this._EmpNo;
+		}
+		set
+		{
+			if ((this._EmpNo != value))
+			{
+				this.OnEmpNoChanging(value);
+				this.SendPropertyChanging();
+				this._EmpNo = value;
+				this.SendPropertyChanged("EmpNo");
+				this.OnEmpNoChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JobNo", DbType="VarChar(10) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+	public string JobNo
+	{
+		get
+		{
+			return this._JobNo;
+		}
+		set
+		{
+			if ((this._JobNo != value))
+			{
+				this.OnJobNoChanging(value);
+				this.SendPropertyChanging();
+				this._JobNo = value;
+				this.SendPropertyChanged("JobNo");
+				this.OnJobNoChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JobComplete", DbType="Bit NOT NULL")]
+	public bool JobComplete
+	{
+		get
+		{
+			return this._JobComplete;
+		}
+		set
+		{
+			if ((this._JobComplete != value))
+			{
+				this.OnJobCompleteChanging(value);
+				this.SendPropertyChanging();
+				this._JobComplete = value;
+				this.SendPropertyChanged("JobComplete");
+				this.OnJobCompleteChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OrigionalScope", DbType="Bit NOT NULL")]
+	public bool OrigionalScope
+	{
+		get
+		{
+			return this._OrigionalScope;
+		}
+		set
+		{
+			if ((this._OrigionalScope != value))
+			{
+				this.OnOrigionalScopeChanging(value);
+				this.SendPropertyChanging();
+				this._OrigionalScope = value;
+				this.SendPropertyChanged("OrigionalScope");
+				this.OnOrigionalScopeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NumMgrs", DbType="Int")]
+	public System.Nullable<int> NumMgrs
+	{
+		get
+		{
+			return this._NumMgrs;
+		}
+		set
+		{
+			if ((this._NumMgrs != value))
+			{
+				this.OnNumMgrsChanging(value);
+				this.SendPropertyChanging();
+				this._NumMgrs = value;
+				this.SendPropertyChanged("NumMgrs");
+				this.OnNumMgrsChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AddMaterial", DbType="Money")]
+	public System.Nullable<decimal> AddMaterial
+	{
+		get
+		{
+			return this._AddMaterial;
+		}
+		set
+		{
+			if ((this._AddMaterial != value))
+			{
+				this.OnAddMaterialChanging(value);
+				this.SendPropertyChanging();
+				this._AddMaterial = value;
+				this.SendPropertyChanged("AddMaterial");
+				this.OnAddMaterialChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AddTravel", DbType="Money")]
+	public System.Nullable<decimal> AddTravel
+	{
+		get
+		{
+			return this._AddTravel;
+		}
+		set
+		{
+			if ((this._AddTravel != value))
+			{
+				this.OnAddTravelChanging(value);
+				this.SendPropertyChanging();
+				this._AddTravel = value;
+				this.SendPropertyChanged("AddTravel");
+				this.OnAddTravelChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AddLodge", DbType="Money")]
+	public System.Nullable<decimal> AddLodge
+	{
+		get
+		{
+			return this._AddLodge;
+		}
+		set
+		{
+			if ((this._AddLodge != value))
+			{
+				this.OnAddLodgeChanging(value);
+				this.SendPropertyChanging();
+				this._AddLodge = value;
+				this.SendPropertyChanged("AddLodge");
+				this.OnAddLodgeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AddOther", DbType="Money")]
+	public System.Nullable<decimal> AddOther
+	{
+		get
+		{
+			return this._AddOther;
+		}
+		set
+		{
+			if ((this._AddOther != value))
+			{
+				this.OnAddOtherChanging(value);
+				this.SendPropertyChanging();
+				this._AddOther = value;
+				this.SendPropertyChanged("AddOther");
+				this.OnAddOtherChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TotHours", DbType="Float")]
+	public System.Nullable<double> TotHours
+	{
+		get
+		{
+			return this._TotHours;
+		}
+		set
+		{
+			if ((this._TotHours != value))
+			{
+				this.OnTotHoursChanging(value);
+				this.SendPropertyChanging();
+				this._TotHours = value;
+				this.SendPropertyChanged("TotHours");
+				this.OnTotHoursChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TimeStamp", DbType="DateTime NOT NULL", IsPrimaryKey=true)]
+	public System.DateTime TimeStamp
+	{
+		get
+		{
+			return this._TimeStamp;
+		}
+		set
+		{
+			if ((this._TimeStamp != value))
+			{
+				this.OnTimeStampChanging(value);
+				this.SendPropertyChanging();
+				this._TimeStamp = value;
+				this.SendPropertyChanged("TimeStamp");
+				this.OnTimeStampChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ApprovalName", DbType="VarChar(50)")]
+	public string ApprovalName
+	{
+		get
+		{
+			return this._ApprovalName;
+		}
+		set
+		{
+			if ((this._ApprovalName != value))
+			{
+				this.OnApprovalNameChanging(value);
+				this.SendPropertyChanging();
+				this._ApprovalName = value;
+				this.SendPropertyChanged("ApprovalName");
+				this.OnApprovalNameChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SalesCall", DbType="Bit")]
+	public System.Nullable<bool> SalesCall
+	{
+		get
+		{
+			return this._SalesCall;
+		}
+		set
+		{
+			if ((this._SalesCall != value))
+			{
+				this.OnSalesCallChanging(value);
+				this.SendPropertyChanging();
+				this._SalesCall = value;
+				this.SendPropertyChanged("SalesCall");
+				this.OnSalesCallChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SalesQuote", DbType="Bit")]
+	public System.Nullable<bool> SalesQuote
+	{
+		get
+		{
+			return this._SalesQuote;
+		}
+		set
+		{
+			if ((this._SalesQuote != value))
+			{
+				this.OnSalesQuoteChanging(value);
+				this.SendPropertyChanging();
+				this._SalesQuote = value;
+				this.SendPropertyChanged("SalesQuote");
+				this.OnSalesQuoteChanged();
 			}
 		}
 	}
