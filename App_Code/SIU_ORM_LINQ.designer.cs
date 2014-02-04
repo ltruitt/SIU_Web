@@ -170,6 +170,12 @@ public partial class SIU_ORM_LINQDataContext : System.Data.Linq.DataContext
   partial void InsertSIU_Complete_Job(SIU_Complete_Job instance);
   partial void UpdateSIU_Complete_Job(SIU_Complete_Job instance);
   partial void DeleteSIU_Complete_Job(SIU_Complete_Job instance);
+  partial void InsertSIU_Job_Report(SIU_Job_Report instance);
+  partial void UpdateSIU_Job_Report(SIU_Job_Report instance);
+  partial void DeleteSIU_Job_Report(SIU_Job_Report instance);
+  partial void InsertSIU_Job_Report_FormSelect(SIU_Job_Report_FormSelect instance);
+  partial void UpdateSIU_Job_Report_FormSelect(SIU_Job_Report_FormSelect instance);
+  partial void DeleteSIU_Job_Report_FormSelect(SIU_Job_Report_FormSelect instance);
   #endregion
 	
 	public SIU_ORM_LINQDataContext() : 
@@ -615,6 +621,22 @@ public partial class SIU_ORM_LINQDataContext : System.Data.Linq.DataContext
 		get
 		{
 			return this.GetTable<SIU_Complete_Job>();
+		}
+	}
+	
+	public System.Data.Linq.Table<SIU_Job_Report> SIU_Job_Reports
+	{
+		get
+		{
+			return this.GetTable<SIU_Job_Report>();
+		}
+	}
+	
+	public System.Data.Linq.Table<SIU_Job_Report_FormSelect> SIU_Job_Report_FormSelects
+	{
+		get
+		{
+			return this.GetTable<SIU_Job_Report_FormSelect>();
 		}
 	}
 	
@@ -37125,6 +37147,490 @@ public partial class SIU_Complete_Job : INotifyPropertyChanging, INotifyProperty
 				this._SalesQuote = value;
 				this.SendPropertyChanged("SalesQuote");
 				this.OnSalesQuoteChanged();
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+}
+
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SIU_Job_Report")]
+public partial class SIU_Job_Report : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private string _JobNo;
+	
+	private System.Nullable<System.DateTime> _RD_GaveToCustDate;
+	
+	private System.Nullable<bool> _RD_PlsEmail;
+	
+	private System.Nullable<int> _RD_PlsMailCnt;
+	
+	private System.Nullable<int> _RD_PlsMailCdCnt;
+	
+	private string _RD_GaveOther;
+	
+	private System.Nullable<bool> _RD_RptInDropBox;
+	
+	private System.Nullable<bool> _RD_RptInDFS;
+	
+	private System.Nullable<bool> _RD_RptInNavision;
+	
+	private System.Nullable<bool> _RD_RptInPdb;
+	
+	private System.Nullable<bool> _RD_InitInsp;
+	
+	private System.Nullable<bool> _RD_RptInJobFolder;
+	
+	private System.Nullable<System.DateTime> _RD_PrioritySendByDate;
+	
+	private System.Nullable<bool> _RD_ReadyForFinal;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnJobNoChanging(string value);
+    partial void OnJobNoChanged();
+    partial void OnRD_GaveToCustDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnRD_GaveToCustDateChanged();
+    partial void OnRD_PlsEmailChanging(System.Nullable<bool> value);
+    partial void OnRD_PlsEmailChanged();
+    partial void OnRD_PlsMailCntChanging(System.Nullable<int> value);
+    partial void OnRD_PlsMailCntChanged();
+    partial void OnRD_PlsMailCdCntChanging(System.Nullable<int> value);
+    partial void OnRD_PlsMailCdCntChanged();
+    partial void OnRD_GaveOtherChanging(string value);
+    partial void OnRD_GaveOtherChanged();
+    partial void OnRD_RptInDropBoxChanging(System.Nullable<bool> value);
+    partial void OnRD_RptInDropBoxChanged();
+    partial void OnRD_RptInDFSChanging(System.Nullable<bool> value);
+    partial void OnRD_RptInDFSChanged();
+    partial void OnRD_RptInNavisionChanging(System.Nullable<bool> value);
+    partial void OnRD_RptInNavisionChanged();
+    partial void OnRD_RptInPdbChanging(System.Nullable<bool> value);
+    partial void OnRD_RptInPdbChanged();
+    partial void OnRD_InitInspChanging(System.Nullable<bool> value);
+    partial void OnRD_InitInspChanged();
+    partial void OnRD_RptInJobFolderChanging(System.Nullable<bool> value);
+    partial void OnRD_RptInJobFolderChanged();
+    partial void OnRD_PrioritySendByDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnRD_PrioritySendByDateChanged();
+    partial void OnRD_ReadyForFinalChanging(System.Nullable<bool> value);
+    partial void OnRD_ReadyForFinalChanged();
+    #endregion
+	
+	public SIU_Job_Report()
+	{
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JobNo", DbType="VarChar(10) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+	public string JobNo
+	{
+		get
+		{
+			return this._JobNo;
+		}
+		set
+		{
+			if ((this._JobNo != value))
+			{
+				this.OnJobNoChanging(value);
+				this.SendPropertyChanging();
+				this._JobNo = value;
+				this.SendPropertyChanged("JobNo");
+				this.OnJobNoChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RD_GaveToCustDate", DbType="DateTime")]
+	public System.Nullable<System.DateTime> RD_GaveToCustDate
+	{
+		get
+		{
+			return this._RD_GaveToCustDate;
+		}
+		set
+		{
+			if ((this._RD_GaveToCustDate != value))
+			{
+				this.OnRD_GaveToCustDateChanging(value);
+				this.SendPropertyChanging();
+				this._RD_GaveToCustDate = value;
+				this.SendPropertyChanged("RD_GaveToCustDate");
+				this.OnRD_GaveToCustDateChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RD_PlsEmail", DbType="Bit")]
+	public System.Nullable<bool> RD_PlsEmail
+	{
+		get
+		{
+			return this._RD_PlsEmail;
+		}
+		set
+		{
+			if ((this._RD_PlsEmail != value))
+			{
+				this.OnRD_PlsEmailChanging(value);
+				this.SendPropertyChanging();
+				this._RD_PlsEmail = value;
+				this.SendPropertyChanged("RD_PlsEmail");
+				this.OnRD_PlsEmailChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RD_PlsMailCnt", DbType="Int")]
+	public System.Nullable<int> RD_PlsMailCnt
+	{
+		get
+		{
+			return this._RD_PlsMailCnt;
+		}
+		set
+		{
+			if ((this._RD_PlsMailCnt != value))
+			{
+				this.OnRD_PlsMailCntChanging(value);
+				this.SendPropertyChanging();
+				this._RD_PlsMailCnt = value;
+				this.SendPropertyChanged("RD_PlsMailCnt");
+				this.OnRD_PlsMailCntChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RD_PlsMailCdCnt", DbType="Int")]
+	public System.Nullable<int> RD_PlsMailCdCnt
+	{
+		get
+		{
+			return this._RD_PlsMailCdCnt;
+		}
+		set
+		{
+			if ((this._RD_PlsMailCdCnt != value))
+			{
+				this.OnRD_PlsMailCdCntChanging(value);
+				this.SendPropertyChanging();
+				this._RD_PlsMailCdCnt = value;
+				this.SendPropertyChanged("RD_PlsMailCdCnt");
+				this.OnRD_PlsMailCdCntChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RD_GaveOther", DbType="VarChar(1000)")]
+	public string RD_GaveOther
+	{
+		get
+		{
+			return this._RD_GaveOther;
+		}
+		set
+		{
+			if ((this._RD_GaveOther != value))
+			{
+				this.OnRD_GaveOtherChanging(value);
+				this.SendPropertyChanging();
+				this._RD_GaveOther = value;
+				this.SendPropertyChanged("RD_GaveOther");
+				this.OnRD_GaveOtherChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RD_RptInDropBox", DbType="Bit")]
+	public System.Nullable<bool> RD_RptInDropBox
+	{
+		get
+		{
+			return this._RD_RptInDropBox;
+		}
+		set
+		{
+			if ((this._RD_RptInDropBox != value))
+			{
+				this.OnRD_RptInDropBoxChanging(value);
+				this.SendPropertyChanging();
+				this._RD_RptInDropBox = value;
+				this.SendPropertyChanged("RD_RptInDropBox");
+				this.OnRD_RptInDropBoxChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RD_RptInDFS", DbType="Bit")]
+	public System.Nullable<bool> RD_RptInDFS
+	{
+		get
+		{
+			return this._RD_RptInDFS;
+		}
+		set
+		{
+			if ((this._RD_RptInDFS != value))
+			{
+				this.OnRD_RptInDFSChanging(value);
+				this.SendPropertyChanging();
+				this._RD_RptInDFS = value;
+				this.SendPropertyChanged("RD_RptInDFS");
+				this.OnRD_RptInDFSChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RD_RptInNavision", DbType="Bit")]
+	public System.Nullable<bool> RD_RptInNavision
+	{
+		get
+		{
+			return this._RD_RptInNavision;
+		}
+		set
+		{
+			if ((this._RD_RptInNavision != value))
+			{
+				this.OnRD_RptInNavisionChanging(value);
+				this.SendPropertyChanging();
+				this._RD_RptInNavision = value;
+				this.SendPropertyChanged("RD_RptInNavision");
+				this.OnRD_RptInNavisionChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RD_RptInPdb", DbType="Bit")]
+	public System.Nullable<bool> RD_RptInPdb
+	{
+		get
+		{
+			return this._RD_RptInPdb;
+		}
+		set
+		{
+			if ((this._RD_RptInPdb != value))
+			{
+				this.OnRD_RptInPdbChanging(value);
+				this.SendPropertyChanging();
+				this._RD_RptInPdb = value;
+				this.SendPropertyChanged("RD_RptInPdb");
+				this.OnRD_RptInPdbChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RD_InitInsp", DbType="Bit")]
+	public System.Nullable<bool> RD_InitInsp
+	{
+		get
+		{
+			return this._RD_InitInsp;
+		}
+		set
+		{
+			if ((this._RD_InitInsp != value))
+			{
+				this.OnRD_InitInspChanging(value);
+				this.SendPropertyChanging();
+				this._RD_InitInsp = value;
+				this.SendPropertyChanged("RD_InitInsp");
+				this.OnRD_InitInspChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RD_RptInJobFolder", DbType="Bit")]
+	public System.Nullable<bool> RD_RptInJobFolder
+	{
+		get
+		{
+			return this._RD_RptInJobFolder;
+		}
+		set
+		{
+			if ((this._RD_RptInJobFolder != value))
+			{
+				this.OnRD_RptInJobFolderChanging(value);
+				this.SendPropertyChanging();
+				this._RD_RptInJobFolder = value;
+				this.SendPropertyChanged("RD_RptInJobFolder");
+				this.OnRD_RptInJobFolderChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RD_PrioritySendByDate", DbType="DateTime")]
+	public System.Nullable<System.DateTime> RD_PrioritySendByDate
+	{
+		get
+		{
+			return this._RD_PrioritySendByDate;
+		}
+		set
+		{
+			if ((this._RD_PrioritySendByDate != value))
+			{
+				this.OnRD_PrioritySendByDateChanging(value);
+				this.SendPropertyChanging();
+				this._RD_PrioritySendByDate = value;
+				this.SendPropertyChanged("RD_PrioritySendByDate");
+				this.OnRD_PrioritySendByDateChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RD_ReadyForFinal", DbType="Bit")]
+	public System.Nullable<bool> RD_ReadyForFinal
+	{
+		get
+		{
+			return this._RD_ReadyForFinal;
+		}
+		set
+		{
+			if ((this._RD_ReadyForFinal != value))
+			{
+				this.OnRD_ReadyForFinalChanging(value);
+				this.SendPropertyChanging();
+				this._RD_ReadyForFinal = value;
+				this.SendPropertyChanged("RD_ReadyForFinal");
+				this.OnRD_ReadyForFinalChanged();
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+}
+
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SIU_Job_Report_FormSelect")]
+public partial class SIU_Job_Report_FormSelect : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _JobNo_Begin;
+	
+	private int _JobNo_End;
+	
+	private string _FormName;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnJobNo_BeginChanging(int value);
+    partial void OnJobNo_BeginChanged();
+    partial void OnJobNo_EndChanging(int value);
+    partial void OnJobNo_EndChanged();
+    partial void OnFormNameChanging(string value);
+    partial void OnFormNameChanged();
+    #endregion
+	
+	public SIU_Job_Report_FormSelect()
+	{
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JobNo_Begin", DbType="Int NOT NULL", IsPrimaryKey=true)]
+	public int JobNo_Begin
+	{
+		get
+		{
+			return this._JobNo_Begin;
+		}
+		set
+		{
+			if ((this._JobNo_Begin != value))
+			{
+				this.OnJobNo_BeginChanging(value);
+				this.SendPropertyChanging();
+				this._JobNo_Begin = value;
+				this.SendPropertyChanged("JobNo_Begin");
+				this.OnJobNo_BeginChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JobNo_End", DbType="Int NOT NULL", IsPrimaryKey=true)]
+	public int JobNo_End
+	{
+		get
+		{
+			return this._JobNo_End;
+		}
+		set
+		{
+			if ((this._JobNo_End != value))
+			{
+				this.OnJobNo_EndChanging(value);
+				this.SendPropertyChanging();
+				this._JobNo_End = value;
+				this.SendPropertyChanged("JobNo_End");
+				this.OnJobNo_EndChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FormName", DbType="VarChar(10) NOT NULL", CanBeNull=false)]
+	public string FormName
+	{
+		get
+		{
+			return this._FormName;
+		}
+		set
+		{
+			if ((this._FormName != value))
+			{
+				this.OnFormNameChanging(value);
+				this.SendPropertyChanging();
+				this._FormName = value;
+				this.SendPropertyChanged("FormName");
+				this.OnFormNameChanged();
 			}
 		}
 	}

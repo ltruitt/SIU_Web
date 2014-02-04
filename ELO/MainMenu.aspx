@@ -63,9 +63,10 @@
                         <div style="margin-top: 30px;"></div>
                         <li class="l3"><a href="/ELO/VehDotEntry.aspx"  runat="server">Vehicle Inspection</a></li>                     
                            
-                        <li runat="server" ID="TestExp"                 class="l7" style="margin-top: 30px;"><a href="/ELO/MealsExpEntry2.aspx"  >(NEW) Reimbursable Meals and Mileage</a></li>
-                        <li runat="server" ID="TestJobCompletion"       class="l7" style="margin-top: 30px;"><a href="/Jobs/JobsCompletion.aspx" >(NEW) Job Completion</a></li>
-                        <li runat="server" ID="TestJobCompletionReport" class="l7"                          ><a href="/Jobs/JobsView.aspx"       >(NEW) Job Completion</a></li>
+                        <li runat="server" ID="TestExp"                 class="l7" style="margin-top: 30px;"><a href="/ELO/MealsExpEntry2.aspx"        >(NEW) Reimbursable Meals and Mileage</a></li>
+                        <li runat="server" ID="TestJobCompletion"       class="l7" style="margin-top: 30px;"><a href="/Jobs/JobsCompletion.aspx"       >(NEW) Job Completion</a></li>
+                        <li runat="server" ID="TestJobCompletionReport" class="l7"                          ><a href="/Jobs/JobsView.aspx"             >(NEW) Job Completion</a></li>
+                        <li runat="server" ID="TestJobReport"           class="l7" style="margin-top: 30px;"><a href="/Reporting/SubmitJobReport2.aspx">(NEW) Job Completion</a></li>
                         
                     </ul>
                 </div>

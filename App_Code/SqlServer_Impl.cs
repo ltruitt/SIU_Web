@@ -13,6 +13,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Security.Permissions;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Transactions;
 using System.Web;
 using System.Globalization;
@@ -1150,6 +1151,25 @@ public class SiuDao : WebService
         {
             SqlServer_Impl.LogDebug("SiuDao.GetSubmitJobReportByNo", jobNo);
             SqlServer_Impl.LogDebug("SiuDao.GetSubmitJobReportByNo", ex.Message);
+            throw;
+        }
+    }
+
+    [WebMethod(EnableSession = true)]
+    public string Gffeop2(string jobNo)
+    {
+        try
+        {
+            Shermco_Job_Report rpt = SqlServer_Impl.GetSubmitJobReportByNo(jobNo);
+            string JobForm = SqlServer_Impl.GetJobReportFormType(jobNo);
+
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            return serializer.Serialize(new { Rpt = rpt, Form = JobForm });
+        }
+        catch (Exception ex)
+        {
+            SqlServer_Impl.LogDebug("SiuDao.GetSubmitJobReportByNo2", jobNo);
+            SqlServer_Impl.LogDebug("SiuDao.GetSubmitJobReportByNo2", ex.Message);
             throw;
         }
     }
@@ -6289,6 +6309,18 @@ public class SqlServer_Impl : WebService
                 where aJob.Job_No_ == jobNo
                 select aJob).SingleOrDefault();        
     }
+
+    public static string GetJobReportFormType(string jobNo)
+    {
+        SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
+
+        int iJobNo = Convert.ToInt32( Regex.Replace(jobNo, "[^0-9.]", "") );
+        return (from aJob in nvDb.SIU_Job_Report_FormSelects
+                where iJobNo >= aJob.JobNo_Begin && iJobNo <= aJob.JobNo_End 
+                select aJob.FormName).SingleOrDefault();
+    }
+
+
     public static string RecordSubmitJobReport(Shermco_Job_Report JobRptRcd)
     {
         SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);

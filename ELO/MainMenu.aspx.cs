@@ -40,6 +40,14 @@ public partial class ELO_MainMenu : System.Web.UI.Page
                 TestJobCompletionReport.Visible = true;
             }
 
+
+            TestJobCompletionReport.Visible = false;
+            if (sessionVar != null && sessionVar.Contains("JOB_REPORT_TEST"))
+            {
+                TestJobCompletion.Visible = true;
+                TestJobCompletionReport.Visible = true;
+            }
+
         }
     }
 
