@@ -148,9 +148,11 @@
                         <!------------->
                         <!--  Hazard -->
                         <!------------->
-                         <span style="font-weight: bold; margin-top: 10px; display:inline-block;">Hazard:</span>
-                        <input type="button" ID="btnNoUse" value="Vehicle Not Used" Class="SearchBtnCSS"  style="width: 45%; padding-left: 0; padding-right: 0; margin-left: 5px; display: inline-block; float: right;" />
-                        <input type="button" ID="btnNoHaz" value="No Hazards"       Class="SearchBtnCSS"  style="width: 30%; padding-left: 0; padding-right: 0;                   display: inline-block; float: right;" />
+                        <input type="button" ID="btnNoUse" value="Vehicle Not Used" Class="SearchBtnCSS"  style="width: 50%; padding-left: 0; padding-right: 0; margin-left: 0; display: inline-block; float: right; text-align: center;" />
+                        <input type="button" ID="btnNoHaz" value="No Hazards"       Class="SearchBtnCSS"  style="width: 50%; padding-left: 0; padding-right: 0; margin-left: 0; display: inline-block; float: left; text-align: center;"/>
+
+                        <span style="font-weight: bold; margin-top: 10px; display:inline-block;">Hazard:</span>
+
                         
 
 

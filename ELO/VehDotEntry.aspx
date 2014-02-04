@@ -145,7 +145,7 @@
                          <div style="width: 605px;">
                             <span style="font-weight: bold; margin-top: 10px; display:inline-block;">Hazard:</span>
                             <input type="button" ID="btnNoUse" value="Vehicle Not Used" Class="SearchBtnCSS"   style="width: 200px; margin-left: 10px; display: inline-block; float: right;" />
-                            <input type="button" ID="btnNoHaz" value="No Hazards"       Class="SearchBtnCSS"   style="width: 200px; display: inline-block; float: right;" />
+                            <input type="button" ID="btnNoHaz" value="No Hazards"       Class="SearchBtnCSS"   style="width: 200px;                    display: inline-block; float: right;" />
                         </div>
 
                         <div class="TimeRow" id="txtHazardDiv" style=" height: 80px;">
