@@ -137,7 +137,10 @@
                                 <div style="font-size: .8em; float: left; font-weight: bold;  width: 100%;  text-decoration: underline; margin-bottom: 5px; padding-left: 14px; ">Q4 2013 Points Chart</div>
                             </a>
                         
-                                                                  
+
+                            <a href="/Safety/SafetyPays/EmpTabPointsRpt.aspx" id="SP_TAB_BY_EMP" runat="server">
+                                <div style="font-size: .8em; float: left; font-weight: bold;  width: 100%;  text-decoration: underline; margin-bottom: 5px; padding-left: 14px; ">By Emp Report</div>
+                            </a>                                                                  
                     </li>          
                     
                     

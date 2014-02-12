@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Specialized;
 
 public partial class Corporate_BandC_BandC_ClassComplete : System.Web.UI.Page
 {
@@ -23,5 +24,7 @@ public partial class Corporate_BandC_BandC_ClassComplete : System.Web.UI.Page
         // Default The Time Entry Date To Today //
         //////////////////////////////////////////
         txtClassDate.Value = DateTime.Now.ToShortDateString();
+
+
     }
 }

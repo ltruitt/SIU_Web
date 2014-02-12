@@ -38,9 +38,6 @@
             <span  style="text-align: center; font-size: 2em; width: 100%;  position:absolute; left: 0; margin-left: auto; margin-right: auto;">Class Completion Form</span>
         </section>  
             
-            
-
-    
         <section class="ui-widget-content ui-corner-all">
 
             <!---------------------------->
@@ -50,8 +47,6 @@
                 <span style="padding-right: 8px;">Instructor:</span>
                 <span runat="server" id="lblEmpName" />
             </div>
-
-                
 
             <p style="height: 20px;"></p> 
                 
@@ -86,6 +81,12 @@
                 <input ID="txtStudent" class="DataInputCss" style="width: 90px; margin-top: 10px;" /> 
 
                 <span runat="server" id="ServerError"   style="color: red; width: auto; font-size: 1.5em; margin-left: 20px;  font-weight: bold; padding: 5px;"/>
+                
+                <div style="width: 100%;  display: inline-block; margin-top: 25px;">
+                    <div style="float: left; width: 30%; ">
+                        <input type="button" ID="btnSubmit" value="Post All Of These Certifications" Class="SearchBtnCSS" />
+                    </div>
+                </div>
 
                 </div>
                 

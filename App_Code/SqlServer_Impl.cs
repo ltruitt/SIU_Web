@@ -105,7 +105,7 @@ public class SiuDao : WebService
     // Return List Of Unposted Students Who COmpleted Any Class For Instructor //
     /////////////////////////////////////////////////////////////////////////////
     [WebMethod(EnableSession = true)]
-    public string GetUnpostedClass(string EmpID, string ClassCode, string ClassDate)
+    public string mdd556asa(string EmpID, string ClassCode, string ClassDate)
     {
         ////////////////////////////////
         // Build Response Data Object //
@@ -153,7 +153,7 @@ public class SiuDao : WebService
     // Remove An Unposted Record Of A Student Completing A Class //
     ///////////////////////////////////////////////////////////////
     [WebMethod(EnableSession = true)]
-    public string DeleteUnPostedClassStudent(string UID)
+    public string g61aaqaaq61g(string UID)
     {
         string excepMsg = SqlServer_Impl.RemoveUnPostedClassStudent(UID);
         string cc = ( excepMsg.Length > 0 ) ? "OK" : "ERROR";
@@ -169,6 +169,17 @@ public class SiuDao : WebService
     public string CommitUnPostedClassStudent(string UID)
     {
         SqlServer_Impl.CommitUnPostedClassStudent(UID);
+        JavaScriptSerializer serializer = new JavaScriptSerializer();
+        return serializer.Serialize(new { Result = "OK" });
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////
+    // The Teacher Has Verified A Student Completed A Class.  Move Record To Emp Qual Tbl //
+    ////////////////////////////////////////////////////////////////////////////////////////
+    [WebMethod(EnableSession = true)]
+    public string dsaasd222()
+    {
+        SqlServer_Impl.CommitAllUnPostedClassStudent();
         JavaScriptSerializer serializer = new JavaScriptSerializer();
         return serializer.Serialize(new { Result = "OK" });
     }
@@ -6717,6 +6728,42 @@ public class SqlServer_Impl : WebService
 
         return "OK";
     }
+
+
+    public static void CommitAllUnPostedClassStudent()
+    {
+        try
+        {
+            SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
+
+            TransactionOptions to = new TransactionOptions
+            {
+                IsolationLevel = IsolationLevel.ReadCommitted
+            };
+
+            using (var trans = new TransactionScope(TransactionScopeOption.RequiresNew, to))
+            {
+                List<int> postList = (from pl in nvDb.SIU_Class_Completions
+                                      where pl.class_instructor == BusinessLayer.UserEmpID
+                                      select pl.UID
+                                     ).ToList();
+
+                foreach (var pl_uid in postList)
+                {
+                    //nvDb.ExecuteCommand("exec SIU_Class_To_Qualification @UID={0}", pl_uid);                    
+                }
+
+
+                trans.Complete();
+            }
+        }
+        catch (Exception ex)
+        {
+            LogDebug("CommitUnPostedClassStudent", ex.Message);
+        }
+
+    }
+
     public static void CommitUnPostedClassStudent(string UID)
     {
         try

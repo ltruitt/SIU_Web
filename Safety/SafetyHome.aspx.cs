@@ -30,10 +30,19 @@ public partial class Safety_SafetyHome : System.Web.UI.Page
             /////////////////////////////
             // Check For HR Test Priv. //
             /////////////////////////////
-            QomLI.Visible = false;
-            if (sessionVar != null)
-                if (sessionVar.Contains("EHS_TEST"))
-                    QomLI.Visible = true;
+            //QomLI.Visible = false;
+            //if (sessionVar != null)
+            //    if (sessionVar.Contains("EHS_TEST"))
+            //        QomLI.Visible = true;
+
+            /////////////////////////////////////////////////////////
+            // Check For Employee Specific SP Points Report Tester //
+            /////////////////////////////////////////////////////////
+            SP_TAB_BY_EMP.Visible = false;
+            if (sessionVar != null && sessionVar.Contains("SP_TAB_BY_EMP"))
+            {
+                SP_TAB_BY_EMP.Visible = true;
+            }
         }
             
     }

@@ -120,7 +120,8 @@
                     
                     $('#btnSubmit').hide();
                     
-                    if (record.Response.length == 0)
+                    //if (record.Response.length == 0)
+                    if (record.Response.Status != "Accepted" && record.Response.Status != "Decline")
                         $('#txtResponse').attr('disabled', false).css({ 'background-color': 'antiquewhite', 'border-color': 'brown' }).focus();
                     else
                         $('#txtResponse').attr('disabled', true).css({ 'background-color': 'gray', 'border-color': 'black' });

@@ -107,7 +107,7 @@
                         </a>
 
                 </li> 
-                
+<%--                
                 <li style="height: 190px;  width: 150px; border: none; margin-right: 5px;">
                         <a href="/Safety/Incident/Event.aspx" >
 						    <img src="/Images/IncMgmt.png" style="width: 85px; height: 85px;  padding-bottom: 8px; margin-top: 20px;" alt="QOM">
@@ -125,7 +125,7 @@
                             <div style="color: black; font-size: .9em; text-align: center; width: 150px;" id="Div4">Generate Spreadsheet</div>
                         </a>
                 </li> 
-                
+                --%>
 
             </ul>
 

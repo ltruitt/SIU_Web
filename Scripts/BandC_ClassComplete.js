@@ -161,8 +161,8 @@
         defaultSorting: 'UID ASC',
         edit: true,
         actions: {
-            listAction: '/SIU_DAO.asmx/GetUnpostedClass',
-            deleteAction: '/SIU_DAO.asmx/DeleteUnPostedClassStudent'
+            listAction: '/SIU_DAO.asmx/mdd556asa',
+            deleteAction: '/SIU_DAO.asmx/g61aaqaaq61g'
         },
         fields: {
             UID: {
@@ -228,5 +228,27 @@
     // Load Emps AutoComplete List
     var getEmpsCall = new AsyncServerMethod();
     getEmpsCall.exec("/SIU_DAO.asmx/GetAutoCompleteActiveEmployees", getEmpsSuccess);
+    
+
+    ///////////////////////////
+    // Submit Button Handler //
+    ///////////////////////////
+    function dsaasd222_Success(data) {
+        
+        timestamp = new Date();
+        $('#jTableContainer').jtable('load', { EmpID: $('#hlblEID')[0].innerHTML, ClassCode: $('#hlblCertCode')[0].innerHTML, ClassDate: $('#txtClassDate')[0].value, T: timestamp.getTime() });
+        $('#btnSubmit').show();
+
+    };
+    $("#btnSubmit").click(function () {
+        $('#btnSubmit').hide();
+
+        var timeSubmitCall = new AsyncServerMethod();
+        //timeSubmitCall.add('CertCode', $('#hlblCertCode').html());
+        //timeSubmitCall.add('Classdate', $('#txtClassDate').html());
+        
+        timeSubmitCall.exec("/SIU_DAO.asmx/dsaasd222", dsaasd222_Success);
+
+    });
 
 });
