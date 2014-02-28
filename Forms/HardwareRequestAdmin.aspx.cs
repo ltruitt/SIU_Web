@@ -151,10 +151,10 @@ public partial class Forms_HardwareRequestAdmin : System.Web.UI.Page
 
         SIU_IT_HW_Req Req = SqlServer_Impl.GetHardwareRequest(ReqID);
         Shermco_Employee CloserEmp = SqlServer_Impl.GetEmployeeByNo(EmpID);
-        WebMail.HardwareRequstSendCompleteEmail(CloserEmp.Company_E_Mail, Req);
+        BusinessLayer.HardwareRequstSendCompleteEmail(CloserEmp.Company_E_Mail, Req);
         
         Shermco_Employee ReqEmp = SqlServer_Impl.GetEmployeeByNo(Req.Req_EmpID);
-        WebMail.HardwareRequstSendCompleteEmail(ReqEmp.Company_E_Mail, Req);
+        BusinessLayer.HardwareRequstSendCompleteEmail(ReqEmp.Company_E_Mail, Req);
 
         return RequestID;
     }

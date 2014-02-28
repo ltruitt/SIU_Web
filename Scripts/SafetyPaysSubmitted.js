@@ -37,7 +37,7 @@
 
         processSafetyPaysCall.add('RcdID', $('#hlblKey')[0].innerHTML);
         processSafetyPaysCall.add('EmpID', $('#hlblEID')[0].innerHTML);
-        processSafetyPaysCall.add('ehsRepsonse', $('#ehsRepsonse').val());
+        processSafetyPaysCall.add('ehsRepsonse',  "Thank you for your submission, but unfortunately it was not approved.  "  + $('#ehsRepsonse').val());
         processSafetyPaysCall.add('SuprID', $('#hlblSID')[0].innerHTML);
         processSafetyPaysCall.add('QID', $('#hlblQID')[0].innerHTML);
         

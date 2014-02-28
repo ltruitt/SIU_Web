@@ -46,19 +46,19 @@ $(document).ready(function () {
         buildStartStop: false
     });
 
-    //$('#BlogSlider').anythingSlider({
-    //    hashTags: false,
-    //    theme: "HomeBlogSliderTheme",
-    //    delay: 6000,
-    //    mode: "vertical",
-    //    autoPlay: true,
-    //    buildArrows: false,
-    //    buildNavigation: false,
-    //    buildStartStop: false
-    //});
+    $('#BlogSlider').anythingSlider({
+        hashTags: false,
+        theme: "HomeBlogSliderTheme",
+        delay: 6000,
+        mode: "vertical",
+        autoPlay: true,
+        buildArrows: false,
+        buildNavigation: false,
+        buildStartStop: false
+    });
 
 
-    //$('#BlogSlider').show();
+    $('#BlogSlider').show();
 
 
 

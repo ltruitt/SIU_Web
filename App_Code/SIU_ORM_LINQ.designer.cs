@@ -170,12 +170,12 @@ public partial class SIU_ORM_LINQDataContext : System.Data.Linq.DataContext
   partial void InsertSIU_Complete_Job(SIU_Complete_Job instance);
   partial void UpdateSIU_Complete_Job(SIU_Complete_Job instance);
   partial void DeleteSIU_Complete_Job(SIU_Complete_Job instance);
-  partial void InsertSIU_Job_Report(SIU_Job_Report instance);
-  partial void UpdateSIU_Job_Report(SIU_Job_Report instance);
-  partial void DeleteSIU_Job_Report(SIU_Job_Report instance);
   partial void InsertSIU_Job_Report_FormSelect(SIU_Job_Report_FormSelect instance);
   partial void UpdateSIU_Job_Report_FormSelect(SIU_Job_Report_FormSelect instance);
   partial void DeleteSIU_Job_Report_FormSelect(SIU_Job_Report_FormSelect instance);
+  partial void InsertSIU_Job_Report(SIU_Job_Report instance);
+  partial void UpdateSIU_Job_Report(SIU_Job_Report instance);
+  partial void DeleteSIU_Job_Report(SIU_Job_Report instance);
   #endregion
 	
 	public SIU_ORM_LINQDataContext() : 
@@ -624,19 +624,19 @@ public partial class SIU_ORM_LINQDataContext : System.Data.Linq.DataContext
 		}
 	}
 	
-	public System.Data.Linq.Table<SIU_Job_Report> SIU_Job_Reports
-	{
-		get
-		{
-			return this.GetTable<SIU_Job_Report>();
-		}
-	}
-	
 	public System.Data.Linq.Table<SIU_Job_Report_FormSelect> SIU_Job_Report_FormSelects
 	{
 		get
 		{
 			return this.GetTable<SIU_Job_Report_FormSelect>();
+		}
+	}
+	
+	public System.Data.Linq.Table<SIU_Job_Report> SIU_Job_Reports
+	{
+		get
+		{
+			return this.GetTable<SIU_Job_Report>();
 		}
 	}
 	
@@ -11716,7 +11716,7 @@ public partial class Shermco_Customer : INotifyPropertyChanging, INotifyProperty
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Picture", DbType="Image", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Picture", DbType="Image", UpdateCheck=UpdateCheck.Never)]
 	public System.Data.Linq.Binary Picture
 	{
 		get
@@ -16079,7 +16079,7 @@ public partial class Shermco_Company_Information : INotifyPropertyChanging, INot
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Picture", DbType="Image", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Picture", DbType="Image", UpdateCheck=UpdateCheck.Never)]
 	public System.Data.Linq.Binary Picture
 	{
 		get
@@ -16599,7 +16599,7 @@ public partial class Shermco_Company_Information : INotifyPropertyChanging, INot
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Menu Picture]", Storage="_Menu_Picture", DbType="Image", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Menu Picture]", Storage="_Menu_Picture", DbType="Image", UpdateCheck=UpdateCheck.Never)]
 	public System.Data.Linq.Binary Menu_Picture
 	{
 		get
@@ -16619,7 +16619,7 @@ public partial class Shermco_Company_Information : INotifyPropertyChanging, INot
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Signatur Picture 1]", Storage="_Signatur_Picture_1", DbType="Image", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Signatur Picture 1]", Storage="_Signatur_Picture_1", DbType="Image", UpdateCheck=UpdateCheck.Never)]
 	public System.Data.Linq.Binary Signatur_Picture_1
 	{
 		get
@@ -16639,7 +16639,7 @@ public partial class Shermco_Company_Information : INotifyPropertyChanging, INot
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Signatur Picture 2]", Storage="_Signatur_Picture_2", DbType="Image", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Signatur Picture 2]", Storage="_Signatur_Picture_2", DbType="Image", UpdateCheck=UpdateCheck.Never)]
 	public System.Data.Linq.Binary Signatur_Picture_2
 	{
 		get
@@ -16659,7 +16659,7 @@ public partial class Shermco_Company_Information : INotifyPropertyChanging, INot
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Bank Logo]", Storage="_Bank_Logo", DbType="Image", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Bank Logo]", Storage="_Bank_Logo", DbType="Image", UpdateCheck=UpdateCheck.Never)]
 	public System.Data.Linq.Binary Bank_Logo
 	{
 		get
@@ -16679,7 +16679,7 @@ public partial class Shermco_Company_Information : INotifyPropertyChanging, INot
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Barcode Picture]", Storage="_Barcode_Picture", DbType="Image", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Barcode Picture]", Storage="_Barcode_Picture", DbType="Image", UpdateCheck=UpdateCheck.Never)]
 	public System.Data.Linq.Binary Barcode_Picture
 	{
 		get
@@ -16739,7 +16739,7 @@ public partial class Shermco_Company_Information : INotifyPropertyChanging, INot
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[OHSA Pic]", Storage="_OHSA_Pic", DbType="Image", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[OHSA Pic]", Storage="_OHSA_Pic", DbType="Image", UpdateCheck=UpdateCheck.Never)]
 	public System.Data.Linq.Binary OHSA_Pic
 	{
 		get
@@ -27747,7 +27747,7 @@ public partial class Shermco_Employee : INotifyPropertyChanging, INotifyProperty
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Picture", DbType="Image", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Picture", DbType="Image", UpdateCheck=UpdateCheck.Never)]
 	public System.Data.Linq.Binary Picture
 	{
 		get
@@ -33345,7 +33345,7 @@ public partial class Shermco_G_L_Account : INotifyPropertyChanging, INotifyPrope
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Picture", DbType="Image", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Picture", DbType="Image", UpdateCheck=UpdateCheck.Never)]
 	public System.Data.Linq.Binary Picture
 	{
 		get
@@ -37172,6 +37172,116 @@ public partial class SIU_Complete_Job : INotifyPropertyChanging, INotifyProperty
 	}
 }
 
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SIU_Job_Report_FormSelect")]
+public partial class SIU_Job_Report_FormSelect : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _JobNo_Begin;
+	
+	private int _JobNo_End;
+	
+	private string _FormName;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnJobNo_BeginChanging(int value);
+    partial void OnJobNo_BeginChanged();
+    partial void OnJobNo_EndChanging(int value);
+    partial void OnJobNo_EndChanged();
+    partial void OnFormNameChanging(string value);
+    partial void OnFormNameChanged();
+    #endregion
+	
+	public SIU_Job_Report_FormSelect()
+	{
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JobNo_Begin", DbType="Int NOT NULL", IsPrimaryKey=true)]
+	public int JobNo_Begin
+	{
+		get
+		{
+			return this._JobNo_Begin;
+		}
+		set
+		{
+			if ((this._JobNo_Begin != value))
+			{
+				this.OnJobNo_BeginChanging(value);
+				this.SendPropertyChanging();
+				this._JobNo_Begin = value;
+				this.SendPropertyChanged("JobNo_Begin");
+				this.OnJobNo_BeginChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JobNo_End", DbType="Int NOT NULL", IsPrimaryKey=true)]
+	public int JobNo_End
+	{
+		get
+		{
+			return this._JobNo_End;
+		}
+		set
+		{
+			if ((this._JobNo_End != value))
+			{
+				this.OnJobNo_EndChanging(value);
+				this.SendPropertyChanging();
+				this._JobNo_End = value;
+				this.SendPropertyChanged("JobNo_End");
+				this.OnJobNo_EndChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FormName", DbType="VarChar(10) NOT NULL", CanBeNull=false)]
+	public string FormName
+	{
+		get
+		{
+			return this._FormName;
+		}
+		set
+		{
+			if ((this._FormName != value))
+			{
+				this.OnFormNameChanging(value);
+				this.SendPropertyChanging();
+				this._FormName = value;
+				this.SendPropertyChanged("FormName");
+				this.OnFormNameChanged();
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+}
+
 [global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SIU_Job_Report")]
 public partial class SIU_Job_Report : INotifyPropertyChanging, INotifyPropertyChanged
 {
@@ -37190,7 +37300,7 @@ public partial class SIU_Job_Report : INotifyPropertyChanging, INotifyPropertyCh
 	
 	private string _RD_GaveOther;
 	
-	private System.Nullable<bool> _RD_RptInDropBox;
+	private System.Nullable<bool> _RD_StdDrvAutoRptDone;
 	
 	private System.Nullable<bool> _RD_RptInDFS;
 	
@@ -37222,8 +37332,8 @@ public partial class SIU_Job_Report : INotifyPropertyChanging, INotifyPropertyCh
     partial void OnRD_PlsMailCdCntChanged();
     partial void OnRD_GaveOtherChanging(string value);
     partial void OnRD_GaveOtherChanged();
-    partial void OnRD_RptInDropBoxChanging(System.Nullable<bool> value);
-    partial void OnRD_RptInDropBoxChanged();
+    partial void OnRD_StdDrvAutoRptDoneChanging(System.Nullable<bool> value);
+    partial void OnRD_StdDrvAutoRptDoneChanged();
     partial void OnRD_RptInDFSChanging(System.Nullable<bool> value);
     partial void OnRD_RptInDFSChanged();
     partial void OnRD_RptInNavisionChanging(System.Nullable<bool> value);
@@ -37365,22 +37475,22 @@ public partial class SIU_Job_Report : INotifyPropertyChanging, INotifyPropertyCh
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RD_RptInDropBox", DbType="Bit")]
-	public System.Nullable<bool> RD_RptInDropBox
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RD_StdDrvAutoRptDone", DbType="Bit")]
+	public System.Nullable<bool> RD_StdDrvAutoRptDone
 	{
 		get
 		{
-			return this._RD_RptInDropBox;
+			return this._RD_StdDrvAutoRptDone;
 		}
 		set
 		{
-			if ((this._RD_RptInDropBox != value))
+			if ((this._RD_StdDrvAutoRptDone != value))
 			{
-				this.OnRD_RptInDropBoxChanging(value);
+				this.OnRD_StdDrvAutoRptDoneChanging(value);
 				this.SendPropertyChanging();
-				this._RD_RptInDropBox = value;
-				this.SendPropertyChanged("RD_RptInDropBox");
-				this.OnRD_RptInDropBoxChanged();
+				this._RD_StdDrvAutoRptDone = value;
+				this.SendPropertyChanged("RD_StdDrvAutoRptDone");
+				this.OnRD_StdDrvAutoRptDoneChanged();
 			}
 		}
 	}
@@ -37521,116 +37631,6 @@ public partial class SIU_Job_Report : INotifyPropertyChanging, INotifyPropertyCh
 				this._RD_ReadyForFinal = value;
 				this.SendPropertyChanged("RD_ReadyForFinal");
 				this.OnRD_ReadyForFinalChanged();
-			}
-		}
-	}
-	
-	public event PropertyChangingEventHandler PropertyChanging;
-	
-	public event PropertyChangedEventHandler PropertyChanged;
-	
-	protected virtual void SendPropertyChanging()
-	{
-		if ((this.PropertyChanging != null))
-		{
-			this.PropertyChanging(this, emptyChangingEventArgs);
-		}
-	}
-	
-	protected virtual void SendPropertyChanged(String propertyName)
-	{
-		if ((this.PropertyChanged != null))
-		{
-			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-		}
-	}
-}
-
-[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SIU_Job_Report_FormSelect")]
-public partial class SIU_Job_Report_FormSelect : INotifyPropertyChanging, INotifyPropertyChanged
-{
-	
-	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-	
-	private int _JobNo_Begin;
-	
-	private int _JobNo_End;
-	
-	private string _FormName;
-	
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnJobNo_BeginChanging(int value);
-    partial void OnJobNo_BeginChanged();
-    partial void OnJobNo_EndChanging(int value);
-    partial void OnJobNo_EndChanged();
-    partial void OnFormNameChanging(string value);
-    partial void OnFormNameChanged();
-    #endregion
-	
-	public SIU_Job_Report_FormSelect()
-	{
-		OnCreated();
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JobNo_Begin", DbType="Int NOT NULL", IsPrimaryKey=true)]
-	public int JobNo_Begin
-	{
-		get
-		{
-			return this._JobNo_Begin;
-		}
-		set
-		{
-			if ((this._JobNo_Begin != value))
-			{
-				this.OnJobNo_BeginChanging(value);
-				this.SendPropertyChanging();
-				this._JobNo_Begin = value;
-				this.SendPropertyChanged("JobNo_Begin");
-				this.OnJobNo_BeginChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JobNo_End", DbType="Int NOT NULL", IsPrimaryKey=true)]
-	public int JobNo_End
-	{
-		get
-		{
-			return this._JobNo_End;
-		}
-		set
-		{
-			if ((this._JobNo_End != value))
-			{
-				this.OnJobNo_EndChanging(value);
-				this.SendPropertyChanging();
-				this._JobNo_End = value;
-				this.SendPropertyChanged("JobNo_End");
-				this.OnJobNo_EndChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FormName", DbType="VarChar(10) NOT NULL", CanBeNull=false)]
-	public string FormName
-	{
-		get
-		{
-			return this._FormName;
-		}
-		set
-		{
-			if ((this._FormName != value))
-			{
-				this.OnFormNameChanging(value);
-				this.SendPropertyChanging();
-				this._FormName = value;
-				this.SendPropertyChanged("FormName");
-				this.OnFormNameChanged();
 			}
 		}
 	}

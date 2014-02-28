@@ -13,7 +13,7 @@
     
     <!-- Page Layout -->
     <link rel="stylesheet" href="/Styles/HomePage.css" type="text/css" />
-    <script type='text/javascript' src="/Scripts/HomePage.js?0001"></script>
+    <script type='text/javascript' src="/Scripts/HomePage.js?0002"></script>
 
     <!-- AnythingSlider optional extensions -->
     <!-- <script src="js/jquery.anythingslider.fx.js"></script> -->
@@ -38,7 +38,7 @@
         </div>
     </div>--%>
 
-	<div id="HomeWrapper" style="xdisplay: none;">
+	<div id="HomeWrapper" style="display: none;">
 
 
 <!-- Left Side Of Main Content Area -->		  
@@ -46,11 +46,6 @@
             
 		    <!-- Site Shortcut Links -->		
             <div class="SideBar-Box" style="height:550px;">
-
-
-                <!-- Hovering Over The News Letter Icon Reveals A List Of Gallery Objects Presented In A Popup Window -->
-                <!-- On Page Load, Those Popup Window Definitions Are Generated ANd Insetred Here Dynamically         -->
-                <asp:Literal ID="PopupMenusVideoInsertPoint"    runat="server" Text="Human Resources">WEB\Intro</asp:Literal>
             
 
 			    <ul>
@@ -108,49 +103,30 @@
 				    </li> 
                     
 
-                    <!----------------------------------->	
-				    <!--  Recorded Safety Meeting Link -->
-                    <!----------------------------------->	
-<%--				    <li style="height: 100px; clear:both;">
-					    <a  href="/Library/LibHome.aspx"    id="A6" >
-						    <img  alt="Previous Safety Meeting" src="/Images/icon-MeetingPrevious.png" style="height: 57px; width: 57px"/>
-                                    <br/>Recorded Meetings
-					    </a>  
-				    </li>--%>
 
-                    <!---------------------------------->	
-				    <!-- HR Insurance Enrollment Info -->
-                    <!---------------------------------->	
-<%--				    <li id="HR_Insurance" runat="server" style="height: 100px; clear:both;">
-                        <a  href="/HR/Insurance.aspx"    id="A7" >
-					        <img  alt="Previous Safety Meeting" src="/Images/Benifits.png" />
-                            <br/>
-                            2014 Open Enrollment
-					    </a>  
-				    </li>--%>
                     
                                         
                     
-                    <!--------------->	
-				    <!-- News Icon -->			
-                    <!--------------->	
-<%--				    <li style="height: 90px; clear:both;">
-					    <a href="/News/NewsHome.aspx">
-						    <img style="width: 57px; height: 57px;" alt="News" src="/Images/icon-newsletter.png"  />
-						    <br/>News
+                    <!------------------>	
+				    <!-- Apparel Icon -->			
+                    <!------------------>	
+				    <li style="height: 90px; clear:both;">
+					    <a href="http://www.shermcogear.com" target="_Apparel">
+						    <img style="width: 75px; height: 70px;" alt="Apparel" src="/Images/Apparel.png"  />
+						    <br/>Apparel
 					    </a>
-				    </li> --%> 
+				    </li>  
                 
 			    </ul>	
             
-<%--                <hr/>
+                <hr/>
 
                 <!-------------------->
                 <!-- Scrolling News --> 
                 <!-------------------->
                 <ul id="BlogSlider" style="display: none;">
                     <asp:Literal runat="server" ID="BlogInsertPoint">Home</asp:Literal>
-                </ul> --%>                					
+                </ul>                 					
 		    </div>	 	
             
             <div class="SideBar-BoxBorder" style=" float: right; height: 600px; "/>

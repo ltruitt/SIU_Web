@@ -1,0 +1,29 @@
+﻿.ui-tabs .ui-tabs-nav {
+    background-image: none;
+    margin-top: -15px;
+    border: none;  
+}            
+
+.ui-form .ui-widget-content {
+    padding-left: 3px;
+    padding-right: 3px; 
+}
+
+.chkRptDisp .chkRptFmt .chkRts .chkPd .chkCt .chkOs .chkOsLtr .chkNoTest .ChkTest .chkIR .chkDrBox .chkIrDrBox .chkSales .chkIrData {
+    border: none;  
+}
+
+span[id^='SwitcherLabel'] {
+    font-size: 1.2em !important;
+    background-image: none !important;
+    border: none !important;
+    width: 105% !important;
+    margin-right: 10px !important;
+    -webkit-box-shadow: none !important;
+    -ms-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
+.hide {
+    display: none !important;
+}

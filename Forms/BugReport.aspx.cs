@@ -82,7 +82,7 @@ public partial class Forms_BugReport : System.Web.UI.Page
         // Write New Record To Database //
         //////////////////////////////////
         int NewIncidentNo = SqlServer_Impl.RecordBugReport(newReport);
-        WebMail.BugReportNewEmail(newReport, BusinessLayer.UserEmail, BusinessLayer.UserFullName);
+        BusinessLayer.BugReportNewEmail(newReport, BusinessLayer.UserEmail, BusinessLayer.UserFullName);
 
         Response.Redirect("/", true);
 
@@ -92,7 +92,7 @@ public partial class Forms_BugReport : System.Web.UI.Page
     {
         string Method = "Forms_BugReport.lblBtnAccept_Click";
 
-        WebMail.BugReportSendStatusEmail(SqlServer_Impl.RecordBugStatus('C', IncNo), 'C');
+        BusinessLayer.BugReportSendStatusEmail(SqlServer_Impl.RecordBugStatus('C', IncNo), 'C');
         Response.Redirect( @"http://" + Server.MachineName + @"/Forms/BugReportList.aspx");
 
     }
@@ -101,7 +101,7 @@ public partial class Forms_BugReport : System.Web.UI.Page
     {
         string Method = "Forms_BugReport.lblBtnReject_Click";
 
-        WebMail.BugReportSendStatusEmail(SqlServer_Impl.RecordBugStatus('X', IncNo, this.txtRejectNotes.Text), 'X');
+        BusinessLayer.BugReportSendStatusEmail(SqlServer_Impl.RecordBugStatus('X', IncNo, this.txtRejectNotes.Text), 'X');
         Response.Redirect(@"http://" + Server.MachineName + @"/Forms/BugReportList.aspx");
     }
 }

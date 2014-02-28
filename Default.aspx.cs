@@ -109,4 +109,9 @@ public partial class _Default : System.Web.UI.Page
     {
         BusinessLayer.GenQtmReminders();
     }
+
+    protected void DocSearch(object sender, EventArgs e)
+    {
+        string result = PopupMenuSupport.FileNameSearch("pdf");
+    }
 }

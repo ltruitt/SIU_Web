@@ -43,22 +43,22 @@
             width:300px; /* optional, though better have one */
             font-size: 1.0em;
             font-weight: bold;
-            margin-top: 0px;
+            margin-top: 0;
             color: white;
-            padding-top: 0px;
+            padding-top: 0;
     } 
                 
     .BlogText {
             position:absolute;
-            top:0px; /* in conjunction with left property, decides the text position */
+            top:0; /* in conjunction with left property, decides the text position */
             left:2px;
             width:300px; /* optional, though better have one */
-            margin-top: 0px;
-            padding-top: 0px;
+            margin-top: 0;
+            padding-top: 0;
     } 
         
         .HomeBlogSliderTheme {
-            color: black;
+            color: blue;
         }
         
     .anythingSlider-default .anythingControls ul li { border-bottom: none;} 

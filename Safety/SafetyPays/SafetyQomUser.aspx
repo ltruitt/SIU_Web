@@ -11,7 +11,7 @@
     <script type="text/javascript" src="/Scripts/jtable.2.2.1/jquery.jtable.js">                             </script>        
     <script type="text/javascript" src="/Scripts/jtable.2.2.1/extensions/jquery.jtable.aspnetpagemethods.js"></script> 
 
-    <script type="text/javascript" src="/Scripts/SafetyQomUser.js?0000"></script>  
+    <script type="text/javascript" src="/Scripts/SafetyQomUser.js?0001"></script>  
     <link rel="stylesheet" type="text/css" media="screen" href="/Styles/SafetyQomUser.css" />
       
 </asp:Content>
@@ -25,6 +25,7 @@
             <span id="hlblEID" runat="server"></span>
             <label id="hlblUID" runat="server"></label>
             <label id="hlblDept" runat="server"></label>
+            <label id="hlblIncNo" runat="server"></label>
         </section>
         
         <!----------------->

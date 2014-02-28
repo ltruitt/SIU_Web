@@ -80,17 +80,25 @@
 
 
                     <div id="BncAdmin" runat="server">
+                    
+                        <li>
+                            <a href="/Corporate/BandC/BandC_ClassComplete.aspx"><b>Record Cedrtification Without Document</b></a> 
+                            <br>
+                            <span style="font-size: small;">Record Certifications Without Document</span>
+                            <br><br>
+                        </li>
+                        
                         <li>
                             <a href="/install/Cert/WordTemplates"><b>Certification Templates</b></a> 
                             <br>
                             <span style="font-size: small;">Database Connected Certification Templates</span>
                             <br><br>
                         </li>
-                    
+                        
                         <li>
-                            <a href="/Corporate/BandC/BandC_ClassComplete.aspx"><b>Record Cedrtification Without Document</b></a> 
+                            <a href="/Forms/QualCodes.aspx"><b>Badge and Certification Codes</b></a> 
                             <br>
-                            <span style="font-size: small;">Record Cedrtification Without Document</span>
+                            <span style="font-size: small;">Manage Certification Codes</span>
                             <br><br>
                         </li>
                         

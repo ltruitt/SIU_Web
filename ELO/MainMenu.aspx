@@ -53,7 +53,7 @@
                         Effective Dec. 30th Vehicle Inspections must be entered into Shermco YOU! for Time Approval
                     </div>--%>
                     <ul >
-				        <li class="l3"><a href="/ELO/TimeEntry.aspx" ID="A5" runat="server">Record Time</a></li>
+				        <li class="l1"><a href="/ELO/TimeEntry.aspx" ID="A5" runat="server">Record Time  ** Minor Modification **</a></li>
                         <li class="l3"><a href="/ELO/MealsExpEntry.aspx" ID="A7" runat="server">Reimbursable Meals and Mileage</a></li>
                         <li class="l3"><a href="/ELO/VehMileage.aspx" ID="A8" runat="server">Vehicle Mileage</a></li>
                         <li class="l3"><a href="/My/MyExpenses.aspx" ID="A12" runat="server">Expense History</a></li>
@@ -65,8 +65,8 @@
                            
                         <li runat="server" ID="TestExp"                 class="l7" style="margin-top: 30px;"><a href="/ELO/MealsExpEntry2.aspx"        >(NEW) Reimbursable Meals and Mileage</a></li>
                         <li runat="server" ID="TestJobCompletion"       class="l7" style="margin-top: 30px;"><a href="/Jobs/JobsCompletion.aspx"       >(NEW) Job Completion</a></li>
-                        <li runat="server" ID="TestJobCompletionReport" class="l7"                          ><a href="/Jobs/JobsView.aspx"             >(NEW) Job Completion</a></li>
-                        <li runat="server" ID="TestJobReport"           class="l7" style="margin-top: 30px;"><a href="/Reporting/SubmitJobReport2.aspx">(NEW) Job Completion</a></li>
+                        <li runat="server" ID="TestJobCompletionReport" class="l7"                          ><a href="/Jobs/JobsView.aspx"             >(NEW) Completed Jobs</a></li>
+                        <li runat="server" ID="TestJobReport"           class="l7" style="margin-top: 30px;"><a href="/Reporting/SubmitJobReport2.aspx">(NEW) Job Reports By Dept</a></li>
                         
                     </ul>
                 </div>

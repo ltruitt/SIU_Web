@@ -211,7 +211,7 @@ public partial class Forms_HardwareRequest : System.Web.UI.Page
         HwReq.Visio = chkVisio.Checked;
 
         int XtnID = SqlServer_Impl.RecordHardwareRequest(HwReq);
-        WebMail.HardwareRequstSendNewEmail(HwReq, BusinessLayer.UserEmail);
+        BusinessLayer.HardwareRequstSendNewEmail(HwReq, BusinessLayer.UserEmail);
 
         // Redirect back to the portal home page 
         Response.Redirect("/", true);

@@ -1149,6 +1149,7 @@ public class SiuDao : WebService
     //////////////////////////////////////////////
     // Lookup Disposition Of A Report For A Job //
     //////////////////////////////////////////////
+    /// Old Job Report Call
     [WebMethod(EnableSession = true)]
     public string GetSubmitJobReportByNo(string jobNo)
     {
@@ -1166,16 +1167,20 @@ public class SiuDao : WebService
         }
     }
 
+
+    // Get Job Report CAll
     [WebMethod(EnableSession = true)]
     public string Gffeop2(string jobNo)
     {
         try
         {
             Shermco_Job_Report rpt = SqlServer_Impl.GetSubmitJobReportByNo(jobNo);
+            SIU_Job_Report rptExt = SqlServer_Impl.GetSubmitJobReportExtDataByNo(jobNo);
             string JobForm = SqlServer_Impl.GetJobReportFormType(jobNo);
+            if (JobForm == null) JobForm = "ESD1";
 
             JavaScriptSerializer serializer = new JavaScriptSerializer();
-            return serializer.Serialize(new { Rpt = rpt, Form = JobForm });
+            return serializer.Serialize(new { Rpt = rpt, ExtData = rptExt, Form = JobForm });
         }
         catch (Exception ex)
         {
@@ -1370,12 +1375,12 @@ public class SiuDao : WebService
             // If a New I/R Report Was Turned In Send An Email //
             /////////////////////////////////////////////////////
             if (jobRpt.IROnly == 1 || jobRpt.IRonFinalReport == 1)
-                WebMail.JobReportIrNotice(jobRpt);
+                BusinessLayer.JobReportIrNotice(jobRpt);
 
             if (jobRpt.SalesFollowUp == 1)
-                WebMail.JobSalesNotice(jobRpt);
+                BusinessLayer.JobSalesNotice(jobRpt);
 
-            WebMail.JobTechAckNotice(jobRpt);
+            BusinessLayer.JobTechAckNotice(jobRpt);
         }
         catch (Exception ex)
         {
@@ -1387,6 +1392,233 @@ public class SiuDao : WebService
                                             " other: " + jobRpt.TmpOtherText.Length +
                                             " email: " + jobRpt.Email.Length +
                                             " NoRpt: " + jobRpt.No_Report_Required_Reason.Length);
+            throw;
+        }
+    }
+
+    [WebMethod(EnableSession = true)]
+    public void q00p00ssa(      string UserEmpID, string jobNo, string Complete, string Partial, string PE, string No_Report_Reason, string comments,
+                                string chkNoData, string chkPowerDB, string chkScanned, string chkPdbMaster, string chkOtherData, string RTS_Relay_Data,
+                                string CT_Data_Saved, string Partial_Discharge, string Oil_Sample, string Oil_Sample_Follow_UP, string OtherText,
+                                string Sonic, string TTR, string Thermo, string Relay, string PCB, string PD, string Oil, string NFPA, string InslResit,
+                                string GrdEltrode, string GrdFlt, string Doble, string DLRO, string Decal, string HiPot, string BBT, string None, string IrData,
+                                string chkIrDrpBox, string chkIrOnly, string chkIrPort, string txtIrHardCnt, string txtAddEmail, string chkRptDrBox, string chkRptDrBoxNo,
+                                string chkIrDrpBoxNo, string SalesFollowUp, string SalesNotes, string GaveToCustDate, bool PlsEmail, string PlsMailCnt, string PlsMailCdCnt,
+                                string GaveOther, bool StdDrvAutoRptDone, bool RptInDfs, bool RptInNv, bool RptInPdb, bool InitInsp, bool RptInFolder, string SendByDate, bool FinalReady
+        )
+    {
+
+        Shermco_Job_Report jobRpt = null;
+        SIU_Job_Report rptExt = null;
+
+        try
+        {
+            rptExt = SqlServer_Impl.GetSubmitJobReportExtDataByNo(jobNo);
+            if (rptExt == null)
+                rptExt = new SIU_Job_Report();
+
+            rptExt.JobNo = jobNo;
+            rptExt.RD_PlsEmail = PlsEmail;
+            rptExt.RD_PlsMailCnt = (( PlsMailCnt.Length > 0) ?  Convert.ToInt32(PlsMailCnt) : 0);
+            rptExt.RD_PlsMailCdCnt = ((PlsMailCdCnt.Length > 0) ? Convert.ToInt32(PlsMailCdCnt) : 0);
+            rptExt.RD_GaveOther = Server.UrlDecode(GaveOther);
+            rptExt.RD_StdDrvAutoRptDone = StdDrvAutoRptDone;
+            rptExt.RD_RptInDFS = RptInDfs;
+            rptExt.RD_RptInNavision = RptInNv;
+            rptExt.RD_RptInPdb = RptInPdb;
+            rptExt.RD_InitInsp = InitInsp;
+            rptExt.RD_RptInJobFolder = RptInFolder;
+            rptExt.RD_ReadyForFinal = FinalReady;
+
+            if ( GaveToCustDate.Length > 0 )
+                rptExt.RD_GaveToCustDate =  DateTime.Parse(GaveToCustDate);
+
+            if ( SendByDate.Length > 0 )
+                rptExt.RD_PrioritySendByDate =  DateTime.Parse(SendByDate);
+
+
+
+            /////////////////////////////////
+            // Look For An Existing Record //
+            /////////////////////////////////
+            jobRpt = SqlServer_Impl.GetSubmitJobReportByNo(jobNo);
+
+            ////////////////////////////////////////////////////
+            // If This Is A New Record, Create Default Values //
+            ////////////////////////////////////////////////////
+            if (jobRpt == null)
+                jobRpt = SqlDataMapper<Shermco_Job_Report>.MakeNewDAO<Shermco_Job_Report>();
+
+
+            //////////////////////////////////////
+            // UUDecode Free Format Text Fields //
+            //////////////////////////////////////
+            SalesNotes = Server.UrlDecode(SalesNotes);
+            int len = GetLengthLimit(jobRpt, "SalesFollowUp_Comment");
+            if (SalesNotes.Length > len)
+                SalesNotes = SalesNotes.Substring(0, len);
+
+
+            comments = Server.UrlDecode(comments);
+            len = GetLengthLimit(jobRpt, "Comment");
+            if (comments.Length > len)
+                comments = comments.Substring(0, len);
+
+            No_Report_Reason = Server.UrlDecode(No_Report_Reason);
+            len = GetLengthLimit(jobRpt, "No_Report_Required_Reason");
+            if (No_Report_Reason.Length > len)
+                No_Report_Reason = No_Report_Reason.Substring(0, len);
+
+            OtherText = Server.UrlDecode(OtherText);
+            len = GetLengthLimit(jobRpt, "TmpOtherText");
+            if (OtherText.Length > len)
+                OtherText = OtherText.Substring(0, len);
+
+            txtAddEmail = Server.UrlDecode(txtAddEmail);
+            len = GetLengthLimit(jobRpt, "Email");
+            if (txtAddEmail.Length > len)
+                txtAddEmail = txtAddEmail.Substring(0, len);
+
+
+
+            ////////////
+            // Job No //
+            ////////////
+            jobRpt.Job_No_ = jobNo;
+
+            /////////////////////////////////////////////////
+            // If I/R Report Set Logged and Received dates //
+            /////////////////////////////////////////////////
+            if (chkIrOnly == "true")
+            {
+                jobRpt.Date_Report_Turned_In_by_Tech = DateTime.Now.Date;
+
+                jobRpt.Turned_in_by_Tech_Date = DateTime.Now.Date;
+                jobRpt.Turned_in_by_Tech_UserID = UserEmpID;
+            }
+
+            ///////////////////////////////////////////////////////
+            // For I/R Portion, Only Set Received From Tech Info //
+            ///////////////////////////////////////////////////////
+            if (chkIrPort == "true")
+            {
+                jobRpt.IR_Received_From_Tech = DateTime.Now.Date;
+                jobRpt.IR_Received_From_Tech_User = BusinessLayer.UserName;
+            }
+
+            ////////////
+            // IrData //
+            ////////////
+            if (IrData.ToLower() == "true") jobRpt.TmpIRData = 1;
+            jobRpt.Email = txtAddEmail;
+            jobRpt.No__of_Copies = int.Parse(txtIrHardCnt);
+            if (chkIrPort.ToLower() == "true") jobRpt.IRonFinalReport = 1;
+            if (chkIrOnly.ToLower() == "true") jobRpt.IROnly = 1;
+            if (chkIrDrpBox.ToLower() == "true") jobRpt.TmpIRData = 1;
+            if (chkIrDrpBoxNo.ToLower() == "true") jobRpt.TmpIRData_No = 1;
+
+            //////////////////////////////////////////
+            // Who Is Touching This Rcd             //
+            // Updated Every Time Record Is Touched //
+            //////////////////////////////////////////
+            jobRpt.Turned_in_By_Emp__No_ = UserEmpID;
+            jobRpt.Turned_in_by_Tech_Date = DateTime.Now.Date;
+            jobRpt.Turned_in_by_Tech_UserID = UserEmpID;
+            jobRpt.Last_Date_Modified = DateTime.Now.Date;
+
+            //////////////////
+            // Comments Box //
+            //////////////////
+            jobRpt.Comment = comments;
+
+            ////////////////////////
+            // Report Disposition //
+            ////////////////////////
+            jobRpt.TmpComplete = (byte)((Complete.ToLower() == "true") ? 1 : 0);
+            jobRpt.TmpPartial = (byte)((Partial.ToLower() == "true") ? 1 : 0);
+            jobRpt.TmpPE = (byte)((PE.ToLower() == "true") ? 1 : 0);
+            jobRpt.No_Report_Required = (byte)(No_Report_Reason.Length > 0 ? 1 : 0);
+            if (jobRpt.No_Report_Required == 1)
+                jobRpt.No_Report_Required_Reason = No_Report_Reason;
+
+            ///////////////////
+            // Report Format //
+            ///////////////////
+            if (chkNoData.ToLower() == "true") jobRpt.Report_Data_Format = 1;
+            if (chkPowerDB.ToLower() == "true") jobRpt.Report_Data_Format = 2;
+            if (chkScanned.ToLower() == "true") jobRpt.Report_Data_Format = 3;
+            if (chkPdbMaster.ToLower() == "true") jobRpt.Report_Data_Format = 4;
+            if (chkOtherData.ToLower() == "true") jobRpt.Report_Data_Format = 5;
+
+            if (chkRptDrBox.ToLower() == "true") jobRpt.General_Dropbox = 1;
+            if (chkRptDrBoxNo.ToLower() == "true") jobRpt.General_Dropbox_No = 1;
+
+
+            /////////////////////////
+            // Report "Other Data" //
+            /////////////////////////
+            jobRpt.RTS_Relay_Data = int.Parse(RTS_Relay_Data);
+            jobRpt.CT_Data_Saved = int.Parse(CT_Data_Saved);
+            jobRpt.Partial_Discharge = int.Parse(Partial_Discharge);
+            jobRpt.Oil_Sample = int.Parse(Oil_Sample);
+            jobRpt.Oil_Sample_Follow_UP = int.Parse(Oil_Sample_Follow_UP);
+            jobRpt.TmpOther = (byte)(OtherText.Length > 0 ? 1 : 0);
+            if (jobRpt.TmpOther == 1)
+                jobRpt.TmpOtherText = OtherText;
+
+
+            ///////////////
+            // Tests Run //
+            ///////////////
+            if (Sonic.ToLower() == "true") jobRpt.Ultrasonic_Testing = 1;
+            if (TTR.ToLower() == "true") jobRpt.TTR = 1;
+            if (Thermo.ToLower() == "true") jobRpt.Thermograpic_IR_ = 1;
+            if (Relay.ToLower() == "true") jobRpt.RTS_Relay_Data = 1;
+            if (PCB.ToLower() == "true") jobRpt.PCB_Info = 1;
+            if (PD.ToLower() == "true") jobRpt.Partial_Discharge_B = 1;
+            if (Oil.ToLower() == "true") jobRpt.Oil_Tests = 1;
+            if (NFPA.ToLower() == "true") jobRpt.NFPA_99 = 1;
+            if (InslResit.ToLower() == "true") jobRpt.Insulation_Resistance = 1;
+            if (GrdEltrode.ToLower() == "true") jobRpt.Grounding___Ground_Electrode = 1;
+            if (GrdFlt.ToLower() == "true") jobRpt.Ground_Fault_Systems = 1;
+            if (Doble.ToLower() == "true") jobRpt.Doble = 1;
+            if (DLRO.ToLower() == "true") jobRpt.DLRO = 1;
+            if (Decal.ToLower() == "true") jobRpt.Decal_Color_Codes = 1;
+            if (HiPot.ToLower() == "true") jobRpt.DC_Hipot = 1;
+            if (BBT.ToLower() == "true") jobRpt.Bus_Bolt_Torque = 1;
+            if (None.ToLower() == "true") jobRpt.No_Testing_Done = 1;
+
+            /////////////////////
+            // Sales Follow-Up //
+            /////////////////////
+            if (SalesFollowUp.ToLower() == "true") jobRpt.SalesFollowUp = 1;
+            else jobRpt.SalesFollowUp = 0;
+            jobRpt.SalesFollowUp_Comment = SalesNotes;
+
+            jobRpt.Last_Date_Modified = DateTime.Now.Date;
+            jobRpt.Received = 0;
+
+            SqlServer_Impl.RecordSubmitJobReport(jobRpt);
+            SqlServer_Impl.RecordSubmitExtJobReport(rptExt);
+
+            /////////////////////////////////////////////////////
+            // If a New I/R Report Was Turned In Send An Email //
+            /////////////////////////////////////////////////////
+            if (jobRpt.IROnly == 1 || jobRpt.IRonFinalReport == 1)
+                BusinessLayer.JobReportIrNotice(jobRpt);
+
+            string JobForm = SqlServer_Impl.GetJobReportFormType(jobNo);
+            if (jobRpt.SalesFollowUp == 1)
+                if (JobForm.ToLower() != "msd2" )
+                    BusinessLayer.JobSalesNotice(jobRpt);
+                else
+                    BusinessLayer.JobSalesNotice7071(jobRpt);
+
+            BusinessLayer.JobTechAckNotice(jobRpt);
+        }
+        catch (Exception ex)
+        {
+            SqlServer_Impl.LogDebug("SiuDao.SubmitJobRpt", ex.Message);
             throw;
         }
     }
@@ -1659,6 +1891,12 @@ public class SiuDao : WebService
         BusinessLayer.GenQtmReminders();
     }
 
+    [WebMethod(EnableSession = true)]
+    public void p775689hht()
+    {
+        BusinessLayer.GenQtmTest();
+    }
+
     //////////////////////////////////////////
     // Generate Open Vehicle Issues Reports //
     //////////////////////////////////////////
@@ -1674,16 +1912,7 @@ public class SiuDao : WebService
 
 #region Safety Pays
 
-    /// <span class="code-SummaryComment"><summary></span>
-    /// Gets the length limit for a given field on a LINQ object ... or zero if not known
-    /// <span class="code-SummaryComment"></summary></span>
-    /// <span class="code-SummaryComment"><remarks></span>
-    /// You can use the results from this method to dynamically 
-    /// set the allowed length of an INPUT on your web page to
-    /// exactly the same length as the length of the database column.  
-    /// Change the database and the UI changes just by
-    /// updating your DBML and recompiling.
-    /// <span class="code-SummaryComment"></remarks></span>
+
     public static int GetLengthLimit(object obj, string field)
     {
         int dblenint = 0;   // default value = we can't determine the length
@@ -1709,11 +1938,6 @@ public class SiuDao : WebService
         }
         return dblenint;
     }
-
-    /// <span class="code-SummaryComment"><summary></span>
-    /// If you don't care about truncating data that you are setting on a LINQ object, 
-    /// use something like this ...
-    /// <span class="code-SummaryComment"></summary></span>
     public static void SetAutoTruncate(object obj, string field, string value)
     {
         int len = GetLengthLimit(obj, field);
@@ -1746,6 +1970,9 @@ public class SiuDao : WebService
         //////////////////
         // New Incident //
         //////////////////
+        int iIncNo = Convert.ToInt32(IncidentNo);
+        newReport.IncidentNo = iIncNo;
+
         newReport.IncStatus = "New";
         newReport.EmpID = EID;
         newReport.IncLastTouchEmpID = BusinessLayer.UserEmpID;
@@ -1790,12 +2017,12 @@ public class SiuDao : WebService
         //////////////////////////////////
         newReport.IncidentNo = SqlServer_Impl.RecordSafetyPaysReport(newReport);
 
-        WebMail.SafetyPaysNewEmail(newReport, BusinessLayer.UserEmail, BusinessLayer.UserFullName);
+        BusinessLayer.SafetyPaysNewEmail(newReport, BusinessLayer.UserEmail, BusinessLayer.UserFullName);
 
         if (BusinessLayer.UserEmpID != newReport.EmpID)
         {
             Shermco_Employee e = SqlServer_Impl.GetEmployeeByNo(newReport.EmpID);
-            WebMail.SafetyPaysNewEmail(newReport, e.Company_E_Mail, e.Last_Name + ", " + e.First_Name);
+            BusinessLayer.SafetyPaysNewEmail(newReport, e.Company_E_Mail, e.Last_Name + ", " + e.First_Name);
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////
@@ -1823,7 +2050,7 @@ public class SiuDao : WebService
         try 
         {
             record = SqlServer_Impl.RecordSafetyPaysTask(record);
-            WebMail.SafetyPaysTaskAssignEMail(record, BusinessLayer.UserEmail, BusinessLayer.UserFullName);
+            BusinessLayer.SafetyPaysTaskAssignEMail(record, BusinessLayer.UserEmail, BusinessLayer.UserFullName);
             return new { Result = "OK", Record =   new SIU_SafetyPays_TaskList_Rpt( record ) };
         }
 
@@ -1868,7 +2095,7 @@ public class SiuDao : WebService
         try 
         {
             SIU_SafetyPays_TaskList task = SqlServer_Impl.RecordSafetyPaysTaskComplete(int.Parse(RptID), int.Parse(TaskNo), CloseNotes );
-            WebMail.SafetyPaysTaskCompleteEMail(task, BusinessLayer.UserEmail, BusinessLayer.UserFullName, CloseNotes);
+            BusinessLayer.SafetyPaysTaskCompleteEMail(task, BusinessLayer.UserEmail, BusinessLayer.UserFullName, CloseNotes);
             return task;
         }
 
@@ -1895,9 +2122,7 @@ public class SiuDao : WebService
 
         SIU_SafetyPaysReport rptRcd = SqlServer_Impl.RecordSafetyPaysStatus(int.Parse(RcdID), "Closed", EmpID, true, int.Parse(Points), ehsRepsonse);
         SqlServer_Impl.RecordSafetyPaysPoints(rptRcd);
-        WebMail.SafetyPaysAcceptEMail(rptRcd, suprEmail, BusinessLayer.UserFullName);
-
-
+        BusinessLayer.SafetyPaysAcceptEMail(rptRcd, suprEmail, BusinessLayer.UserFullName);
     }
 
     /////////////////////////////////////////////////////////////
@@ -1912,7 +2137,7 @@ public class SiuDao : WebService
 
         SIU_SafetyPaysReport rptRcd = SqlServer_Impl.RecordSafetyPaysStatus(int.Parse(RcdID), "Working", EmpID, false, int.Parse(Points), ehsRepsonse);
         SqlServer_Impl.RecordSafetyPaysPoints(rptRcd);
-        WebMail.SafetyPaysWorkingEMail(rptRcd, suprEmail, BusinessLayer.UserFullName);
+        BusinessLayer.SafetyPaysWorkingEMail(rptRcd, suprEmail, BusinessLayer.UserFullName);
     }
 
     ///////////////////////////////
@@ -1926,7 +2151,7 @@ public class SiuDao : WebService
             suprEmail = SqlServer_Impl.GetEmployeeByNo(SuprID).Company_E_Mail;
 
         SIU_SafetyPaysReport rptRcd = SqlServer_Impl.RecordSafetyPaysStatus(int.Parse(RcdID), "Reject", EmpID, true, 0, ehsRepsonse);
-        WebMail.SafetyPaysRejectedEMail(rptRcd, suprEmail, BusinessLayer.UserFullName);
+        BusinessLayer.SafetyPaysRejectedEMail(rptRcd, suprEmail, BusinessLayer.UserFullName);
     }
 
     /////////////////////////////////
@@ -1936,7 +2161,7 @@ public class SiuDao : WebService
     public void RecordSafetyPaysStatusComplete(string RcdID, string EmpID)
     {
         SIU_SafetyPaysReport rptRcd = SqlServer_Impl.RecordSafetyPaysStatus(int.Parse(RcdID), "Closed", EmpID, true, 0);
-        WebMail.SafetyPaysClosedEMail(rptRcd, BusinessLayer.UserEmail, BusinessLayer.UserFullName);
+        BusinessLayer.SafetyPaysClosedEMail(rptRcd, BusinessLayer.UserEmail, BusinessLayer.UserFullName);
     }
 
 
@@ -2481,7 +2706,7 @@ public class SiuDao : WebService
             // Send Emails To Approval Chain //
             ///////////////////////////////////
             SIU_Incident_Accident_Reports_To rt = BusinessLayer.IncidentAccidentReportsToByID(incRcd.UID);
-            WebMail.AccidentIncidentSubmitted(rt, incRcd);
+            BusinessLayer.AccidentIncidentSubmitted(rt, incRcd);
 
 
             //////////
@@ -2516,7 +2741,7 @@ public class SiuDao : WebService
             ///////////////////////////////
             SIU_Incident_Accident incRcd =  SqlServer_Impl.GetIncidentAccident(UID);
             SIU_Incident_Accident_Reports_To rt = BusinessLayer.IncidentAccidentReportsToByID(UID);
-            WebMail.AccidentIncidentApproved(rt, incRcd);
+            BusinessLayer.AccidentIncidentApproved(rt, incRcd);
 
             ///////////////////////////////////////////////
             // Check If All Approvals Have Been Received //
@@ -2525,7 +2750,7 @@ public class SiuDao : WebService
                 incRcd.Disposition = "Closed";
                 SqlServer_Impl.recordIncidentAccident(incRcd);
 
-                WebMail.AccidentIncidentClosed(rt, incRcd);
+                BusinessLayer.AccidentIncidentClosed(rt, incRcd);
             }
         }
         catch (Exception ex)
@@ -2563,7 +2788,7 @@ public class SiuDao : WebService
             ///////////////////////////////////
             var incRcd = SqlServer_Impl.GetIncidentAccident(newNote.Ref_UID);
             SIU_Incident_Accident_Reports_To rt = BusinessLayer.IncidentAccidentReportsToByID(incRcd.UID);
-            WebMail.AccidentIncidentCommented(rt, incRcd, Note);
+            BusinessLayer.AccidentIncidentCommented(rt, incRcd, Note);
 
             JavaScriptSerializer serializer = new JavaScriptSerializer();            
             return serializer.Serialize(new { Result = "OK", Records = newNote});
@@ -2934,30 +3159,32 @@ public class SiuDao : WebService
     [WebMethod(EnableSession = true)]
     public string MovieStart(string empNo, string movieId, string pos, string dur)
     {
-        string videoFolder;
-        string videoName;
-
-        int splitIdx = movieId.LastIndexOf('/');
-
-        if (splitIdx > 0)
-        {
-            videoName = movieId.Substring(splitIdx + 1);
-            videoFolder = movieId.Substring(0, splitIdx);
-        }
-        else
-        {
-            videoName = movieId;
-            videoFolder = "";
-        }
-
-
-        if (videoName[videoName.Length - 4] == '.')
-            videoName = videoName.Substring(0, videoName.Length - 4);
-
-        SqlServer_Impl.LogVideoWatch(empNo, videoName, videoFolder, pos, dur);
-
         return "";
     }
+    ////    string videoFolder;
+    ////    string videoName;
+
+    ////    int splitIdx = movieId.LastIndexOf('/');
+
+    ////    if (splitIdx > 0)
+    ////    {
+    ////        videoName = movieId.Substring(splitIdx + 1);
+    ////        videoFolder = movieId.Substring(0, splitIdx);
+    ////    }
+    ////    else
+    ////    {
+    ////        videoName = movieId;
+    ////        videoFolder = "";
+    ////    }
+
+
+    ////    if (videoName[videoName.Length - 4] == '.')
+    ////        videoName = videoName.Substring(0, videoName.Length - 4);
+
+    ////    SqlServer_Impl.LogVideoWatch(empNo, videoName, videoFolder, pos, dur);
+
+    ////    return "";
+    ////}
 
     ////////////////////////////
     // Record Movie Completed //
@@ -2965,19 +3192,21 @@ public class SiuDao : WebService
     [WebMethod(EnableSession = true)]
     public string MovieComplete(string empNo, string movieId, string pos, string dur)
     {
-        int splitIdx = movieId.LastIndexOf('/');
-
-        string videoName = movieId.Substring(splitIdx + 1);
-        if (videoName[videoName.Length - 4] == '.')
-            videoName = videoName.Substring(0, videoName.Length - 4);
-
-        string videoFolder = movieId.Substring(0, splitIdx);
-
-        SqlServer_Impl.LogVideoWatch(empNo, videoName, videoFolder, pos, dur, true);
-        WebMail.MovieCompletedEMail(empNo, videoName);
-
         return "";
     }
+    //    int splitIdx = movieId.LastIndexOf('/');
+
+    //    string videoName = movieId.Substring(splitIdx + 1);
+    //    if (videoName[videoName.Length - 4] == '.')
+    //        videoName = videoName.Substring(0, videoName.Length - 4);
+
+    //    string videoFolder = movieId.Substring(0, splitIdx);
+
+    //    SqlServer_Impl.LogVideoWatch(empNo, videoName, videoFolder, pos, dur, true);
+    //    BusinessLayer.MovieCompletedEMail(empNo, videoName);
+
+    //    return "";
+    //}
 
 
 #endregion Record Video Watching Event
@@ -3222,6 +3451,22 @@ public class SiuDao : WebService
 #endregion Blogs
 
 
+#region FileSearch
+    ////////////////////////////////////
+    // Return List Of Items In A Blog //
+    ////////////////////////////////////
+    [WebMethod(EnableSession = true)]
+    public string jghuy88766ss(string searchString)
+    {
+        //List<SIU_Blog> blogToc = SqlServer_Impl.GetBlogs(BlogName).ToList();
+
+        //JavaScriptSerializer serializer = new JavaScriptSerializer();
+        //return serializer.Serialize(new { Result = "OK", Records = blogToc });
+        string result = PopupMenuSupport.FileNameSearch("ins");
+
+        return "";
+    }
+#endregion FileSearch
 
 
     ////////////////////////////////////////////////////////////////////
@@ -3286,6 +3531,35 @@ public class SqlServer_Impl : WebService
             return csSection.ConnectionStrings[connectStringName].ConnectionString;
         }
     }
+
+
+//DbProviderFactory factory = DbProviderFactories.GetFactory("NuoDb.Data.Client");
+//        using (DbConnection cn = factory.CreateConnection())
+//        {
+//            DbConnectionStringBuilder builder = factory.CreateConnectionStringBuilder();
+//            builder["Server"] = host;
+//            builder["User"] = user;
+//            builder["Password"] = password;
+//            builder["Schema"] = schema;
+//            builder["Database"] = database;
+//            Console.WriteLine("Connection string = {0}", builder.ConnectionString);
+ 
+//            cn.ConnectionString = builder.ConnectionString;
+//            cn.Open();
+ 
+//            DbCommand cmd = factory.CreateCommand();
+//            cmd.Connection = cn;
+//            cmd.CommandText = "select * from hockey";
+ 
+//            DbDataReader reader = cmd.ExecuteReader();
+//            while (reader.Read())
+//            {
+//                Console.WriteLine("\t{0}\t{1}\t{2}", reader[0], reader[1], reader[2]);
+//            }
+//            reader.Close();
+//        }
+
+
 #endregion
 
 #region Logon
@@ -3351,138 +3625,70 @@ public class SqlServer_Impl : WebService
 #endregion
 
 #region NTFS Cacheing
-    public static void RecordCache(string PhyPath, string Markup, string MarkupType,  string VirtualDirectory = "",  int MenuID = -1, bool ListOnly = false)
-    {
-        SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
+    //public static void RecordCache(string PhyPath, string Markup, string MarkupType,  string VirtualDirectory = "",  int MenuID = -1, bool ListOnly = false)
+    //{
+    //    SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
 
-        if (Markup.Length == 0) return;
-        if (Environment.MachineName.ToLower() == "tsdc-dev") return;
+    //    if (Markup.Length == 0) return;
+    //    if (Environment.MachineName.ToLower() == "tsdc-dev") return;
 
-        if (GetCache(MarkupType, PhyPath, VirtualDirectory, MenuID, ListOnly).Length == 0)
-        {
-            //LogDebug("RecordCache", "MUType: " + MarkupType + " Phy: " + PhyPath + " Virt: " + VirtualDirectory + " Menu: " + MenuID + " LO: " + ListOnly);
+    //    if (GetCache(MarkupType, PhyPath, VirtualDirectory, MenuID, ListOnly).Length == 0)
+    //    {
+    //        //LogDebug("RecordCache", "MUType: " + MarkupType + " Phy: " + PhyPath + " Virt: " + VirtualDirectory + " Menu: " + MenuID + " LO: " + ListOnly);
 
-            SIU_NTFS_Cache cacheRcd = new SIU_NTFS_Cache
-            {
-                TimeStamp = DateTime.Now,
-                Server = Environment.MachineName,
-                PhysicalPath = PhyPath,
-                VirtualDirectory = VirtualDirectory,
-                MenuID = MenuID,
-                ListOnly = ListOnly,
-                Markup = Markup,
-                MarkupContentType = MarkupType
-            };
+    //        SIU_NTFS_Cache cacheRcd = new SIU_NTFS_Cache
+    //        {
+    //            TimeStamp = DateTime.Now,
+    //            Server = Environment.MachineName,
+    //            PhysicalPath = PhyPath,
+    //            VirtualDirectory = VirtualDirectory,
+    //            MenuID = MenuID,
+    //            ListOnly = ListOnly,
+    //            Markup = Markup,
+    //            MarkupContentType = MarkupType
+    //        };
 
-            nvDb.SIU_NTFS_Caches.InsertOnSubmit(cacheRcd);
-            nvDb.SubmitChanges();
-        }
-    }
-    public static string GetCache(string MarkupType, string PhyPath, string VirtualDirectory = "", int MenuID = -1, bool ListOnly = false)
-    {
-        SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
+    //        nvDb.SIU_NTFS_Caches.InsertOnSubmit(cacheRcd);
+    //        nvDb.SubmitChanges();
+    //    }
+    //}
+    //public static string GetCache(string MarkupType, string PhyPath, string VirtualDirectory = "", int MenuID = -1, bool ListOnly = false)
+    //{
+    //    SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
 
-        var rcd = (from cacheRcd in nvDb.SIU_NTFS_Caches
-                              where
-                                  cacheRcd.PhysicalPath == PhyPath && cacheRcd.VirtualDirectory == VirtualDirectory &&
-                                  cacheRcd.MenuID == MenuID && cacheRcd.ListOnly == ListOnly &&
-                                  cacheRcd.MarkupContentType == MarkupType &&
-                                  cacheRcd.Server == Environment.MachineName
-                              select cacheRcd);
+    //    var rcd = (from cacheRcd in nvDb.SIU_NTFS_Caches
+    //                          where
+    //                              cacheRcd.PhysicalPath == PhyPath && cacheRcd.VirtualDirectory == VirtualDirectory &&
+    //                              cacheRcd.MenuID == MenuID && cacheRcd.ListOnly == ListOnly &&
+    //                              cacheRcd.MarkupContentType == MarkupType &&
+    //                              cacheRcd.Server == Environment.MachineName
+    //                          select cacheRcd);
 
-        if ( ! rcd.Any() ) return "";
+    //    if ( ! rcd.Any() ) return "";
 
-        if (rcd.Count() > 1)
-        {
-            LogDebug("GetCache", "Duplicate Cache Rcd For MUType: " + MarkupType + " Phy: " + PhyPath + " Virt: " + VirtualDirectory + " Menu: " + MenuID + " LO: " + ListOnly);
-            foreach (var delRcd in rcd)
-                RemoveCache(delRcd);
-            return "";
-        }
+    //    if (rcd.Count() > 1)
+    //    {
+    //        LogDebug("GetCache", "Duplicate Cache Rcd For MUType: " + MarkupType + " Phy: " + PhyPath + " Virt: " + VirtualDirectory + " Menu: " + MenuID + " LO: " + ListOnly);
+    //        foreach (var delRcd in rcd)
+    //            RemoveCache(delRcd);
+    //        return "";
+    //    }
 
-        if ( rcd.First().TimeStamp.AddHours(1) <   DateTime.Now)
-        {
-            RemoveCache(rcd.First());
-            return "";
-        }
-        return rcd.First().Markup;
-    }
-    public static void RemoveCache(SIU_NTFS_Cache CacheRcd)
-    {
-        SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
+    //    if ( rcd.First().TimeStamp.AddHours(1) <   DateTime.Now)
+    //    {
+    //        RemoveCache(rcd.First());
+    //        return "";
+    //    }
+    //    return rcd.First().Markup;
+    //}
+    //public static void RemoveCache(SIU_NTFS_Cache CacheRcd)
+    //{
+    //    SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
 
-        nvDb.SIU_NTFS_Caches.Attach(CacheRcd);
-        nvDb.SIU_NTFS_Caches.DeleteOnSubmit(CacheRcd);
-        nvDb.SubmitChanges();
-    }
-#endregion
-
-#region Web Login Lookups
-    public static bool CreateUser_Initial(string Email, string Password)
-    {
-        SqlCommand cmd = new SqlCommand();
-
-        const string sql = "INSERT INTO SIU_USERS_OUTSIDE(Email, Pwd) VALUES (@Email, @Password) ";
-
-
-
-        try
-        {
-            cmd.CommandType = CommandType.Text;
-            cmd.CommandText = sql;
-
-            SqlParameter param = new SqlParameter("@Email", SqlDbType.VarChar) {Value = Email};
-            cmd.Parameters.Add(param);
-
-            param = new SqlParameter("@Password", SqlDbType.NVarChar) {Value = Crypto.Encrypt(Password)};
-            cmd.Parameters.Add(param);
-
-            cmd.Connection = new SqlConnection(SqlServerProdNvdbConnectString);
-            cmd.Connection.Open();
-
-            cmd.ExecuteNonQuery();
-        }
-
-        catch
-        {
-            return false;
-        }
-
-        finally
-        {
-            if (cmd.Connection.State != ConnectionState.Closed)
-            {
-                cmd.Connection.Close();
-                cmd.Connection.Dispose();
-            }
-        }
-
-        return true;
-
-    }
-    public static LogonRcd Validate_User(string Email, string Password)
-    {
-        DataSet ds = new DataSet();
-
-        const string sql = "Select First, Last, Phone, Email, LastUsed FROM SIU_USERS_OUTSIDE WHERE EMAIL = @Email and  Pwd = @Password ";
-
-
-        SqlCommand cmd = new SqlCommand(sql) {Connection = new SqlConnection(SqlServerProdNvdbConnectString)};
-
-        SqlParameter param = new SqlParameter("@Email", SqlDbType.VarChar) {Value = Email};
-        cmd.Parameters.Add(param);
-
-        param = new SqlParameter("@Password", SqlDbType.NVarChar) {Value = Crypto.Encrypt(Password)};
-        cmd.Parameters.Add(param);
-
-        SqlDataAdapter da = new SqlDataAdapter(cmd);
-
-        da.Fill(ds, "SIU_USERS_OUTSIDE");
-
-        LogonRcd rcd = new LogonRcd(ds);
-
-        return rcd;
-    }
+    //    nvDb.SIU_NTFS_Caches.Attach(CacheRcd);
+    //    nvDb.SIU_NTFS_Caches.DeleteOnSubmit(CacheRcd);
+    //    nvDb.SubmitChanges();
+    //}
 #endregion
 
 #region  Safety Training Methods
@@ -4005,59 +4211,59 @@ public class SqlServer_Impl : WebService
     }
 
 
-    public static bool LogVideoWatch(string empNo, string VideoName, string VideoFolder,  string Pos, string Dur, bool Completed=false)
-    {
-        string sql = "insert into SIU_Meeting_View_Log (EmpNo, VideoName, VideoFolder, Completed, Pos, Dur)";
-        sql += " values ( @empNo, @VideoName, @VideoFolder, @Completed, @Pos, @Dur )";
+    //public static bool LogVideoWatch(string empNo, string VideoName, string VideoFolder,  string Pos, string Dur, bool Completed=false)
+    //{
+    //    string sql = "insert into SIU_Meeting_View_Log (EmpNo, VideoName, VideoFolder, Completed, Pos, Dur)";
+    //    sql += " values ( @empNo, @VideoName, @VideoFolder, @Completed, @Pos, @Dur )";
 
-        SqlCommand cmd = new SqlCommand();
+    //    SqlCommand cmd = new SqlCommand();
 
-        try
-        {
-            cmd.CommandType = CommandType.Text;
-            cmd.CommandText = sql;
+    //    try
+    //    {
+    //        cmd.CommandType = CommandType.Text;
+    //        cmd.CommandText = sql;
 
-            SqlParameter param = new SqlParameter("@empNo", SqlDbType.VarChar) {Value = empNo};
-            cmd.Parameters.Add(param);
+    //        SqlParameter param = new SqlParameter("@empNo", SqlDbType.VarChar) {Value = empNo};
+    //        cmd.Parameters.Add(param);
 
-            param = new SqlParameter("@VideoName", SqlDbType.NVarChar) {Value = VideoName};
-            cmd.Parameters.Add(param);
+    //        param = new SqlParameter("@VideoName", SqlDbType.NVarChar) {Value = VideoName};
+    //        cmd.Parameters.Add(param);
 
-            param = new SqlParameter("@VideoFolder", SqlDbType.NVarChar) {Value = VideoFolder};
-            cmd.Parameters.Add(param);
+    //        param = new SqlParameter("@VideoFolder", SqlDbType.NVarChar) {Value = VideoFolder};
+    //        cmd.Parameters.Add(param);
 
-            param = new SqlParameter("@Completed", SqlDbType.NVarChar) {Value = Completed};
-            cmd.Parameters.Add(param);
+    //        param = new SqlParameter("@Completed", SqlDbType.NVarChar) {Value = Completed};
+    //        cmd.Parameters.Add(param);
 
-            param = new SqlParameter("@Pos", SqlDbType.NVarChar) {Value = Pos};
-            cmd.Parameters.Add(param);
+    //        param = new SqlParameter("@Pos", SqlDbType.NVarChar) {Value = Pos};
+    //        cmd.Parameters.Add(param);
 
-            param = new SqlParameter("@Dur", SqlDbType.NVarChar) {Value = Dur};
-            cmd.Parameters.Add(param);
+    //        param = new SqlParameter("@Dur", SqlDbType.NVarChar) {Value = Dur};
+    //        cmd.Parameters.Add(param);
 
-            cmd.Connection = new SqlConnection(SqlServerProdNvdbConnectString);
-            cmd.Connection.Open();
+    //        cmd.Connection = new SqlConnection(SqlServerProdNvdbConnectString);
+    //        cmd.Connection.Open();
 
-            cmd.ExecuteNonQuery();
-        }
+    //        cmd.ExecuteNonQuery();
+    //    }
 
-        catch (Exception ex)
-        {
-            LogDebug("LogVideoWatch", ex.Message);
-            return false;
-        }
+    //    catch (Exception ex)
+    //    {
+    //        LogDebug("LogVideoWatch", ex.Message);
+    //        return false;
+    //    }
 
-        finally
-        {
-            if (cmd.Connection.State != ConnectionState.Closed)
-            {
-                cmd.Connection.Close();
-                cmd.Connection.Dispose();
-            }
-        }
+    //    finally
+    //    {
+    //        if (cmd.Connection.State != ConnectionState.Closed)
+    //        {
+    //            cmd.Connection.Close();
+    //            cmd.Connection.Dispose();
+    //        }
+    //    }
 
-        return true;
-    }
+    //    return true;
+    //}
     public static string TrainingMovieComplete(string empNo, string TL_UID)
     {
         SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
@@ -4211,51 +4417,6 @@ public class SqlServer_Impl : WebService
     }
 
 #endregion   Safety Training Methods
-
-#region  Document Indexing and Content
-    public static IEnumerable<SIU_File> GetFiles()
-    {
-        SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
-
-        return (    from fc in nvDb.SIU_Files
-                    select fc
-               );        
-    }
-    public static void ContentRecordFile(SIU_File SiuFile)
-    {
-        SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
-        nvDb.SIU_Files.InsertOnSubmit(SiuFile);
-        nvDb.SubmitChanges();
-    }
-    public static void ContentUpdateFile(SIU_File SiuFile)
-    {
-        SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
-
-        var fileCheck = (from fc in nvDb.SIU_Files
-                         where fc.FileName == SiuFile.FileName
-                         select fc
-                        ).FirstOrDefault();
-
-
-        if (fileCheck != null)
-        {
-            fileCheck.LastTouch = SiuFile.LastTouch;
-            fileCheck.PhyDir = SiuFile.PhyDir;
-            fileCheck.VirDir = SiuFile.VirDir;
-            fileCheck.FileType = SiuFile.FileType;
-            nvDb.SubmitChanges();
-        }
-        
-    }
-    public static void ContentRemoveFile(SIU_File SiuFile)
-    {
-        SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
-
-        nvDb.SIU_Files.Attach(SiuFile);
-        nvDb.SIU_Files.DeleteOnSubmit(SiuFile);
-        nvDb.SubmitChanges();
-    }
-#endregion
 
 #region Employee Lookups          Xtn Ex
     private static List<string> isDeptMgr(string emp_id)
@@ -6321,6 +6482,15 @@ public class SqlServer_Impl : WebService
                 select aJob).SingleOrDefault();        
     }
 
+    public static SIU_Job_Report GetSubmitJobReportExtDataByNo(string jobNo)
+    {
+        SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
+
+        return (from aJob in nvDb.SIU_Job_Reports
+                where aJob.JobNo == jobNo
+                select aJob).SingleOrDefault();
+    }
+
     public static string GetJobReportFormType(string jobNo)
     {
         SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
@@ -6331,7 +6501,7 @@ public class SqlServer_Impl : WebService
                 select aJob.FormName).SingleOrDefault();
     }
 
-
+    
     public static string RecordSubmitJobReport(Shermco_Job_Report JobRptRcd)
     {
         SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
@@ -6370,6 +6540,46 @@ public class SqlServer_Impl : WebService
 
         return (newRptRcd == null) ? JobRptRcd.Job_No_ : newRptRcd.Job_No_;
     }
+    public static string RecordSubmitExtJobReport(SIU_Job_Report JobRptRcd)
+    {
+        SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
+
+        /////////////////////////////////
+        // Look For An Existing Record //
+        /////////////////////////////////
+        SIU_Job_Report newRptRcd = GetSubmitJobReportExtDataByNo(JobRptRcd.JobNo);
+
+        /////////////////////////////////////////////
+        // If This Is A New Record, Perform Insert //
+        /////////////////////////////////////////////
+        if (newRptRcd == null)
+        {
+            nvDb.SIU_Job_Reports.InsertOnSubmit(JobRptRcd);
+        }
+
+        /////////////////////////////////
+        // Otherwise Perform An Update //
+        /////////////////////////////////
+        else
+        {
+            ////////////////////////////////////////
+            // Get The Origional Open Data Record //
+            ////////////////////////////////////////
+            nvDb.SIU_Job_Reports.Attach(newRptRcd);
+
+            ///////////////////////////////
+            // Copy Over New Data Fields //
+            ///////////////////////////////
+            Mapper.CreateMap<SIU_Job_Report, SIU_Job_Report>() ;
+            Mapper.Map(JobRptRcd, newRptRcd);
+        }
+        nvDb.SubmitChanges();
+
+        return (newRptRcd == null) ? JobRptRcd.JobNo : newRptRcd.JobNo;
+    }
+
+
+
     public static List<string> GetSubmitJobReportNosByEmp(string empNo)
     {
         SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
@@ -7435,7 +7645,7 @@ public class SqlServer_Impl : WebService
 
                 nvDb.SIU_SafetyPays_Points.InsertOnSubmit(newPtsObserved);
 
-                WebMail.SafetyPaysObservedEMail(rptRcd, obsData.PtCnt);
+                BusinessLayer.SafetyPaysObservedEMail(rptRcd, obsData.PtCnt);
             }
 
             nvDb.SubmitChanges();
@@ -7445,21 +7655,6 @@ public class SqlServer_Impl : WebService
         
     }
 
-
-    ////////////////////////////////////////////////////////////////////////
-    // Data Support For EHS Admin manual Management Of Safety Pays Points //
-    ////////////////////////////////////////////////////////////////////////
-    //public static List<String> GetList_SafetyPaysStatuses()
-    //{
-    //    SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
-
-    //    var s = (from statuses in nvDb.SIU_SafetyPaysReports
-    //            select statuses.IncStatus
-    //       ).Distinct().ToList();
-
-    //    s.Insert(0, "");
-    //    return s;
-    //}
    
     public static int RecordAdminPoints(SIU_SafetyPays_Point _Pts)
     {
@@ -7834,6 +8029,7 @@ public class SqlServer_Impl : WebService
     public static List<SIU_Qom_QR> GetSafetyQomQRList(string Eid)
     {
         SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
+        //SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(ForcedProductionConnectString);
 
         DateTime periodEnd = DateTime.Now;
 
@@ -8511,18 +8707,9 @@ public class SqlServer_Impl : WebService
         try
         {
             SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
-
-            TransactionOptions to = new TransactionOptions
-            {
-                IsolationLevel = IsolationLevel.ReadCommitted
-            };
-
-            using (new TransactionScope(TransactionScopeOption.RequiresNew, to))
-            {
-                nvDb.SIU_Blogs.InsertOnSubmit(BlogEntry);
-                nvDb.SubmitChanges();
-                return BlogEntry.RefID;
-            }
+            nvDb.SIU_Blogs.InsertOnSubmit(BlogEntry);
+            nvDb.SubmitChanges();
+            return BlogEntry.RefID;
         }
         catch (Exception ex)
         {

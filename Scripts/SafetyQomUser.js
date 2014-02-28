@@ -28,7 +28,17 @@
                 edit: false,
                 list: false
             },
-
+            
+            R_IncNo: {
+                title: 'RSP ID',
+                width: '2%',
+                key: false,
+                create: false,
+                edit: false,
+                list: true,
+                listClass: 'jTableTD'
+            },
+            
             Q_Grp: {
                 title: 'Dept',
                 sorting: false,
@@ -111,6 +121,7 @@
                 $selectedRows.each(function () {
                     var record = $(this).data('record');
 
+                    $('#hlblIncNo').val(record.R_IncNo);
                     $('#hlblUID').val(record.Q_Id);
                     $('#hlblDept').val(record.Q_Grp);
                     
@@ -121,7 +132,7 @@
                     $('#btnSubmit').hide();
                     
                     //if (record.Response.length == 0)
-                    if (record.Response.Status != "Accepted" && record.Response.Status != "Decline")
+                    if (record.Status != "Accepted" && record.Status != "Decline")
                         $('#txtResponse').attr('disabled', false).css({ 'background-color': 'antiquewhite', 'border-color': 'brown' }).focus();
                     else
                         $('#txtResponse').attr('disabled', true).css({ 'background-color': 'gray', 'border-color': 'black' });
@@ -149,9 +160,9 @@
     $("#btnSubmit").click(function () {
 
         $('#btnSubmit').hide();
-
+        
         var qomResponseSubmitCall = new AsyncServerMethod();
-        qomResponseSubmitCall.add('IncidentNo', '0');
+        qomResponseSubmitCall.add('IncidentNo', $('#hlblIncNo').val());
         qomResponseSubmitCall.add('EID', $('#hlblEID').html());
         qomResponseSubmitCall.add('JobNo', '');
 

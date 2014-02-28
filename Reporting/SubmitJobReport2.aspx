@@ -15,37 +15,9 @@
     <script src="/Scripts/InputTypes/ToggleSwitch/ToggleSwitch.js" type="text/javascript"></script>
     <link rel="stylesheet" href="/Scripts/InputTypes/ToggleSwitch/ToggleSwitch.css">
     
+    <link rel="stylesheet" href="/Styles/SubmitJobRpt2.css">
     <script src="/Scripts/InputTypes/autoNumeric/autoNumeric.js" type=text/javascript> </script>
     
-    <style>
-         .ui-tabs .ui-tabs-nav {
-             background-image: none;
-             margin-top: -15px;
-             border: none;  
-         }            
-        .ui-form .ui-widget-content {
-            padding-left: 3px;
-            padding-right: 3px; 
-
-        }
-
-        .chkRptDisp .chkRptFmt .chkRts .chkPd .chkCt .chkOs .chkOsLtr .chkNoTest .ChkTest .chkIR .chkDrBox .chkIrDrBox .chkSales .chkIrData {
-            border: none;  
-        }
-
-        span[id^='SwitcherLabel'] {
-            /*color: white !important;
-             font-weight: bold !important; */
-            font-size: 1.2em !important;
-            background-image: none !important;
-            border: none !important;
-            width: 105% !important;
-            margin-right: 10px !important;
-            -webkit-box-shadow: none !important;
-            -ms-box-shadow: none !important;
-            box-shadow: none !important;
-        }
-    </style>
 </asp:Content>
 
 
@@ -205,7 +177,7 @@
 
                             <div style="display: inline-block; width: 100%;">
                                 <div>No Report (Reason Required)</div>
-                                <input type="text" id="txtNoRpt" class="DataInputCss" style="width: 80%;" maxlength="100"/>
+                                <input type="text" id="txtNoRpt" class="DataInputCss NoRpt" style="width: 80%;" maxlength="100"/>
                             </div>
                     
                         </section>                        
@@ -506,12 +478,13 @@
                 <div id="tabsESD2"style="float: right; width: 60%;">                   
                     <ul>
                         <li><a href="#DispTab2">Disposition</a></li>
+                        <li><a href="#SalesTab2">Customer Follow Up</a></li>
                     </ul>
                     
                     <div id="DispTab2">
                         <section id="DispTab2" class="ui-state-error ui-corner-all" style="margin-top: 4px; width: 100%;"   >
                         
-                            <div style="font-weight: bold; text-align: center;">Report Disposition<br/>( Select Exactly One of the options below )</div>
+                            <div style="font-weight: bold; text-align: center;">Report Disposition<br/>( Select One of the options below )</div>
 
                             <div style="display: inline-block; width: 100%; margin-bottom: 5px; margin-top: 10px;">
                                 <div style="display: inline-block;">The Final Report is on dfs and has been emailed or left with the customer already on </div>
@@ -523,15 +496,15 @@
                             <div id="DfsEmailSwitch" style="margin-bottom: 2px; margin-left: -2px;"></div>
                
                             <div style="display: inline-block; width: 100%; margin-bottom: 4px;">
-                                <span>The final report is on dfs, Corporate Services needs to print and mail hard copies</span>
-                                <input type="text" id="DfsMailCnt" class="DataInputCss" maxlength="2" style="width: 40px;  margin-right: 5px; float: none; display: inline-block;"/>
+                                <span>The final report is on dfs, Corporate Services needs to print and mail </span>
+                                <input type="text" id="esd2DfsMailCnt" class="DataInputCss CntFld" maxlength="2" style="width: 40px;  margin-right: 5px; float: none; display: inline-block;"/>
                                 <span>hard copies</span>
                             </div>
                             
                             <div style="display: inline-block; width: 100%;   margin-bottom: 4px; ">
                                 <div style="display: inline-block;">The final report is on dfs, Corporate Services needs to print and mail (count) </div>
                                 <div style="display: inline-block; top: -5px;">
-                                    <input type="text" id="DfsCdCnt" class="DataInputCss" maxlength="2"  style="width: 40px; margin-right: 5px; float: none; display: inline-block;" />
+                                    <input type="text" id="esd2DfsCdCnt" class="DataInputCss CntFld" maxlength="2"  style="width: 40px; margin-right: 5px; float: none; display: inline-block;" />
                                 </div>
                                 <div style="display: inline-block;">CD's</div>
                             </div>
@@ -539,16 +512,40 @@
                             <div style="display: inline-block; width: 100%; margin-bottom: 4px;">
                                 <div>Other way the final report was sent to the customer</div>
                                 
-                                    <input type="text" id="Text2" class="DataInputCss" style="width: 80%;" maxlength="100"/>
+                                    <input type="text" id="esd2Other" class="DataInputCss NoRpt" style="width: 80%;" maxlength="100"/>
                                 
                             </div>                            
 
                             <div style="display: inline-block; width: 100%;">
                                 <div>No Report (Reason Required)</div>
-                                <input type="text" id="Text1" class="DataInputCss" style="width: 80%;" maxlength="100"/>
+                                <input type="text" id="esd2NoRpt" class="DataInputCss NoRpt" style="width: 80%;" maxlength="100"/>
                             </div>
                     
                         </section>                        
+                    </div>
+                    
+                    <div id="SalesTab2">                        
+                        <section id="Section10" class="ui-state-error ui-corner-all" style="width: 100%;  margin-top: 4px;"   >
+                            <div style="font-weight: bold; text-align: center;">Optional Notes for sales follow-up</div>    
+                            
+                            <br/>                        
+                            <div>Were there any defencies found OR does the Salesperson need to call the customer ?</div>
+                            
+                            <div style="display: inline-block; width: 100%;   margin-bottom: 0; ">
+                                <span style="padding-top: 5px; padding-left: 3px; -webkit-margin-start: 3px;">Y</span>
+                                <span style="padding-top: 5px; padding-left: 9px; -webkit-margin-start: 8px;">N</span>
+                            </div>    
+
+                            <div style="display: inline-block; width: 100%;   margin-bottom: 10px;">
+                                <input type="checkbox" id="chkSalesY2"   class="chkSales" value="1" />
+                                <input type="checkbox" id="chkSalesN2"   class="chkSales" value="2" />
+                            </div>                             
+                            
+                            <div id="saleNotesDiv2" style="display: inline-block; width: 100%;   margin-bottom: 10px;">
+                                <div>Notes to salesperson: (Max 100 characters)</div>
+                                <textarea id="txtSalesNotes2" class="DataInputCss" style="width: 90%;" rows="5" maxlength="100"></textarea>
+                            </div>
+                        </section>
                     </div>
                 </div>
                 
@@ -560,31 +557,14 @@
                     <div id="DispTab3">
                         <section id="Section5" class="ui-state-error ui-corner-all" style="margin-top: 4px; width: 100%;"   >
                         
-                            <div style="font-weight: bold; text-align: center;">Report Disposition<br/>( Select Exactly One of the options below )</div>
-                           
-                            <div id="SendFinalSwitch" style="margin-bottom: 2px; margin-left: -2px;"></div>
-               
-                            <div style="display: inline-block; width: 100%; margin-bottom: 4px;">
-                                <span>The final report is on dfs, Corporate Services needs to print and mail hard copies</span>
-                                <input type="text" id="Text4" class="DataInputCss" maxlength="2" style="width: 40px;  margin-right: 5px; float: none; display: inline-block;"/>
-                                <span>hard copies</span>
-                            </div>
+                            <div style="font-weight: bold; text-align: center;">Report Disposition<br/>( Select One of the options below )</div>
                             
-                            <div style="display: inline-block; width: 100%;   margin-bottom: 4px; ">
-                                <div style="display: inline-block;">The final report is on dfs, Corporate Services needs to print and mail (count) </div>
-                                <div style="display: inline-block; top: -5px;">
-                                    <input type="text" id="Text5" class="DataInputCss" maxlength="2"  style="width: 40px; margin-right: 5px; float: none; display: inline-block;" />
-                                </div>
-                                <div style="display: inline-block;">CD's</div>
-                            </div>                          
-
-                            <div style="display: inline-block; width: 100%;">
-                                <div>No Report (Reason Required)</div>
-                                <input type="text" id="Text7" class="DataInputCss" style="width: 80%;" maxlength="100"/>
-                            </div>
+                            <div id="Esd3Switches" style="margin-bottom: 2px; margin-left: -2px;"></div>
                     
                         </section>                        
                     </div>
+                    
+
                 </div>
                 
                 <div id="tabsMSD1"style="float: right; width: 60%;">                   
@@ -595,11 +575,11 @@
                     <div id="DispTab4">
                         <section id="Section6" class="ui-state-error ui-corner-all" style="margin-top: 4px; width: 100%;"   >
                         
-                            <div style="font-weight: bold; text-align: center;">Report Disposition<br/>( Select Exactly One of the options below )</div>
+                            <div style="font-weight: bold; text-align: center;">Report Disposition<br/>( Select One of the options below )</div>
                
                             <div style="display: inline-block; width: 100%; margin-bottom: 4px;">
                                 <span>Send</span>
-                                <input type="text" id="Text3" class="DataInputCss" maxlength="2" style="width: 40px;  margin-right: 5px; float: none; display: inline-block;"/>
+                                <input type="text" id="msd1HardCnt" class="DataInputCss CntFld" maxlength="2" style="width: 40px;  margin-right: 5px; float: none; display: inline-block;"/>
                                 <span>hard copies to the customer.  The final report is in Navision.</span>
                             </div>
                             
@@ -612,21 +592,46 @@
                 <div id="tabsMSD2"style="float: right; width: 60%;">                   
                     <ul>
                         <li><a href="#DispTab5">Disposition</a></li>
+                        <li><a href="#SalesTab5">Customer Follow Up</a></li>
                     </ul>
                     
                     <div id="DispTab5">
                         <section id="Section7" class="ui-state-error ui-corner-all" style="margin-top: 4px; width: 100%;"   >
                         
-                            <div style="font-weight: bold; text-align: center;">Report Disposition<br/>( Select Exactly One of the options below )</div>
+                            <div style="font-weight: bold; text-align: center;">Report Disposition<br/>( Select One of the options below )</div>
                            
                             <div id="Msd2Switches" style="margin-bottom: 2px; margin-left: -2px;"></div>                         
 
                             <div style="display: inline-block; width: 100%;">
                                 <div>No Report (Reason Required)</div>
-                                <input type="text" id="Text11" class="DataInputCss" style="width: 80%;" maxlength="100"/>
+                                <input type="text" id="msd2NoRpt" class="DataInputCss NoRpt" style="width: 80%;" maxlength="100"/>
                             </div>
                     
                         </section>                        
+                    </div>
+                    
+                    <div id="SalesTab5">                        
+                        <section id="Section11" class="ui-state-error ui-corner-all" style="width: 100%;  margin-top: 4px;"   >
+                            <div style="font-weight: bold; text-align: center;">Optional Notes for sales follow-up</div>    
+                            
+                            <br/>                        
+                            <div>Were there any defencies found OR does the Salesperson need to call the customer ?</div>
+                            
+                            <div style="display: inline-block; width: 100%;   margin-bottom: 0; ">
+                                <span style="padding-top: 5px; padding-left: 3px; -webkit-margin-start: 3px;">Y</span>
+                                <span style="padding-top: 5px; padding-left: 9px; -webkit-margin-start: 8px;">N</span>
+                            </div>    
+
+                            <div style="display: inline-block; width: 100%;   margin-bottom: 10px;">
+                                <input type="checkbox" id="chkSalesY5"   class="chkSales" value="1" />
+                                <input type="checkbox" id="chkSalesN5"   class="chkSales" value="2" />
+                            </div>                             
+                            
+                            <div id="saleNotesDiv5" style="display: inline-block; width: 100%;   margin-bottom: 10px;">
+                                <div>Notes to salesperson: (Max 100 characters)</div>
+                                <textarea id="txtSalesNotes5" class="DataInputCss" style="width: 90%;" rows="5" maxlength="100"></textarea>
+                            </div>
+                        </section>
                     </div>
                 </div>                
                 
@@ -638,29 +643,29 @@
                     <div id="DispTab6">
                         <section id="Section8" class="ui-state-error ui-corner-all" style="margin-top: 4px; width: 100%;"   >
                         
-                            <div style="font-weight: bold; text-align: center;">Report Disposition<br/>( Select Exactly One of the options below )</div>
+                            <div style="font-weight: bold; text-align: center;">Report Disposition<br/>( Select One of the options below )</div>
                            
-                            <div id="Div5" style="margin-bottom: 2px; margin-left: -2px;"></div>
+                            <div id="Msd3Switches" style="margin-bottom: 2px; margin-left: -2px;"></div>
                
-                            <div style="display: inline-block; width: 100%; margin-bottom: 4px;">
-                                <span>The final report is on dfs, Corporate Services needs to print and mail hard copies</span>
-                                <input type="text" id="Text12" class="DataInputCss" maxlength="2" style="width: 40px;  margin-right: 5px; float: none; display: inline-block;"/>
-                                <span>hard copies</span>
-                            </div>
-                            
-                            <div style="display: inline-block; width: 100%;   margin-bottom: 4px; ">
-                                <div style="display: inline-block;">The final report is on dfs, Corporate Services needs to print and mail (count) </div>
-                                <div style="display: inline-block; top: -5px;">
-                                    <input type="text" id="Text13" class="DataInputCss" maxlength="2"  style="width: 40px; margin-right: 5px; float: none; display: inline-block;" />
+                            <div style="display: inline-block; width: 100%; margin-bottom: 5px;">
+                                <div style="display: inline-block;">Priority - Send by:  </div>
+                                <div style="display: inline-block;   height: 20px;">
+                                    <input type="text" id="msd3date" Class="DataInputCss DateEntryCss"   style="width: 100px; "  />   
                                 </div>
-                                <div style="display: inline-block;">CD's</div>
-                            </div>                          
+                            </div>
+                       
+                            <div style="display: inline-block; width: 100%; margin-bottom: 4px;">
+                                <span>Send</span>
+                                <input type="text" id="msd3HardCnt" class="DataInputCss CntFld" maxlength="2" style="width: 40px;  margin-right: 5px; float: none; display: inline-block;"/>
+                                <span>hard copies to the customer</span>
+                            </div>                            
+                            
 
                             <div style="display: inline-block; width: 100%;">
                                 <div>No Report (Reason Required)</div>
-                                <input type="text" id="Text14" class="DataInputCss" style="width: 80%;" maxlength="100"/>
+                                <input type="text" id="msd3NoRpt" class="DataInputCss NoRpt" style="width: 80%;" maxlength="100"/>
                             </div>
-                    
+                            
                         </section>                        
                     </div>
                 </div>                         
@@ -673,27 +678,21 @@
                     <div id="DispTab7">
                         <section id="Section9" class="ui-state-error ui-corner-all" style="margin-top: 4px; width: 100%;"   >
                         
-                            <div style="font-weight: bold; text-align: center;">Report Disposition<br/>( Select Exactly One of the options below )</div>
+                            <div style="font-weight: bold; text-align: center;">Report Disposition<br/>( Select One of the options below )</div>
                            
-                            <div id="Div6" style="margin-bottom: 2px; margin-left: -2px;"></div>
+                            <div id="Msd4Switches" style="margin-bottom: 2px; margin-left: -2px;"></div>
                
-                            <div style="display: inline-block; width: 100%; margin-bottom: 4px;">
-                                <span>The final report is on dfs, Corporate Services needs to print and mail hard copies</span>
-                                <input type="text" id="Text15" class="DataInputCss" maxlength="2" style="width: 40px;  margin-right: 5px; float: none; display: inline-block;"/>
-                                <span>hard copies</span>
-                            </div>
                             
-                            <div style="display: inline-block; width: 100%;   margin-bottom: 4px; ">
-                                <div style="display: inline-block;">The final report is on dfs, Corporate Services needs to print and mail (count) </div>
-                                <div style="display: inline-block; top: -5px;">
-                                    <input type="text" id="Text16" class="DataInputCss" maxlength="2"  style="width: 40px; margin-right: 5px; float: none; display: inline-block;" />
+                            <div style="display: inline-block; width: 100%; margin-bottom: 5px;">
+                                <div style="display: inline-block;">Priority - Send by:  </div>
+                                <div style="display: inline-block;   height: 20px;">
+                                    <input type="text" id="msd4date" Class="DataInputCss DateEntryCss"   style="width: 100px;"  />   
                                 </div>
-                                <div style="display: inline-block;">CD's</div>
-                            </div>                          
+                            </div>
 
                             <div style="display: inline-block; width: 100%;">
                                 <div>No Report (Reason Required)</div>
-                                <input type="text" id="Text17" class="DataInputCss" style="width: 80%;" maxlength="100"/>
+                                <input type="text" id="msd4NoRpt" class="DataInputCss NoRpt" style="width: 80%;" maxlength="100"/>
                             </div>
                     
                         </section>                        

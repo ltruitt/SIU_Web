@@ -19,6 +19,11 @@
             <br/>
             <br/>
             <asp:Button ID="Button3" runat="server" Text="Generate QTM Reminder" OnClick="TestEmailQtm15thClick"  />
+            <br/>
+            <br/>
+            <asp:Button ID="Button4" runat="server" Text="Document Name Search"  OnClick="DocSearch" />
+                
+
 <%--            <br/>
             <br/>
             <asp:Button id="btnEncrypt" runat="server" Text="Encrypt" onclick="btnEncrypt_Click" />

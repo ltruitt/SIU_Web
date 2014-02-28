@@ -118,6 +118,13 @@
 
                 <div style="clear: both;"></div>
                 
+                    <div style="float: left; width: 15%; ">
+                        <input type="button" ID="btnSubmit" value="Submit" Class="SearchBtnCSS" />
+                    </div>
+                    
+                    <div style="float: right; width: 15%; ">
+                        <input type="button" ID="btnClear" value="Clear" Class="SearchBtnCSS"   />
+                    </div>
                 
                 <!-- Job Charge DD -->
                 <div class="TimeRow" id="JobDiv"  >    
@@ -131,10 +138,7 @@
                     <input ID="ddOhAcct" class="DataInputCss"   /> 
                 </div>  
                 
-<%--                <div style="font-size:x-large; float: left;"  >
-                    <span  id="lblErr" Class="errorTextCss"  ></span>
-                    <span  id="lblErrServer" Class="errorTextCss"  ></span>
-                </div>  --%>
+
                 
                 
                 <div style="text-align: center; margin-top: 25px; margin-bottom: 25px;">
@@ -287,13 +291,6 @@
                 <%-- Submit Buttons --%>                    
                 <%--------------------%>
                 <div style="width: 100%;  display: inline-block; margin-top: 25px;">
-                    <div style="float: left; width: 30%; ">
-                        <input type="button" ID="btnSubmit" value="Submit" Class="SearchBtnCSS" />
-                    </div>
-                    
-                    <div style="float: right; width: 25%; ">
-                        <input type="button" ID="btnClear" value="Clear" Class="SearchBtnCSS"   />
-                    </div>
                     
                     <div id="WeekSumDiv" style="margin-left: auto; margin-right: auto; width: 150px; height: 40px; padding: 0; text-align: center; line-height: 14px; vert-align: bottom;">
                         <div style="width: auto; margin-left: auto; margin-right: auto;">

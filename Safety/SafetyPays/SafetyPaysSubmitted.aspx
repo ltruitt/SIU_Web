@@ -124,7 +124,7 @@
 
                 <div style="display: inline-block; margin-bottom: 0; float: left; ">
                     <div style="display: inline-block; background-color:  rgb(35, 135, 16); width: 350px; height: 5px; "></div>
-                    <div id="btnWorkEmpz" style="display: inline-block; background-color:  red; width: 150px; height: 5px; margin-left: 45px;"></div>
+                    <div id="btnWorkEmpz" style="display: inline-block; background-color:  red; width: 180px; height: 5px; margin-left: 45px;"></div>
                 </div>
                 <div style="clear: both;"></div>
 
@@ -140,8 +140,8 @@
                     <input type="button" ID="btnWork" value="Approved w/ Task" Class="SearchBtnCSS" style="width: 150px; color: green;"/>
                 </div>
                                                                             
-                <div style="float: left; width: 150px; ">
-                    <input type="button" ID="btnReject" value="Not Approved" Class="SearchBtnCSS"  style="width: 150px;" />
+                <div style="float: left; width: 180px; ">
+                    <input type="button" ID="btnReject" value="Not Approved (msg)" Class="SearchBtnCSS"  style="width: 180px;" />
                 </div>
                 
                 <br/>

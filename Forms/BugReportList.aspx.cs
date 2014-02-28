@@ -86,7 +86,7 @@ public partial class Forms_BugReportList : System.Web.UI.Page
 
         int IncNo = (int)gvBugReportAdmin.SelectedDataKey.Values[0];
 
-        WebMail.BugReportSendStatusEmail( SqlServer_Impl.RecordBugStatus(CmdBtn, IncNo), CmdBtn );
+        BusinessLayer.BugReportSendStatusEmail( SqlServer_Impl.RecordBugStatus(CmdBtn, IncNo), CmdBtn );
         Response.Redirect(Page.Request.Path);
     }
 

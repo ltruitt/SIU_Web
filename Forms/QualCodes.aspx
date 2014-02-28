@@ -37,6 +37,11 @@
         {
             width: 390px;
         } 
+
+        html {
+            xbackground-color: #45473f;
+            background-color: black;
+        }
     </style>
 
 </asp:Content>
@@ -45,8 +50,8 @@
     
     <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="Server" />
 
-    <div style="background-color: #45473f;">
-        <div id="FormWrapper" class="ui-widget ui-form" style="width: 800px;">
+    <div style="xbackground-color: #45473f;">
+        <div id="FormWrapper" class="ui-widget ui-form" style=" width: 100%; ">
             
     <!----------------->
     <!-- Form Header -->
@@ -56,7 +61,7 @@
             </div>
         
 
-            <div class="ui-widget-content ui-corner-all">                 
+            <div class="ui-widget-content" style="border: none;">                 
                 <asp:Panel ID="pnlGridView" runat="server" Width="100%">
     
  
@@ -75,16 +80,18 @@
             
                     </div>
         
-                    <div style="height: 15px;"></div>
+                    <div style="height: 25px;"></div>
     
     
                     
     <!---------------->
     <!-- List Panel -->
     <!---------------->
+
                     <table>
                         <tr>
                             <td>
+<div style="margin-right: auto; margin-left: auto; width: 100%; background-color: lightgrey; color: black;">                                
                                 <SIU:SelfSortingGrid ID="gvQualCodes" runat="server"
                     
                                     AutoGenerateColumns="False" 
@@ -97,7 +104,6 @@
                                     EmptyDataText="Data Access Problem." 
                                     ShowFooter="False"
                     
-                                    CssClass="Normal"
                                     PageSize="15" 
                                     CellPadding="2" 
                                     CellSpacing="2" 
@@ -117,6 +123,8 @@
                                     OnRowCommand="gvQualCodes_RowCommand" 
                                     
                                     BorderStyle="None"
+                                    
+                                    Width="100%"
                                     >
 
                                     <Columns>
@@ -134,7 +142,7 @@
                                         </asp:TemplateField>  
                                                        
                                         <%-- Qualification Code Value --%>
-                                        <asp:TemplateField HeaderText="Qual Code" SortExpression="Code" HeaderStyle-BorderStyle="None">
+                                        <asp:TemplateField HeaderText="Qual Code" SortExpression="Code" HeaderStyle-BorderStyle="None" HeaderStyle-ForeColor="Black"  >
                                             <ItemStyle />
 
                                             <ItemTemplate>
@@ -144,7 +152,7 @@
                                         </asp:TemplateField>                        
                             
                                         <%-- Qualification Code Description --%>
-                                        <asp:TemplateField HeaderText="Description" SortExpression="Description" HeaderStyle-BorderStyle="None">
+                                        <asp:TemplateField HeaderText="Description" SortExpression="Description" HeaderStyle-BorderStyle="None" HeaderStyle-ForeColor="Black" >
                                             <ItemStyle />
 
                                             <ItemTemplate>
@@ -165,7 +173,7 @@
                                         </asp:TemplateField> 
                             
                                         <%-- Qualification Code Category --%>
-                                        <asp:TemplateField HeaderText="Category" SortExpression="Category" HeaderStyle-BorderStyle="None">
+                                        <asp:TemplateField HeaderText="Category" SortExpression="Category" HeaderStyle-BorderStyle="None" HeaderStyle-ForeColor="Black" >
                                             <ItemStyle HorizontalAlign="Center"/>
 
                                             <ItemTemplate>
@@ -203,6 +211,7 @@
 
                                     <PagerStyle HorizontalAlign="Left"/>
                                 </SIU:SelfSortingGrid>
+</div>
                             </td>
                         </tr>
             
@@ -214,14 +223,15 @@
 
 
                     </table>
+
                 </asp:Panel>
     
     
 
-    <!------------------------->
-    <!-- Edit / Insert Panel -->
-    <!------------------------->
-<div style="width: 350px; margin-left: auto;  margin-right: auto;"> 
+            <!------------------------->
+            <!-- Edit / Insert Panel -->
+            <!------------------------->
+            <div style="width: 350px; margin-left: auto;  margin-right: auto;"> 
                 <asp:Panel ID="pnlDetailsView" runat="server" Width="100%">
 
                     <div style="height: 60px; margin-top: -20px;">

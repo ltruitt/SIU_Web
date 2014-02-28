@@ -232,7 +232,7 @@ namespace ShermcoYou
         {
             bool Success = false;
 
-            Success = SqlServer_Impl.CreateUser_Initial(email, password);
+            //Success = SqlServer_Impl.CreateUser_Initial(email, password);
 
             System.Web.Security.MembershipUser rtn = new MembershipUser("Custom", username, 0, email, "", "", Success,
                                                                         false, DateTime.Now, DateTime.MinValue,

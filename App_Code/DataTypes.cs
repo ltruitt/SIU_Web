@@ -306,6 +306,7 @@ namespace ShermcoYou.DataTypes
         public string Status = "No Response";
         public string Points = "";
         public string Q_Ans;
+        public int R_IncNo;
 
         private static readonly string RootFilesPath = HttpContext.Current.Server.MapPath("/Files");
 
@@ -319,6 +320,8 @@ namespace ShermcoYou.DataTypes
             StartDate = Q.StartDate;
             EndDate = Q.EndDate;
             Q_Grp = Q.QuestionGroup;
+            if ( R != null )
+                R_IncNo = R.IncidentNo;
 
             Q_Ans = "";
             if ( Q.EndDate < DateTime.Now )

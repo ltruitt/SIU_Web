@@ -102,7 +102,7 @@ public partial class Forms_Jobs : System.Web.UI.Page
 
             if (cbJobComplete.Checked)
             {
-                WebMail.JobCompletionEmail(objSiHours, cbExtraBilling.Checked, BusinessLayer.UserEmail, BusinessLayer.UserFullName);
+                BusinessLayer.JobCompletionEmail(objSiHours, cbExtraBilling.Checked, BusinessLayer.UserEmail, BusinessLayer.UserFullName);
             }
 
 
