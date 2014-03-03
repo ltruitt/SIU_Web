@@ -706,7 +706,7 @@ public static class PopupMenuSupport
         return popupMenu;
     }
 
-    public static string FileNameSearch(string searchParam)
+    public static List<DirectoryList> FileNameSearch(string searchParam)
     {
         List<DirectoryList> dirList = new List<DirectoryList>();
         try
@@ -753,7 +753,7 @@ public static class PopupMenuSupport
         }
 
 
-        return "";
+        return dirList;
     }
 #endregion
 

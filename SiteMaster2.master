@@ -57,7 +57,7 @@
 			    <div style="clear:both;"></div>
                 
 
-                <a href="/HomePage.aspx" style="text-decoration: none;">				
+                <a href="/HomePage.aspx?0000" style="text-decoration: none;">				
 			        <h2>
 					       <span id="MasterHeaderTxt" runat="server">ShermcoYOU!</span>
 			        </h2>
@@ -65,8 +65,8 @@
 			
 			    <div class="SiteHeader-menu"  >
 				    <ul>
-					    <li class="l3"><a href="/HomePage.aspx">Home</a></li>
-					    <%--<li class="l2"><a href="/Default.aspx">What's New?</a></li>--%>
+					    <li class="l3"><a href="/HomePage.aspx?0000">Home</a></li>
+					    <li class="l3"><a href="/Library/SearchDocPaneMobile.aspx">Search</a></li>
                         <li class="l3"><a href="/UsefulLinks/UsefulLinks.aspx">Useful Links</a></li>
                         <li class="l3"><a href="/Account/logoff.aspx">Logoff</a></li>
                        <%-- <li class="l5"><a href="/UsefulLinks/QuickLinks.aspx">Quick Links</a></li>--%>

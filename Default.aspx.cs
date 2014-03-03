@@ -112,6 +112,6 @@ public partial class _Default : System.Web.UI.Page
 
     protected void DocSearch(object sender, EventArgs e)
     {
-        string result = PopupMenuSupport.FileNameSearch("pdf");
+        PopupMenuSupport.FileNameSearch("pdf");
     }
 }

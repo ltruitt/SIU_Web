@@ -77,10 +77,8 @@
 			        <div class="SiteHeader-menu"  >
 				        <ul>
 					        <li class="l3"><a href="/HomePage.aspx">Home</a></li>
-					        <%--<li class="l2"><a href="/Default.aspx">What's New?</a></li>--%>
+					        <li class="l3"><a href="/Library/SearchDocPaneMobile.aspx">Search</a></li>
                             <li class="l3"><a href="/UsefulLinks/UsefulLinks.aspx">Useful Links</a></li>
-                            <%--<li class="l6"><a href="/Account/logoff.aspx">Logoff</a></li>--%>
-                           <%-- <li class="l5"><a href="/UsefulLinks/QuickLinks.aspx">Quick Links</a></li>--%>
 				        </ul>
 			        </div>
 

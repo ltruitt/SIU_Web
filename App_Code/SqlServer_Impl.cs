@@ -3035,6 +3035,17 @@ public class SiuDao : WebService
     // Provide Video File Directories //
     ////////////////////////////////////
     [WebMethod(EnableSession = true)]
+    public string g77(string SearchText)
+    {
+        JavaScriptSerializer serializer = new JavaScriptSerializer();
+        return serializer.Serialize( PopupMenuSupport.FileNameSearch(SearchText).Take(200) );
+    }
+
+
+    ////////////////////////////////////
+    // Provide Video File Directories //
+    ////////////////////////////////////
+    [WebMethod(EnableSession = true)]
     public string ListDocumentDirectories(string VirtualDirectory, string SubDirectory)
     {
         string virtualRoot = HttpContext.Current.Server.MapPath(VirtualDirectory);
@@ -3445,28 +3456,9 @@ public class SiuDao : WebService
     public string GetMarquee(string BlogName)
     {
         string blogListItems = Blogs.Create_Injectable_Ads("/Advertisements", BlogName);
-        //JavaScriptSerializer serializer = new JavaScriptSerializer();
         return blogListItems;
     }
 #endregion Blogs
-
-
-#region FileSearch
-    ////////////////////////////////////
-    // Return List Of Items In A Blog //
-    ////////////////////////////////////
-    [WebMethod(EnableSession = true)]
-    public string jghuy88766ss(string searchString)
-    {
-        //List<SIU_Blog> blogToc = SqlServer_Impl.GetBlogs(BlogName).ToList();
-
-        //JavaScriptSerializer serializer = new JavaScriptSerializer();
-        //return serializer.Serialize(new { Result = "OK", Records = blogToc });
-        string result = PopupMenuSupport.FileNameSearch("ins");
-
-        return "";
-    }
-#endregion FileSearch
 
 
     ////////////////////////////////////////////////////////////////////
