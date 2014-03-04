@@ -1,7 +1,7 @@
 ﻿$(document).ready(function () {
 
 
-
+    var id = $.fn.getURLParameter('id');
 
     var timestamp = new Date();
 
@@ -21,17 +21,19 @@
 
         fields: {
             Q_Id: {
-                title: 'No',
-                width: '0%',
+                title: 'Id',
+                width: '1%',
+                sorting: false,
                 key: true,
                 create: false,
                 edit: false,
-                list: false
+                list: true
             },
             
             R_IncNo: {
                 title: 'RSP ID',
                 width: '2%',
+                sorting: false,
                 key: false,
                 create: false,
                 edit: false,
@@ -108,7 +110,19 @@
             },
         },
         recordsLoaded: function () {
-            $('#jTableQomList').jtable('selectRows', $('.jtable-data-row').first());
+            //$('#jTableQomList').jtable('selectRows', $('.jtable-data-row').first());
+            
+            if (!id)
+                $('#jTableQomList').jtable('selectRows', $('.jtable-data-row').first());
+            else
+                $('#jTableQomList').jtable('selectRows',
+                    $("tr").filter(function () {
+                        return $.trim($(this).find('td:eq(0)').text()) == id;
+                    })
+                );
+            
+
+
         },
         selectionChanged: function () {
 

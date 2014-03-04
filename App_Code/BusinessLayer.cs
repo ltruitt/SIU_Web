@@ -262,47 +262,47 @@ public static class BusinessLayer
 
     public static SIU_Incident_Accident_Reports_To IncidentAccidentReportsToByID(int _UID)
     {
-        SIU_Incident_Accident incRcd = (SIU_Incident_Accident)SqlServer_Impl.GetIncidentAccident(_UID);
-        SIU_Incident_Accident_Reports_To RC =  IncidentAccidentReportsToByEmp(incRcd.Emp_ID);
+        SIU_Incident_Accident incRcd = SqlServer_Impl.GetIncidentAccident(_UID);
+        SIU_Incident_Accident_Reports_To rc =  IncidentAccidentReportsToByEmp(incRcd.Emp_ID);
 
         ////////////////////////////////////
         // Now Add Already Approved Dates //
         ////////////////////////////////////
         List<SIU_Incident_Accident_Appoval> appRcds = SqlServer_Impl.GetIncidentAccidentApprovals(_UID);
 
-        RC.DeptMgrDate = (from rcd in appRcds where rcd.EID == RC.DeptMgrEmpId select rcd.TimeStamp).SingleOrDefault();
-        RC.DivMgrDate = (from rcd in appRcds where rcd.EID == RC.DivMgrEmpId select rcd.TimeStamp).SingleOrDefault();
-        RC.GmDate  = (from rcd in appRcds where rcd.EID == RC.GmEmpId select rcd.TimeStamp).SingleOrDefault();
-        RC.LegalMgrDate  = (from rcd in appRcds where rcd.EID == RC.LegalMgrEmpId select rcd.TimeStamp).SingleOrDefault();
-        RC.SafetyMgrDate  = (from rcd in appRcds where rcd.EID == RC.SafetyMgrEmpId select rcd.TimeStamp).SingleOrDefault();
-        RC.SuprDate = (from rcd in appRcds where rcd.EID == RC.SuprEmpId select rcd.TimeStamp).SingleOrDefault();
-        RC.VpDate = (from rcd in appRcds where rcd.EID == RC.VpEmpId select rcd.TimeStamp).SingleOrDefault();
+        rc.DeptMgrDate = (from rcd in appRcds where rcd.EID == rc.DeptMgrEmpId select rcd.TimeStamp).SingleOrDefault();
+        rc.DivMgrDate = (from rcd in appRcds where rcd.EID == rc.DivMgrEmpId select rcd.TimeStamp).SingleOrDefault();
+        rc.GmDate  = (from rcd in appRcds where rcd.EID == rc.GmEmpId select rcd.TimeStamp).SingleOrDefault();
+        rc.LegalMgrDate  = (from rcd in appRcds where rcd.EID == rc.LegalMgrEmpId select rcd.TimeStamp).SingleOrDefault();
+        rc.SafetyMgrDate  = (from rcd in appRcds where rcd.EID == rc.SafetyMgrEmpId select rcd.TimeStamp).SingleOrDefault();
+        rc.SuprDate = (from rcd in appRcds where rcd.EID == rc.SuprEmpId select rcd.TimeStamp).SingleOrDefault();
+        rc.VpDate = (from rcd in appRcds where rcd.EID == rc.VpEmpId select rcd.TimeStamp).SingleOrDefault();
 
-        return RC;
+        return rc;
     }
     private static SIU_Incident_Accident_Reports_To IncidentAccidentReportsToByEmp(string EmpID)
     {
         //////////////////////////////////
         // Create A New Response Record //
         //////////////////////////////////
-        SIU_Incident_Accident_Reports_To R2 = new SIU_Incident_Accident_Reports_To();
+        SIU_Incident_Accident_Reports_To r2 = new SIU_Incident_Accident_Reports_To();
 
         /////////////////////////////////////////////
         // Load The Emp For Whom We Are Looking Up //
         /////////////////////////////////////////////
-        R2.EmpId = EmpID;
+        r2.EmpId = EmpID;
         Shermco_Employee emp = SqlServer_Impl.GetEmployeeByNo(EmpID);
         if (emp == null)
-            return R2;
-        R2.Dept = emp.Global_Dimension_1_Code;
+            return r2;
+        r2.Dept = emp.Global_Dimension_1_Code;
 
 
         ////////////////////////////////////////////////////////////////////
         // And Then The Reporting Chain Based On The Employees Department //
         ////////////////////////////////////////////////////////////////////
-        SIU_ReportingChain RC = SqlServer_Impl.GetEmployeeReportingChain(R2.Dept);
-        if (RC == null)
-            return R2;
+        SIU_ReportingChain rc = SqlServer_Impl.GetEmployeeReportingChain(r2.Dept);
+        if (rc == null)
+            return r2;
 
 
 
@@ -311,64 +311,64 @@ public static class BusinessLayer
         // Load Supervisor Chain While //
         // Also Eliminating Duplicates //
         /////////////////////////////////
-        List<string> EIDs = new List<string>();
+        List<string> eiDs = new List<string>();
 
-        if (!EIDs.Contains(RC.GmEmpId))
+        if (!eiDs.Contains(rc.GmEmpId))
         {
-            R2.GmEmpId = RC.GmEmpId;
-            R2.GmName = RC.GmName;
-            EIDs.Add(RC.GmEmpId);
+            r2.GmEmpId = rc.GmEmpId;
+            r2.GmName = rc.GmName;
+            eiDs.Add(rc.GmEmpId);
         }
 
-        if (!EIDs.Contains(RC.VpEmpId))
+        if (!eiDs.Contains(rc.VpEmpId))
         {
-            R2.VpEmpId = RC.VpEmpId;
-            R2.VpName = RC.VpName;
-            EIDs.Add(RC.VpEmpId);
+            r2.VpEmpId = rc.VpEmpId;
+            r2.VpName = rc.VpName;
+            eiDs.Add(rc.VpEmpId);
         }
 
-        if (!EIDs.Contains(RC.SafetyMgrEmpId))
+        if (!eiDs.Contains(rc.SafetyMgrEmpId))
         {
-            R2.SafetyMgrEmpId = RC.SafetyMgrEmpId;
-            R2.SafetyMgrName = RC.SafetyMgrName;
-            EIDs.Add(RC.SafetyMgrEmpId);
+            r2.SafetyMgrEmpId = rc.SafetyMgrEmpId;
+            r2.SafetyMgrName = rc.SafetyMgrName;
+            eiDs.Add(rc.SafetyMgrEmpId);
         }
 
-        if (!EIDs.Contains(RC.LegalMgrEmpId))
+        if (!eiDs.Contains(rc.LegalMgrEmpId))
         {
-            R2.LegalMgrEmpId = RC.LegalMgrEmpId;
-            R2.LegalMgrName = RC.LegalMgrName;
-            EIDs.Add(RC.LegalMgrEmpId);
+            r2.LegalMgrEmpId = rc.LegalMgrEmpId;
+            r2.LegalMgrName = rc.LegalMgrName;
+            eiDs.Add(rc.LegalMgrEmpId);
         }
 
-        if (!EIDs.Contains(RC.DivMgrEmpId))
+        if (!eiDs.Contains(rc.DivMgrEmpId))
         {
-            R2.DivMgrEmpId = RC.DivMgrEmpId;
-            R2.DivMgrName = RC.DivMgrName;
-            EIDs.Add(RC.DivMgrEmpId);
+            r2.DivMgrEmpId = rc.DivMgrEmpId;
+            r2.DivMgrName = rc.DivMgrName;
+            eiDs.Add(rc.DivMgrEmpId);
         }
 
 
-        if (!EIDs.Contains(RC.DeptMgrEmpId))
+        if (!eiDs.Contains(rc.DeptMgrEmpId))
         {
-            R2.DeptMgrEmpId = RC.DeptMgrEmpId;
-            R2.DeptMgrName = RC.DeptMgrName;
-            EIDs.Add(RC.DeptMgrEmpId);
+            r2.DeptMgrEmpId = rc.DeptMgrEmpId;
+            r2.DeptMgrName = rc.DeptMgrName;
+            eiDs.Add(rc.DeptMgrEmpId);
         }
 
-        if (!EIDs.Contains(emp.Manager_No_))
+        if (!eiDs.Contains(emp.Manager_No_))
         {
-            R2.SuprEmpId = emp.Manager_No_;
+            r2.SuprEmpId = emp.Manager_No_;
 
             /////////////////////////////////////
             // Look Up The Employee Supervisor //
             /////////////////////////////////////
-            emp = SqlServer_Impl.GetEmployeeByNo(R2.SuprEmpId);
+            emp = SqlServer_Impl.GetEmployeeByNo(r2.SuprEmpId);
             if (emp != null)
-                R2.SuprName = emp.First_Name + " " + emp.Last_Name;
+                r2.SuprName = emp.First_Name + " " + emp.Last_Name;
         }
 
-        return R2;
+        return r2;
     }
 
     public static string GenFleetInspRpt(string Dept)
@@ -405,16 +405,16 @@ public static class BusinessLayer
         emailBody += "<th>Hazard</td>";
         emailBody += "</tr>";
 
-        foreach (SIU_DOT_Inspection Rpt in uncorrected)
+        foreach (SIU_DOT_Inspection rpt in uncorrected)
         {
-            string emp = (from thisEmp in emps where thisEmp.No_ == Rpt.SubmitEmpID.TrimEnd() select thisEmp.Last_Name + ", " + thisEmp.First_Name).SingleOrDefault();
+            string emp = (from thisEmp in emps where thisEmp.No_ == rpt.SubmitEmpID.TrimEnd() select thisEmp.Last_Name + ", " + thisEmp.First_Name).SingleOrDefault();
 
             emailBody += "<tr style='color: black; text-align: center;'>";
-            emailBody += "<td><a href=" + webServer + "/ELO/VehDotEntry.aspx?rpt=" + Rpt.RefID + ">" + Rpt.RefID + "</a></td>";
-            emailBody += "<td>" + Rpt.Vehicle + "</td>";
-            emailBody += "<td>(" + Rpt.SubmitEmpID.TrimEnd() + ") " + emp + "</td>";
-            emailBody += "<td>" + Rpt.SubmitTimeStamp.ToShortDateString() + "</td>";
-            emailBody += "<td style='color: black; text-align: left;'>" + Rpt.Hazard + "</td>";
+            emailBody += "<td><a href=" + webServer + "/ELO/VehDotEntry.aspx?rpt=" + rpt.RefID + ">" + rpt.RefID + "</a></td>";
+            emailBody += "<td>" + rpt.Vehicle + "</td>";
+            emailBody += "<td>(" + rpt.SubmitEmpID.TrimEnd() + ") " + emp + "</td>";
+            emailBody += "<td>" + rpt.SubmitTimeStamp.ToShortDateString() + "</td>";
+            emailBody += "<td style='color: black; text-align: left;'>" + rpt.Hazard + "</td>";
             emailBody += "</tr>";
         }
 
@@ -425,21 +425,29 @@ public static class BusinessLayer
 
     public static void GenQtmNotices()
     {
-        string webServer = "http://" + HttpContext.Current.Request.Url.DnsSafeHost; ;
+        string webServer = "http://" + HttpContext.Current.Request.Url.DnsSafeHost;
         List<SIU_Qom_QR> qtmList = SqlServer_Impl.GetSafetyQomQRList("0");
 
         DateTimeFormatInfo mfi = new DateTimeFormatInfo();
         string strMonthName = mfi.GetMonthName(DateTime.Now.Month);
 
+        
 
         foreach (SIU_Qom_QR qtm in qtmList)
         {
-            string emailBody;
-            emailBody = "<h1>The " + strMonthName + " " + qtm.Q_Grp + " Question of the month is:</h1>";
+            string emailBody = "<!DOCTYPE html><html><head><title>QTM Email</title></head><body>";
+
+            if ( qtm.Q_Grp.ToLower() == "vest" )
+                emailBody += @"<img alt='VEST IMAGE' src='" + webServer + "/images/Si-EHS-VEST.png'  width='200'  />";
+
+            if (qtm.Q_Grp.ToLower() == "vpp")
+                emailBody += @"<img alt='VPP IMAGE' src='" + webServer + "/images/Si-VPP.png'  width='200'  />";
+
+            emailBody += "<h1>The " + strMonthName + " " + qtm.Q_Grp + " Question of the month is:</h1>";
 
             emailBody += "<b>" + qtm.Question + "</b>";
             emailBody += "<br/><br/>";
-            emailBody += "<a href=" + webServer + "/Safety/SafetyPays/SafetyQomUser.aspx>Click here to respond to this or other open Questions of the Month</a>";
+            emailBody += "<a href=" + webServer + "/Safety/SafetyPays/SafetyQomUser.aspx?id=" +  qtm.Q_Id  +  ">Click here to respond to this or other open Questions of the Month</a>";
 
             emailBody += "<br/><br/>";
 
@@ -452,16 +460,17 @@ public static class BusinessLayer
             emailBody += "<a href=mailto:aschumacher@shermco.com?subject=" + strMonthName + "%20" + qtm.Q_Grp + "%20Question%20of%20the%20Month%20message>email EHS</a></b>";
 
             emailBody += "<br/><br/>";
+            emailBody += "</body>";
 
-            //WebMail.HtmlMail("ltruitt@shermco.com", strMonthName + " " + qtm.Q_Grp + " Question of the month", emailBody);
-            WebMail.HtmlMail("ltruitt@shermco.com; allemployees@shermco.com", strMonthName + " " + qtm.Q_Grp + " Question of the month", emailBody);
+            WebMail.HtmlMail("ltruitt@shermco.com", strMonthName + " " + qtm.Q_Grp + " Question of the month", emailBody);
+            //WebMail.HtmlMail("ltruitt@shermco.com; allemployees@shermco.com", strMonthName + " " + qtm.Q_Grp + " Question of the month", emailBody);
         }
     }
     public static void GenQtmReminders()
     {
         try
         {
-            string webServer = "http://" + HttpContext.Current.Request.Url.DnsSafeHost; ;
+            string webServer = "http://" + HttpContext.Current.Request.Url.DnsSafeHost;
             List<SIU_Qom_QR> qtmList = SqlServer_Impl.GetSafetyQomQRList("0");
 
             DateTimeFormatInfo mfi = new DateTimeFormatInfo();
@@ -469,16 +478,26 @@ public static class BusinessLayer
 
             foreach (SIU_Qom_QR qtm in qtmList)
             {
-                string emailBody = "<div style='border: 2 solid blue; font-size: 1.3em; font-weight: bold; margin: 10px; color: blue; padding: 3px;'>";
+                string emailBody = "<!DOCTYPE html><html><head><title>QTM Email</title></head><body>";
+
+                emailBody += "<div style='border: 2 solid blue; font-size: 1.3em; font-weight: bold; margin: 10px; color: blue; padding: 3px;'>";
                 emailBody += "The following email is a reminder to respond to any currently unanswered Questions of the Month</div>";
 
                 emailBody += "<br/>";
+
+                if (qtm.Q_Grp.ToLower() == "vest")
+                    emailBody += @"<img alt='VEST IMAGE' src='" + webServer + "/images/Si-EHS-VEST.png'  width='200'  />";
+
+                if (qtm.Q_Grp.ToLower() == "vpp")
+                    emailBody += @"<img alt='VPP IMAGE' src='" + webServer + "/images/Si-VPP.png'  width='200'  />";
+
+
 
                 emailBody += "<h1>The " + strMonthName + " " + qtm.Q_Grp + " Question of the month is:</h1>";
 
                 emailBody += "<b>" + qtm.Question + "</b>";
                 emailBody += "<br/><br/>";
-                emailBody += "<a href=" + webServer + "/Safety/SafetyPays/SafetyQomUser.aspx>Click here to respond to this or other open Questions of the Month</a>";
+                emailBody += "<a href=" + webServer + "/Safety/SafetyPays/SafetyQomUser.aspx?id=" + qtm.Q_Id + ">Click here to respond to this or other open Questions of the Month</a>";
 
                 emailBody += "<br/><br/>";
 
@@ -491,9 +510,10 @@ public static class BusinessLayer
                 emailBody += "<a href=mailto:aschumacher@shermco.com?subject=" + strMonthName + "%20" + qtm.Q_Grp + "%20Question%20of%20the%20Month%20message>email EHS</a></b>";
 
                 emailBody += "<br/><br/>";
+                emailBody += "</body>";
 
-                //WebMail.HtmlMail("ltruitt@shermco.com", strMonthName + " " + qtm.Q_Grp + " Question of the month", emailBody);
-                WebMail.HtmlMail("ltruitt@shermco.com; allemployees@shermco.com", strMonthName + " " + qtm.Q_Grp + " Question of the month", emailBody);
+                WebMail.HtmlMail("ltruitt@shermco.com", strMonthName + " " + qtm.Q_Grp + " Question of the month", emailBody);
+                //WebMail.HtmlMail("ltruitt@shermco.com; allemployees@shermco.com", strMonthName + " " + qtm.Q_Grp + " Question of the month", emailBody);
 
             }
         }
@@ -507,7 +527,7 @@ public static class BusinessLayer
     {
         try
         {
-            string webServer = "http://" + HttpContext.Current.Request.Url.DnsSafeHost; ;
+            string webServer = "http://" + HttpContext.Current.Request.Url.DnsSafeHost;
             List<SIU_Qom_QR> qtmList = SqlServer_Impl.GetSafetyQomQRList("0");
 
             DateTimeFormatInfo mfi = new DateTimeFormatInfo();

@@ -6,7 +6,7 @@
         
         $('#SearchArea').hide();
         $('#loading').show();
-        GetPhoneDocumentList();
+        getPhoneDocumentList();
     });
     
     ///////////////////////////////
@@ -24,7 +24,7 @@
     // Request List Of Document Folders //
     // Used On Library Document Page    //
     //////////////////////////////////////
-    function GetPhoneDocumentList () {
+    function getPhoneDocumentList () {
 
         if ($('#txtSearch').val().length == 0) {
             return;
@@ -32,7 +32,7 @@
         
         var getRootFoldersAjax = new AsyncServerMethod();
         getRootFoldersAjax.add('SearchText', $('#txtSearch').val() );
-        getRootFoldersAjax.exec("/SIU_DAO.asmx/g77", PhoneDocumentList_success);
+        getRootFoldersAjax.exec("/SIU_DAO.asmx/g77", phoneDocumentListSuccess);
     }
 
 
@@ -40,7 +40,7 @@
     // Process List Of Document Folders //
     // Used On Library Document Page    //
     //////////////////////////////////////
-    function PhoneDocumentList_success(data) {
+    function phoneDocumentListSuccess(data) {
         $('#loading').hide();
         
         if (data.d.length > 3) {
