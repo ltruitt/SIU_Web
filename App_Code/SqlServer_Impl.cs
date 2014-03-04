@@ -177,9 +177,9 @@ public class SiuDao : WebService
     // The Teacher Has Verified A Student Completed A Class.  Move Record To Emp Qual Tbl //
     ////////////////////////////////////////////////////////////////////////////////////////
     [WebMethod(EnableSession = true)]
-    public string dsaasd222()
+    public string dsaasd222(string instID)
     {
-        SqlServer_Impl.CommitAllUnPostedClassStudent();
+        SqlServer_Impl.CommitAllUnPostedClassStudentByID(instID);
         JavaScriptSerializer serializer = new JavaScriptSerializer();
         return serializer.Serialize(new { Result = "OK" });
     }
@@ -6932,7 +6932,7 @@ public class SqlServer_Impl : WebService
     }
 
 
-    public static void CommitAllUnPostedClassStudent()
+    public static void CommitAllUnPostedClassStudentByID(string instID)
     {
         try
         {
@@ -6946,13 +6946,13 @@ public class SqlServer_Impl : WebService
             using (var trans = new TransactionScope(TransactionScopeOption.RequiresNew, to))
             {
                 List<int> postList = (from pl in nvDb.SIU_Class_Completions
-                                      where pl.class_instructor == BusinessLayer.UserEmpID
+                                      where pl.class_instructor == instID
                                       select pl.UID
                                      ).ToList();
 
                 foreach (var pl_uid in postList)
                 {
-                    //nvDb.ExecuteCommand("exec SIU_Class_To_Qualification @UID={0}", pl_uid);                    
+                    nvDb.ExecuteCommand("exec SIU_Class_To_Qualification @UID={0}", pl_uid);                    
                 }
 
 
@@ -6961,7 +6961,7 @@ public class SqlServer_Impl : WebService
         }
         catch (Exception ex)
         {
-            LogDebug("CommitUnPostedClassStudent", ex.Message);
+            LogDebug("CommitUnPostedClassStudentByID", ex.Message);
         }
 
     }

@@ -13,12 +13,12 @@ public partial class Corporate_BandC_BandC_ClassComplete : System.Web.UI.Page
         ////////////////////////////
         // Show The Employee Name //
         ////////////////////////////
-        lblEmpName.InnerText = SqlServer_Impl.GetEmployeeNameByNo(BusinessLayer.UserEmpID);
+        //lblEmpName.InnerText = SqlServer_Impl.GetEmployeeNameByNo(BusinessLayer.UserEmpID);
 
         ///////////////////////////////////////////
         // Bury The Employee ID For AJAX Lookups //
         ///////////////////////////////////////////
-        hlblEID.InnerText = BusinessLayer.UserEmpID;
+        //hlblEID.InnerText = BusinessLayer.UserEmpID;
 
         //////////////////////////////////////////
         // Default The Time Entry Date To Today //

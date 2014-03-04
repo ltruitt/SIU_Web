@@ -82,7 +82,7 @@
                     <div id="BncAdmin" runat="server">
                     
                         <li>
-                            <a href="/Corporate/BandC/BandC_ClassComplete.aspx"><b>Record Cedrtification Without Document</b></a> 
+                            <a href="/Corporate/BandC/BandC_ClassComplete.aspx"><b>Record Certifications Without Document</b></a> 
                             <br>
                             <span style="font-size: small;">Record Certifications Without Document</span>
                             <br><br>

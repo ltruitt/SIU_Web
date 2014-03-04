@@ -1,11 +1,28 @@
 ﻿$(document).ready(function () {
     
+    var timestamp = new Date();
+    
+    ////////////////
+    // Form Reset //
+    ////////////////
+    $("#btnClear").click(function () {
+            
+        $("#acCertList").val('');
+        $('#hlblCertCode').html('');
+        
+        $("#txtInstructor").val('');
+        $('#hlblEID').html('');
+        
+        $('#panelA').hide();
+        $('#panelB').hide();
+    });
+    $("#btnClear").click();
 
-    ////////////////////////////////////////
-    // Event Management For Job Selection //
-    ////////////////////////////////////////
+    ////////////////////////////////////
+    // Get List Of All Possible Certs //
+    ////////////////////////////////////
     var listOfCerts = [];
-    function getCertsSuccess(data) {
+    function getCertsListSuccess(data) {
         listOfCerts = data.d.split("\r");
 
         $("#acCertList").autocomplete(
@@ -34,39 +51,32 @@
                 }
             });
     }
-    function getCerts() {
+    function getCertsList() {
         var getCertsAjax = new AsyncServerMethod();
-        getCertsAjax.exec("/SIU_DAO.asmx/GetCerts", getCertsSuccess);
+        getCertsAjax.exec("/SIU_DAO.asmx/GetCerts", getCertsListSuccess);
     }
 
 
-
-
-    //////////////////////////////////////////////////////
-    // Make Sure Text Entered For Cert Was In Jobs List //
-    //////////////////////////////////////////////////////
-    //    $("#acCertList").blur(function () {
-    //        if (!listOfCerts.containsCaseInsensitive(this.value)) {
-    //            $(this).val("");
-    //        }
-    //    });
-
-
-
-
-    /////////////////////////////////////////
-    // Get Details Of A Job And Job Report //
-    /////////////////////////////////////////
+    //////////////////////////////////
+    // Get Details Of Selected Cert //
+    //////////////////////////////////
     function getCertSuccess(data) {
 
         var certDetails = $.parseJSON(data.d);
 
+        if (certDetails.length == 0) {
+            $('#acCertList').val('');
+            $('#ServerError').html('Certificate Lookup Failed');
+            return;
+        }
+        
+        $('#ServerError').html('');
         $('#hlblCertCode')[0].innerHTML = certDetails[0].Code;
-
+        $('#panelB').show('slow');
+        
         timestamp = new Date();
         $('#jTableContainer').jtable('load', { EmpID: $('#hlblEID')[0].innerHTML, ClassCode: $('#hlblCertCode')[0].innerHTML, ClassDate: $('#txtClassDate')[0].value, T: timestamp.getTime() });
     }
-
     function getCertDetails() {
         var cert = $('#acCertList').val();
 
@@ -75,31 +85,58 @@
         getCertAjax.exec("/SIU_DAO.asmx/GetCert", getCertSuccess);
     }
 
-
+    ////////////////////////////////////
+    // Setup Class Date As Date Field //
+    ////////////////////////////////////
     $('#txtClassDate').datepicker({
-        constrainInput: true,
-        onSelect: showHoursForDate
+        constrainInput: true
     });
 
-    $('#txtClassDate').blur(function () {
-        showHoursForDate();
-    });
-
-    function showHoursForDate() {
-
-    }
-
-
-
-
-
-
-    ///////////////////////////////////////////////////////////////
-    // Load List Of Employees So Supr Can Change Viewed Employee //
-    ///////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////
+    // Load List Of Employees For Student and Instructor Selection //
+    /////////////////////////////////////////////////////////////////
     var listOfEmps = [];
     function getEmpsSuccess(data) {
         listOfEmps = data.d.split("\r");
+        
+
+
+        $("#txtInstructor").autocomplete({ source: listOfEmps },
+        {
+            matchContains: false,
+            minChars: 1,
+            autoFill: false,
+            mustMatch: false,
+            cacheLength: 20,
+            max: 20,
+            delay: 0,
+            select: function (event, ui) {
+                var dataPieces = ui.item.value.split(' ');
+                $('#hlblEID')[0].innerHTML = dataPieces[0];
+                $("#txtInstructor").autocomplete("close");
+                $("#txtInstructor").val(dataPieces[0] + ' ' + dataPieces[2] + ', ' + dataPieces[3]);
+                $('#jTableContainer').jtable('load', { EmpID: $('#hlblEID')[0].innerHTML, ClassCode: $('#hlblCertCode')[0].innerHTML, ClassDate: $('#txtClassDate')[0].value, T: timestamp.getTime() });
+                $('#panelA').show('slow');
+            },
+            response: function (event, ui) {
+                if (ui.content.length == 1) {
+                    var dataPieces = ui.content[0].value.split(' ');
+                    $('#hlblEID')[0].innerHTML = dataPieces[0];
+                    $("#txtInstructor").autocomplete("close");
+                    $("#txtInstructor").val(dataPieces[0] + ' ' + dataPieces[2] + ', ' + dataPieces[3]);
+                    $('#jTableContainer').jtable('load', { EmpID: $('#hlblEID')[0].innerHTML, ClassCode: $('#hlblCertCode')[0].innerHTML, ClassDate: $('#txtClassDate')[0].value, T: timestamp.getTime() });
+                    $('#panelA').show('slow');
+                }
+
+                return ui;
+            }
+        });
+
+        
+
+
+
+
         $("#txtStudent").autocomplete({ source: listOfEmps },
             {
                 matchContains: false,
@@ -128,6 +165,9 @@
             });
     }
     
+    /////////////////////////////
+    // Record Class Completion //
+    /////////////////////////////
     function recordClass(studentId) {
         var recordClassCall = new AsyncServerMethod();
         recordClassCall.add('QualCode', $('#hlblCertCode')[0].innerHTML );
@@ -136,18 +176,8 @@
         recordClassCall.add('StudentID', studentId);
         recordClassCall.exec("/SIU_DAO.asmx/RecordUnPostedClassStudent", recordUnPostedClassStudentSuccess);
         
-    }
-    
-    function recordUnPostedClassStudentSuccess(data) {
-        //var recordedStudent = $.parseJSON(data.d);
-        //$('#jTableContainer').jtable('addRecord', {
-        //    record: {
-        //        TLC_UID: 0,
-        //        TL_UID: tlUid,
-        //        QualCode: $("#acCertList").val()
-        //    },
-        //    clientOnly: true
-        //});
+    }    
+    function recordUnPostedClassStudentSuccess() {
         $('#jTableContainer').jtable('load', { EmpID: $('#hlblEID')[0].innerHTML, ClassCode: $('#hlblCertCode')[0].innerHTML, ClassDate: $('#txtClassDate')[0].value, T: timestamp.getTime() });
     }
 
@@ -157,7 +187,7 @@
     // Setup Report Of Unposted Expenses //
     ///////////////////////////////////////
     $('#jTableContainer').jtable({
-        title: 'All Unposted Students For Instructor',
+        title: 'All Unposted Certificates For Instructor',
         defaultSorting: 'UID ASC',
         edit: true,
         actions: {
@@ -212,8 +242,6 @@
         }
     });
 
-    var timestamp = new Date();
-    $('#jTableContainer').jtable('load', { EmpID: $('#hlblEID')[0].innerHTML, ClassCode: $('#hlblCertCode')[0].innerHTML, ClassDate: $('#txtClassDate')[0].value, T: timestamp.getTime() });
 
 
 
@@ -222,31 +250,36 @@
 
 
 
-    // Look Up List Of Valid Cert Codes
-    getCerts();
+
+    //////////////////////////////////////
+    // Look Up List Of Valid Cert Codes //
+    //////////////////////////////////////
+    getCertsList();
 
     // Load Emps AutoComplete List
     var getEmpsCall = new AsyncServerMethod();
     getEmpsCall.exec("/SIU_DAO.asmx/GetAutoCompleteActiveEmployees", getEmpsSuccess);
     
 
-    ///////////////////////////
-    // Submit Button Handler //
-    ///////////////////////////
+
+
+
+
+
+
+
+
+    /////////////////////////////////
+    // Post Button Success Handler //
+    /////////////////////////////////
     function dsaasd222_Success(data) {
-        
-        timestamp = new Date();
-        $('#jTableContainer').jtable('load', { EmpID: $('#hlblEID')[0].innerHTML, ClassCode: $('#hlblCertCode')[0].innerHTML, ClassDate: $('#txtClassDate')[0].value, T: timestamp.getTime() });
-        $('#btnSubmit').show();
+        $('#btnClear').click();
 
     };
+    
     $("#btnSubmit").click(function () {
-        $('#btnSubmit').hide();
-
         var timeSubmitCall = new AsyncServerMethod();
-        //timeSubmitCall.add('CertCode', $('#hlblCertCode').html());
-        //timeSubmitCall.add('Classdate', $('#txtClassDate').html());
-        
+        timeSubmitCall.add('instID', $('#hlblEID').html());
         timeSubmitCall.exec("/SIU_DAO.asmx/dsaasd222", dsaasd222_Success);
 
     });

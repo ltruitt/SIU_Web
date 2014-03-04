@@ -11,7 +11,7 @@
     <script type="text/javascript" src="/Scripts/jtable.2.2.1/jquery.jtable.js">                             </script>        
     <script type="text/javascript" src="/Scripts/jtable.2.2.1/extensions/jquery.jtable.aspnetpagemethods.js"></script>     
     
-    <script type="text/javascript" src="/Scripts/SafetyPaysSubmitted.js?0000"></script>
+    <script type="text/javascript" src="/Scripts/SafetyPaysSubmitted.js?0001"></script>
 
     <link rel="stylesheet" type="text/css" media="screen" href="/Styles/DeskTop-Forms.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="/Styles/SafetyPaysSubmitted.css" />
