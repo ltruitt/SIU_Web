@@ -285,12 +285,11 @@ public static class BusinessLayer
         //////////////////////////////////
         // Create A New Response Record //
         //////////////////////////////////
-        SIU_Incident_Accident_Reports_To r2 = new SIU_Incident_Accident_Reports_To();
+        SIU_Incident_Accident_Reports_To r2 = new SIU_Incident_Accident_Reports_To {EmpId = EmpID};
 
         /////////////////////////////////////////////
         // Load The Emp For Whom We Are Looking Up //
         /////////////////////////////////////////////
-        r2.EmpId = EmpID;
         Shermco_Employee emp = SqlServer_Impl.GetEmployeeByNo(EmpID);
         if (emp == null)
             return r2;
@@ -572,16 +571,16 @@ public static class BusinessLayer
     //////////////////////////////////
     // Safety Pays Email Generation //
     //////////////////////////////////
-    public static void SafetyPaysNewEmail(SIU_SafetyPaysReport Report, string UserEmail, string UserFullName)
+    public static void SafetyPaysNewEmail(SIU_SafetyPaysReport Report, string userEmail, string userFullName)
     {
         ///////////////////////////
         // Send New-Report Email //
         ///////////////////////////
-        string eMailSubject = "Safety Pays " + Report.IncTypeTxt + " Submission From: " + UserFullName;
+        string eMailSubject = "Safety Pays " + Report.IncTypeTxt + " Submission From: " + userFullName;
 
         string emailBody = "";
         emailBody += "Report ID: " + Report.IncidentNo + Environment.NewLine;
-        emailBody += "Submitted By: " + UserFullName + Environment.NewLine;
+        emailBody += "Submitted By: " + userFullName + Environment.NewLine;
         emailBody += "Date Submitted: " + ToShortDate(Report.IncOpenTimestamp) + Environment.NewLine;
         emailBody += "Submission Type: " + Report.IncTypeTxt + Environment.NewLine;
         if (Report.JobNo.Length > 0)
@@ -616,9 +615,9 @@ public static class BusinessLayer
         //////////////////////////////////
         // Send Email To Original  User //
         //////////////////////////////////
-        WebMail.NetMail(UserEmail, eMailSubject, emailBody);
+        WebMail.NetMail(userEmail, eMailSubject, emailBody);
     }
-    public static void SafetyPaysAcceptEMail(SIU_SafetyPaysReport UpdRcd, string ccUserEmail, string UserFullName)
+    public static void SafetyPaysAcceptEMail(SIU_SafetyPaysReport UpdRcd, string ccUserEmail, string userFullName)
     {
         Shermco_Employee rptByEmp = SqlServer_Impl.GetEmployeeByNo(UpdRcd.EmpID);
 
@@ -659,7 +658,7 @@ public static class BusinessLayer
 
         emailBody += "Points Awarded: " + UpdRcd.PointsAssigned.ToString() + "  On  " + ToShortDate(UpdRcd.PointsAssignedTimeStamp) + Environment.NewLine + Environment.NewLine;
 
-        emailBody += "Approved and Closed By: " + UserFullName + Environment.NewLine;
+        emailBody += "Approved and Closed By: " + userFullName + Environment.NewLine;
         emailBody += "Closed On: " + ToShortDate(UpdRcd.IncCloseTimestamp) + Environment.NewLine + Environment.NewLine;
 
         emailBody += "Notes From EHS: " + Environment.NewLine + UpdRcd.ehsRepsonse + Environment.NewLine;
@@ -667,8 +666,9 @@ public static class BusinessLayer
         ////////////////////////////
         // Send To Original  User //
         ////////////////////////////
-        if (rptByEmp == null)
-            return;
+// ReSharper disable once ConditionIsAlwaysTrueOrFalse
+// ReSharper disable once HeuristicUnreachableCode
+        if (rptByEmp == null) return;
 
         WebMail.NetMail(rptByEmp.Company_E_Mail, eMailSubject, emailBody);
 
@@ -682,7 +682,7 @@ public static class BusinessLayer
             WebMail.NetMail(ccUserEmail, eMailSubject, emailBody);
         }
     }
-    public static void SafetyPaysRejectedEMail(SIU_SafetyPaysReport UpdRcd, string ccUserEmail, string UserFullName)
+    public static void SafetyPaysRejectedEMail(SIU_SafetyPaysReport UpdRcd, string ccUserEmail, string userFullName)
     {
         Shermco_Employee rptByEmp = SqlServer_Impl.GetEmployeeByNo(UpdRcd.EmpID);
 
@@ -722,7 +722,7 @@ public static class BusinessLayer
             emailBody += UpdRcd.InitialResponse + Environment.NewLine + Environment.NewLine;
         }
 
-        emailBody += "Rejected and Closed By: " + UserFullName + Environment.NewLine;
+        emailBody += "Rejected and Closed By: " + userFullName + Environment.NewLine;
         emailBody += "Rejected On: " + ToShortDate(UpdRcd.IncCloseTimestamp) + Environment.NewLine + Environment.NewLine;
 
         emailBody += "Notes From EHS: " + Environment.NewLine + UpdRcd.ehsRepsonse + Environment.NewLine;
@@ -743,7 +743,7 @@ public static class BusinessLayer
             WebMail.NetMail(ccUserEmail, eMailSubject, emailBody);
         }
     }
-    public static void SafetyPaysWorkingEMail(SIU_SafetyPaysReport UpdRcd, string ccUserEmail, string UserFullName)
+    public static void SafetyPaysWorkingEMail(SIU_SafetyPaysReport UpdRcd, string ccUserEmail, string userFullName)
     {
         Shermco_Employee rptByEmp = SqlServer_Impl.GetEmployeeByNo(UpdRcd.EmpID);
 
@@ -784,7 +784,7 @@ public static class BusinessLayer
 
         emailBody += "Points Awarded: " + UpdRcd.PointsAssigned.ToString() + "  On  " + UpdRcd.PointsAssignedTimeStamp + Environment.NewLine + Environment.NewLine;
 
-        emailBody += "Accepted for Work By: " + UserFullName + Environment.NewLine;
+        emailBody += "Accepted for Work By: " + userFullName + Environment.NewLine;
         emailBody += "Accepted On: " + ToShortDate(UpdRcd.IncCloseTimestamp) + Environment.NewLine + Environment.NewLine;
 
         emailBody += "Notes From EHS: " + Environment.NewLine + UpdRcd.ehsRepsonse + Environment.NewLine;
@@ -805,7 +805,7 @@ public static class BusinessLayer
             WebMail.NetMail(ccUserEmail, eMailSubject, emailBody);
         }
     }
-    public static void SafetyPaysClosedEMail(SIU_SafetyPaysReport UpdRcd, string ccUserEmail, string UserFullName)
+    public static void SafetyPaysClosedEMail(SIU_SafetyPaysReport UpdRcd, string ccUserEmail, string userFullName)
     {
         Shermco_Employee rptByEmp = SqlServer_Impl.GetEmployeeByNo(UpdRcd.EmpID);
 
@@ -844,7 +844,7 @@ public static class BusinessLayer
             emailBody += UpdRcd.InitialResponse + Environment.NewLine + Environment.NewLine;
         }
 
-        emailBody += "Closed By: " + UserFullName + Environment.NewLine;
+        emailBody += "Closed By: " + userFullName + Environment.NewLine;
         emailBody += "Closed On: " + ToShortDate(UpdRcd.IncCloseTimestamp) + Environment.NewLine + Environment.NewLine;
 
         emailBody += "Notes From EHS: " + Environment.NewLine + UpdRcd.ehsRepsonse + Environment.NewLine;
@@ -865,7 +865,7 @@ public static class BusinessLayer
             WebMail.NetMail(ccUserEmail, eMailSubject, emailBody);
         }
     }
-    public static void SafetyPaysTaskAssignEMail(SIU_SafetyPays_TaskList UpdRcd, string UserEmail, string UserFullName)
+    public static void SafetyPaysTaskAssignEMail(SIU_SafetyPays_TaskList UpdRcd, string userEmail, string userFullName)
     {
         SIU_SafetyPaysReport report = SqlServer_Impl.GetSafetyPaysReport(UpdRcd.IncidentNo).SingleOrDefault();
         if (report != null)
@@ -912,7 +912,7 @@ public static class BusinessLayer
                 emailBody += report.InitialResponse + Environment.NewLine + Environment.NewLine;
             }
 
-            emailBody += "Task Created By: " + UserFullName + Environment.NewLine;
+            emailBody += "Task Created By: " + userFullName + Environment.NewLine;
             emailBody += "Task Due By: " + UpdRcd.DueDate + Environment.NewLine;
             emailBody += "Task Description: " + UpdRcd.TaskDefinition + Environment.NewLine + Environment.NewLine;
 
@@ -929,7 +929,7 @@ public static class BusinessLayer
             WebMail.NetMail(rptByEmp.Company_E_Mail, eMailSubject, emailBody);
         }
     }
-    public static void SafetyPaysTaskCompleteEMail(SIU_SafetyPays_TaskList UpdRcd, string UserEmail, string UserFullName, string CloseNotes)
+    public static void SafetyPaysTaskCompleteEMail(SIU_SafetyPays_TaskList UpdRcd, string userEmail, string userFullName, string CloseNotes)
     {
         SIU_SafetyPaysReport report = SqlServer_Impl.GetSafetyPaysReport(UpdRcd.IncidentNo).SingleOrDefault();
         if (report != null)
@@ -977,7 +977,7 @@ public static class BusinessLayer
                 emailBody += report.InitialResponse + Environment.NewLine + Environment.NewLine;
             }
 
-            emailBody += "Task Closed By: " + UserFullName + Environment.NewLine;
+            emailBody += "Task Closed By: " + userFullName + Environment.NewLine;
             emailBody += "Task Closed On: " + UpdRcd.CompletedDate + Environment.NewLine;
             emailBody += "Task Description: " + UpdRcd.TaskDefinition + Environment.NewLine + Environment.NewLine;
 
@@ -1042,8 +1042,8 @@ public static class BusinessLayer
 
         emailBody += "Notes From EHS: " + Environment.NewLine + UpdRcd.ehsRepsonse + Environment.NewLine;
 
-        Shermco_Employee ObsByEmp = SqlServer_Impl.GetEmployeeByNo(UpdRcd.ObservedEmpID);
-        WebMail.NetMail(ObsByEmp.Company_E_Mail, eMailSubject, emailBody);
+        Shermco_Employee obsByEmp = SqlServer_Impl.GetEmployeeByNo(UpdRcd.ObservedEmpID);
+        WebMail.NetMail(obsByEmp.Company_E_Mail, eMailSubject, emailBody);
     }
 
     ///////////////////////
@@ -1155,7 +1155,7 @@ public static class BusinessLayer
     {
         try
         {
-            string addressList = SqlServer_Impl.GetEmployeeEmailByNo(new List<string>() { Rpt.Turned_in_by_Tech_UserID })[0];
+            string addressList = SqlServer_Impl.GetEmployeeEmailByNo(new List<string> { Rpt.Turned_in_by_Tech_UserID })[0];
 
             const string eMailSubject = "Job Report Submission Acknowledgement";
 
@@ -1396,13 +1396,13 @@ public static class BusinessLayer
     // Job Completed Email Generation //
     // Not In Use                     //
     ////////////////////////////////////
-    public static void JobCompletionEmail(SIU_Complete_Job UpdRcd, bool ExtraBilling, string UserEmail, string UserFullName)
+    public static void JobCompletionEmail(SIU_Complete_Job UpdRcd, bool ExtraBilling, string userEmail, string userFullName)
     {
         string eMailSubject = "Job: " + UpdRcd.JobNo + " Work Completed Report";
 
         string emailBody = "Job: " + UpdRcd.JobNo + " Work Completed Report" + Environment.NewLine + Environment.NewLine;
 
-        emailBody += "Reporting Employee:\t" + UserFullName + Environment.NewLine + Environment.NewLine;
+        emailBody += "Reporting Employee:\t" + userFullName + Environment.NewLine + Environment.NewLine;
 
 
         emailBody += "Job Scope Changed:\t" + ((ExtraBilling) ? "YES" : "NO") + Environment.NewLine + Environment.NewLine;
@@ -1455,16 +1455,16 @@ public static class BusinessLayer
     //////////////////////
     // No Longer In Use //
     //////////////////////
-    public static void BugReportNewEmail(SIU_TaskList Report, string UserEmail, string UserFullName)
+    public static void BugReportNewEmail(SIU_TaskList Report, string userEmail, string userFullName)
     {
 
         ///////////////////////////
         // Send New-Report Email //
         ///////////////////////////
-        string eMailSubject = "New ShermcoYOU Bug / Suggestion Report Submission From: " + UserFullName;
+        string eMailSubject = "New ShermcoYOU Bug / Suggestion Report Submission From: " + userFullName;
 
         string emailBody = Report.OpenTimeStamp + Environment.NewLine;
-        emailBody += "New ShermcoYOU Bug / Suggestion From: " + UserFullName + Environment.NewLine + Environment.NewLine;
+        emailBody += "New ShermcoYOU Bug / Suggestion From: " + userFullName + Environment.NewLine + Environment.NewLine;
         emailBody += "Remarks:" + Environment.NewLine;
         emailBody += Report.Description + Environment.NewLine + Environment.NewLine;
 
@@ -1477,7 +1477,7 @@ public static class BusinessLayer
         //////////////////////////////////
         // Send Email To Original  User //
         //////////////////////////////////
-        WebMail.NetMail(UserEmail, eMailSubject, emailBody);
+        WebMail.NetMail(userEmail, eMailSubject, emailBody);
 
         //////////////////////
         // Send Email To Me //
@@ -1640,6 +1640,7 @@ public static class BusinessLayer
 
     private static string ToShortDate(DateTime dt)
     {
+// ReSharper disable once ConditionIsAlwaysTrueOrFalse
         return dt != null ? dt.ToShortDateString() : "";
     }
     private static string ToShortDate(DateTime? dt)
