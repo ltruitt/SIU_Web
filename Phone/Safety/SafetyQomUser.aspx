@@ -25,6 +25,7 @@
             <span id="hlblEID" runat="server"></span>
             <label id="hlblUID" runat="server"></label>
             <label id="hlblDept" runat="server"></label>
+            <label id="hlblIncNo" runat="server"></label>
         </section>
         
         <!----------------->
@@ -67,12 +68,12 @@
                     <%--------------------%>                    
                     <%-- Submit Buttons --%>                    
                     <%--------------------%>
-                    <div style="margin-top: -30px; margin-left: 10px;">
-                        <input type="button" ID="btnSubmit" value="Submit" Class="SearchBtnCSS" style="float: right; margin-top: 10px;" />
+                    <div style="margin-top: -30px; margin-left: 10px; margin-bottom: 30px;">
+                        <input type="button" ID="btnSubmit" value="Submit" Class="SearchBtnCSS" style="float: right;" />
                     </div>
                 </div>
                                 
-                <textarea id="txtResponse" Class="QomRDiv"  style="width: 93%; height: 100px; margin: 0; border-color: rgb(45, 137, 239) !important; background-color: whitesmoke !important;"></textarea>
+                <textarea id="txtResponse" Class="QomRDiv"  style="width: 93%; height: 100px; margin: 0; border-color: rgb(45, 137, 239) !important; background-color: whitesmoke !important; "></textarea>
                 <label id="QomR">
                     
                 </label>
