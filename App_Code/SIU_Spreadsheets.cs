@@ -2169,6 +2169,9 @@ namespace ShermcoYou
         private static void SP_BuildDeptSumTable(ref SLDocument sl, int row, DateTime _start, DateTime _end)
         {
             string Dept = "";
+            int EmpLineStart = 0;
+            string prevEmp = "";
+
 
             SLStyle styleRow = sl.CreateStyle();
             styleRow.Font.FontName = "Calibri";
@@ -2193,6 +2196,21 @@ namespace ShermcoYou
             //////////////////////////////
             foreach (var rptRcd in SqlServer_Impl.GetSafetyPaysDeptRpt(_start, _end))
             {
+                if ( prevEmp != "")
+                {
+                    if ( prevEmp != rptRcd.Name)
+                    {
+                        string s2 = "=SUM(" + SLConvert.ToCellRange(EmpLineStart, 6, row - 1, 6) + ")";
+                        sl.SetCellValue(row - 1, 7, s2);
+
+                        EmpLineStart = row;
+                    }
+                }
+                else
+                {
+                    EmpLineStart = 3;
+                }
+
                 if (Dept != rptRcd.Global_Dimension_1_Code)
                 {
                     if (Dept.Length > 0)
@@ -2209,6 +2227,10 @@ namespace ShermcoYou
                 sl.SetCellValue(row, 4, rptRcd.IncTypeTxt);
                 sl.SetCellValueNumeric(row, 5, rptRcd.PointsAssigned.ToString());
 
+                string s1 = "=" + SLConvert.ToCellReference(row, 2) + " * " + SLConvert.ToCellReference(row, 5);
+                sl.SetCellValue(row, 6, s1);
+
+                prevEmp = rptRcd.Name;
                 row++;
             }
         }
@@ -2246,14 +2268,18 @@ namespace ShermcoYou
             sl.SetCellValue(Row, 2, "Count");
             sl.SetCellValue(Row, 3, "Employee");
             sl.SetCellValue(Row, 4, "Report Type");
-            sl.SetCellValue(Row, 5, "Value");
+            sl.SetCellValue(Row, 5, "Unit");
+            sl.SetCellValue(Row, 6, "Line Tot");
+            sl.SetCellValue(Row, 7, "Emp Tot");
             sl.SetColumnWidth("A", 10);
             sl.SetColumnWidth("B", 10);
             sl.SetColumnWidth("C", 40);
             sl.SetColumnWidth("D", 40);
             sl.SetColumnWidth("E", 10);
+            sl.SetColumnWidth("F", 10);
+            sl.SetColumnWidth("G", 10);
 
-            sl.SetCellStyle(Row, 1, Row, 5, styleRowHeader);
+            sl.SetCellStyle(Row, 1, Row, 7, styleRowHeader);
         }
 
         public static void SP_BuildTypeSum(ref SLDocument sl, ref Dictionary<int, string> ptTypes, ref List<Tuple<SIU_SafetyPays_Point, SIU_SafetyPaysReport>> rawData, ref Dictionary<int, string> months)

@@ -22,14 +22,15 @@
     }
     $("#btnSubmit").click(function () {
         var mileExpSubmitCall = new AsyncServerMethod();
-        mileExpSubmitCall.add('empNo', $('#hlblEID')[0].innerHTML);
+        mileExpSubmitCall.add('empNo', $('#hlblEID').html());
         mileExpSubmitCall.add('workDate', $('#txtWorkDate').val());
-        mileExpSubmitCall.add('JobNo', $('#hlblJobNo')[0].innerHTML);
-        mileExpSubmitCall.add('OhAcct', $('#hlblOhAcct')[0].innerHTML);
-        mileExpSubmitCall.add('Miles', $('#hlblMiles')[0].innerHTML);
-        mileExpSubmitCall.add('Meals', $('#hlblMealsIdx')[0].innerHTML);
-        mileExpSubmitCall.add('Amount', $('#hlblAmount')[0].innerHTML);
-        mileExpSubmitCall.exec("/SIU_DAO.asmx/MileExpSubmit", mileExpSubmitSuccess);
+        mileExpSubmitCall.add('JobNo', $('#hlblJobNo').html());
+        mileExpSubmitCall.add('OhAcct', $('#hlblOhAcct').html());
+        mileExpSubmitCall.add('Miles', $('#hlblMiles').html());
+        mileExpSubmitCall.add('Meals', $('#hlblMealsIdx').html()  );
+        mileExpSubmitCall.add('Amount', $('#hlblAmount').html()  );
+        mileExpSubmitCall.add('Date4291', $('#txt4291Day').val());
+        mileExpSubmitCall.exec("/SIU_DAO.asmx/w33", mileExpSubmitSuccess);
         $('#btnSubmit').hide();
     });
 
@@ -56,6 +57,7 @@
         $('#jTableContainer').jtable('load', { EmpID: $('#hlblEID')[0].innerHTML, T: timestamp.getTime() });        
 
         $('#txtWorkDate').val('');
+        $('#txt4291Day').val('');
         $('#txtMiles').val('');
         $('#txtMeals')[0].selectedIndex = 0;
         $("#ovrAmount").val('');
@@ -84,6 +86,8 @@
         $('#MealsDiv').hide();
         $('#MilesDiv').hide();
         $('#ExpAmountDiv').hide();
+        $('#Div4291').hide();
+        
         
         
         $('#UploadStats').hide();
@@ -111,6 +115,12 @@
         maxDate: endDate,
         constrainInput: true,
         onSelect: showWorkDate
+    });
+    
+    $('#txt4291Day').datepicker({
+        minDate: startDate,
+        maxDate: endDate,
+        constrainInput: true
     });
 
 
@@ -236,6 +246,7 @@
             case '4291':
                 $('#MilesDiv').show('slow');
                 $('#txtMiles').focus();
+                $('#Div4291').show();
                 break;
                 
             case '4421':
@@ -301,7 +312,7 @@
             $('#MealsDiv').hide();
             $('#MilesDiv').hide();
             
-            //$('#btnSubmit').attr('disabled', false);
+
             $('#btnSubmit').show();
             $('#btnSubmit').focus();
         }

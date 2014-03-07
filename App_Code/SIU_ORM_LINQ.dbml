@@ -1689,6 +1689,12 @@
       <Column Name="RD_ReadyForFinal" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.SIU_4291_Days" Member="SIU_4291_Days">
+    <Type Name="SIU_4291_Day">
+      <Column Name="Emp_ID" Type="System.String" DbType="VarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="[4291_Day]" Member="_4291_Day" Type="System.DateTime" DbType="DateTime NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+    </Type>
+  </Table>
   <Function Name="dbo.SIU_ELO_GetBalance" Method="SIU_ELO_GetBalance">
     <Parameter Name="EmpNo" Parameter="empNo" Type="System.String" DbType="VarChar(10)" />
     <ElementType Name="SIU_ELO_GetBalanceResult">
@@ -1752,6 +1758,26 @@
       <Column Name="QomOpen" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="QomPend" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="QomAccept" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SIU_SP_GetAdminPointsRptEmpPoint" Method="SIU_SP_GetAdminPointsRptEmpPoint">
+    <Parameter Name="StartDate" Parameter="startDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="EndDate" Parameter="endDate" Type="System.DateTime" DbType="DateTime" />
+    <ElementType Name="SIU_SP_GetAdminPointsRptEmpPointResult">
+      <Column Name="no_" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[Global Dimension 1 code]" Member="Global_Dimension_1_code" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(62) NOT NULL" CanBeNull="false" />
+      <Column Name="UID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Emp_No" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="ReasonForPoints" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DatePointsGiven" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="PointsGivenBy" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="Comments" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Points" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="EventDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="SPR_UID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="QOM_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
     </ElementType>
   </Function>
   <Function Name="dbo.SIU_SafetyPays_AcceptReject_Rpt_SP" Method="SIU_SafetyPays_AcceptReject_Rpt_SP">

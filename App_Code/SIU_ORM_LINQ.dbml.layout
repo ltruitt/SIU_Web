@@ -92,10 +92,10 @@
         <elementListCompartment Id="5bb898c4-708c-4002-aed7-ab2c9d405c96" absoluteBounds="2.6399999999999997, 4.335, 1.9700000000000002, 11.7874755859375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="ad97e3d5-d149-4084-9e70-61c6f6ba9405" isExpanded="false" absoluteBounds="3.375, 7.375, 2, 0.45">
+    <classShape Id="ad97e3d5-d149-4084-9e70-61c6f6ba9405" isExpanded="false" absoluteBounds="1.75, 7.375, 2, 0.45">
       <DataClassMoniker Name="/SIU_ORM_LINQDataContext/Shermco_Assigend_Vehicle_Data" />
       <nestedChildShapes>
-        <elementListCompartment Id="8f294d97-7fe5-4e2d-a522-73de393a84e8" absoluteBounds="3.3900000000000006, 7.8350000000000009, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="8f294d97-7fe5-4e2d-a522-73de393a84e8" absoluteBounds="1.7650000000000006, 7.8350000000000009, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
     <classShape Id="2bfa46e5-7f5c-443a-bc7e-6dda4501b409" isExpanded="false" absoluteBounds="9, 1.5, 2, 0.45">
@@ -324,6 +324,12 @@
       <DataClassMoniker Name="/SIU_ORM_LINQDataContext/SIU_Job_Report" />
       <nestedChildShapes>
         <elementListCompartment Id="df16744f-d9c6-4766-bec9-673f89728f5f" absoluteBounds="3.2649999999999997, 2.21, 1.9700000000000002, 2.941609700520833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="6c968d09-c55d-4844-8ae5-1f45bac29cb3" isExpanded="false" absoluteBounds="4.25, 6.75, 2, 0.45">
+      <DataClassMoniker Name="/SIU_ORM_LINQDataContext/SIU_4291_Day" />
+      <nestedChildShapes>
+        <elementListCompartment Id="4e75aad9-eedc-4406-94fa-0e5079205eaf" absoluteBounds="4.265, 7.21, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

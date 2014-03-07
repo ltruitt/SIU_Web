@@ -176,6 +176,9 @@ public partial class SIU_ORM_LINQDataContext : System.Data.Linq.DataContext
   partial void InsertSIU_Job_Report(SIU_Job_Report instance);
   partial void UpdateSIU_Job_Report(SIU_Job_Report instance);
   partial void DeleteSIU_Job_Report(SIU_Job_Report instance);
+  partial void InsertSIU_4291_Day(SIU_4291_Day instance);
+  partial void UpdateSIU_4291_Day(SIU_4291_Day instance);
+  partial void DeleteSIU_4291_Day(SIU_4291_Day instance);
   #endregion
 	
 	public SIU_ORM_LINQDataContext() : 
@@ -640,6 +643,14 @@ public partial class SIU_ORM_LINQDataContext : System.Data.Linq.DataContext
 		}
 	}
 	
+	public System.Data.Linq.Table<SIU_4291_Day> SIU_4291_Days
+	{
+		get
+		{
+			return this.GetTable<SIU_4291_Day>();
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SIU_ELO_GetBalance")]
 	public ISingleResult<SIU_ELO_GetBalanceResult> SIU_ELO_GetBalance([global::System.Data.Linq.Mapping.ParameterAttribute(Name="EmpNo", DbType="VarChar(10)")] string empNo)
 	{
@@ -675,6 +686,13 @@ public partial class SIU_ORM_LINQDataContext : System.Data.Linq.DataContext
 	{
 		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), empID);
 		return ((ISingleResult<SIU_MySi_SummaryCountsResult>)(result.ReturnValue));
+	}
+	
+	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SIU_SP_GetAdminPointsRptEmpPoint")]
+	public ISingleResult<SIU_SP_GetAdminPointsRptEmpPointResult> SIU_SP_GetAdminPointsRptEmpPoint([global::System.Data.Linq.Mapping.ParameterAttribute(Name="StartDate", DbType="DateTime")] System.Nullable<System.DateTime> startDate, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="EndDate", DbType="DateTime")] System.Nullable<System.DateTime> endDate)
+	{
+		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), startDate, endDate);
+		return ((ISingleResult<SIU_SP_GetAdminPointsRptEmpPointResult>)(result.ReturnValue));
 	}
 	
 	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SIU_SafetyPays_AcceptReject_Rpt_SP")]
@@ -11716,7 +11734,7 @@ public partial class Shermco_Customer : INotifyPropertyChanging, INotifyProperty
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Picture", DbType="Image", UpdateCheck=UpdateCheck.Never)]
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Picture", DbType="Image", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
 	public System.Data.Linq.Binary Picture
 	{
 		get
@@ -16079,7 +16097,7 @@ public partial class Shermco_Company_Information : INotifyPropertyChanging, INot
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Picture", DbType="Image", UpdateCheck=UpdateCheck.Never)]
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Picture", DbType="Image", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
 	public System.Data.Linq.Binary Picture
 	{
 		get
@@ -16599,7 +16617,7 @@ public partial class Shermco_Company_Information : INotifyPropertyChanging, INot
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Menu Picture]", Storage="_Menu_Picture", DbType="Image", UpdateCheck=UpdateCheck.Never)]
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Menu Picture]", Storage="_Menu_Picture", DbType="Image", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
 	public System.Data.Linq.Binary Menu_Picture
 	{
 		get
@@ -16619,7 +16637,7 @@ public partial class Shermco_Company_Information : INotifyPropertyChanging, INot
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Signatur Picture 1]", Storage="_Signatur_Picture_1", DbType="Image", UpdateCheck=UpdateCheck.Never)]
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Signatur Picture 1]", Storage="_Signatur_Picture_1", DbType="Image", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
 	public System.Data.Linq.Binary Signatur_Picture_1
 	{
 		get
@@ -16639,7 +16657,7 @@ public partial class Shermco_Company_Information : INotifyPropertyChanging, INot
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Signatur Picture 2]", Storage="_Signatur_Picture_2", DbType="Image", UpdateCheck=UpdateCheck.Never)]
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Signatur Picture 2]", Storage="_Signatur_Picture_2", DbType="Image", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
 	public System.Data.Linq.Binary Signatur_Picture_2
 	{
 		get
@@ -16659,7 +16677,7 @@ public partial class Shermco_Company_Information : INotifyPropertyChanging, INot
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Bank Logo]", Storage="_Bank_Logo", DbType="Image", UpdateCheck=UpdateCheck.Never)]
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Bank Logo]", Storage="_Bank_Logo", DbType="Image", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
 	public System.Data.Linq.Binary Bank_Logo
 	{
 		get
@@ -16679,7 +16697,7 @@ public partial class Shermco_Company_Information : INotifyPropertyChanging, INot
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Barcode Picture]", Storage="_Barcode_Picture", DbType="Image", UpdateCheck=UpdateCheck.Never)]
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Barcode Picture]", Storage="_Barcode_Picture", DbType="Image", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
 	public System.Data.Linq.Binary Barcode_Picture
 	{
 		get
@@ -16739,7 +16757,7 @@ public partial class Shermco_Company_Information : INotifyPropertyChanging, INot
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[OHSA Pic]", Storage="_OHSA_Pic", DbType="Image", UpdateCheck=UpdateCheck.Never)]
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[OHSA Pic]", Storage="_OHSA_Pic", DbType="Image", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
 	public System.Data.Linq.Binary OHSA_Pic
 	{
 		get
@@ -27747,7 +27765,7 @@ public partial class Shermco_Employee : INotifyPropertyChanging, INotifyProperty
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Picture", DbType="Image", UpdateCheck=UpdateCheck.Never)]
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Picture", DbType="Image", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
 	public System.Data.Linq.Binary Picture
 	{
 		get
@@ -33345,7 +33363,7 @@ public partial class Shermco_G_L_Account : INotifyPropertyChanging, INotifyPrope
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Picture", DbType="Image", UpdateCheck=UpdateCheck.Never)]
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Picture", DbType="Image", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
 	public System.Data.Linq.Binary Picture
 	{
 		get
@@ -37656,6 +37674,92 @@ public partial class SIU_Job_Report : INotifyPropertyChanging, INotifyPropertyCh
 	}
 }
 
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SIU_4291_Days")]
+public partial class SIU_4291_Day : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private string _Emp_ID;
+	
+	private System.DateTime @__4291_Day;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnEmp_IDChanging(string value);
+    partial void OnEmp_IDChanged();
+    partial void On_4291_DayChanging(System.DateTime value);
+    partial void On_4291_DayChanged();
+    #endregion
+	
+	public SIU_4291_Day()
+	{
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Emp_ID", DbType="VarChar(10) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+	public string Emp_ID
+	{
+		get
+		{
+			return this._Emp_ID;
+		}
+		set
+		{
+			if ((this._Emp_ID != value))
+			{
+				this.OnEmp_IDChanging(value);
+				this.SendPropertyChanging();
+				this._Emp_ID = value;
+				this.SendPropertyChanged("Emp_ID");
+				this.OnEmp_IDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[4291_Day]", Storage="__4291_Day", DbType="DateTime NOT NULL", IsPrimaryKey=true)]
+	public System.DateTime _4291_Day
+	{
+		get
+		{
+			return this.@__4291_Day;
+		}
+		set
+		{
+			if ((this.@__4291_Day != value))
+			{
+				this.On_4291_DayChanging(value);
+				this.SendPropertyChanging();
+				this.@__4291_Day = value;
+				this.SendPropertyChanged("_4291_Day");
+				this.On_4291_DayChanged();
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+}
+
 public partial class SIU_ELO_GetBalanceResult
 {
 	
@@ -38377,6 +38481,266 @@ public partial class SIU_MySi_SummaryCountsResult
 			if ((this._QomAccept != value))
 			{
 				this._QomAccept = value;
+			}
+		}
+	}
+}
+
+public partial class SIU_SP_GetAdminPointsRptEmpPointResult
+{
+	
+	private string _no_;
+	
+	private string _Global_Dimension_1_code;
+	
+	private string _name;
+	
+	private System.Nullable<int> _UID;
+	
+	private string _Emp_No;
+	
+	private System.Nullable<int> _ReasonForPoints;
+	
+	private System.Nullable<System.DateTime> _DatePointsGiven;
+	
+	private string _PointsGivenBy;
+	
+	private string _Comments;
+	
+	private System.Nullable<int> _Points;
+	
+	private System.Nullable<System.DateTime> _EventDate;
+	
+	private System.Nullable<int> _SPR_UID;
+	
+	private System.Nullable<int> _QOM_ID;
+	
+	private string _Description;
+	
+	public SIU_SP_GetAdminPointsRptEmpPointResult()
+	{
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_no_", DbType="VarChar(20) NOT NULL", CanBeNull=false)]
+	public string no_
+	{
+		get
+		{
+			return this._no_;
+		}
+		set
+		{
+			if ((this._no_ != value))
+			{
+				this._no_ = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Global Dimension 1 code]", Storage="_Global_Dimension_1_code", DbType="VarChar(20) NOT NULL", CanBeNull=false)]
+	public string Global_Dimension_1_code
+	{
+		get
+		{
+			return this._Global_Dimension_1_code;
+		}
+		set
+		{
+			if ((this._Global_Dimension_1_code != value))
+			{
+				this._Global_Dimension_1_code = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="VarChar(62) NOT NULL", CanBeNull=false)]
+	public string name
+	{
+		get
+		{
+			return this._name;
+		}
+		set
+		{
+			if ((this._name != value))
+			{
+				this._name = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UID", DbType="Int")]
+	public System.Nullable<int> UID
+	{
+		get
+		{
+			return this._UID;
+		}
+		set
+		{
+			if ((this._UID != value))
+			{
+				this._UID = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Emp_No", DbType="VarChar(10)")]
+	public string Emp_No
+	{
+		get
+		{
+			return this._Emp_No;
+		}
+		set
+		{
+			if ((this._Emp_No != value))
+			{
+				this._Emp_No = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReasonForPoints", DbType="Int")]
+	public System.Nullable<int> ReasonForPoints
+	{
+		get
+		{
+			return this._ReasonForPoints;
+		}
+		set
+		{
+			if ((this._ReasonForPoints != value))
+			{
+				this._ReasonForPoints = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DatePointsGiven", DbType="DateTime")]
+	public System.Nullable<System.DateTime> DatePointsGiven
+	{
+		get
+		{
+			return this._DatePointsGiven;
+		}
+		set
+		{
+			if ((this._DatePointsGiven != value))
+			{
+				this._DatePointsGiven = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PointsGivenBy", DbType="VarChar(10)")]
+	public string PointsGivenBy
+	{
+		get
+		{
+			return this._PointsGivenBy;
+		}
+		set
+		{
+			if ((this._PointsGivenBy != value))
+			{
+				this._PointsGivenBy = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Comments", DbType="VarChar(50)")]
+	public string Comments
+	{
+		get
+		{
+			return this._Comments;
+		}
+		set
+		{
+			if ((this._Comments != value))
+			{
+				this._Comments = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Points", DbType="Int")]
+	public System.Nullable<int> Points
+	{
+		get
+		{
+			return this._Points;
+		}
+		set
+		{
+			if ((this._Points != value))
+			{
+				this._Points = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EventDate", DbType="DateTime")]
+	public System.Nullable<System.DateTime> EventDate
+	{
+		get
+		{
+			return this._EventDate;
+		}
+		set
+		{
+			if ((this._EventDate != value))
+			{
+				this._EventDate = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SPR_UID", DbType="Int")]
+	public System.Nullable<int> SPR_UID
+	{
+		get
+		{
+			return this._SPR_UID;
+		}
+		set
+		{
+			if ((this._SPR_UID != value))
+			{
+				this._SPR_UID = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QOM_ID", DbType="Int")]
+	public System.Nullable<int> QOM_ID
+	{
+		get
+		{
+			return this._QOM_ID;
+		}
+		set
+		{
+			if ((this._QOM_ID != value))
+			{
+				this._QOM_ID = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="VarChar(50)")]
+	public string Description
+	{
+		get
+		{
+			return this._Description;
+		}
+		set
+		{
+			if ((this._Description != value))
+			{
+				this._Description = value;
 			}
 		}
 	}

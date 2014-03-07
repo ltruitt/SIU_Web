@@ -3389,6 +3389,32 @@ public class SiuDao : WebService
         return SqlServer_Impl.RecordExpense(expRpt);
     }
 
+    ///////////////////////////////////////
+    // Save Miles and Meals Expense Item //
+    ///////////////////////////////////////
+    [WebMethod(EnableSession = true)]
+    public string w33(string empNo, string workDate, string JobNo, string OhAcct, string Miles, string Meals, string Amount, string Date4291)
+    {
+        Shermco_Employee_Expense expRpt = SqlDataMapper<Shermco_Employee_Expense>.MakeNewDAO<Shermco_Employee_Expense>();
+
+        if (Miles.Length == 0) Miles = "0";
+        if (Meals.Length == 0) Meals = "0";
+        if (JobNo.Length > 0) OhAcct = "2005";
+
+        decimal dMiles = Convert.ToDecimal(Miles);
+        int iMiles = Convert.ToInt32(dMiles);
+
+        expRpt.Employee_No_ = empNo;
+        expRpt.Work_Date = DateTime.Parse(workDate);
+        expRpt.Job_No_ = JobNo;
+        expRpt.O_H_Account_No_ = OhAcct;
+        expRpt.Mileage = iMiles;
+        expRpt.Meals = int.Parse(Meals);
+        expRpt.Amount = decimal.Parse(Amount);
+
+        return SqlServer_Impl.RecordExpense(expRpt, Date4291 );
+    }
+
     ////////////////////////////////
     // Remove An Unposted Expense //
     ////////////////////////////////
@@ -5877,6 +5903,52 @@ public class SqlServer_Impl : WebService
 
         return "";
     }
+
+    public static string RecordExpense(Shermco_Employee_Expense Exp, string Date4291)
+    {
+        SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
+
+
+        if (Date4291.Length > 0)
+        {
+
+            ////////////////////////////////////////
+            // Verify There are No Date Conflicts //
+            ////////////////////////////////////////
+            DateTime date4291Start = DateTime.Parse(Date4291);
+            DateTime date4291End = date4291Start.AddDays(5);
+
+            int cnt = (from cnt4291 in nvDb.SIU_4291_Days
+                       where cnt4291._4291_Day >= date4291Start && cnt4291._4291_Day <= date4291End && cnt4291.Emp_ID == Exp.Employee_No_
+                       select cnt4291).Count();
+
+            if (cnt > 0)
+                return "ERROR: 4291 Date Already Used";
+
+            SIU_4291_Day dayRcd = new SIU_4291_Day { Emp_ID = Exp.Employee_No_ };
+            for (int c = 0; c < 5; c++)
+            {
+                dayRcd._4291_Day = date4291Start;
+                nvDb.SIU_4291_Days.InsertOnSubmit(dayRcd);
+                date4291Start = date4291Start.AddDays(1);
+            }
+        }
+
+        ///////////////////////////
+        // Get Next Entry Number //
+        ///////////////////////////
+        int newEntryNo = (from newExp in nvDb.Shermco_Employee_Expenses
+                          select newExp.Line_No_
+                         ).Max();
+        Exp.Line_No_ = newEntryNo + 1;
+        Exp.Status = 0;
+        Exp.Approval_Code = GetEmployeeByNo(Exp.Employee_No_).Time_Entry_Approval_Code;
+
+        nvDb.Shermco_Employee_Expenses.InsertOnSubmit(Exp);
+        nvDb.SubmitChanges();
+
+        return "";
+    }
     public static void DeleteMyExpense(int Line_No_)
     {
         SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(SqlServerProdNvdbConnectString);
@@ -7852,13 +7924,9 @@ public class SqlServer_Impl : WebService
     {
         SIU_ORM_LINQDataContext nvDb = new SIU_ORM_LINQDataContext(ForcedProductionConnectString);
 
-        //return (from rptData in nvDb.SIU_SafetyPays_Points
-        //        join emp in nvDb.Shermco_Employees on rptData.Emp_No equals emp.No_
-        //        join ptType in nvDb.SIU_SafetyPays_Points_Types on rptData.ReasonForPoints equals ptType.UID
-        //        where rptData.EventDate >= start && rptData.EventDate <= end
-        //        orderby emp.Global_Dimension_1_Code ascending, emp.No_ ascending, emp.Last_Name ascending
-        //        select (new SIU_Points_Rpt(rptData, emp.Global_Dimension_1_Code, emp.Last_Name + ", " + emp.First_Name, ptType.Description))
-        //        ).ToList();
+        return (from t1 in nvDb.SIU_SP_GetAdminPointsRptEmpPoint(start, end)
+                select (new SIU_Points_Rpt(t1))
+                     ).ToList();
 
        return ( from t1 in nvDb.Shermco_Employees
                 join t0 in nvDb.SIU_SafetyPays_Points on new { No_ = t1.No_ } equals new { No_ = t0.Emp_No } into t0_join
